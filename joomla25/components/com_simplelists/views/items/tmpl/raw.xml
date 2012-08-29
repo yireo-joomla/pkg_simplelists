@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="SimpleLists Raw Layout">
+		<message>
+			<![CDATA[SIMPLELISTS RAW LAYOUT DESCRIPTION]]>
+		</message>
+	</layout>
+    <fields name="request">
+        <fieldset name="request" addfieldpath="/administrator/components/com_simplelists/fields">
+            <field name="category_id" type="category" default="0" label="Category" description="PARAM CATEGORY" />
+        </fieldset>
+    </fields>
+    <fields name="params">
+        <fieldset name="basic" label="SimpleLists Basic">
+			<field name="orderby" type="list" default="order" label="Ordering" description="PARAM ORDERING">
+				<option value="order">Ordering</option>
+				<option value="rdate">Oldest first</option>
+				<option value="date">Most recent first</option>
+				<option value="alpha">Title Alphabetical</option>
+				<option value="ralpha">Title Reverse-Alphabetical</option>
+				<option value="random">Random</option>
+			</field>
+		</fieldset>
+		<fieldset name="layout" label="SimpleLists Layout">
+            <field name="show_totop" type="list" default="0" label="To top" description="PARAM TOTOP">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="totop_image" type="imagelist" default="" label="To top image" directory="images/simplelists" hide_default="1" description="PARAM TOTOP IMAGE" />
+            <field name="totop_text" type="text" default="" label="To top text" description="PARAM TOTOP IMAGE" />
+		</fieldset>
+		<fieldset name="styling" label="SimpleLists Styling">
+			<field name="load_lightbox" type="list" default="0" label="Load Lightbox" description="PARAM LIGHTBOX">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</field>
+			<field name="load_css" type="list" default="1" label="Load default CSS" description="PARAM DEFAULTCSS">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</field>
+			<field name="load_js" type="list" default="1" label="Load default JS" description="PARAM DEFAULTJS">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</field>
+		</fieldset>
+		<fieldset name="pagination" label="SimpleLists Pagination">
+            <field name="use_pagination" type="list" default="1" label="Use pagination" description="PARAM PAGINATION">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="limit" type="text" default="" size="2" maxsize="2" label="Page limit" description="PARAM LIMIT" />
+            <field name="show_index" type="list" default="0" label="Item index" description="PARAM INDEX">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="show_alpha_index" type="list" default="0" label="Alphabetical index" description="PARAM ALPHA INDEX">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+		</fieldset>
+		<fieldset name="hierarchy" label="SimpleLists Hierarchy">
+            <field name="show_category_parent" type="list" default="0" label="Category Parent" description="PARAM CATEGORY PARENT">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="show_category_childs" type="list" default="0" label="Category Children" description="PARAM CATEGORY CHILDS">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="show_category_childs_description" type="list" default="0" label="Show Child Description" description="">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+		</fieldset>
+		<fieldset name="other" label="SimpleLists Other options">
+			<field name="show_header_modules" type="list" default="0" label="Header modules" description="PARAM HEADER MODULES">
+				<option value="0">Hide</option>
+				<option value="1">Show</option>
+			</field>
+			<field name="show_footer_modules" type="list" default="0" label="Footer modules" description="PARAM FOOTER MODULES">
+				<option value="0">Hide</option>
+				<option value="1">Show</option>
+			</field>
+            <field name="show_feed" type="list" default="0" label="RSS/Atom feeds" description="PARAM FEED">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <!--<field name="show_vote" type="list" default="0" label="Voting" description="PARAM FEED">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>-->
+			<field name="show_empty_list" type="list" default="1" label="No Items Found" description="PARAM DEFAULTJS">
+				<option value="0">Hide</option>
+				<option value="1">Show</option>
+			</field>
+            <field name="show_pdf_icon" type="list" default="0" label="PDF icon" description="PARAM PDFICON">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="show_print_icon" type="list" default="0" label="Print icon" description="PARAM PRINTICON">
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+		</fieldset>
+	</fields>
+</metadata>

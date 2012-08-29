@@ -1,0 +1,29 @@
+/**
+ * Joomla! component SimpleLists
+ *
+ * @author Yireo
+ * @copyright Copyright (C) 2011 Yireo
+ * @license GNU/GPL
+ * @link http://www.yireo.com/
+ */
+
+/* begin com_simplelists: hover layout */
+div.simplelists {
+    height: 200px ;
+    min-height: 200px ;
+}
+
+div.simplelists-item {
+    display: none;
+    visibility: hidden;
+}
+
+div.simplelists-item img {
+    padding: 10px ;
+    border: 0 ;
+}
+
+ul.pagination {
+    clear:both;
+}
+/* end com_simplelists */

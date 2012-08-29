@@ -1,0 +1,64 @@
+<?php
+/**
+ * Joomla! component SimpleLists
+ *
+ * @author Yireo
+ * @package SimpleLists
+ * @copyright Copyright (C) 2011
+ * @license GNU Public License
+ * @link http://www.yireo.com/
+ */
+
+// Check to ensure this file is included in Joomla!  
+defined('_JEXEC') or die();
+
+// Require the parent view
+require_once JPATH_COMPONENT.DS.'lib'.DS.'view.php';
+
+// Require the SimpleLists helper
+require_once JPATH_COMPONENT.DS.'helpers'.DS.'category.php';
+
+/**
+ * HTML View class 
+ */
+class SimplelistsViewCategories extends YireoView
+{
+    /*
+     * Method to prepare the content for display
+     *
+     * @param string $tpl
+     * @return null
+     */
+	public function display($tpl = null)
+	{
+        // Set toolbar items for the page
+        JToolBarHelper::publishList();
+        JToolBarHelper::unpublishList();
+        JToolBarHelper::deleteList();
+        JToolBarHelper::editListX();
+        JToolBarHelper::addNewX();
+        JToolBarHelper::preferences('com_simplelists', '480');
+        JHTML::_('behavior.tooltip');
+
+        // Automatically fetch items, total and pagination - and assign them to the template
+        $this->fetchItems();
+		
+        // Re-order the items by parent
+        $listview = $this->getFilter('listview');
+        if( $listview == 'tree' ) {
+            $tree = new SimplelistsCategoryTree();
+            $tree->setItems($this->items);
+            $this->items = $tree->getList();
+        } else {
+            $listview = 'flat';
+        }
+
+        // Listview box
+        $options[] = array( 'id' => 'tree', 'title' => 'Tree' );
+        $options[] = array( 'id' => 'flat', 'title' => 'Flat list' );
+		$extra = 'onchange="document.adminForm.submit();"';
+		$this->lists['listview'] = JHTML::_('select.genericlist', $options, 'filter_listview', $extra, 'id', 'title', $listview);
+
+		parent::display($tpl);
+	}
+}

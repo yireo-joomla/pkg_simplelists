@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.6.0" method="upgrade">
+    <name>SimpleLists</name>
+    <author>Yireo</author>
+    <authoremail>info@yireo.com</authoremail>
+    <authorurl>http://www.yireo.com</authorurl>
+    <creationDate>January 2012</creationDate>
+    <copyright>Copyright 2011 Yireo</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>1.6.0.4d</version>
+    <description>This component shows a simple listing of items which can be displayed through multiple views/themes</description>
+
+    <!-- installation part -->
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <update>
+        <schemas>
+             <schemapath type="mysql">sql</schemapath>
+        </schemas>
+    </update>
+
+    <scriptfile>script.simplelists.php</scriptfile>
+    
+    <!-- user part -->
+    <files folder="components/com_simplelists">
+        <filename>controller.php</filename>
+        <filename>index.html</filename>
+        <filename>metadata.xml</filename>
+        <filename>router.php</filename>
+        <filename>simplelists.php</filename>
+        <folder>helpers</folder>
+        <folder>models</folder>
+        <folder>views</folder>
+    </files>
+
+    <media folder="media">
+        <folder>com_simplelists</folder>
+    </media>
+
+    <languages folder="language/en-GB">
+        <language tag="en-GB">en-GB.com_simplelists.ini</language>
+    </languages>
+
+    <!-- administration part -->
+    <administration>
+
+        <menu img="../media/com_simplelists/images/simplelists.png">COM_SIMPLELISTS</menu>
+        <submenu>
+            <menu link="option=com_simplelists&amp;view=home">COM_SIMPLELISTS_HOME</menu>
+            <menu link="option=com_simplelists&amp;view=items">COM_SIMPLELISTS_ITEMS</menu>
+            <menu link="option=com_simplelists&amp;view=categories">COM_SIMPLELISTS_CATEGORIES</menu>
+        </submenu>
+
+        <files folder="administrator/components/com_simplelists">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>index.html</filename>
+            <filename>simplelists.php</filename>
+            <filename>install.simplelists.php</filename>
+            <!--<folder>controllers</folder>-->
+            <folder>elements</folder>
+            <folder>fields</folder>
+            <folder>helpers</folder>
+            <folder>lib</folder>
+            <folder>models</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+        </files>
+        <files>
+            <filename>simplelists.xml</filename>
+        </files>
+
+        <languages folder="administrator/language/en-GB">
+            <language tag="en-GB">en-GB.com_simplelists.sys.ini</language>
+            <language tag="en-GB">en-GB.com_simplelists.ini</language>
+        </languages>
+
+    </administration>
+
+    <config>
+        <fieldset name="params" label="Parameters">
+            <field name="show_category_title" type="radio" default="1" />
+            <field name="show_category_description" type="radio" default="1"  />
+            <field name="show_category_image" type="radio" default="1" />
+            <field name="show_item_title" type="radio" default="1" />
+            <field name="show_item_text" type="radio" default="1" />
+            <field name="show_item_image" type="radio" default="1" />
+            <field name="title_link" type="radio" default="0" />
+            <field name="image_link" type="radio" default="1" />
+    		<field name="readmore" type="radio" default="0" />
+    		<field name="readmore_text" type="text" default="" />
+    		<field name="readmore_class" type="text" default="" />
+    		<field name="link_class" type="text" default="" />
+    		<field name="link_rel" type="text" default="" />
+            <field name="link_show" type="list" default="1" />
+    		<field name="target" type="list" default="0" />
+    		<field name="picture_alignment" type="list" default="left" />
+    	</fieldset>
+    </config>
+</extension>

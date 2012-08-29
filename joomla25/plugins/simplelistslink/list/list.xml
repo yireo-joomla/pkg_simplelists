@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="simplelistslink" method="upgrade">
+    <name>SimpleLists Link - List</name>
+    <author>Yireo</author>
+    <creationDate>November 2011</creationDate>
+    <copyright>Copyright (C) 2011 Yireo.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>info@yireo.com</authorEmail>
+    <authorUrl>www.yireo.com</authorUrl>
+    <version>1.1.0</version>
+    <description>SimpleLists link-plugin for SimpleLists lists</description>
+    <files>
+        <filename plugin="list">list.php</filename>
+    </files>
+</extension>

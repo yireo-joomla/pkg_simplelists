@@ -1,0 +1,33 @@
+/**
+ * Joomla! component SimpleLists
+ *
+ * @author Yireo
+ * @copyright Copyright (C) 2011 Yireo
+ * @license GNU/GPL
+ * @link http://www.yireo.com/
+ */
+
+/* begin com_simplelists: picture layout */
+div.simplelists-description {
+}
+
+div.simplelists {
+    padding-bottom: 40px ;
+    width: 100% ;
+}
+
+div.simplelists-item {
+    width: 33% ;
+    float: left ;
+}
+
+div.simplelists-item div.image {
+    text-align: center;
+    width: 100% ;
+}
+
+div.simplelists-item div.image img {
+    border: 0px ;
+    margin:5px ;
+}
+/* end com_simplelists */
