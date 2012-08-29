@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <params>
+        <param type="spacer" default="&lt;h3 style='background-color:white;padding:5px;border:1px solid red;'&gt;Category&lt;/h3&gt;" />
+        <param name="show_category_title" type="radio" default="1" label="Category Title" description="PARAM CATEGORY TITLE">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="show_category_description" type="radio" default="1" label="Category Description" description="PARAM CATEGORY DESCRIPTION">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="show_category_image" type="radio" default="1" label="Category Image" description="PARAM CATEGORY IMAGE">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+
+        <param type="spacer" default="&lt;h3 style='background-color:white;padding:5px;border:1px solid red;'&gt;Item&lt;/h3&gt;" />
+        <param name="show_item_title" type="radio" default="1" label="Item Title" description="PARAM ITEM TITLE">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="show_item_text" type="radio" default="1" label="Item Text" description="PARAM ITEM TEXT">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="show_item_image" type="radio" default="1" label="Item Image" description="PARAM ITEM IMAGE">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="title_link" type="radio" default="0" label="Item Linked Title" description="PARAM ITEM LINK TITLE">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="image_link" type="radio" default="1" label="Item Linked Image" description="PARAM ITEM LINK IMAGE">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+
+        <param type="spacer" default="&lt;h3 style='background-color:white;padding:5px;border:1px solid red;'&gt;Item Read-More&lt;/h3&gt;" />
+		<param name="readmore" type="radio" default="0" label="Read-more link" description="PARAM ITEM READMORE">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
+		<param name="readmore_text" type="text" default="" label="Read-more text" description="PARAM ITEM READMORE TEXT"/>
+		<param name="readmore_class" type="text" default="" label="Read-more class" description="PARAM ITEM READMORE CLASS"/>
+
+        <param type="spacer" default="&lt;h3 style='background-color:white;padding:5px;border:1px solid red;'&gt;Item Other&lt;/h3&gt;" />
+		<param name="link_class" type="text" default="" label="Link class" description="PARAM ITEM LINK CLASS"/>
+		<param name="link_rel" type="text" default="" label="Link relationship" description="PARAM ITEM LINK REL"/>
+        <param name="link_show" type="list" default="1" label="Link show" description="PARAM ITEM LINK SHOW">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+		<param name="target" type="list" default="0" label="Link Target" description="PARAM ITEM LINK TARGET">
+			<option value="0">Parent Window With Browser Navigation</option>
+			<option value="1">New Window With Browser Navigation</option>
+			<option value="2">New Window Without Browser Navigation</option>
+		</param>
+		<param name="picture_alignment" type="list" default="left" label="Image Align" description="PARAM ITEM IMAGE ALIGN">
+			<option value="">None</option>
+			<option value="left">Left</option>
+			<option value="right">Right</option>
+		</param>
+
+    </params>
+</config>

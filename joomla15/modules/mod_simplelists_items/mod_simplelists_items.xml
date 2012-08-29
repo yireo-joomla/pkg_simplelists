@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+	<name>SimpleLists items</name>
+	<author>Yireo</author>
+	<creationDate>November 2011</creationDate>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>info@yireo.com</authorEmail>
+	<authorUrl>https://www.yireo.com/</authorUrl>
+	<version>1.6.0.4d</version>
+	<description>Module to display items of the SimpleLists component</description>
+	<files>
+		<filename module="mod_simplelists_items">mod_simplelists_items.php</filename>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<folder>tmpl</folder>
+	</files>
+	<params>
+        <param name="category_id" type="category" section="com_simplelists" default="0" label="Category" description="Item category" />
+		<param name="count" type="text" default="5" label="Count" description="The number of items to display (default is 5)" />
+		<param name="ordering" type="list" default="latest" label="Ordering" description="Ordering">
+			<option value="order">Ordering</option>
+			<option value="date">Oldest first</option>
+			<option value="rdate">Most recent first</option>
+			<option value="alpha">Title Alphabetical</option>
+			<option value="ralpha">Title Reverse-Alphabetical</option>
+			<option value="random">Random</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="style" type="list" default="default" label="Module Style" description="The style used by this module">
+            <option value="default">Menu Layout</option>
+            <option value="advanced">Advanced Layout</option>
+        </param>
+        <param name="show_title" type="list" default="1" label="Show title" description="Display the title for each item">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+        <param name="show_text" type="list" default="0" label="Show text" description="Display the text for each item">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+        <param name="show_image" type="list" default="0" label="Show image" description="Display the image for each item">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+        <param name="image_align" type="list" default="left" label="Image alignment" description="How the text wraps around the image">
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="none">None</option>
+        </param>
+        <param name="link_title" type="list" default="0" label="Link title" description="Link the title of each item">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+        <param name="link_image" type="list" default="0" label="Link image" description="Link the image of each item">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="layout" type="list" default="" label="Destination Layout" description="The layout used by the destination page">
+            <option value="">-- Default --</option>
+            <option value="basic">Basic Layout</option>
+            <option value="default">Default Layout</option>
+            <option value="hover">Hover Layout</option>
+            <option value="picture">Picture Layout</option>
+            <option value="table">Table Layout</option>
+            <option value="toggle">Toggle Layout</option>
+        </param>
+		<param name="menu_id" type="menuitem" default="" label="Destination Menu Item" description="" />
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+	</params>
+	<params group="advanced">
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+	</params>
+</install>

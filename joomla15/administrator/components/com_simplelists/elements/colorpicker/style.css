@@ -1,0 +1,120 @@
+/**
+ * Joomla! 1.5 modal colorpicker
+ * Built on MooRainbow of W00fz, modified by Yireo
+ *
+ * @author Yireo (info@yireo.com)
+ * @package Yireo
+ * @copyright Copyright 2010
+ * @license MIT-style license
+ */
+
+body {
+    padding: 10px;
+}
+
+.box {
+	width: 390px; 
+	height: 310px; 
+}
+
+.overlayBox {
+    display: block;
+    visibility: visible;
+	width: 256px;
+	height: 256px; 
+	margin-top: 9px; 
+	margin-left: 9px;
+	border: 1px solid #000;
+}
+
+.slider {
+	border: 1px solid #000;
+	margin-top: 9px; 
+	margin-left: 280px;
+	width: 19px;
+	height: 256px;
+}
+
+.colorBox {
+	border: 1px solid #000; 
+	width: 59px; 
+	height: 68px; 
+	margin-top: 20px; 
+	margin-left: 315px;
+}
+
+.currentColor {
+	margin-top: 55px; 
+	margin-left: 316px; 
+	width: 59px; 
+	height: 34px;
+}
+
+.rLabel {
+	margin-top: 100px;
+	margin-left: 315px;
+}
+
+.gLabel {
+	margin-top: 125px;
+	margin-left: 315px;
+}
+
+.bLabel {
+	margin-top: 150px;
+	margin-left: 315px;
+}
+
+.HueLabel {
+	margin-top: 190px;
+	margin-left: 315px;
+}
+
+span.ballino {
+	margin-top: 190px;
+	margin-left: 370px;
+}
+
+.SatuLabel {
+	margin-top: 215px;
+	margin-left: 315px;
+}
+
+.BrighLabel {
+	margin-top: 240px;
+	margin-left: 315px;
+}
+
+.hexLabel {
+	margin-top: 275px;
+	margin-left: 280px;
+}
+
+.rInput, .gInput, .bInput, .HueInput, .SatuInput, .BrighInput { 
+	width: 30px;
+}
+
+.hexInput {
+	width: 55px;
+}
+
+.cursor {
+	background-image: url(./images/cursor.gif); 
+	width: 12px;
+	height: 12px;
+}
+
+.arrows {
+	background-image: url(./images/arrows.gif);
+	top: 9px; 
+	left: 270px;
+	width: 41px;
+	height: 9px;
+}
+
+.chooseColor {
+	margin-top: 21px; 
+	margin-left: 316px; 
+	width: 59px; 
+	height: 34px;
+}

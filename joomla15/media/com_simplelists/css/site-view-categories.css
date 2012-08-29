@@ -1,0 +1,27 @@
+/**
+ * Joomla! component SimpleLists
+ *
+ * @author Yireo
+ * @copyright Copyright (C) 2012 Yireo
+ * @license GNU/GPL
+ * @link http://www.yireo.com/
+ */
+
+/* begin com_simplelists: categories */
+span#simplelists-description {
+}
+
+/*div.simplelists {
+    padding-bottom: 100px ;
+}*/
+
+div.simplelists-category {
+    width: 100%;
+    padding-bottom: 20px ;
+}
+
+div.simplelists-pagecounter {
+    float: right ;
+}
+
+/* end com_simplelists */

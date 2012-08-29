@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+    <params addpath="/administrator/components/com_content/elements">
+        <param name="show_item_title" type="list" default="" label="Item Title" description="PARAM ITEM TITLE">
+            <option value="">Use global</option>
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="show_item_text" type="list" default="" label="Item Text" description="PARAM ITEM TEXT">
+            <option value="">Use global</option>
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="show_item_image" type="list" default="" label="Item Image" description="PARAM ITEM IMAGE">
+            <option value="">Use global</option>
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="item_class" type="text" default="" label="Item class" description="PARAM ITEM CLASS"/>
+        <param name="title_class" type="text" default="" label="Title class" description="PARAM ITEM TITLE CLASS"/>
+        <param name="title_link" type="list" default="" label="Item Linked Title" description="PARAM ITEM LINK TITLE">
+            <option value="">Use global</option>
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="image_link" type="list" default="" label="Item Linked Image" description="PARAM ITEM LINK IMAGE">
+            <option value="">Use global</option>
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+
+
+        <param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="readmore" type="list" default="" label="Read-more link" description="PARAM ITEM READMORE">
+            <option value="">Use global</option>
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="readmore_text" type="text" default="" label="Read-more text" description="PARAM ITEM READMORE TEXT"/>
+        <param name="readmore_class" type="text" default="" label="Read-more class" description="PARAM ITEM READMORE CLASS"/>
+
+        <param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="link_class" type="text" default="" label="Link class" description="PARAM ITEM LINK CLASS"/>
+        <param name="link_rel" type="text" default="" label="Link relationship" description="PARAM ITEM LINK REL"/>
+        <param name="link_show" type="list" default="1" label="Link show" description="PARAM ITEM LINK SHOW">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+        <param name="target" type="list" default="" label="Link Target" description="PARAM ITEM LINK TARGET">
+            <option value="">Use Global</option>
+            <option value="0">Parent Window With Browser Navigation</option>
+            <option value="1">New Window With Browser Navigation</option>
+            <option value="2">New Window Without Browser Navigation</option>
+        </param>
+        <param name="picture_alignment" type="list" default="" label="Image Align" description="PARAM ITEM IMAGE ALIGN">
+            <option value="">Use Global</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+        </param>
+        <param name="show_vote" type="list" default="0" label="Voting" description="PARAM VOTING">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </param>
+        <param name="enable_content_plugins" type="list" default="1" label="Content Plugins" description="PARAM CONTENT PLUGINS">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
+
+        <param name="@spacer" type="spacer" default="" label="" description="" />
+        <param name="created" type="calendar" default="" label="Created Date" description="PARAM ITEM CREATED" />
+        <param name="created_by" type="author" default="" label="Created By" description="PARAM ITEM CREATEDBY" />
+        <param name="modified" type="calendar" default="" label="Modified Date" description="PARAM ITEM MODIFIED" />
+        <param name="modified_by" type="author" default="" label="Modified By" description="PARAM ITEM MODIFIEDBY" />
+        <param name="publish_up" type="calendar" default="" label="Publish Up" description="PARAM ITEM PUBLISHUP" />
+        <param name="publish_down" type="calendar" default="" label="Publish Down" description="PARAM ITEM PUBLISHDOWN" />
+
+        <param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="meta_description" type="textarea" rows="5" cols="30" default="" label="Meta Description" description="PARAM ITEM METADESC" />
+		<param name="meta_keywords" type="textarea" rows="5" cols="30" default="" label="Meta Keywords" description="PARAM ITEM METAKEYS" />
+		<param name="meta_robots" type="text" size="20" default="" label="Meta Robots" description="PARAM ITEM METAROBOTS" />
+		<param name="meta_author" type="text" size="20" default="" label="Meta Author" description="PARAM ITEM METAAUTHOR" />
+	</params>
+</model>

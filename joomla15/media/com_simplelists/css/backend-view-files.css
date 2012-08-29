@@ -1,0 +1,126 @@
+/**
+ * Joomla! component Simple Lists
+ *
+ * @author Yireo
+ * @copyright Copyright (C) 2011
+ * @link http://www.yireo.com/
+ */
+
+/* Joomla! Administrator icons */
+.icon-32-copy {
+    background-image: url(../images/toolbar/icon-32-copy.png);
+}
+
+html, body {
+    background-color: #ffffff;
+    color: ButtonText;
+    font: 11px Tahoma, Verdana, sans-serif;
+    margin: 0px !important; 
+    padding: 0px !important;
+    margin-bottom: 50px !important;
+}
+
+img { 
+    border: 0 none; 
+}
+
+form { 
+    padding: 0px; 
+    margin: 0 auto; 
+    width: 100%; 
+}
+
+fieldset {  
+    border-top: 1px solid #CCCCCC; 
+    border-bottom: 1px solid #CCCCCC; 
+}
+
+select,input,button { 
+    font: 11px Tahoma, Verdana, sans-serif; 
+}
+
+a { 
+    padding: 5px; 
+    border: 1px solid ButtonFace; 
+}
+
+a:hover { 
+    border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight; 
+}
+
+.buttons { 
+    width: 70px; 
+    text-align: center;
+}
+
+#f_alt, #f_url, #f_title { 
+    width: 22em; 
+}
+
+#messages {
+    position: relative;
+    left: 175px;
+    top: 115px;
+    background-color: white;
+    width: 200px;
+    float: left;
+    margin-top: -52px;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 15px;
+}
+
+div#files-message {
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    color: #cdcdcd;
+    padding-top: 45px;
+    padding-left: 20px;
+    height: 100px;
+    width: 200px;
+}
+
+div#folder-indicator {
+    font-size: 15px;
+    font-weight: bold;
+    color: #69c;
+    line-height: 200%;
+}
+
+div.item {
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border: 0;
+}
+
+div.item a {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #eeeeee;
+}
+
+div.item a span {
+    padding: 3px;
+    width: 94px;
+}
+
+div.item a:hover {
+    border: 2px solid #a48383;
+}
+
+div.item a:hover span {
+    background-color: #a48383;
+    color: white;
+}
+
+div.current-item a {
+    border: 1px solid #555555;
+    background-color: #fff6d1;
+}
+
+div.current-item span {
+    color: white;
+    background-color: #555555;
+}

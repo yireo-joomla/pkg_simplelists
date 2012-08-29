@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="content" method="upgrade">
+	<name>Content - SimpleLists</name>
+	<author>Yireo</author>
+	<creationDate>February 2012</creationDate>
+	<copyright>Copyright (C) 2012 Yireo. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<authorEmail>info@yireo.com</authorEmail>
+	<authorUrl>http://www.yireo.com/</authorUrl>
+	<version>1.6.0.4a</version>
+	<description>A content plugin to add a SimpleLists listing to an article through specific tags</description>
+	<files>
+		<filename plugin="simplelists">simplelists.php</filename>
+	</files>
+</install>
