@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -51,7 +51,8 @@ class plgSimpleListsLinkList extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'Another SimpleList';
     }    
 
@@ -62,7 +63,8 @@ class plgSimpleListsLinkList extends plgSimpleListsLinkDefault
      * @param mixed $link
      * @return string
      */
-    public function getName($link) {
+    public function getName($link) 
+    {
         $query = "SELECT `title` FROM #__categories WHERE `id`=".(int)$link;
         $db =& JFactory::getDBO();
         $db->setQuery( $query );
@@ -81,7 +83,8 @@ class plgSimpleListsLinkList extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         return SimplelistsHelper::getUrl($item->link);
     }
 
@@ -92,7 +95,23 @@ class plgSimpleListsLinkList extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
-        return JHTML::_( 'list.category', 'link_simplelist', 'com_simplelists', (int)$current );
+    public function getInput($current = null) 
+    {
+        jimport('joomla.version');
+        $version = new JVersion();
+        if(version_compare($version->RELEASE, '1.5', 'eq')) {
+            return JHTML::_('list.category', 'link_simplelist', 'com_simplelists', (int)$current);
+        }
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('*')->from('#__categories')->where('extension = "com_simplelists"');
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+
+        $options = array();
+        foreach($rows as $row) {
+            $options[] = array('value' => $row->id, 'text' => $row->title);
+        }
+        return JHTML::_('select.genericlist', $options, 'link_simplelist', null, 'value', 'text', (int)$current);
     }
 }
