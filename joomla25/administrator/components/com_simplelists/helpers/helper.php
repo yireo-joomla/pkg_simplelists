@@ -284,7 +284,7 @@ class SimplelistsHelper
                 $category_alias = $needles['category_alias'];
             } else {
                 require_once (dirname(__FILE__).DS.'category.php');
-                $category_alias = SimplelistsCategoryHelper::getAlias($category_id);
+                $category_alias = SimplelistsCategoryHelper::getAlias($needles['category_id']);
             }
 
             // Append the category ID (and optionally the category alias) to the URL
