@@ -7,11 +7,17 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.4.3
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+
+// Check the table for certain capabilities
+// @todo: Move to $view->hasStateField()
+$table = $this->getModel()->getTable();
+$hasState = ($table->getStateField()) ? true : false;
+$hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 ?>
 <form method="post" name="adminForm" id="adminForm">
 <table width="100%">
@@ -25,7 +31,7 @@ defined('_JEXEC') or die();
 </tr>
 </table>
 <div id="editcell">
-    <table class="adminlist" width="600">
+    <table class="adminlist table table-striped" width="100%">
     <thead>
         <tr>
             <th width="5">
@@ -35,34 +41,53 @@ defined('_JEXEC') or die();
                 <input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
             </th>
             <?php echo $this->loadTemplate('thead'); ?>
+            <?php if($hasState) : ?>
             <th width="5%" class="title">
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $this->fields['state_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
             </th>
+            <?php endif; ?>
+            <?php if($hasState) : ?>
             <th width="8%" nowrap="nowrap">
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ORDERING', $this->fields['ordering_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
                 <?php echo JHTML::_('grid.order', $this->items ); ?>
             </th>
+            <?php endif; ?>
             <th width="5">
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ID', $this->fields['primary_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
             </th>
         </tr>
     </thead>
+    <?php if($this->pagination) : ?>
     <tfoot>
         <tr>
             <td colspan="100">
                 <?php echo $this->pagination->getListFooter(); ?>
             </td>
         </tr>
+        <?php echo $this->loadTemplate('legend'); ?>
     </tfoot>
+    <?php endif; ?>
     <tbody>
     <?php
     $i = 0;
     if (!empty($this->items)) {
-        foreach ($this->items as $item)
-        {
-            $checked = $this->checkedout($item, $i);
-            $published = $this->published($item, $i, $this->getModel());
-            $ordering = ($this->lists['order'] == $this->fields['ordering_field']);
+        foreach($this->items as $item) {
+
+            // Construct the published-field
+            if(isset($item->hasState) && $item->hasState == false) {
+                $published = $this->getImageTag('disabled.png');
+            } else {
+                $published = ($hasState == true) ? $this->published($item, $i, $this->getModel()) : true;
+            }
+
+            // Construct the published-field
+            if(isset($item->hasOrdering) && $item->hasOrdering == false) {
+                $ordering = false;
+            } else {
+                $ordering = ($this->lists['order'] == $this->fields['ordering_field']);
+            }
+
+            // @todo: Describe this flag
             $auto_columns = true;
             ?>
             <tr class="<?php echo "row".($i%2); ?>">
@@ -70,19 +95,29 @@ defined('_JEXEC') or die();
                     <?php echo $i+1; ?>
                 </td>
                 <td>
-                    <?php echo $checked; ?>
+                    <?php echo $this->checkbox($item, $i); ?>
                 </td>
                 <?php echo $this->loadTemplate('tbody', array('item' => $item, 'auto_columns' => $auto_columns, 'published' => $published)); ?>
                 <?php if($auto_columns): ?>
+                <?php if($hasState) : ?>
                 <td>
                     <?php echo $published; ?>
                 </td>
+                <?php endif; ?>
+                <?php if($hasOrdering) : ?>
                 <td class="order">
-                    <span><?php echo $this->pagination->orderUpIcon( $i, true,'orderup', 'Move Up', $ordering ); ?></span>
-                    <span><?php echo $this->pagination->orderDownIcon( $i, 0, true, 'orderdown', 'Move Down', $ordering ); ?></span>
-                    <?php $disabled = $ordering ?  '' : 'disabled="disabled"'; ?>
-                    <input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text_area" style="text-align: center" />
+                    <?php if(isset($item->hasOrdering) && $item->hasOrdering == false) : ?>
+                        <?php echo $this->getImageTag('disabled.png'); ?>
+                    <?php else: ?>
+                        <?php if($this->pagination) : ?>
+                            <span><?php echo $this->pagination->orderUpIcon( $i, true,'orderup', 'Move Up', $ordering ); ?></span>
+                            <span><?php echo $this->pagination->orderDownIcon( $i, 0, true, 'orderdown', 'Move Down', $ordering ); ?></span>
+                        <?php endif; ?>
+                        <?php $disabled = ($ordering) ?  '' : 'disabled="disabled"'; ?>
+                        <input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text_area" style="text-align: center" />
+                    <?php endif; ?>
                 </td>
+                <?php endif; ?>
                 <td>
                     <?php echo $item->id; ?>
                 </td>

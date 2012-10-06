@@ -2,12 +2,12 @@
 /**
  * Joomla! Yireo Library
  *
- * @author Yireo (https://www.yireo.com/)
+ * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
  * @copyright Copyright 2012
  * @license GNU Public License
- * @link https://www.yireo.com/
- * @version 0.4.3
+ * @link http://www.yireo.com/
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
@@ -103,9 +103,9 @@ class YireoViewList extends YireoView
 
         // Load the toolbar edit-buttons
         if ($this->loadToolbarEdit == true) {
-            JToolBarHelper::editListX();
+            JToolBarHelper::editList();
             JToolBarHelper::custom( 'copy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_COPY', true, true);
-            JToolBarHelper::addNewX();
+            JToolBarHelper::addNew();
         }
 
         // Insert extra fields
@@ -136,17 +136,17 @@ class YireoViewList extends YireoView
     public function toggle($name, $value, $ajax = false, $id = 0)
     {
         if ($value == 1 || !empty($value)) {
-            $img = 'images/tick.png';
+            $img = 'tick.png';
         } else {
-            $img = 'images/publish_x.png';
+            $img = 'publish_x.png';
         }
 
         if ($ajax == false) {
-            return '<img src="'.JURI::base().$img.'" />';
+            return $this->getImageTag($img);
         } else {
             $token = (method_exists('JSession', 'getFormToken')) ? JSession::getFormToken() : JUtility::getToken();
             $url = JRoute::_('index.php?option='.$this->_option.'&view='.$this->_view.'&task=toggle&id='.$id.'&name='.$name.'&value='.$value.'&'.$token.'=1');
-            return '<a href="'.$url.'"><img src="'.JURI::base().$img.'" /></a>';
+            return '<a href="'.$url.'">'.$this->getImageTag($img).'</a>';
         }
     }
 
@@ -170,10 +170,30 @@ class YireoViewList extends YireoView
             if(!isset($item->checked_out_time)) $item->checked_out_time = 0;
 
             $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
-            $checked = JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'dummy.', $canCheckin);
+            $checked = JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, '', $canCheckin);
         }
 
         return $checked;
+    }
+
+    /*
+     * Method to return the checkbox to do something
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param object $item
+     * @param int $i
+     * @return string
+     */
+    public function checkbox($item, $i)
+    {
+        if (YireoHelper::isJoomla15()) {
+            $checkbox = JHTML::_('grid.checkedout', $item, $i);
+        } else {
+            $checkbox = JHtml::_('grid.id', $i, $item->id);
+        }
+
+        return $checkbox;
     }
 
     /*
@@ -185,20 +205,28 @@ class YireoViewList extends YireoView
      * @param int $i
      * @return string
      */
-    public function published($item, $i, $model)
+    public function published($item, $i, $model = null)
     {
+        $published = null;
+
         if (YireoHelper::isJoomla15()) {
             $published = JHTML::_('grid.published', $item, $i );
         } else {
+
+            // Import variables
             $user = JFactory::getUser();
             $table = $this->getModel()->getTable();
 
+            // Create dummy publish_up and publish_down variables if not set
             if(!isset($item->publish_up)) $item->publish_up = null;
             if(!isset($item->publish_down)) $item->publish_down = null;
 
+            // Fetch the state-field
             $stateField = $table->getStateField();
-            $canChange = $user->authorise('core.edit.state', $this->_option.'.item.'.$item->id);
-            $published = JHtml::_('jgrid.published', $item->$stateField, $i, 'dummy.', $canChange, 'cb', $item->publish_up, $item->publish_down);
+            if(!empty($stateField)) {
+                $canChange = $user->authorise('core.edit.state', $this->_option.'.item.'.$item->id);
+                $published = JHtml::_('jgrid.published', $item->$stateField, $i, '', $canChange, 'cb', $item->publish_up, $item->publish_down);
+            }
         }
 
         return $published;
@@ -214,6 +242,10 @@ class YireoViewList extends YireoView
      */
     public function isCheckedOut($item = null)
     {
+        // If this item has no checked_out field, it's an easy choice
+        if(isset($item->checked_out) == false) return false;
+
+        // Import variables
         $user = JFactory::getUser();
         $table = $this->getModel()->getTable();
 

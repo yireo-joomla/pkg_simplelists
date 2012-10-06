@@ -1,5 +1,6 @@
 LICENSE.txt
 README.txt
+configuration.php
 administrator/cache/
 administrator/components/com_admin/
 administrator/components/com_banners/

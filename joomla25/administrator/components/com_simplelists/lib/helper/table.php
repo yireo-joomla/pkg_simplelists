@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.4.3
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!

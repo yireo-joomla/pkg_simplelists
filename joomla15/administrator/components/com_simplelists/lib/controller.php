@@ -2,26 +2,38 @@
 /**
  * Joomla! Yireo Library
  *
- * @author Yireo (https://www.yireo.com/)
+ * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
  * @copyright Copyright 2012
  * @license GNU Public License
- * @link https://www.yireo.com/
- * @version 0.4.3
+ * @link http://www.yireo.com/
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import the parent controller (JController)
-jimport( 'joomla.application.component.controller' );
+// Import the helpers
+require_once dirname(__FILE__).'/helper.php';
+
+/**
+ * Yireo Abstract Controller
+ *
+ * @package Yireo
+ */
+if(YireoHelper::isJoomla25()) {
+    jimport( 'joomla.application.component.controller' );
+    class YireoAbstractController extends JController {}
+} else {
+    class YireoAbstractController extends JControllerLegacy {}
+}
 
 /**
  * Yireo Controller
  *
  * @package Yireo
  */
-class YireoController extends JController
+class YireoController extends YireoAbstractController
 {
     /**
      * Value of the default View to use
@@ -122,12 +134,18 @@ class YireoController extends JController
         }
 
         // Register Extra tasks
-        $this->registerTask( 'new', 'add' );
-        $this->registerTask( 'change', 'edit' );
+        $this->registerTask('new', 'add');
+        $this->registerTask('change', 'edit');
 
         // Allow or disallow frontend editing
         if ($this->_application->isSite() && in_array(JRequest::getCmd('task', 'display'), $this->_allow_tasks) == false) {
             JError::raiseError(500, JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
+        }
+
+        // Neat trick to automatically remove obsolete files
+        if (JRequest::getCmd('view') == $this->_default_view) {
+            require_once dirname(__FILE__).'/helper/install.php';
+            YireoHelperInstall::remove();
         }
     }
 
@@ -303,6 +321,11 @@ class YireoController extends JController
         $this->store() ;
 
         // Redirect back to the form-page
+        $apply_url = JRequest::getVar('apply_url');
+        if(!empty($apply_url)) {
+            return $this->setRedirect($apply_url, $this->msg, $this->msg_type);
+        }
+
         $this->doRedirect( JRequest::getVar('view'), array( 'id' => $this->getId(), 'task' => 'edit'));
     }
 
@@ -694,7 +717,7 @@ class YireoController extends JController
             // If it is still empty, try to create the model manually instead
             if (empty($model)) {
                 // @todo: Throw a log-warning here
-                require_once JPATH_COMPONENT.'/lib/model.php';
+                require_once dirname(__FILE__).'/model.php';
                 $model = new YireoModel($name, $name.'s', $name.'_id');
             }
 

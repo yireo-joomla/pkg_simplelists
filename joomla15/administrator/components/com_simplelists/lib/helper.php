@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.4.3
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
@@ -71,25 +71,51 @@ class YireoHelper
     }
 
     /*
-     * Helper-method to check whether the current Joomla! version is 1.6
+     * Helper-method to check whether the current Joomla! version equals some value
      *
      * @param null
      * @return bool
      */
-    static public function isJoomla16()
+    static public function isJoomla($version_string)
     {
-        static $rs = null;
-        if (!is_bool($rs)) {
+        static $rs = array();
+        if (!isset($rs[$version_string])) {
             JLoader::import( 'joomla.version' );
             $version = new JVersion();
-            if (version_compare( $version->RELEASE, '1.6', 'eq')) {
-                $rs = true;
+            if (version_compare( $version->RELEASE, $version_string, 'eq')) {
+                $rs[$version_string] = true;
             } else {
-                $rs = false;
+                $rs[$version_string] = false;
             }
         }
-        return $rs;
+        return $rs[$version_string];
     }
+
+    /*
+     * Helper-method to check whether the current Joomla! version is 3.5
+     *
+     * @param null
+     * @return bool
+     */
+    static public function isJoomla35()
+    {
+        return self::isJoomla('3.0');
+    }
+
+    /*
+     * Helper-method to check whether the current Joomla! version is 2.5
+     *
+     * @param null
+     * @return bool
+     */
+    static public function isJoomla25()
+    {
+        if(self::isJoomla('2.5') || self::isJoomla('1.7') || self::isJoomla('1.6')) {
+            return true;
+        }
+        return false;
+    }
+
     
     /*
      * Helper-method to check whether the current Joomla! version is 1.5
@@ -99,17 +125,7 @@ class YireoHelper
      */
     static public function isJoomla15()
     {
-        static $rs = null;
-        if (!is_bool($rs)) {
-            JLoader::import( 'joomla.version' );
-            $version = new JVersion();
-            if (version_compare( $version->RELEASE, '1.5', 'eq')) {
-                $rs = true;
-            } else {
-                $rs = false;
-            }
-        }
-        return $rs;
+        return self::isJoomla('1.5');
     }
 
     /**
@@ -165,9 +181,8 @@ class YireoHelper
      * @param mixed $params
      * @param string $file
      * @return JParameter|JRegistry
-     * @todo: rename to toRegistry
      */
-    static public function toParameter($params = null, $file = null)
+    static public function toRegistry($params = null, $file = null)
     {
         if ($params instanceof JParameter || $params instanceof JRegistry) {
             return $params;
@@ -180,11 +195,30 @@ class YireoHelper
             jimport('joomla.registry.registry');
             $registry = @new JRegistry();
             if(!empty($params)) $registry->loadString($params);
-            if(preg_match('/\.xml$/', $file)) $registry->loadFile($file, 'XML');
-            if(preg_match('/\.json$/', $file)) $registry->loadFile($file, 'JSON');
+
+            $fileContents = @file_get_contents($file);
+            if(preg_match('/\.xml$/', $fileContents)) {
+                $registry->loadFile($file, 'XML');
+            } elseif(preg_match('/\.json$/', $fileContents)) {
+                $registry->loadFile($file, 'JSON');
+            }
+
             $params = $registry;
         }
         return $params;
+    }
+
+    /*
+     * Deprecated shortcut for self::toRegistry()
+     *
+     * @param mixed $params
+     * @param string $file
+     * @return JParameter|JRegistry
+     * @deprecated
+     */
+    static public function toParameter($params = null, $file = null)
+    {
+        return self::toRegistry($params, $file);
     }
 
     /*

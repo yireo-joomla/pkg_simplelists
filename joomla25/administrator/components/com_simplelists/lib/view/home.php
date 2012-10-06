@@ -2,19 +2,19 @@
 /**
  * Joomla! Yireo Library
  *
- * @author Yireo (https://www.yireo.com/)
+ * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
  * @copyright Copyright 2012
  * @license GNU Public License
- * @link https://www.yireo.com/
- * @version 0.4.3
+ * @link http://www.yireo.com/
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Require the parent view
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/lib//view.php';
+require_once dirname(dirname(__FILE__)).'/view.php';
 
 /**
  * Home View class
@@ -101,7 +101,7 @@ class YireoViewHome extends YireoView
         $icon['link'] = JRoute::_( 'index.php?option='.$this->_option.'&view='.$view );
         $icon['text'] = $text;
         $icon['target'] = $target;
-        $icon['icon'] = JHTML::_('image.site', $image, $folder, null, null, $icon['text'] );
+        $icon['icon'] = '<img src="'.$folder.$image.'" title="'.$icon['text'].'" alt="'.$icon['text'].'" />';
         return $icon;
     }
 
@@ -113,7 +113,7 @@ class YireoViewHome extends YireoView
      * @param string $title
      * @return null
      */
-    public function setTitle($title = null, $class= 'yireo')
+    public function setTitle($title = null, $class= 'logo')
     {
         $component_title = YireoHelper::getData('title');
         $title = JText::_('LIB_YIREO_VIEW_HOME');

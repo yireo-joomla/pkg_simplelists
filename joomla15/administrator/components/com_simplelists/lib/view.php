@@ -2,19 +2,18 @@
 /**
  * Joomla! Yireo Library
  *
- * @author Yireo (https://www.yireo.com/)
+ * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
  * @copyright Copyright 2012
  * @license GNU Public License
- * @link https://www.yireo.com/
- * @version 0.4.3
+ * @link http://www.yireo.com/
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Include the JView class
-jimport('joomla.application.component.view');
+// Includes from Joomla! Framework
 jimport('joomla.filter.output');
 
 // Include the generic helper
@@ -24,17 +23,287 @@ require_once dirname(__FILE__).'/helper.php';
 require_once dirname(__FILE__).'/helper/view.php';
 
 /**
- * Generic View class
+ * Yireo Abstract View 
  *
  * @package Yireo
  */
-class YireoView extends JView
+if(YireoHelper::isJoomla25()) {
+    jimport('joomla.application.component.view');
+    class YireoAbstractView extends JView {}
+} else {
+    class YireoAbstractView extends JViewLegacy {}
+}
+
+/**
+ * Yireo Common View 
+ *
+ * @package Yireo
+ */
+class YireoCommonView extends YireoAbstractView
 {
     /*
      * Array of template-paths to look for layout-files
      */
     protected $templatePaths = array();
 
+    /*
+     * Flag to determine whether this view is a single-view
+     */
+    protected $_single = null;
+
+    /*
+     * Main constructor method
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param array $config
+     * @return null
+     */
+    public function __construct($config = array())
+    {
+        // Call the parent constructor
+        parent::__construct($config);
+
+        // Import use full variables from JFactory
+        $this->db = JFactory::getDBO();
+        $this->uri = JFactory::getURI();
+        $this->document = JFactory::getDocument();
+        $this->user = JFactory::getUser();
+        $this->application = JFactory::getApplication();
+
+        // Create the namespace-variables
+        $this->_view = (!empty($config['name'])) ? $config['name'] : JRequest::getCmd('view', 'default');
+        $this->_option = (!empty($config['option'])) ? $config['option'] : JRequest::getCmd('option');
+        $this->_name = $this->_view;
+        $this->_option_id = $this->_option.'_'.$this->_view.'_';
+        if ($this->application->isSite()) $this->_option_id .= JRequest::getInt('Itemid').'_';
+    }
+
+    /*
+     * Helper-method to set the page title
+     *
+     * @access protected
+     * @subpackage Yireo
+     * @param string $title
+     * @return null
+     */
+    protected function setTitle($title = null, $class = 'logo')
+    {
+        $component_title = YireoHelper::getData('title');
+        if (empty($title)) {
+            $views = YireoHelper::getData('views');
+            if (!empty($views)) {
+                foreach ($views as $view => $view_title) {
+                    if ($this->_view == $view) {
+                        $title = $view_title;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if ($this->_single) {
+            $pretext = ($this->isEdit()) ? JText::_('LIB_YIREO_VIEW_EDIT') : JText::_('LIB_YIREO_VIEW_NEW');
+            $title = $pretext.' '.$title;
+        }
+
+        if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/images/'.$class.'.png' )) {
+            JToolBarHelper::title($component_title.': '.$title, $class);
+        } else {
+            JToolBarHelper::title($component_title.': '.$title, 'generic.png');
+        }
+        return;
+    }
+
+    /*
+     * Add a specific CSS-stylesheet to this page
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param string $stylesheet
+     * @return null
+     */
+    public function addCss($stylesheet)
+    {
+        $prefix = ($this->application->isSite()) ? 'site-' : 'backend-';
+        $template = $this->application->getTemplate();
+
+        if (file_exists(JPATH_SITE.'/templates/'.$template.'/css/'.$this->_option.'/'.$prefix.$stylesheet)) {
+            $this->document->addStyleSheet(JURI::root().'templates/'.$template.'/css/'.$this->_option.'/'.$prefix.$stylesheet) ;
+
+        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/css/'.$prefix.$stylesheet)) {
+            $this->document->addStyleSheet(JURI::root().'media/'.$this->_option.'/css/'.$prefix.$stylesheet) ;
+
+        } else if (file_exists(JPATH_SITE.'/templates/'.$template.'/css/'.$this->_option.'/'.$stylesheet)) {
+            $this->document->addStyleSheet(JURI::root().'templates/'.$template.'/css/'.$this->_option.'/'.$stylesheet) ;
+
+        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/css/'.$stylesheet)) {
+            $this->document->addStyleSheet(JURI::root().'media/'.$this->_option.'/css/'.$stylesheet) ;
+        }
+    }
+
+    /*
+     * Add a specific JavaScript-script to this page
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param string $script
+     * @return null
+     */
+    public function addJs($script)
+    {
+        $prefix = ($this->application->isSite()) ? 'site-' : 'backend-';
+        $template = $this->application->getTemplate();
+
+        if (file_exists(JPATH_SITE.'/templates/'.$template.'/js/'.$this->_option.'/'.$prefix.$script)) {
+            $this->document->addScript(JURI::root().'templates/'.$template.'/js/'.$this->_option.'/'.$prefix.$script) ;
+
+        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/js/'.$prefix.$script)) {
+            $this->document->addScript(JURI::root().'media/'.$this->_option.'/js/'.$prefix.$script) ;
+
+        } else if (file_exists(JPATH_SITE.'/templates/'.$template.'/js/'.$this->_option.'/'.$script)) {
+            $this->document->addScript(JURI::root().'templates/'.$template.'/js/'.$this->_option.'/'.$script) ;
+
+        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/js/'.$script)) {
+            $this->document->addScript(JURI::root().'media/'.$this->_option.'/js/'.$script) ;
+        }
+    }
+
+    /*
+     * Add a folder to the template-search path
+     *
+     * @access protected
+     * @subpackage Yireo
+     * @param string $path
+     * @param boolean $first
+     * @return bool
+     */
+    protected function addNewTemplatePath($path, $first = true)
+    {
+        // If this path is non-existent, skip it
+        if (!is_dir($path)) return;
+
+        // If this path is already included, skip it
+        if (in_array($path, $this->templatePaths)) return;
+
+        // Add this path to the beginning of the array
+        if ($first) {
+            array_unshift($this->templatePaths, $path);
+
+        // Add this path to the end of the array
+        } else {
+            $this->templatePaths[] = $path;
+        }
+    }
+
+    /*
+     * An override of the original JView-function to allow template-files across multiple layouts
+     *
+     * @access public
+     * @param string $file
+     * @param array $variables
+     * @return string
+     */
+    public function loadTemplate($file = null, $variables = array())
+    {
+        // Define version-specific folder
+        if (YireoHelper::isJoomla15() == true) {
+            $versionFolder = 'joomla15';
+        } elseif (YireoHelper::isJoomla25() == true) {
+            $versionFolder = 'joomla25';
+        } else {
+            $versionFolder = 'joomla35';
+        }
+            
+        // Construct the paths where to locate a specific template
+        if ($this->application->isSite() == false) {
+
+            // Local layout
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl', true);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl/'.$versionFolder, true);
+
+            // Library defaults
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view, false);
+
+        } else {
+
+            // Local layout
+            $this->addNewTemplatePath(JPATH_SITE.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl', true);
+            $this->addNewTemplatePath(JPATH_SITE.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl/'.$versionFolder, true);
+
+            // Template override
+            $template = $this->application->getTemplate();
+            $this->addNewTemplatePath(JPATH_THEMES.'/'.$template.'/html/'.$this->_option.'/'.$this->_view, true);
+            $this->addNewTemplatePath(JPATH_THEMES.'/'.$template.'/html/'.$this->_option.'/'.$this->_view.'/'.$versionFolder, true);
+
+            // Library defaults
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view, false);
+        }
+
+        // Find the template-file
+        if (empty($file)) $file = 'default.php';
+        if (!preg_match('/\.php$/', $file)) $file = $file.'.php';
+        jimport('joomla.filesystem.path');
+        $template = JPath::find($this->templatePaths, $file);
+
+        // If this template is empty, try to use alternatives
+        if(empty($template) && $file == 'default.php') {
+            $file = 'form.php'; 
+            $template = JPath::find($this->templatePaths, $file);
+        }
+
+        $output = null;
+        if ($template != false) {
+
+            // Include the variables here
+            if (!empty($variables)) {
+                foreach ($variables as $name => $value) {
+                    $$name = $value;
+                }
+            }
+
+            // Unset so as not to introduce into template scope
+            unset($file);
+
+            // Never allow a 'this' property
+            if (isset($this->this)) {
+                unset($this->this);
+            }
+
+            // Unset variables
+            unset($variables);
+            unset($name);
+            unset($value);
+
+            // Start capturing output into a buffer
+            ob_start();
+            include $template;
+
+            // Done with the requested template; get the buffer and clear it.
+            $output = ob_get_contents();
+            ob_end_clean();
+
+            return $output;
+        }
+        else {
+            return null;
+        }
+    }
+}
+
+/**
+ * Yireo View 
+ *
+ * @package Yireo
+ */
+class YireoView extends YireoCommonView
+{
     /*
      * Array of HTML-lists for usage in the layout-file
      */
@@ -44,11 +313,6 @@ class YireoView extends JView
      * Array of HTML-grid-elements for usage in the layout-file
      */
     protected $grid = array();
-
-    /*
-     * Flag to determine whether this view is a single-view
-     */
-    protected $_single = null;
 
     /*
      * Flag to determine whether to autoclean item-properties or not
@@ -70,28 +334,13 @@ class YireoView extends JView
      *
      * @access public
      * @subpackage Yireo
-     * @param string $view
-     * @param string $option
+     * @param array $config
      * @return null
      */
     public function __construct($config = array())
     {
         // Call the parent constructor
         parent::__construct($config);
-
-        // Import use full variables from JFactory
-        $this->db = JFactory::getDBO();
-        $this->uri = JFactory::getURI();
-        $this->document = JFactory::getDocument();
-        $this->user = JFactory::getUser();
-        $this->application = JFactory::getApplication();
-
-        // Create the namespace-variables
-        $this->_view = (!empty($config['name'])) ? $config['name'] : JRequest::getCmd('view', 'default');
-        $this->_option = (!empty($config['option'])) ? $config['option'] : JRequest::getCmd('option');
-        $this->_name = $this->_view;
-        $this->_option_id = $this->_option.'_'.$this->_view.'_';
-        if ($this->application->isSite()) $this->_option_id .= JRequest::getInt('Itemid').'_';
 
         // Set the parameters
         if (empty($this->params)) {
@@ -166,7 +415,9 @@ class YireoView extends JView
         // Include extra component-related CSS
         $this->addCss('default.css');
         $this->addCss('view-'.$this->_view.'.css');
-        if (YireoHelper::isJoomla15() == false) $this->addCss('j16.css');
+        if (YireoHelper::isJoomla15() == false) $this->addCss('j16.css'); // @deprecated
+        if (YireoHelper::isJoomla25() == true) $this->addCss('j25.css');
+        if (YireoHelper::isJoomla35() == true) $this->addCss('j35.css');
 
         // Include extra component-related JavaScript
         $this->addJs('default.js');
@@ -245,42 +496,6 @@ class YireoView extends JView
                 }   
             }
         }
-    }
-
-    /*
-     * Helper-method to set the page title
-     *
-     * @access protected
-     * @subpackage Yireo
-     * @param string $title
-     * @return null
-     */
-    protected function setTitle($title = null, $class = 'yireo')
-    {
-        $component_title = YireoHelper::getData('title');
-        if (empty($title)) {
-            $views = YireoHelper::getData('views');
-            if (!empty($views)) {
-                foreach ($views as $view => $view_title) {
-                    if ($this->_view == $view) {
-                        $title = $view_title;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if ($this->_single) {
-            $pretext = ($this->isEdit()) ? JText::_('LIB_YIREO_VIEW_EDIT') : JText::_('LIB_YIREO_VIEW_NEW');
-            $title = $pretext.' '.$title;
-        }
-
-        if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/images/'.$class.'.png' )) {
-            JToolBarHelper::title($component_title.': '.$title, $class);
-        } else {
-            JToolBarHelper::title($component_title.': '.$title, 'generic.png');
-        }
-        return;
     }
 
     /*
@@ -418,17 +633,19 @@ class YireoView extends JView
         }
 
         // Assign the access-list 
-        // @todo: Does this work under Joomla! 1.7
         if (isset($this->item->access)) {
-            $this->lists['access'] = JHTML::_('list.accesslevel', $this->item);
+            if(class_exists('JHtmlAccess')) {
+                $this->lists['access'] = JHtmlAccess::level('access', $this->item->access);
+            } else {
+                $this->lists['access'] = JHTML::_('list.accesslevel', $this->item);
+            }
         } else {
             $this->lists['access'] = null;
         }
 
         $ordering = $this->model->getOrderByDefault();
         if (!empty($ordering) && $ordering == 'ordering') {
-            // @todo: Joomla! bug: This only works when orderby-field is "ordering"
-            $this->lists['ordering'] = JHTML::_('list.specificordering',  $this->item, $this->model->getId(), $this->model->getOrderingQuery());
+            $this->lists['ordering'] = JHTML::_('list.ordering', 'ordering', $this->model->getOrderingQuery(), $this->item->ordering);
         } else {
             $this->lists['ordering'] = null;
         }
@@ -445,8 +662,6 @@ class YireoView extends JView
      */
     public function ajax($url = null, $div = null)
     {
-        // @todo: Add-in support for jQuery
-        JHTML::_('behavior.mootools');
         if (YireoHelper::isJoomla15()) {
             $script = "<script type=\"text/javascript\">\n"
                 . "window.addEvent('domready', function(){\n"
@@ -456,7 +671,7 @@ class YireoView extends JView
                 . "    MBajax.request();\n"
                 . "});\n"
                 . "</script>";
-        } else {
+        } elseif (YireoHelper::isJoomla25()) {
             $script = "<script type=\"text/javascript\">\n"
                 . "window.addEvent('domready', function(){\n"
                 . "    var MBajax = new Request({\n"
@@ -465,6 +680,22 @@ class YireoView extends JView
                 . "            $('".$div."').innerHTML = r;\n"
                 . "        }\n"
                 . "    }).send();\n"
+                . "});\n"
+                . "</script>";
+        } else {
+            $script = "<script type=\"text/javascript\">\n"
+                . "jQuery(document).ready(function() {\n"
+                . "    var MBajax = jQuery.ajax({\n"
+                . "        url: '".$url."', \n"
+                . "        method: 'get', \n"
+                . "        success: function(result){\n"
+                . "            if (result == '') {\n"
+                . "                alert('Empty result');\n"
+                . "            } else {\n"
+                . "                jQuery('#".$div."').html(result);\n"
+                . "            }\n"
+                . "        }\n"
+                . "    });\n"
                 . "});\n"
                 . "</script>";
         }
@@ -483,8 +714,6 @@ class YireoView extends JView
      */
     public function getAjaxFunction()
     {
-        // @todo: Add-in support for jQuery
-        JHTML::_('behavior.mootools');
         if (YireoHelper::isJoomla15()) {
             $script = "<script type=\"text/javascript\">\n"
                 . "function getAjax(ajax_url, element_id, type) {\n"
@@ -499,7 +728,7 @@ class YireoView extends JView
                 . "    }}).request();\n"
                 . "}\n"
                 . "</script>";
-        } else {
+        } elseif (YireoHelper::isJoomla25()) {
             $script = "<script type=\"text/javascript\">\n"
                 . "function getAjax(ajax_url, element_id, type) {\n"
                 . "    var MBajax = new Request({\n"
@@ -519,63 +748,29 @@ class YireoView extends JView
                 . "    }).send();\n"
                 . "}\n"
                 . "</script>";
+        } else {
+            $script = "<script type=\"text/javascript\">\n"
+                . "function getAjax(ajax_url, element_id, type) {\n"
+                . "    var MBajax = jQuery.ajax({\n"
+                . "        url: ajax_url, \n"
+                . "        method: 'get', \n"
+                . "        success: function(result){\n"
+                . "            if (result == '') {\n"
+                . "                alert('Empty result');\n"
+                . "            } else {\n"
+                . "                if (type == 'input') {\n"
+                . "                    jQuery(element_id).value = result;\n"
+                . "                } else {\n"
+                . "                    jQuery(element_id).innerHTML = result;\n"
+                . "                }\n"
+                . "            }\n"
+                . "        }\n"
+                . "    }).send();\n"
+                . "}\n"
+                . "</script>";
         }
 
         $this->document->addCustomTag( $script );
-    }
-
-    /*
-     * Add a specific CSS-stylesheet to this page
-     *
-     * @access public
-     * @subpackage Yireo
-     * @param string $stylesheet
-     * @return null
-     */
-    public function addCss($stylesheet)
-    {
-        $prefix = ($this->application->isSite()) ? 'site-' : 'backend-';
-        $template = $this->application->getTemplate();
-
-        if (file_exists(JPATH_SITE.'/templates/'.$template.'/css/'.$this->_option.'/'.$prefix.$stylesheet)) {
-            $this->document->addStyleSheet(JURI::root().'templates/'.$template.'/css/'.$this->_option.'/'.$prefix.$stylesheet) ;
-
-        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/css/'.$prefix.$stylesheet)) {
-            $this->document->addStyleSheet(JURI::root().'media/'.$this->_option.'/css/'.$prefix.$stylesheet) ;
-
-        } else if (file_exists(JPATH_SITE.'/templates/'.$template.'/css/'.$this->_option.'/'.$stylesheet)) {
-            $this->document->addStyleSheet(JURI::root().'templates/'.$template.'/css/'.$this->_option.'/'.$stylesheet) ;
-
-        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/css/'.$stylesheet)) {
-            $this->document->addStyleSheet(JURI::root().'media/'.$this->_option.'/css/'.$stylesheet) ;
-        }
-    }
-
-    /*
-     * Add a specific JavaScript-script to this page
-     *
-     * @access public
-     * @subpackage Yireo
-     * @param string $script
-     * @return null
-     */
-    public function addJs($script)
-    {
-        $prefix = ($this->application->isSite()) ? 'site-' : 'backend-';
-        $template = $this->application->getTemplate();
-
-        if (file_exists(JPATH_SITE.'/templates/'.$template.'/js/'.$this->_option.'/'.$prefix.$script)) {
-            $this->document->addScript(JURI::root().'templates/'.$template.'/js/'.$this->_option.'/'.$prefix.$script) ;
-
-        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/js/'.$prefix.$script)) {
-            $this->document->addScript(JURI::root().'media/'.$this->_option.'/js/'.$prefix.$script) ;
-
-        } else if (file_exists(JPATH_SITE.'/templates/'.$template.'/js/'.$this->_option.'/'.$script)) {
-            $this->document->addScript(JURI::root().'templates/'.$template.'/js/'.$this->_option.'/'.$script) ;
-
-        } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/js/'.$script)) {
-            $this->document->addScript(JURI::root().'media/'.$this->_option.'/js/'.$script) ;
-        }
     }
 
     /*
@@ -592,67 +787,40 @@ class YireoView extends JView
     }
 
     /*
-     * An override of the original JView-function to allow template-files across multiple layouts
+     * Helper method to determine whether this is a new entry or not
      *
      * @access public
-     * @param string $file
-     * @param array $variables
-     * @return string
+     * @subpackage Yireo
+     * @param null
+     * @return bool
      */
-    public function loadTemplate($file = null, $variables = array())
+    public function isEdit()
     {
-        // Construct the paths where to locate a specific template
-        if ($this->application->isSite() == false) {
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl');
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view, false);
-        } else {
-            $template = $this->application->getTemplate();
-            $this->addNewTemplatePath(JPATH_THEMES.'/'.$template.'/html/'.$this->_option.'/'.$this->_view);
-            $this->addNewTemplatePath(JPATH_SITE.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl', false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view, false);
+        $cid = JRequest::getVar( 'cid', array(0), '', 'array' );
+        if (!empty($cid) && $cid > 0) {
+            return true;
         }
 
-        // Find the template-file
-        if (!preg_match('/\.php$/', $file)) $file = $file.'.php';
-        jimport('joomla.filesystem.path');
-        $template = JPath::find($this->templatePaths, $file);
-
-        $output = null;
-        if ($template != false) {
-
-            // Include the variables here
-            if (!empty($variables)) {
-                foreach ($variables as $name => $value) {
-                    $$name = $value;
-                }
-            }
-
-            // Unset so as not to introduce into template scope
-            unset($file);
-
-            // Never allow a 'this' property
-            if (isset($this->this)) {
-                unset($this->this);
-            }
-
-            // Unset variables
-            unset($variables);
-            unset($name);
-            unset($value);
-
-            // Start capturing output into a buffer
-            ob_start();
-            include $template;
-
-            // Done with the requested template; get the buffer and clear it.
-            $output = ob_get_contents();
-            ob_end_clean();
-
-            return $output;
+        $id = JRequest::getInt('id');
+        if (!empty($id) && $id > 0) {
+            return true;
         }
-        else {
-            return null;
-        }
+
+        return false;
+    }
+
+    /*
+     * Overload the original method
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param null
+     * @return bool
+     */
+    public function getModel($name = null)
+    {
+        if (empty($name)) $name = $this->_name;
+        return parent::getModel($name);
     }
 
     /*
@@ -715,59 +883,26 @@ class YireoView extends JView
     }
 
     /*
-     * Helper method to determine whether this is a new entry or not
+     * Method to return img-tag for a certain image, if that image exists
      *
      * @access public
      * @subpackage Yireo
-     * @param null
-     * @return bool
+     * @param 
+     * @return array
      */
-    public function isEdit()
+    public function getImageTag($name = null)
     {
-        $cid = JRequest::getVar( 'cid', array(0), '', 'array' );
-        if (!empty($cid) && $cid > 0) {
-            return true;
+        $paths = array(
+            '/media/'.$this->_option.'/images/'.$name,
+            '/images/'.$name,
+        );
+
+        foreach($paths as $path) {
+            if(file_exists(JPATH_SITE.$path)) {
+                return '<img src="'.$path.'" alt="'.$name.'" />';
+            }
         }
 
-        $id = JRequest::getInt('id');
-        if (!empty($id) && $id > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /*
-     * Overload the original method
-     *
-     * @access public
-     * @subpackage Yireo
-     * @param null
-     * @return bool
-     */
-    public function getModel($name = null)
-    {
-        if (empty($name)) $name = $this->_name;
-        return parent::getModel($name);
-    }
-
-    /*
-     * Add a folder to the template-search path
-     *
-     * @access protected
-     * @subpackage Yireo
-     * @param string $path
-     * @param boolean $first
-     * @return bool
-     */
-    protected function addNewTemplatePath($path, $first = true)
-    {
-        if (in_array($path, $this->templatePaths)) return;
-
-        if ($first) {
-            array_unshift($this->templatePaths, $path);
-        } else {
-            $this->templatePaths[] = $path;
-        }
+        return null;
     }
 }

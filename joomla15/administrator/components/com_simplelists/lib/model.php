@@ -2,29 +2,39 @@
 /**
  * Joomla! Yireo Library
  *
- * @author Yireo (https://www.yireo.com/)
+ * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
  * @copyright Copyright 2012
  * @license GNU Public License
- * @link https://www.yireo.com/
- * @version 0.4.4
+ * @link http://www.yireo.com/
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import the parent class
-jimport('joomla.application.component.model');
-
 // Import the Yireo helper
-require_once dirname(__file__).'/helper.php';
+require_once dirname(__FILE__).'/helper.php';
 
 /**
- * Generic Model class
+ * Yireo Abstract Model
  *
  * @package Yireo
  */
-class YireoModel extends JModel
+if(YireoHelper::isJoomla25()) {
+    jimport('joomla.application.component.model');
+    class YireoAbstractModel extends JModel {}
+} else {
+    class YireoAbstractModel extends JModelLegacy {}
+}
+
+
+/**
+ * Yireo Model 
+ *
+ * @package Yireo
+ */
+class YireoModel extends YireoAbstractModel
 {
     /**
      * Indicator if this is a model for multiple or single entries
@@ -178,7 +188,7 @@ class YireoModel extends JModel
      *
      * @protected string
      */
-    protected $_orderby_title = 'title';
+    protected $_orderby_title = null;
 
     /**
      * Enable the limit in the query (or in the data-array)
@@ -202,7 +212,7 @@ class YireoModel extends JModel
      * @param string $tableAlias
      * @return null
      */
-    public function __construct($tableAlias = null, $config = array())
+    public function __construct($tableAlias = null)
     {
         // Call the parent constructor
         parent::__construct();
@@ -221,10 +231,15 @@ class YireoModel extends JModel
 
         // Detect the orderby-default
         $this->_orderby_default = $this->_tbl->getDefaultOrderBy();
+        if(empty($this->_orderby_title)) {
+            if ($this->_tbl->hasField('title')) $this->_orderby_title = 'title';
+            if ($this->_tbl->hasField('name')) $this->_orderby_title = 'name';
+        }
 
         // Create the option-namespace
-        $this->_view = (!empty($config['name'])) ? $config['name'] : JRequest::getCmd('view', 'default');
-        $this->_option = (!empty($config['option'])) ? $config['option'] : JRequest::getCmd('option');
+        $classParts = explode('Model', get_class($this));
+        $this->_view = (!empty($classParts[1])) ? strtolower($classParts[1]) : JRequest::getCmd('view');
+        $this->_option = $this->getOption();
         $this->_option_id = $this->_option.'_'.$this->_view.'_';
         if ($this->application->isSite()) $this->_option_id .= JRequest::getInt('Itemid').'_';
 
@@ -406,6 +421,10 @@ class YireoModel extends JModel
                         $data = $this->onDataLoad($data);
                     }
 
+                    // Set the ID
+                    $key = $this->getPrimaryKey();
+                    $data->id = $data->$key;
+
                     $data->metadata = $this->getMetadata();
                     $this->_data = $data;
                 }
@@ -493,10 +512,14 @@ class YireoModel extends JModel
                         // Add the metadata
                         $item->metadata = $this->getMetadata();
 
+                        // Set the ID
+                        $key = $this->getPrimaryKey();
+                        $item->id = $item->$key;
+
                         // Re-insert this item
                         $data[$index] = $item;
                     }
-            
+
                     $this->_data = $data;
                 }
             }
@@ -1489,5 +1512,22 @@ class YireoModel extends JModel
         return array(
             'table' => $this->_entity,
         );
+    }
+
+    /**
+     * Method to determine the component-name
+     *
+     * @access protected
+     * @subpackage Yireo
+     * @param null
+     * @return string
+     * @todo: Implement this method
+     */
+    protected function getOption()
+    {
+        $classParts = explode('Model', get_class($this));
+        $comPart = (!empty($classParts[0])) ? strtolower($classParts[0]) : null;
+        $option = (!empty($comPart) && $comPart != 'yireo') ? 'com_'.$comPart : JRequest::getCmd('option');
+        return $option;
     }
 }

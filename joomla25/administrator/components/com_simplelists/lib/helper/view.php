@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.4.3
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
@@ -26,7 +26,7 @@ class YireoHelperView
      * @param 
      * @return array
      */
-    public function getSelectList($name, $options, $value = null, $js = false, $selectNone = true, $multipleSelect = false)
+    static public function getSelectList($name, $options, $value = null, $js = false, $selectNone = true, $multipleSelect = false)
     {
         // Add a select-none option 
         if ($selectNone) {
@@ -63,7 +63,7 @@ class YireoHelperView
      * @param 
      * @return array
      */
-    public function getSelectOptions($items, $value, $title = null)
+    static public function getSelectOptions($items, $value, $title = null)
     {
         $options = array();
         if (!empty($items)) {
@@ -80,5 +80,21 @@ class YireoHelperView
             }
         }
         return $options;
+    }
+
+    /*
+     * Helper method to trim text
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param 
+     * @return array
+     */
+    static public function trim($text)
+    {
+        $text = trim($text);
+        $text = preg_replace('/^\<p\>\&nbsp\;\<\/p\>/','', $text);
+        $text = preg_replace('/\<p\>\&nbsp\;\<\/p\>$/','', $text);
+        return $text;
     }
 }

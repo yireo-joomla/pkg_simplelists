@@ -6,8 +6,8 @@
  * @package YireoLib
  * @copyright Copyright 2012
  * @license GNU Public License
- * @link https://www.yireo.com/
- * @version 0.4.3
+ * @link http://www.yireo.com/
+ * @version 0.5.0
  */
 
 // Check to ensure this file is included in Joomla!
@@ -346,5 +346,25 @@ class YireoTable extends JTable
         if ($this->hasField('ordering')) return 'ordering';
         if ($this->hasField('lft')) return 'lft';
         return null;
+    }
+
+    /**
+     * Helper-method to turn an array into a CSV-list
+     *
+     * @access public
+     * @param null
+     * @return array
+     */
+    public function arrayToString($array, $seperator = ',')
+    {
+        if(!empty($array) && is_array($array)) {
+            foreach($array as $index => $value) {
+                $value = trim($value);
+                if(empty($value)) unset($array[$index]);
+            }
+            $string = implode($seperator, $array);
+            return $string;
+        }
+        return $array;
     }
 }

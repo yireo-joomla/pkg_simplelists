@@ -16,7 +16,7 @@ defined( '_JEXEC' ) or die();
 jimport( 'joomla.plugin.plugin' );
 
 // Import the YireoHelper
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
+include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
 
 /**
  * SimpleLists Content Plugin
@@ -99,6 +99,7 @@ class plgContentSimplelists extends JPlugin
         // Only run this plugin in the frontend
         $application = JFactory::getApplication();
         if(!$application->isSite()) return;
+        if(!class_exists('YireoHelper')) return;
 
         // Check for a {simplelists *} tag
         if(preg_match_all('/{simplelists([^}]+)}/', $row->text, $tags)) {
