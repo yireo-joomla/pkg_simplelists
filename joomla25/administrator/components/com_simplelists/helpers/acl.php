@@ -13,7 +13,7 @@
 defined('_JEXEC') or die();
 
 // Require the Yireo helper
-require_once JPATH_COMPONENT.DS.'lib'.DS.'helper.php';
+require_once JPATH_COMPONENT.'/lib/helper.php';
 
 // Initialize the ACLs
 SimpleListsHelperAcl::init();

@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // Require the Yireo Helper
 if(class_exists('YireoHelper') == false) {
-    require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
+    require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
 }
 
 /**

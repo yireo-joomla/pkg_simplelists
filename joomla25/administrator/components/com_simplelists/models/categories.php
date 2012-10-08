@@ -13,7 +13,7 @@
 defined('_JEXEC') or die();
 
 // Require the parent model
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'model.php';
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/model.php';
 
 class SimplelistsModelCategories extends YireoModel
 {
@@ -170,7 +170,7 @@ class SimplelistsModelCategories extends YireoModel
         if($parent_id > 0) $this->_parent_id = (int)$parent_id;
         if(empty($this->_parent)) {
             // @todo: Check if there is a nicer way to do this
-            require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'models'.DS.'category.php';
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/category.php';
             $model = new SimplelistsModelCategory();
             $model->setId($this->_parent_id);
             $this->_parent = $model->getData();

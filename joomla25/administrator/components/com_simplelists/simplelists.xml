@@ -4,10 +4,10 @@
     <author>Yireo</author>
     <authoremail>info@yireo.com</authoremail>
     <authorurl>http://www.yireo.com</authorurl>
-    <creationDate>January 2012</creationDate>
-    <copyright>Copyright 2011 Yireo</copyright>
+    <creationDate>October 2012</creationDate>
+    <copyright>Copyright 2012 Yireo</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.0.4d</version>
+    <version>1.6.0.5</version>
     <description>This component shows a simple listing of items which can be displayed through multiple views/themes</description>
 
     <!-- installation part -->

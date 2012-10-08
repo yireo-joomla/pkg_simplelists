@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link https://www.yireo.com/
  */
@@ -71,7 +71,7 @@ class SimplelistsViewSimplelist extends JView
 
         // prepare the category image
         if( $params->get('show_category_image') && $category->image ) {
-            $category->image = JHTML::image( 'images'.DS.'simplelists'.DS.$category->image, $category->title, array( 'align' => $category->image_position));
+            $category->image = JHTML::image( 'images/simplelists/'.$category->image, $category->title, array( 'align' => $category->image_position));
         } else {
             $params->set('show_category_image', 0);
         }

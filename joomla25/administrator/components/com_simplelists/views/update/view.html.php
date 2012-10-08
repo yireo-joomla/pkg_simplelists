@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -37,9 +37,9 @@ class SimplelistsViewUpdate extends JView
 		$user =& JFactory::getUser();
         $document =& JFactory::getDocument();
 
-        $data = JApplicationHelper::parseXMLInstallFile(JPATH_COMPONENT.DS.'simplelists.xml');
+        $data = JApplicationHelper::parseXMLInstallFile(JPATH_COMPONENT.'/simplelists.xml');
 
-        require_once JPATH_COMPONENT.DS.'helpers'.DS.'update.php';
+        require_once JPATH_COMPONENT.'/helpers/update.php';
         $update = SimplelistsUpdate::getUpdate( $data['authorUrl'] );
 
         $this->assignRef('data', $data);

@@ -13,10 +13,10 @@
 defined('_JEXEC') or die();
 
 // Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view'.DS.'list.php';
+require_once JPATH_COMPONENT.'/lib/view/list.php';
 
 // Import the needed helpers
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'html.php';
+require_once JPATH_COMPONENT.'/helpers/html.php';
 
 /**
  * HTML View class 

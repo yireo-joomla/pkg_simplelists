@@ -15,10 +15,10 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.plugin.plugin');
 
 // Include the SimpleLists helper
-include_once JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'helper.php' ;
+include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helper.php' ;
 
 // Include the Yireo Helper class
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
 
 /**
  * Search Helper

@@ -28,7 +28,7 @@ class SimplelistsUpdate
      * @return string Content from remote site
      */
     public function getRemote( $url ) {
-        require_once JPATH_COMPONENT.DS.'lib'.DS.'remote.class.php' ;
+        require_once JPATH_COMPONENT.'/lib/remote.class.php' ;
         $remote = new RemoteConnection();
         $remote->setUrl( $url );
         $content = $remote->getContent();

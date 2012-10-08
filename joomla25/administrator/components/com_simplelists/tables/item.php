@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -13,7 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Require the parent table
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'table.php';
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/table.php';
 
 /**
 * Item Table class

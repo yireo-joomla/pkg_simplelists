@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -13,13 +13,13 @@
 defined('_JEXEC') or die();
 
 // Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view.php';
+require_once JPATH_COMPONENT.'/lib/view.php';
 
 // Import the needed libraries
 jimport('joomla.filesystem.file');
 
 // Import the needed helpers
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'html.php';
+require_once JPATH_COMPONENT.'/helpers/html.php';
 
 /**
  * HTML View class

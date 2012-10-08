@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -13,7 +13,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the helper
-require_once dirname(dirname(__FILE__)).DS.'lib'.DS.'helper.php';
+require_once dirname(dirname(__FILE__)).'/lib/helper.php';
 
 /**
  * Simplelists HTML Helper
@@ -34,7 +34,7 @@ class SimplelistsHTML
     public function getCategories($parent_id = null) 
     {
         // Include the SimplelistsCategoryTree helper-class
-        require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'category.php';
+        require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/category.php';
 
         // Fetch the categories and parse them in a tree
         $categories = SimplelistsHelper::getCategories( null, $parent_id ) ;

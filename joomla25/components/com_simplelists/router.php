@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link https://www.yireo.com/
  */
@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 // Require the router-helper
-require_once JPATH_SITE.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'router.php';
+require_once JPATH_SITE.'/components/com_simplelists/helpers/router.php';
 
 /*
  * Function to convert a system URL to a SEF URL
@@ -106,7 +106,7 @@ function SimplelistsBuildRoute(&$query)
 
     // Set the alias if it is not present
     if(!empty($query['category_id']) && empty($query['alias'])) {
-        require_once JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'category.php';
+        require_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/category.php';
         $query['alias'] = SimplelistsCategoryHelper::getAlias($query['category_id']);
     }
 

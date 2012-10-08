@@ -101,8 +101,8 @@ class SimplelistsCategoryTree
     public function _getRoot() 
     {
         if(empty($this->root)) {
-            require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'models'.DS.'category.php';
-            require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'tables'.DS.'category.php';
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/category.php';
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/tables/category.php';
             $model = new SimplelistsModelCategory();
             $model->setId(0, false);
             $this->root = $model->getData();

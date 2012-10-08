@@ -20,7 +20,7 @@ class com_simplelistsInstallerScript
 			case 'install':
 			case 'update':
 
-                include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'install.simplelists.php';
+                include_once JPATH_ADMINISTRATOR.'/components/com_simplelists/install.simplelists.php';
                 if(function_exists('com_install')) {
                     // @todo: Removed in Joomla! 3.0
                     com_install();

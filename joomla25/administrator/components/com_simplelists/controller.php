@@ -13,10 +13,10 @@
 defined('_JEXEC') or die();
 
 // Include the parent controller
-require_once JPATH_COMPONENT.DS.'lib'.DS.'controller.php';
+require_once JPATH_COMPONENT.'/lib/controller.php';
 
 // Require the general helper
-require_once( JPATH_COMPONENT.DS.'helpers'.DS.'helper.php' );
+require_once( JPATH_COMPONENT.'/helpers/helper.php' );
 
 /**
  * Simplelists Controller

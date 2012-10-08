@@ -13,7 +13,7 @@
 defined('_JEXEC') or die();
 
 // Require the parent model
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'model.php';
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/model.php';
 
 class SimplelistsModelCategory extends YireoModel
 {
