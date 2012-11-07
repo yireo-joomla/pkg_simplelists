@@ -11,12 +11,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'view.php';
-
-// Require the YireoHelper class
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
-
 /**
  * HTML View class 
  */
@@ -82,7 +76,7 @@ class SimplelistsViewItems extends YireoView
 
             $totop = null;
 
-            if( $this->params->get('totop_image') && is_file( JPATH_SITE.DS.'images'.DS.'simplelists'.DS.$this->params->get('totop_image'))) {
+            if( $this->params->get('totop_image') && is_file( JPATH_SITE.'/images/simplelists/'.$this->params->get('totop_image'))) {
                 $totop_image = JHTML::image( 'images/simplelists/'.$this->params->get('totop_image'), $totop_text );
                 $totop_image = JHTML::link( $url.'#top', $totop_image, 'class="totop"' );
                 $totop .= $totop_image ;

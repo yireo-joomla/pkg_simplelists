@@ -12,9 +12,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require the parent table
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'table.php';
-
 /**
 * Plugin Table class
 *

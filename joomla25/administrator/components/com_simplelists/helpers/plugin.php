@@ -12,9 +12,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require the YireoHelper class
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
-
 // Load the plugin helper        
 jimport('joomla.plugin.helper');
 

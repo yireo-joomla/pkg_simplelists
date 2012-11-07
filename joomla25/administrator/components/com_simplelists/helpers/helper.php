@@ -11,9 +11,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require the Yireo helper
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
-
 /**
  * Simplelists Helper
  * 

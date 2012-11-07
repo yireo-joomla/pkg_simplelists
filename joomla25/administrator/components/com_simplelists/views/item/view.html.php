@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla! 
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_COMPONENT.'/lib/view/form.php';
-
 // Import the needed helpers
 require_once JPATH_COMPONENT.'/helpers/html.php';
 

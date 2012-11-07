@@ -25,68 +25,69 @@ if (function_exists('__autoload')) {
 spl_autoload_register('YireoLibraryLoader');
 
 // YireoLibLoader-function
-function YireoLibraryLoader($name = null)
-{
-    // Preliminary check
-    if(substr($name, 0, 5) != 'Yireo') return false;
+if(!function_exists('YireoLibraryLoader')) {
+    function YireoLibraryLoader($name = null) {
+        // Preliminary check
+        if(substr($name, 0, 5) != 'Yireo') return false;
 
-    // Construct the filename
-    $filename = null;
-    switch($name) {
-        case 'YireoDispatcher':
-            $filename = 'dispatcher';
-            break;
-        case 'YireoModel':
-        case 'YireoAbstractModel':
-            $filename = 'model';
-            break;
-        case 'YireoView':
-        case 'YireoCommonView':
-        case 'YireoAbstractView':
-            $filename = 'view';
-            break;
-        case 'YireoViewForm':
-            $filename = 'view/form';
-            break;
-        case 'YireoViewHome':
-            $filename = 'view/home';
-            break;
-        case 'YireoViewHomeAjax':
-            $filename = 'view/home_ajax';
-            break;
-        case 'YireoViewList':
-            $filename = 'view/list';
-            break;
-        case 'YireoController':
-        case 'YireoAbstractController':
-            $filename = 'controller';
-            break;
-        case 'YireoController':
-        case 'YireoAbstractController':
-            $filename = 'controller';
-            break;
-        case 'YireoTable':
-            $filename = 'table';
-            break;
-        case 'YireoHelper':
-            $filename = 'helper';
-            break;
-        case 'YireoHelperView':
-            $filename = 'helper/view';
-            break;
-        case 'YireoHelperInstall':
-            $filename = 'helper/install';
-            break;
-        case 'YireoHelperTable':
-            $filename = 'helper/table';
-            break;
+        // Construct the filename
+        $filename = null;
+        switch($name) {
+            case 'YireoDispatcher':
+                $filename = 'dispatcher';
+                break;
+            case 'YireoModel':
+            case 'YireoAbstractModel':
+                $filename = 'model';
+                break;
+            case 'YireoView':
+            case 'YireoCommonView':
+            case 'YireoAbstractView':
+                $filename = 'view';
+                break;
+            case 'YireoViewForm':
+                $filename = 'view/form';
+                break;
+            case 'YireoViewHome':
+                $filename = 'view/home';
+                break;
+            case 'YireoViewHomeAjax':
+                $filename = 'view/home_ajax';
+                break;
+            case 'YireoViewList':
+                $filename = 'view/list';
+                break;
+            case 'YireoController':
+            case 'YireoAbstractController':
+                $filename = 'controller';
+                break;
+            case 'YireoController':
+            case 'YireoAbstractController':
+                $filename = 'controller';
+                break;
+            case 'YireoTable':
+                $filename = 'table';
+                break;
+            case 'YireoHelper':
+                $filename = 'helper';
+                break;
+            case 'YireoHelperView':
+                $filename = 'helper/view';
+                break;
+            case 'YireoHelperInstall':
+                $filename = 'helper/install';
+                break;
+            case 'YireoHelperTable':
+                $filename = 'helper/table';
+                break;
+        }
+
+        // Try to include the needed file
+        if(!empty($filename)) {
+            include_once dirname(__FILE__).'/'.$filename.'.php';
+            return true;
+        }
+
+        return false;
     }
-
-    // Try to include the needed file
-    if(!empty($filename)) {
-        include_once dirname(__FILE__).'/'.$filename.'.php';
-        return true;
-    }
-
-    return false;
 }

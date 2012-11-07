@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!  
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_COMPONENT.'/lib/view.php';
-
 // Require the SimpleLists helper
 require_once JPATH_COMPONENT.'/helpers/category.php';
 

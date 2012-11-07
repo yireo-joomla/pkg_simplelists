@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -12,11 +12,8 @@
 // Check to ensure this file is included in Joomla!  
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view.php';
-
 // Require the SimpleLists helper
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'category.php';
+require_once JPATH_COMPONENT.'/helpers/category.php';
 
 /**
  * HTML View class 

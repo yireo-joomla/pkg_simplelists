@@ -11,12 +11,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'view.php';
-
-// Require the YireoHelper class
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
-require_once JPATH_COMPONENT_ADMINISTRATOR.DS.'helpers'.DS.'helper.php';
+// Require some extra things
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/helper.php';
 
 /**
  * HTML View class 

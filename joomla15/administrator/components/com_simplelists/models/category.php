@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the parent model
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'model.php';
-
 class SimplelistsModelCategory extends YireoModel
 {
     /**

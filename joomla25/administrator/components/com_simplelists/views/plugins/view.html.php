@@ -14,9 +14,6 @@ defined('_JEXEC') or die();
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
 
-// Require the parent view
-require_once JPATH_COMPONENT.'/lib/view.php';
-
 // Require the SimpleLists helper
 require_once JPATH_COMPONENT.'/helpers/plugin.php';
 

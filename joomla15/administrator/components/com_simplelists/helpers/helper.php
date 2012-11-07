@@ -11,9 +11,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require the Yireo helper
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
-
 /**
  * Simplelists Helper
  * 
@@ -283,8 +280,8 @@ class SimplelistsHelper
             if(!empty($needles['category_alias'])) {
                 $category_alias = $needles['category_alias'];
             } else {
-                require_once (dirname(__FILE__).DS.'category.php');
-                $category_alias = SimplelistsCategoryHelper::getAlias($category_id);
+                require_once (dirname(__FILE__).'/'.'category.php');
+                $category_alias = SimplelistsCategoryHelper::getAlias($needles['category_id']);
             }
 
             // Append the category ID (and optionally the category alias) to the URL
@@ -302,7 +299,7 @@ class SimplelistsHelper
         if($Itemid > 0) {
 
             // Check whether this Itemid is valid
-            include_once JPATH_SITE.DS.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'router.php' ;
+            include_once JPATH_SITE.'/components/com_simplelists/helpers/router.php' ;
             $menu_items = SimplelistsHelperRouter::getMenuItems();
             $match = false;
             foreach($menu_items as $menu_item) {
@@ -341,7 +338,7 @@ class SimplelistsHelper
     public function createThumbnail($image, $ext, $src_width, $src_height, $dest_width, $dest_height)
     {
         // Check for the caching folder
-        $folder = JPATH_ADMINISTRATOR.DS.'cache'.DS.'com_simplelists';
+        $folder = JPATH_ADMINISTRATOR.'/cache/com_simplelists';
         if(!JFolder::exists($folder)) {
             JFolder::create($folder);
         }
@@ -354,7 +351,7 @@ class SimplelistsHelper
 
         // Check for an existing thumbnail image
         $thumb_file = md5($image).'.'.$ext;
-        $thumb_path = $folder.DS.$thumb_file;
+        $thumb_path = $folder.'/'.$thumb_file;
         if(is_file($thumb_path) && is_readable($thumb_path)) {
             return 'administrator/cache/com_simplelists/'.$thumb_file;
         }

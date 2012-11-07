@@ -59,7 +59,7 @@ var base_path = '<?php echo $base_path; ?>';
         }
     }
 
-    if(!is_readable( JPATH_SITE.DS.$base_path )) {
+    if(!is_readable( JPATH_SITE.'/'.$base_path )) {
         $message = JText::_( 'Folder not readable' );
     } elseif( empty( $this->files ) && empty( $this->folders )) {
         $message = JText::_( 'No files or folders found' );

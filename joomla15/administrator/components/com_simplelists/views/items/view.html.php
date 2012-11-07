@@ -12,11 +12,8 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view'.DS.'list.php';
-
 // Import the needed helpers
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'html.php';
+require_once JPATH_COMPONENT.'/helpers/html.php';
 
 /**
  * HTML View class 

@@ -11,12 +11,15 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-// Require the base controller
+// Require the loader
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/lib/loader.php';
+
+// Require other files
 require_once JPATH_COMPONENT.'/controller.php';
 require_once JPATH_COMPONENT.'/helpers/icon.php';
 require_once JPATH_COMPONENT.'/helpers/html.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/helper.php';
-require_once JPATH_COMPONENT_ADMINISTRATOR.'helpers/plugin.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/plugin.php';
 
 // Initialize the controller
 $controller	= new SimplelistsController( );

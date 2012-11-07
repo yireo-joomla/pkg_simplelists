@@ -17,9 +17,6 @@ jimport('joomla.plugin.plugin');
 // Include the SimpleLists helper
 include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helper.php' ;
 
-// Include the Yireo Helper class
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
-
 /**
  * Search Helper
  */

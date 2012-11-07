@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link https://www.yireo.com/
  */
@@ -11,12 +11,15 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-// Require the base controller
-require_once JPATH_COMPONENT.DS.'controller.php';
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'icon.php';
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'html.php';
-require_once JPATH_COMPONENT_ADMINISTRATOR.DS.'helpers'.DS.'helper.php';
-require_once JPATH_COMPONENT_ADMINISTRATOR.DS.'helpers'.DS.'plugin.php';
+// Require the loader
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/lib/loader.php';
+
+// Require other files
+require_once JPATH_COMPONENT.'/controller.php';
+require_once JPATH_COMPONENT.'/helpers/icon.php';
+require_once JPATH_COMPONENT.'/helpers/html.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/helper.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/plugin.php';
 
 // Initialize the controller
 $controller	= new SimplelistsController( );

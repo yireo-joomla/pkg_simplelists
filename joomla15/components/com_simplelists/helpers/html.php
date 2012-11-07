@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link https://www.yireo.com/
  */
@@ -27,11 +27,11 @@ class SimplelistsHTML
      */
     public function image($file, $alt = null, $attribs = null)
     {
-        if(!file_exists(JPATH_SITE.DS.$file)) {
+        if(!file_exists(JPATH_SITE.'/'.$file)) {
             return null;
         }
 
-        $info = getimagesize(JPATH_SITE.DS.$file);
+        $info = getimagesize(JPATH_SITE.'/'.$file);
 
         if(empty($alt)) {
             $alt = basename($file);
@@ -41,7 +41,7 @@ class SimplelistsHTML
             $attribs = JArrayHelper::toString( $attribs );
         }
 
-        $picture = JURI::base().'/'.str_replace(DS, '/', $file);
+        $picture = JURI::base().'/'.$file;
 
         return '<img src="'.$picture.'" alt="'.$alt.'" '.$attribs.' '.$info[3].' />';
     }

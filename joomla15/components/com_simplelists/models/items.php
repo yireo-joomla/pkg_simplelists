@@ -11,9 +11,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the parent model
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'model.php';
-
 /**
  * Simplelists Items Model
  */
@@ -61,7 +58,7 @@ class SimplelistsModelItems extends YireoModel
     public function setIdByAlias($alias)
     {
         if(empty($this->_id)) {
-            require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'category.php';
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/category.php';
             $this->setId(SimplelistsCategoryHelper::getId($alias));
         }
     }
@@ -162,13 +159,13 @@ class SimplelistsModelItems extends YireoModel
             if(empty($category_id)) $category_id = $this->getId();
 
             // Fetch the category of these items
-            require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'models'.DS.'category.php';
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/category.php';
             $model = new SimplelistsModelCategory();
             $model->setId($category_id);
             $category = $model->getData();
 
             // Fetch the related categories (parent and children) of this category
-            require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'models'.DS.'categories.php';
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/categories.php';
             $model = new SimplelistsModelCategories();
             $model->addWhere('category.id = '.(int)$category->parent_id.' OR category.parent_id = '.(int)$category->id);
             $related = $model->getData();

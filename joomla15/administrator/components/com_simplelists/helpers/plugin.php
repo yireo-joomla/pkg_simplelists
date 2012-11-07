@@ -4,16 +4,13 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
-// Require the YireoHelper class
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
 
 // Load the plugin helper        
 jimport('joomla.plugin.helper');
@@ -38,9 +35,9 @@ class SimplelistsPluginHelper
         }
 
         if(YireoHelper::isJoomla15()) {
-        	$path = JPATH_PLUGINS.DS.$plugin->type.DS.$plugin->name.'.php';
+        	$path = JPATH_PLUGINS.'/'.$plugin->type.'/'.$plugin->name.'.php';
         } else {
-        	$path = JPATH_PLUGINS.DS.$plugin->type.DS.$plugin->name.DS.$plugin->name.'.php';
+        	$path = JPATH_PLUGINS.'/'.$plugin->type.'/'.$plugin->name.'/'.$plugin->name.'.php';
         }
 
         if(!file_exists($path)) {

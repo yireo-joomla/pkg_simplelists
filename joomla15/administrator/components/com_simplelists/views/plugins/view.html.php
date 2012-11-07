@@ -3,7 +3,7 @@
  * Joomla! component Simple Lists
  *
  * @author Yireo
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -14,11 +14,8 @@ defined('_JEXEC') or die();
 // Import Joomla! libraries
 jimport( 'joomla.application.component.view');
 
-// Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view.php';
-
 // Require the SimpleLists helper
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'plugin.php';
+require_once JPATH_COMPONENT.'/helpers/plugin.php';
 
 /**
  * HTML View class 

@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
-// Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view.php';
-
 /**
  */
 class SimpleListsViewFiles extends YireoView

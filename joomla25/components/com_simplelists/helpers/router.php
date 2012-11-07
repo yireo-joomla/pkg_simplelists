@@ -11,10 +11,8 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require the Yireo Helper
-if(class_exists('YireoHelper') == false) {
-    require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
-}
+// Require the Yireo loader
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/loader.php';
 
 /**
  * Router Helper

@@ -11,12 +11,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/view.php';
-
-// Require the YireoHelper class
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/helper.php';
-
 /**
  * Feed View class for the SimpleLists component
  */

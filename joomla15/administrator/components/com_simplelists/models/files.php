@@ -256,9 +256,9 @@ class SimpleListsModelFiles extends JModel
     
                 $tmp = new JObject();
                 $tmp->name = basename($subfolder);
-                $tmp->path = JPath::clean($folderPath.DS.$subfolder);
-                $tmp->path_relative = str_replace(JPATH_ROOT.DS, '', $tmp->path);
-                $tmp->path_uri = str_replace(DS, '/', $tmp->path_relative);
+                $tmp->path = JPath::clean($folderPath.'/'.$subfolder);
+                $tmp->path_relative = str_replace(JPATH_ROOT.'/', '', $tmp->path);
+                $tmp->path_uri = $tmp->path_relative;
                 $count = MediaHelper::countFiles($tmp->path);
                 $tmp->files = $count[0];
                 $tmp->subfolders = $count[1];

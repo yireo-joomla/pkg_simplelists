@@ -12,13 +12,10 @@
 // Check to ensure this file is included in Joomla!  
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_COMPONENT.'/lib/view.php';
-
 /**
  * HTML View class 
  */
-class SimpleListsViewHome extends YireoView
+class SimpleListsViewHome extends YireoViewHomeAjax
 {
     /*
      * Display method

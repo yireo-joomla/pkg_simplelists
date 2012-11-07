@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the Yireo helper
-require_once JPATH_COMPONENT.DS.'lib'.DS.'helper.php';
-
 // Initialize the ACLs
 SimpleListsHelperAcl::init();
 
@@ -41,7 +38,7 @@ class SimpleListsHelperAcl
     }
 
     /*
-     * Check whether a certain person is authorized
+     * Check whether a certain person is authorised
      *
      * @param mixed $string
      * @return string

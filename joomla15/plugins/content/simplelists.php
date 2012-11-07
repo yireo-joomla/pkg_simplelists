@@ -15,8 +15,8 @@ defined( '_JEXEC' ) or die();
 // Import the parent class
 jimport( 'joomla.plugin.plugin' );
 
-// Import the YireoHelper
-include_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
+// Import the Yireo loader
+include_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/loader.php';
 
 /**
  * SimpleLists Content Plugin

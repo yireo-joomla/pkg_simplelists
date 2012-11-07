@@ -11,9 +11,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('No access');
 
-// Include the parent controller
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/controller.php';
-
 /**
  * Simplelists Controller
  */

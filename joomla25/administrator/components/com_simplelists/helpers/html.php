@@ -12,9 +12,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Include the helper
-require_once dirname(dirname(__FILE__)).'/lib/helper.php';
-
 /**
  * Simplelists HTML Helper
  * 

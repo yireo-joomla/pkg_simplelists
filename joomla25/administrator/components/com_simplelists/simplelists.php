@@ -17,6 +17,9 @@ define('COM_SIMPLELISTS_DIR', 'images/simplelists/');
 define('COM_SIMPLELISTS_BASE', JPATH_ROOT.'/'.COM_SIMPLELISTS_DIR);
 define('COM_SIMPLELISTS_BASEURL', JURI::root().COM_SIMPLELISTS_DIR);
 
+// Require the Yireo loader
+require_once JPATH_COMPONENT.'/lib/loader.php';
+
 // Manage common includes
 require_once JPATH_COMPONENT.'/helpers/acl.php';
 require_once JPATH_COMPONENT.'/helpers/helper.php';

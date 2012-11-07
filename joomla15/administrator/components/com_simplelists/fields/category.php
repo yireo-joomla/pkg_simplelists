@@ -13,8 +13,8 @@
 defined('_JEXEC') or die();
 
 // Import the libraries
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'html.php';
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'helper.php';
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/html.php';
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/helper.php';
 
 // Import required libraries
 jimport('joomla.html.html');

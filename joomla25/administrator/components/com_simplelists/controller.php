@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Include the parent controller
-require_once JPATH_COMPONENT.'/lib/controller.php';
-
 // Require the general helper
 require_once( JPATH_COMPONENT.'/helpers/helper.php' );
 

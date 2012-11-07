@@ -15,10 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.plugin.plugin');
 
 // Include the SimpleLists helper
-include_once JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'helper.php' ;
-
-// Include the Yireo Helper class
-require_once JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS.'lib'.DS.'helper.php';
+include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helper.php' ;
 
 /**
  * Search Helper
@@ -44,7 +41,7 @@ class SimplelistsHelperSearch
         $nullDate = $db->getNullDate();
         jimport('joomla.utilities.date');
         $date = new JDate();
-        $now = $date->toMySQL();
+        $now = (method_exists('JDate', 'toSql')) ? $date->toSql() : $date->toMySQL();
 
         // Construct the WHERE-segments
         $wheres = array();

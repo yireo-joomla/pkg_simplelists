@@ -12,11 +12,8 @@
 // Check to ensure this file is included in Joomla! 
 defined('_JEXEC') or die();
 
-// Require the parent view
-require_once JPATH_COMPONENT.DS.'lib'.DS.'view'.DS.'form.php';
-
 // Import the needed helpers
-require_once JPATH_COMPONENT.DS.'helpers'.DS.'html.php';
+require_once JPATH_COMPONENT.'/helpers/html.php';
 
 /**
  * HTML View class for the Simplelists component
@@ -48,8 +45,8 @@ class SimplelistsViewItem extends YireoViewForm
         $this->item->picture_uri = $this->item->image_default_uri;
         $this->item->picture_path = null;
         if(!empty($this->item->picture)) {
-            $this->item->picture_path = JPATH_SITE.DS.$this->item->picture;
-            $this->item->picture_uri = str_replace(DS, '/', $this->item->picture);
+            $this->item->picture_path = JPATH_SITE.'/'.$this->item->picture;
+            $this->item->picture_uri = $this->item->picture;
             $this->item->picture_folder = dirname($this->item->picture_uri);
         }
 

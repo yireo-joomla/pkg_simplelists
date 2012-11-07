@@ -12,9 +12,6 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Require the parent table
-require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/table.php';
-
 /**
 * Item Table class
 */

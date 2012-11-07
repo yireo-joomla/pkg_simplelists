@@ -12,9 +12,6 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Require the Yireo helper
-require_once JPATH_COMPONENT.'/lib/helper.php';
-
 // Initialize the ACLs
 SimpleListsHelperAcl::init();
 
