@@ -21,9 +21,6 @@ if (function_exists('__autoload')) {
     spl_autoload_register('__autoload');
 }
 
-// Add our own loader-function to SPL
-spl_autoload_register('YireoLibraryLoader');
-
 // YireoLibLoader-function
 if(!function_exists('YireoLibraryLoader')) {
     function YireoLibraryLoader($name = null) {
@@ -91,3 +88,7 @@ if(!function_exists('YireoLibraryLoader')) {
         return false;
     }
 }
+
+// Add our own loader-function to SPL
+spl_autoload_register('YireoLibraryLoader');
+
