@@ -7,11 +7,14 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+
+// Import the loader
+require_once dirname(__FILE__).'/loader.php';
 
 /**
  * Yireo Helper
@@ -231,14 +234,26 @@ class YireoHelper
      */
     static public function jquery()
     {
-        if (JFactory::getApplication()->get('jquery') == true) return;
+        // Load jQuery using the framework (Joomla! 3.0 and higher)
+        if(YireoHelper::isJoomla15() == false && YireoHelper::isJoomla25() == false) {
+            return JHtml::_('jquery.framework');
+        }
 
+        // Check if jQuery is loaded already
+        $application = JFactory::getApplication();
+        if (method_exists($application, 'get') && $application->get('jquery') == true) {
+            return;
+        }
+
+        // Load jQuery
         $option = JRequest::getCmd('option');
         if (file_exists(JPATH_SITE.'/media/'.$option.'/js/jquery.js')) {
             $document = JFactory::getDocument();
             $document->addScript(JURI::root().'media/'.$option.'/js/jquery.js');
             $document->addCustomTag('<script type="text/javascript">jQuery.noConflict();</script>');
-            JFactory::getApplication()->set('jquery', true);
+
+            // Set the flag that jQuery has been loaded
+            if(method_exists($application, 'set')) $application->set('jquery', true);
         }
     }
 }

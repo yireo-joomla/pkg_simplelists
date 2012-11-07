@@ -7,27 +7,26 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import the Yireo helper
-require_once dirname(__FILE__).'/helper.php';
+// Import the loader
+require_once dirname(__FILE__).'/loader.php';
 
 /**
  * Yireo Abstract Model
  *
  * @package Yireo
  */
-if(YireoHelper::isJoomla25()) {
+if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
     jimport('joomla.application.component.model');
     class YireoAbstractModel extends JModel {}
 } else {
     class YireoAbstractModel extends JModelLegacy {}
 }
-
 
 /**
  * Yireo Model 
@@ -697,11 +696,13 @@ class YireoModel extends YireoAbstractModel
 
         // Automatically set some data
         $data['modified'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();
+        $data['modified_date'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();
         $data['modified_by'] = $uid;
 
         // Set the creation date if the item is new
-        if ($data['id'] == 0) {
+        if (empty($data['id']) || $data['id'] == 0) {
             $data['created'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();
+            $data['created_date'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();
             $data['created_by'] = $uid;
         }
 
@@ -713,16 +714,24 @@ class YireoModel extends YireoAbstractModel
         }
 
         // All parameters to override these values
-        if (!empty( $data['params']['created'])) $data['created'] = $data['params']['created'];
-        if (!empty( $data['params']['created_by'])) $data['created_by'] = $data['params']['created_by'];
-        if (!empty( $data['params']['modified'])) $data['modified'] = $data['params']['modified'];
-        if (!empty( $data['params']['modified_by'])) $data['modified_by'] = $data['params']['modified_by'];
+        if (is_array($data['params'])) {
+            if (!empty( $data['params']['created'])) $data['created'] = $data['params']['created'];
+            if (!empty( $data['params']['created_date'])) $data['created'] = $data['params']['created_date'];
+            if (!empty( $data['params']['created_by'])) $data['created_by'] = $data['params']['created_by'];
+            if (!empty( $data['params']['modified'])) $data['modified'] = $data['params']['modified'];
+            if (!empty( $data['params']['modified_date'])) $data['modified'] = $data['params']['modified_date'];
+            if (!empty( $data['params']['modified_by'])) $data['modified_by'] = $data['params']['modified_by'];
+        }
 
         // Unset these parameters
-        if (isset($data['params']['created'])) unset( $data['params']['created'] );
-        if (isset($data['params']['created_by'])) unset( $data['params']['created_by'] );
-        if (isset($data['params']['modified'])) unset( $data['params']['modified'] );
-        if (isset($data['params']['modified_by'])) unset( $data['params']['modified_by'] );
+        if (is_array($data['params'])) {
+            if (isset($data['params']['created'])) unset( $data['params']['created'] );
+            if (isset($data['params']['created_date'])) unset( $data['params']['created_date'] );
+            if (isset($data['params']['created_by'])) unset( $data['params']['created_by'] );
+            if (isset($data['params']['modified'])) unset( $data['params']['modified'] );
+            if (isset($data['params']['modified_date'])) unset( $data['params']['modified_date'] );
+            if (isset($data['params']['modified_by'])) unset( $data['params']['modified_by'] );
+        }
 
         // Bind the form fields to the table
         if (!$this->_tbl->bind($data)) {

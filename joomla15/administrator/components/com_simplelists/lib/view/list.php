@@ -7,14 +7,14 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Require the parent view
-require_once dirname(dirname(__FILE__)).'/view.php';
+require_once dirname(dirname(__FILE__)).'/loader.php';
 
 /**
  * List View class

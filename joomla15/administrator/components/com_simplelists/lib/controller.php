@@ -7,21 +7,21 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import the helpers
-require_once dirname(__FILE__).'/helper.php';
+// Import the loader
+require_once dirname(__FILE__).'/loader.php';
 
 /**
  * Yireo Abstract Controller
  *
  * @package Yireo
  */
-if(YireoHelper::isJoomla25()) {
+if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
     jimport( 'joomla.application.component.controller' );
     class YireoAbstractController extends JController {}
 } else {
@@ -144,7 +144,6 @@ class YireoController extends YireoAbstractController
 
         // Neat trick to automatically remove obsolete files
         if (JRequest::getCmd('view') == $this->_default_view) {
-            require_once dirname(__FILE__).'/helper/install.php';
             YireoHelperInstall::remove();
         }
     }
@@ -157,7 +156,7 @@ class YireoController extends YireoAbstractController
      * @param null
      * @return null
      */
-	public function display($cachable = false, $urlparams = false)
+    public function display($cachable = false, $urlparams = false)
     {
         // Set the layout properly
         if (in_array(JRequest::getVar('format'), array('pdf', 'print'))) {
@@ -222,16 +221,16 @@ class YireoController extends YireoAbstractController
      * 
      * @access public
      * @subpackage Yireo
-     * @param null
+     * @param array $post
      * @return null
      */
-    public function store()
+    public function store($post = null)
     {
         // Security check
         JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         // Fetch the POST-data
-        $post = JRequest::get('post');
+        if(empty($post)) $post = JRequest::get('post');
         $post['id'] = $this->getId();
         $this->id = $post['id'] ;
 
@@ -350,16 +349,15 @@ class YireoController extends YireoAbstractController
         $this->doRedirect( JRequest::getVar('view'), array( 'id' => 0, 'task' => 'add'));
     }
 
-
     /**
-     * Handle the task 'savecopy'
+     * Handle the task 'saveandcopy'
      *
      * @access public
      * @subpackage Yireo
      * @param null
      * @return null
      */
-    public function savecopy()
+    public function saveandcopy()
     {
         // Security check
         JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
@@ -371,6 +369,30 @@ class YireoController extends YireoAbstractController
         $this->doRedirect( JRequest::getVar('view'), array( 'id' => $this->getId(), 'task' => 'copy'));
     }
 
+    /**
+     * Handle the task 'saveascopy'
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param null
+     * @return null
+     */
+    public function saveascopy()
+    {
+        // Security check
+        JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        // Remove the identifier from whereever
+        JRequest::setVar('id', 0);
+        JRequest::setVar('cid[]', 0);
+        JRequest::setVar('cid', null);
+
+        // Store these data
+        $this->store();
+
+        // Redirect to the form-page
+        $this->doRedirect( JRequest::getVar('view'), array( 'id' => $this->getId(), 'task' => 'copy'));
+    }
 
     /**
      * Handle the task 'remove'
@@ -712,12 +734,11 @@ class YireoController extends YireoAbstractController
             $name = $this->getSingleName(JRequest::getVar('view'));
 
             // Create the model-object from the singular model-name
-            $model = $this->getModel($this->getSingleName(JRequest::getVar('view')));
+            $model = $this->getModel($name);
 
             // If it is still empty, try to create the model manually instead
             if (empty($model)) {
                 // @todo: Throw a log-warning here
-                require_once dirname(__FILE__).'/model.php';
                 $model = new YireoModel($name, $name.'s', $name.'_id');
             }
 

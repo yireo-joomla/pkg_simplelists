@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
@@ -96,5 +96,62 @@ class YireoHelperView
         $text = preg_replace('/^\<p\>\&nbsp\;\<\/p\>/','', $text);
         $text = preg_replace('/\<p\>\&nbsp\;\<\/p\>$/','', $text);
         return $text;
+    }
+
+    /*
+     * Add the AJAX-script to the page
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param string $url
+     * @param string $div
+     * @return null
+     */
+    static public function ajax($url = null, $div = null)
+    {
+        $document = JFactory::getDocument();
+        if(stristr(get_class($document), 'html') == false) {
+            return false;
+        }
+
+        if (YireoHelper::isJoomla15()) {
+            $script = "<script type=\"text/javascript\">\n"
+                . "window.addEvent('domready', function(){\n"
+                . "    var MBajax = new Ajax( '".$url."', {onSuccess: function(r){\n"
+                . "        $('".$div."').innerHTML = r;\n"
+                . "    }});\n"
+                . "    MBajax.request();\n"
+                . "});\n"
+                . "</script>";
+        } elseif (YireoHelper::isJoomla25()) {
+            $script = "<script type=\"text/javascript\">\n"
+                . "window.addEvent('domready', function(){\n"
+                . "    var MBajax = new Request({\n"
+                . "        url: '".$url."', \n"
+                . "        onComplete: function(r){\n"
+                . "            $('".$div."').innerHTML = r;\n"
+                . "        }\n"
+                . "    }).send();\n"
+                . "});\n"
+                . "</script>";
+        } else {
+            $script = "<script type=\"text/javascript\">\n"
+                . "jQuery(document).ready(function() {\n"
+                . "    var MBajax = jQuery.ajax({\n"
+                . "        url: '".$url."', \n"
+                . "        method: 'get', \n"
+                . "        success: function(result){\n"
+                . "            if (result == '') {\n"
+                . "                alert('Empty result');\n"
+                . "            } else {\n"
+                . "                jQuery('#".$div."').html(result);\n"
+                . "            }\n"
+                . "        }\n"
+                . "    });\n"
+                . "});\n"
+                . "</script>";
+        }
+
+        $document->addCustomTag( $script );
     }
 }

@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
@@ -46,7 +46,7 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $this->fields['state_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
             </th>
             <?php endif; ?>
-            <?php if($hasState) : ?>
+            <?php if($hasOrdering) : ?>
             <th width="8%" nowrap="nowrap">
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ORDERING', $this->fields['ordering_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
                 <?php echo JHTML::_('grid.order', $this->items ); ?>
@@ -73,6 +73,13 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
     if (!empty($this->items)) {
         foreach($this->items as $item) {
 
+            // Construct the checkbox
+            if(isset($item->hasCheckbox) && $item->hasCheckbox == false) {
+                $checkbox = $this->getImageTag('disabled.png');
+            } else {
+                $checkbox = $this->checkbox($item, $i);
+            }
+
             // Construct the published-field
             if(isset($item->hasState) && $item->hasState == false) {
                 $published = $this->getImageTag('disabled.png');
@@ -95,7 +102,7 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                     <?php echo $i+1; ?>
                 </td>
                 <td>
-                    <?php echo $this->checkbox($item, $i); ?>
+                    <?php echo $checkbox; ?>
                 </td>
                 <?php echo $this->loadTemplate('tbody', array('item' => $item, 'auto_columns' => $auto_columns, 'published' => $published)); ?>
                 <?php if($auto_columns): ?>

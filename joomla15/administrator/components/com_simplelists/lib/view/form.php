@@ -7,14 +7,14 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
 // Require the parent view
-require_once dirname(dirname(__FILE__)).'/view.php';
+require_once dirname(dirname(__FILE__)).'/loader.php';
 
 // Import the needed libraries
 jimport('joomla.filter.output');
@@ -69,6 +69,35 @@ class YireoViewForm extends YireoView
         // Automatically fetch the item and assign it to the layout
         $this->fetchItem();
 
+        // Automatically load the parameters form
+        $this->loadParametersForm();
+
         parent::display($tpl);
+    }
+
+    /*
+     * Load the parameters form
+     *
+     * @access public
+     * @param null
+     * @return null
+     */
+    public function loadParametersForm()
+    {
+        // Initialize parameters
+        $view = JRequest::getCmd('view');
+        $file = JPATH_COMPONENT.'/models/'.$view.'.xml';
+        if(file_exists($file) == false) {
+            return false;
+        }
+
+        if(YireoHelper::isJoomla15()) {
+            $params = YireoHelper::toRegistry($this->item->params, $file);
+            $this->assignRef('params', $params);
+        } else {
+            $form = JForm::getInstance('params', $file);
+            $this->assignRef('paramsForm', $form);
+        }
+        return true;
     }
 }

@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.0
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
@@ -16,18 +16,15 @@ defined('_JEXEC') or die();
 // Includes from Joomla! Framework
 jimport('joomla.filter.output');
 
-// Include the generic helper
-require_once dirname(__FILE__).'/helper.php';
-
-// Include the view helper
-require_once dirname(__FILE__).'/helper/view.php';
+// Include the loader
+require_once dirname(__FILE__).'/loader.php';
 
 /**
  * Yireo Abstract View 
  *
  * @package Yireo
  */
-if(YireoHelper::isJoomla25()) {
+if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
     jimport('joomla.application.component.view');
     class YireoAbstractView extends JView {}
 } else {
@@ -139,6 +136,9 @@ class YireoCommonView extends YireoAbstractView
 
         } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/css/'.$stylesheet)) {
             $this->document->addStyleSheet(JURI::root().'media/'.$this->_option.'/css/'.$stylesheet) ;
+
+        } else if (file_exists( JPATH_SITE.'/media/lib_yireo/css/'.$stylesheet)) {
+            $this->document->addStyleSheet(JURI::root().'media/lib_yireo/css/'.$stylesheet) ;
         }
     }
 
@@ -166,6 +166,9 @@ class YireoCommonView extends YireoAbstractView
 
         } else if (file_exists( JPATH_SITE.'/media/'.$this->_option.'/js/'.$script)) {
             $this->document->addScript(JURI::root().'media/'.$this->_option.'/js/'.$script) ;
+
+        } else if (file_exists( JPATH_SITE.'/media/lib_yireo/js/'.$script)) {
+            $this->document->addScript(JURI::root().'media/lib_yireo/js/'.$script) ;
         }
     }
 
@@ -371,8 +374,9 @@ class YireoView extends YireoCommonView
 
             // Add some things to the task-bar
             if ($this->_single && $this->loadToolbar == true) {
-                JToolBarHelper::custom( 'savenew', 'save.png', 'save.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
-                JToolBarHelper::custom( 'savecopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVECOPY', false, true);
+                if($this->params->get('toolbar_show_savenew', 1)) JToolBarHelper::custom( 'savenew', 'save.png', 'save.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVENEW', false, true);
+                if($this->params->get('toolbar_show_saveandcopy', 1)) JToolBarHelper::custom( 'saveandcopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVEANDCOPY', false, true);
+                if($this->params->get('toolbar_show_saveascopy', 1)) JToolBarHelper::custom( 'saveascopy', 'copy.png', 'copy.png', 'LIB_YIREO_VIEW_TOOLBAR_SAVEASCOPY', false, true);
                 JToolBarHelper::save();
                 JToolBarHelper::apply();
 
@@ -645,7 +649,12 @@ class YireoView extends YireoCommonView
 
         $ordering = $this->model->getOrderByDefault();
         if (!empty($ordering) && $ordering == 'ordering') {
-            $this->lists['ordering'] = JHTML::_('list.ordering', 'ordering', $this->model->getOrderingQuery(), $this->item->ordering);
+            if (YireoHelper::isJoomla15()) {
+                $order = JHTML::_('list.genericordering',  $this->model->getOrderingQuery());
+                $this->lists['ordering'] = JHTML::_('select.genericlist', $order, 'ordering', 'class="inputbox" size="1"', 'value', 'text', intval($this->item->ordering));
+            } else {
+                $this->lists['ordering'] = JHTML::_('list.ordering', 'ordering', $this->model->getOrderingQuery(), $this->item->ordering);
+            }
         } else {
             $this->lists['ordering'] = null;
         }
@@ -662,45 +671,7 @@ class YireoView extends YireoCommonView
      */
     public function ajax($url = null, $div = null)
     {
-        if (YireoHelper::isJoomla15()) {
-            $script = "<script type=\"text/javascript\">\n"
-                . "window.addEvent('domready', function(){\n"
-                . "    var MBajax = new Ajax( '".$url."', {onSuccess: function(r){\n"
-                . "        $('".$div."').innerHTML = r;\n"
-                . "    }});\n"
-                . "    MBajax.request();\n"
-                . "});\n"
-                . "</script>";
-        } elseif (YireoHelper::isJoomla25()) {
-            $script = "<script type=\"text/javascript\">\n"
-                . "window.addEvent('domready', function(){\n"
-                . "    var MBajax = new Request({\n"
-                . "        url: '".$url."', \n"
-                . "        onComplete: function(r){\n"
-                . "            $('".$div."').innerHTML = r;\n"
-                . "        }\n"
-                . "    }).send();\n"
-                . "});\n"
-                . "</script>";
-        } else {
-            $script = "<script type=\"text/javascript\">\n"
-                . "jQuery(document).ready(function() {\n"
-                . "    var MBajax = jQuery.ajax({\n"
-                . "        url: '".$url."', \n"
-                . "        method: 'get', \n"
-                . "        success: function(result){\n"
-                . "            if (result == '') {\n"
-                . "                alert('Empty result');\n"
-                . "            } else {\n"
-                . "                jQuery('#".$div."').html(result);\n"
-                . "            }\n"
-                . "        }\n"
-                . "    });\n"
-                . "});\n"
-                . "</script>";
-        }
-
-        $this->document->addCustomTag( $script );
+        return YireoHelperView::ajax($url, $div);
     }
 
     /*
@@ -904,5 +875,25 @@ class YireoView extends YireoCommonView
         }
 
         return null;
+    }
+
+    /*      
+     * Override original method
+     *          
+     * @return  string The name of the model
+     * @todo: Check compatibility with joomla25, joomla30
+     */     
+    public function getName()
+    {   
+        $name = $this->_name;
+        if (empty( $name )) {
+            $r = null;
+            if (!preg_match('/View((view)*(.*(view)?.*))$/i', get_class($this), $r)) {
+                JError::raiseError (500, "JView::getName() : Cannot get or parse class name.");
+                return null;
+            }
+            $name = strtolower( $r[3] );
+        }   
+        return $name;
     }
 }
