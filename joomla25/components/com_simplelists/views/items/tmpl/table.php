@@ -19,10 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 <?php $i = 1; ?>
 <table class="<?php echo $this->page_class; ?>">
 <?php foreach( $this->items as $item ): ?>
-
-    <?php if($i % $columns == 1) { ?>
      <tr>
-    <?php } ?>
         <td>
             <table>
                 <tr class="simplelists-item">
@@ -68,12 +65,8 @@ defined('_JEXEC') or die('Restricted access');
                 <?php endif; ?>
             </table>
         </td>
-    <?php if($i % $columns == 0) { ?>
     </tr>
-    <?php } ?>
-
     <?php $i++; ?>
-
 <?php endforeach; ?>
 </table>
 <?php else: ?>
