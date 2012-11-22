@@ -19,7 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 
         <a name="<?php echo $item->href; ?>"></a>
 
-        <div class="simplelists-item-basic">
+        <div class="<?php echo $item->class; ?>">
         <?php if($item->picture): ?>
         <?php echo $item->picture; ?>
         <?php endif; ?>

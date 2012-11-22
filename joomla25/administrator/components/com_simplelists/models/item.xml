@@ -76,6 +76,22 @@
             <field name="modified_by" type="user" default="" label="Modified By" description="PARAM ITEM MODIFIEDBY" />
             <field name="publish_up" type="calendar" default="" label="Publish Up" description="PARAM ITEM PUBLISHUP" />
             <field name="publish_down" type="calendar" default="" label="Publish Down" description="PARAM ITEM PUBLISHDOWN" />
+            <field name="new" type="list" default="0" label="New" description="">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
+            <field name="featured" type="list" default="0" label="Featured" description="">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
+            <field name="popular" type="list" default="0" label="Popular" description="">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
+            <field name="approved" type="list" default="0" label="Approved" description="">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </field>
         </fieldset>
 
         <fieldset name="params_meta" label="COM_SIMPLELISTS_ITEM_PARAMS_META_FIELDSET">

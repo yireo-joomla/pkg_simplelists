@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
 <?php if(!empty( $this->items)): ?>
 <div id="simplelists" class="<?php echo $this->page_class; ?>">
 <?php foreach( $this->items as $item ): ?>
-    <div class="simplelists-item">
+    <div class="<?php echo $item->class; ?>">
         <div class="heading" style="background-color:<?php echo $this->params->get('header_bgcolor'); ?>">
             <?php if($this->params->get('disable_jumplabels', 0) == 0) { ?>
             <a name="<?php echo $item->href; ?>" />

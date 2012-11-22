@@ -19,7 +19,7 @@ defined('_JEXEC') or die('Restricted access');
 
         <a name="<?php echo $item->href; ?>"></a>
 
-        <div class="simplelists-item">
+        <div class="<?php echo $item->class; ?>">
 
             <div class="image" style="float:<?php echo $item->picture_alignment; ?>">
                 <?php if($item->picture): ?>

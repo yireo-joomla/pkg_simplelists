@@ -32,7 +32,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="<?php echo $this->page_class; ?>">
 <?php foreach( $this->items as $item ) : ?>
-    <div class="simplelists-item" id="item<?php echo $item->id; ?>" style="<?php echo $item->style; ?>">
+    <div class="<?php echo $item->class; ?>" id="item<?php echo $item->id; ?>" style="<?php echo $item->style; ?>">
 
         <a name="<?php echo $item->href; ?>"></a>
 

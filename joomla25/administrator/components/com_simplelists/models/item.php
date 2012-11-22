@@ -41,31 +41,32 @@ class SimplelistsModelItem extends YireoModel
      */
     public function store($data)
     {
+        $params = JComponentHelper::getParams ('com_simplelists');
         $table = $this->getTable();
 
         // Insert $categories manually
-        if(!empty( $data['categories'] )) {
+        if (!empty( $data['categories'] )) {
             $categories = $data['categories'] ;
             unset($data['categories']) ;
         }
 
         // Insert link manually
-        if(isset($data['link_type'])) {
+        if (isset($data['link_type'])) {
             $type = $data['link_type'];
             if(!empty($data['link_'.$type])) {
                 $data['link'] = $data['link_'.$type];
             }
         }
 
-        // @todo: Implement "flags" (F = featured, N = new, P = popular)
-
         // Remove the old category-relations
-        if( $data['id'] == 0 && count($categories) == 1 ) {
+        if ($params->get('auto_ordering', 1) == 1 && $data['id'] == 0 && count($categories) == 1) {
             $query = 'SELECT MAX(`item`.`ordering`) FROM `#__simplelists_items` AS `item`'
                 . ' LEFT JOIN `#__simplelists_categories` AS `category` ON `category`.`id`=`item`.`id`'
                 . ' WHERE `category`.`category_id`='.$categories[0];
             $this->_db->setQuery( $query );
             $data['ordering'] = $this->_db->loadResult() + 1;
+        } else {
+            $data['ordering'] = 0;
         }
 
         // Store these data

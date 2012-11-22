@@ -342,6 +342,14 @@ class SimplelistsViewItems extends YireoView
             $item->picture = null ;
         }
 
+        // Construct the class
+        $classes = array('simplelists-item');
+        if($item->params->get('new') == 1) $classes[] = 'simplelists-item-new';
+        if($item->params->get('featured') == 1) $classes[] = 'simplelists-item-featured';
+        if($item->params->get('popular') == 1) $classes[] = 'simplelists-item-popular';
+        if($item->params->get('approved') == 1) $classes[] = 'simplelists-item-approved';
+        $item->class = implode(' ', $classes);
+
         // Prepare the title
         if( $item->params->get('show_item_title', 1) ) {
             if( $item->params->get('title_link') && !empty( $item->url )) {

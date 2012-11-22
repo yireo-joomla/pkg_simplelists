@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
     <?php endif; ?>
         <td>
             <table>
-                <tr class="simplelists-item">
+                <tr class="<?php echo $item->class; ?>">
 
                     <?php if(!empty($item->picture) && $item->picture_alignment != 'right'): ?>
                     <td valign="middle" align="center" class="simplelists-item-image">
