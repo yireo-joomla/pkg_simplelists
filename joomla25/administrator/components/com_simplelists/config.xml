@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-    <fieldset name="category" label="Category">
-        <field name="show_category_title" type="radio" default="1" label="Category Title" description="PARAM CATEGORY TITLE">
+    <fieldset name="category" label="COM_SIMPLELISTS_CONFIG_FIELDSET_CATEGORY">
+        <field name="show_category_title" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_TITLE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_TITLE_DESC">
             <option value="0">Hide</option>
             <option value="1">Show</option>
         </field>
-        <field name="show_category_description" type="radio" default="1" label="Category Description" description="PARAM CATEGORY DESCRIPTION">
+        <field name="show_category_description" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION_DESC">
             <option value="0">Hide</option>
             <option value="1">Show</option>
         </field>
-        <field name="show_category_image" type="radio" default="1" label="Category Image" description="PARAM CATEGORY IMAGE">
-            <option value="0">Hide</option>
-            <option value="1">Show</option>
-        </field>
-    </fieldset>
-    <fieldset name="item-basic" label="Item Basic">
-        <field name="show_item_title" type="radio" default="1" label="Item Title" description="PARAM ITEM TITLE">
-            <option value="0">Hide</option>
-            <option value="1">Show</option>
-        </field>
-        <field name="show_item_text" type="radio" default="1" label="Item Text" description="PARAM ITEM TEXT">
-            <option value="0">Hide</option>
-            <option value="1">Show</option>
-        </field>
-        <field name="show_item_image" type="radio" default="1" label="Item Image" description="PARAM ITEM IMAGE">
-            <option value="0">Hide</option>
-            <option value="1">Show</option>
-        </field>
-        <field name="title_link" type="radio" default="0" label="Item Linked Title" description="PARAM ITEM LINK TITLE">
-            <option value="0">Hide</option>
-            <option value="1">Show</option>
-        </field>
-        <field name="image_link" type="radio" default="1" label="Item Linked Image" description="PARAM ITEM LINK IMAGE">
+        <field name="show_category_image" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_IMAGE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_IMAGE_DESC">
             <option value="0">Hide</option>
             <option value="1">Show</option>
         </field>
     </fieldset>
-    <fieldset name="item-readmore" label="Item Readmore">
-		<field name="readmore" type="radio" default="0" label="Read-more link" description="PARAM ITEM READMORE">
+    <fieldset name="item-basic" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ITEM_BASIC">
+        <field name="show_item_title" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TITLE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TITLE_DESC">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </field>
+        <field name="show_item_text" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TEXT" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TEXT_DESC">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </field>
+        <field name="show_item_image" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_IMAGE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_IMAGE_DESC">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </field>
+        <field name="title_link" type="radio" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_TITLE_LINK" description="COM_SIMPLELISTS_CONFIG_FIELD_TITLE_LINK_DESC">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </field>
+        <field name="image_link" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_IMAGE_LINK" description="COM_SIMPLELISTS_CONFIG_FIELD_IMAGE_LINK_DESC">
+            <option value="0">Hide</option>
+            <option value="1">Show</option>
+        </field>
+    </fieldset>
+    <fieldset name="item-readmore" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ITEM_READMORE">
+		<field name="readmore" type="radio" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE" description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</field>
-		<field name="readmore_text" type="text" default="" label="Read-more text" description="PARAM ITEM READMORE TEXT"/>
-		<field name="readmore_class" type="text" default="" label="Read-more class" description="PARAM ITEM READMORE CLASS"/>
+		<field name="readmore_text" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_TEXT" description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_TEXT_DESC"/>
+		<field name="readmore_class" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_CLASS" description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_CLASS_DESC"/>
     </fieldset>
-    <fieldset name="item-other" label="Item Other">
-		<field name="link_class" type="text" default="" label="Link class" description="PARAM ITEM LINK CLASS"/>
-		<field name="link_rel" type="text" default="" label="Link relationship" description="PARAM ITEM LINK REL"/>
-        <field name="link_show" type="list" default="1" label="Link show" description="PARAM ITEM LINK SHOW">
+    <fieldset name="item-other" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ITEM_OTHER">
+		<field name="link_class" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_CLASS" description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_CLASS_DESC" />
+		<field name="link_rel" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_REL" description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_REL_DESC" />
+        <field name="link_show" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_SHOW" description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_SHOW_DESC">
             <option value="0">No</option>
             <option value="1">Yes</option>
         </field>
-		<field name="target" type="list" default="0" label="Link Target" description="PARAM ITEM LINK TARGET">
-			<option value="0">Parent Window With Browser Navigation</option>
-			<option value="1">New Window With Browser Navigation</option>
-			<option value="2">New Window Without Browser Navigation</option>
+		<field name="target" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_TARGET" description="COM_SIMPLELISTS_CONFIG_FIELD_TARGET_DESC">
+			<option value="0">COM_SIMPLELISTS_CONFIG_FIELD_TARGET_OPTION_0</option>
+			<option value="1">COM_SIMPLELISTS_CONFIG_FIELD_TARGET_OPTION_1</option>
+			<option value="2">COM_SIMPLELISTS_CONFIG_FIELD_TARGET_OPTION_2</option>
 		</field>
-		<field name="picture_alignment" type="list" default="left" label="Image Align" description="PARAM ITEM IMAGE ALIGN">
+		<field name="picture_alignment" type="list" default="left" label="COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT" description="COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_DESC">
 			<option value="">None</option>
 			<option value="left">Left</option>
 			<option value="right">Right</option>
@@ -68,6 +68,10 @@
 			<option value="slug">Slug</option>
 		</field>
 		<field name="use_parent_url" type="list" default="0" label="Use parent URL" description="PARAM PARENT URL">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="auto_ordering" type="list" default="1" label="Automatic ordering" description="PARAM AUTOMATIC_ORDERING">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</field>

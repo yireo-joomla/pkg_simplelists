@@ -27,6 +27,11 @@ jimport('joomla.filter.output');
 class YireoViewForm extends YireoView
 {
     /*
+     * Identifier of the library-view
+     */
+    protected $_viewParent = 'form';
+
+    /*
      * Flag to determine whether this view is a single-view
      */
     protected $_single = true;
@@ -41,9 +46,6 @@ class YireoViewForm extends YireoView
      */
     public function __construct()
     {
-        // Template-paths
-        $this->templatePaths[] = dirname(__FILE__).'/form';
-    
         // Do not load the toolbar automatically
         //$this->loadToolbar = false;
 

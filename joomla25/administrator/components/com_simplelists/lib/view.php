@@ -49,6 +49,11 @@ class YireoCommonView extends YireoAbstractView
     protected $_single = null;
 
     /*
+     * Identifier of the library-view
+     */
+    protected $_viewParent = 'default';
+
+    /*
      * Main constructor method
      *
      * @access public
@@ -221,15 +226,18 @@ class YireoCommonView extends YireoAbstractView
         // Construct the paths where to locate a specific template
         if ($this->application->isSite() == false) {
 
+            // Reset the template-paths
+            $this->templatePaths = array();
+
             // Local layout
             $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl', true);
             $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/views/'.$this->_view.'/tmpl/'.$versionFolder, true);
 
             // Library defaults
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view.'/'.$versionFolder, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view.'/'.$versionFolder, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_viewParent.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_viewParent, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_viewParent.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_viewParent, false);
 
         } else {
 
@@ -243,10 +251,10 @@ class YireoCommonView extends YireoAbstractView
             $this->addNewTemplatePath(JPATH_THEMES.'/'.$template.'/html/'.$this->_option.'/'.$this->_view.'/'.$versionFolder, true);
 
             // Library defaults
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view.'/'.$versionFolder, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_view, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view.'/'.$versionFolder, false);
-            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_view, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_viewParent.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/lib/view/'.$this->_viewParent, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_viewParent.'/'.$versionFolder, false);
+            $this->addNewTemplatePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/libraries/view/'.$this->_viewParent, false);
         }
 
         // Find the template-file

@@ -24,6 +24,11 @@ require_once dirname(dirname(__FILE__)).'/loader.php';
 class YireoViewHomeAjax extends YireoView
 {
     /*
+     * Identifier of the library-view
+     */
+    protected $_viewParent = 'home';
+
+    /*
      * Display method
      *
      * @param string $tpl

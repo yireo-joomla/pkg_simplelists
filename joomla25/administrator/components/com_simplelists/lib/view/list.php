@@ -24,6 +24,11 @@ require_once dirname(dirname(__FILE__)).'/loader.php';
 class YireoViewList extends YireoView
 {
     /*
+     * Identifier of the library-view
+     */
+    protected $_viewParent = 'list';
+
+    /*
      * Flag to determine whether to load edit/copy/new buttons
      */
     protected $loadToolbarEdit = true;
@@ -43,9 +48,6 @@ class YireoViewList extends YireoView
      */
     public function __construct()
     {
-        // Template-paths
-        $this->templatePaths[] = dirname(__FILE__).'/list';
-
         // Do not load the toolbar automatically
         $this->loadToolbar = false;
 
