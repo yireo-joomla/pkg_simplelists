@@ -20,6 +20,7 @@
 				<option value="ralpha">Title Reverse-Alphabetical</option>
 				<option value="random">Random</option>
 			</field>
+            <field name="columns" type="input" default="1" label="Columns" description="PARAM COLUMNS" />
 		</fieldset>
 		<fieldset name="layout" label="SimpleLists Layout">
             <field name="show_totop" type="list" default="0" label="To top" description="PARAM TOTOP">
