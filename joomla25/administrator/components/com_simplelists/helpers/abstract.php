@@ -35,6 +35,9 @@ class HelperAbstract
                 'categories' => 'Categories',
                 'category' => 'Category',
             ),
+            'obsolete_files' => array(
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/categories/tmpl/default.php',
+            ),
         );
     }
 }

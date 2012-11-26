@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -27,7 +27,8 @@ class SimplelistsUpdate
      * @param string URL from remote site
      * @return string Content from remote site
      */
-    public function getRemote( $url ) {
+    public function getRemote( $url ) 
+    {
         require_once JPATH_COMPONENT.'/lib/remote.class.php' ;
         $remote = new RemoteConnection();
         $remote->setUrl( $url );
@@ -42,7 +43,8 @@ class SimplelistsUpdate
      * @param int ID of link type
      * @return string Title of link type
      */
-     public function getUpdate( $url ) {
+    public function getUpdate( $url ) 
+    {
 
         $update = array(
             'name' => '',

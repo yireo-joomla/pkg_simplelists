@@ -92,6 +92,7 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                 $ordering = false;
             } else {
                 $ordering = ($this->lists['order'] == $this->fields['ordering_field']);
+                $orderingField = $this->fields['ordering_field'];
             }
 
             // @todo: Describe this flag
@@ -121,7 +122,7 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                             <span><?php echo $this->pagination->orderDownIcon( $i, 0, true, 'orderdown', 'Move Down', $ordering ); ?></span>
                         <?php endif; ?>
                         <?php $disabled = ($ordering) ?  '' : 'disabled="disabled"'; ?>
-                        <input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text_area" style="text-align: center" />
+                        <input type="text" name="order[]" size="5" value="<?php echo $item->$orderingField;?>" <?php echo $disabled ?> class="text_area" style="text-align: center" />
                     <?php endif; ?>
                 </td>
                 <?php endif; ?>

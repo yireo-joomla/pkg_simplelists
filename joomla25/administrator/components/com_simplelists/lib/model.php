@@ -519,14 +519,17 @@ class YireoModel extends YireoAbstractModel
                         $data[$index] = $item;
                     }
 
+                    $this->_total = count($data);
                     $this->_data = $data;
                 }
             }
         }
 
         if ($this->isSingular() == false && $this->_limit_query == false && $this->getState('limit') > 0) {
-          return array_slice($this->_data, $this->getState('limitstart'), $this->getState('limit'));
+            $part = array_slice($this->_data, $this->getState('limitstart'), $this->getState('limit'));
+            return $part;
         }
+
         return $this->_data;
     }
 

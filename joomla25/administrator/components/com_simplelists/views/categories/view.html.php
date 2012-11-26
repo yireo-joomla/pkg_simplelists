@@ -18,7 +18,7 @@ require_once JPATH_COMPONENT.'/helpers/category.php';
 /**
  * HTML View class 
  */
-class SimplelistsViewCategories extends YireoView
+class SimplelistsViewCategories extends YireoViewList
 {
     /*
      * Method to prepare the content for display
@@ -29,11 +29,6 @@ class SimplelistsViewCategories extends YireoView
 	public function display($tpl = null)
 	{
         // Set toolbar items for the page
-        JToolBarHelper::publishList();
-        JToolBarHelper::unpublishList();
-        JToolBarHelper::deleteList();
-        JToolBarHelper::editListX();
-        JToolBarHelper::addNewX();
         JToolBarHelper::preferences('com_simplelists', '480');
         JHTML::_('behavior.tooltip');
 
