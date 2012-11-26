@@ -19,15 +19,14 @@ defined('_JEXEC') or die('Restricted access');
 <?php $i = 1; ?>
 <table class="<?php echo $this->page_class; ?>">
 <?php foreach( $this->items as $item ): ?>
-
-    <?php if($i % $columns == 1) { ?>
-     <tr>
-    <?php } ?>
+    <?php if($i % $columns == 1 || count($this->items) == 1 || $columns == 1): ?>
+    <tr>
+    <?php endif; ?>
         <td>
             <table>
-                <tr class="simplelists-item">
+                <tr class="<?php echo $item->class; ?>">
 
-                    <?php if($item->picture_alignment != 'right'): ?>
+                    <?php if(!empty($item->picture) && $item->picture_alignment != 'right'): ?>
                     <td valign="middle" align="center" class="simplelists-item-image">
                         <?php if($item->picture): ?>
                         <?php echo $item->picture; ?>
@@ -68,9 +67,9 @@ defined('_JEXEC') or die('Restricted access');
                 <?php endif; ?>
             </table>
         </td>
-    <?php if($i % $columns == 0) { ?>
+    <?php if($i % $columns == 0 || count($this->items) == 1): ?>
     </tr>
-    <?php } ?>
+    <?php endif; ?>
 
     <?php $i++; ?>
 

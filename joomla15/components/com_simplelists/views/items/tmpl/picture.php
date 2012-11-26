@@ -21,7 +21,7 @@ $item_width = (!empty($width)) ? ' style="width:'.$width.'"' : '';
 <?php if(!empty( $this->items)) : ?>
     <?php foreach( $this->items as $item ) : ?>
 
-    <div class="simplelists-item"<?php echo $item_width; ?>>
+    <div class="<?php echo $item->class; ?>"<?php echo $item_width; ?>>
         <div class="image">
 
             <a name="<?php echo $item->href; ?>"></a>
