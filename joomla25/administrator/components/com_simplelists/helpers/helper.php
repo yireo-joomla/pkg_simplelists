@@ -119,7 +119,9 @@ class SimplelistsHelper
         if( $folder == '' ) {
             $folder = COM_SIMPLELISTS_BASE;
         }
-        if( JFolder::exists( $folder )) {
+
+        jimport('joomla.filesystem.folder');
+        if (JFolder::exists($folder)) {
             return true ;
         } else {
             if( JFolder::create( $folder )) {
