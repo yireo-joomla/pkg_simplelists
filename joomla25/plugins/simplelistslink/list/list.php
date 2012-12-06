@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -72,7 +72,7 @@ class plgSimpleListsLinkList extends plgSimpleListsLinkDefault
         if(is_object($row)) {
             return $row->title;
         } else {
-            return '' ;
+            return '';
         }
     }
 
@@ -107,6 +107,10 @@ class plgSimpleListsLinkList extends plgSimpleListsLinkDefault
         $query->select('*')->from('#__categories')->where('extension = "com_simplelists"');
         $db->setQuery($query);
         $rows = $db->loadObjectList();
+
+        if(empty($rows)) {
+            return JText::_('No categories found');
+        }
 
         $options = array();
         foreach($rows as $row) {

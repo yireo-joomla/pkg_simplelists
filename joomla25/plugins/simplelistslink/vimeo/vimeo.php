@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -105,7 +105,7 @@ class plgSimpleListsLinkVimeo extends plgSimpleListsLinkDefault
         $params = implode('&amp;', $array);
 
         ob_start();
-        include dirname(__FILE__).DS.'vimeo'.DS.'default.php';
+        include dirname(__FILE__).'/vimeo/default.php';
         $text .= ob_get_contents();
         ob_end_clean();
 

@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -52,7 +52,7 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @return bool
      */
     public function isEnabled() {
-        if(JFolder::exists(JPATH_SITE.DS.'components'.DS.'com_comprofiler')) {
+        if(JFolder::exists(JPATH_SITE.'/components/com_comprofiler')) {
             return true;
         } else {
             return false;

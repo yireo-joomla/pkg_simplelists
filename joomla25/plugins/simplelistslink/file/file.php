@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -74,7 +74,7 @@ class plgSimpleListsLinkFile extends plgSimpleListsLinkDefault
      * @return mixed
      */
     public function getHidden($item) {
-        $file = JPATH_SITE.DS.$item->link;
+        $file = JPATH_SITE.'/'.$item->link;
         header('Content-type: application/force-download');
         header('Content-Transfer-Encoding: Binary');
         header('Content-length: '.filesize($file));

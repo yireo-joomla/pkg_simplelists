@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -62,9 +62,10 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
      * @param mixed $link
      * @return string
      */
-    public function getName($link) {
+    public function getName($link) 
+    {
         $query = "SELECT `name` FROM #__menu WHERE `id`=".(int)$link;
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query );
         $row = $db->loadObject() ;
         if(is_object($row)) {
@@ -81,9 +82,10 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         $query = "SELECT `id`,`link` FROM #__menu WHERE `id`=".(int)$item->link;
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query );
         $row = $db->loadObject() ;
         if(is_object($row)) {
@@ -100,7 +102,8 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
+    public function getInput($current = null) 
+    {
         $menu_links = JHTML::_( 'menu.linkoptions' );
         return JHTML::_('select.genericlist', $menu_links, 'link_menuitem', 'class="inputbox" size="1"', 'value', 'text', intval($current));
     }

@@ -13,10 +13,10 @@
 defined('_JEXEC') or die( 'Restricted access' );
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -85,7 +85,7 @@ class plgSimpleListsLinkArticle extends plgSimpleListsLinkDefault
      */
     public function getUrl($item = null) 
     {
-        require_once JPATH_SITE.DS.'components'.DS.'com_content'.DS.'helpers'.DS.'route.php' ;
+        require_once JPATH_SITE.'/components/com_content/helpers/route.php' ;
         $link = $item->link;
         $url = ContentHelperRoute::getArticleRoute((int)$link);
 
