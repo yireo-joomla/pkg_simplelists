@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 // Check to ensure this file is included in Joomla!
@@ -520,13 +520,17 @@ class YireoModel extends YireoAbstractModel
                     }
 
                     $this->_data = $data;
+                    $this->_total = count($this->_data); 
                 }
             }
         }
 
+        // Prepare pagination
         if ($this->isSingular() == false && $this->_limit_query == false && $this->getState('limit') > 0) {
-          return array_slice($this->_data, $this->getState('limitstart'), $this->getState('limit'));
+            return array_slice($this->_data, $this->getState('limitstart'), $this->getState('limit'));
         }
+
+        // Return data
         return $this->_data;
     }
 
