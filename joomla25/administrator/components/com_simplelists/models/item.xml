@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
+    <fields name="details">
+        <fieldset name="details" label="COM_SIMPLELISTS_ITEM_FIELDSET_DETAILS">
+            <field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-xlarge" size="30" required="true" labelclass="control-label" />
+            <field name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" class="inputbox" size="45" labelclass="control-label" />
+            <field name="state" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="span12 small" filter="intval" size="1" default="1">
+                <option value="1">JPUBLISHED</option>
+                <option value="0">JUNPUBLISHED</option>
+            </field>
+            <field name="category_id" type="text" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" class="inputbox" required="true" />
+            <field name="ordering" type="text" label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC" class="inputbox" size="6" default="0" labelclass="control-label" />
+            <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" class="span12 small" size="1" />
+        </fieldset>
+        <fieldset name="text" label="COM_SIMPLELISTS_ITEM_FIELDSET_TEXT">
+            <field name="text" type="editor" class="inputbox" label="LIB_YIREO_TABLE_FIELDNAME_TEXT" filter="JComponentHelper::filterText" buttons="true" />
+        </fieldset>
+    </fields>
     <fields name="params">
         <fieldset name="params_item" label="COM_SIMPLELISTS_ITEM_PARAMS_ITEM_FIELDSET">
             <field name="show_item_title" type="list" default="" label="Item Title" description="PARAM ITEM TITLE">
@@ -95,10 +111,10 @@
         </fieldset>
 
         <fieldset name="params_meta" label="COM_SIMPLELISTS_ITEM_PARAMS_META_FIELDSET">
-	    	<field name="meta_description" type="textarea" rows="5" cols="30" default="" label="Meta Description" description="PARAM ITEM METADESC" />
-		    <field name="meta_keywords" type="textarea" rows="5" cols="30" default="" label="Meta Keywords" description="PARAM ITEM METAKEYS" />
-    		<field name="meta_robots" type="text" size="20" default="" label="Meta Robots" description="PARAM ITEM METAROBOTS" />
-	    	<field name="meta_author" type="text" size="20" default="" label="Meta Author" description="PARAM ITEM METAAUTHOR" />
-    	</fieldset>
+            <field name="meta_description" type="textarea" rows="5" cols="30" default="" label="Meta Description" description="PARAM ITEM METADESC" />
+            <field name="meta_keywords" type="textarea" rows="5" cols="30" default="" label="Meta Keywords" description="PARAM ITEM METAKEYS" />
+            <field name="meta_robots" type="text" size="20" default="" label="Meta Robots" description="PARAM ITEM METAROBOTS" />
+            <field name="meta_author" type="text" size="20" default="" label="Meta Author" description="PARAM ITEM METAAUTHOR" />
+        </fieldset>
     </fields>
 </form>
