@@ -697,6 +697,22 @@ class YireoModel extends YireoAbstractModel
         $now = new JDate('now');
         $uid = $this->user->get('id');
 
+        // Convert the JForm text-array into the default data-text
+        if (!empty($data['text'])) {
+            foreach($data['text'] as $name => $value) {
+                $data[$name] = $value;
+            }
+            if(is_array($data['text'])) unset($data['text']);
+        }
+
+        // Convert the JForm basic-array into the default data-set
+        if (!empty($data['basic'])) {
+            foreach($data['basic'] as $name => $value) {
+                $data[$name] = $value;
+            }
+            unset($data['basic']);
+        }
+
         // Automatically set some data
         $data['modified'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();
         $data['modified_date'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();

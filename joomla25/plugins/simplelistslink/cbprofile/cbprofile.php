@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -51,7 +51,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param null
      * @return bool
      */
-    public function isEnabled() {
+    public function isEnabled() 
+    {
         if(JFolder::exists(JPATH_SITE.'/components/com_comprofiler')) {
             return true;
         } else {
@@ -66,7 +67,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'CB user profile';
     }    
 
@@ -77,7 +79,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param mixed $link
      * @return string
      */
-    public function getName($link) {
+    public function getName($link) 
+    {
         $query = "SELECT `name` FROM #__users WHERE `id`=".(int)$link;
         $db =& JFactory::getDBO();
         $db->setQuery( $query );
@@ -96,7 +99,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         return JRoute::_('index.php?option=com_comprofiler&task=userProfile&user='.(int)$item->link);
     }
 
@@ -107,7 +111,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
+    public function getInput($current = null) 
+    {
         $query = "SELECT `id`, `name` FROM #__users";
         $db =& JFactory::getDBO();
         $db->setQuery( $query );

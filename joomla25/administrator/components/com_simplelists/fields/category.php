@@ -4,9 +4,10 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
+ * @deprecated Replaced with Joomla! core functionality since SimpleLists 1.6
  */
 
 // Check to ensure this file is included in Joomla!

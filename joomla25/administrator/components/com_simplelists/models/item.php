@@ -45,7 +45,10 @@ class SimplelistsModelItem extends YireoModel
         $table = $this->getTable();
 
         // Insert $categories manually
-        if (!empty( $data['categories'] )) {
+        if (!empty($data['basic']['categories'])) {
+            $categories = $data['basic']['categories'] ;
+            unset($data['basic']['categories']) ;
+        } elseif (!empty($data['categories'])) {
             $categories = $data['categories'] ;
             unset($data['categories']) ;
         }
@@ -53,9 +56,8 @@ class SimplelistsModelItem extends YireoModel
         // Insert link manually
         if (isset($data['link_type'])) {
             $type = $data['link_type'];
-            if(!empty($data['link_'.$type])) {
-                $data['link'] = $data['link_'.$type];
-            }
+            if(!empty($data['input']['link_'.$type])) $data['link'] = $data['input']['link_'.$type];
+            if(!empty($data['link_'.$type])) $data['link'] = $data['link_'.$type];
         }
 
         // Remove the old category-relations
@@ -131,33 +133,33 @@ class SimplelistsModelItem extends YireoModel
     }
 
     /**
-     * Method to load data
+     * Method to add extra data
      *
      * @access public
-     * @param null
-     * @return boolean
+     * @param array $data
+     * @return array
      */
-    public function getData()
+    public function onDataLoad($data)
     {
-        // Lets load the content if it doesn't already exist
-        $this->_data = parent::getData();
-
         // If these data exist, add extra info 
-        if(empty($this->_data)) {
+        if (empty($_data)) {
+
+            // Fetch the categories
+            $data->categories = SimplelistsHelper::getCategories($data->id, null, 'id');
 
             // Fetch the extra link data
-            if(!isset($this->_data->link_data)) {
-                $this->_data->link_data = array();
-                if(!empty($this->_data->link_type)) {
-                    $plugin = SimplelistsPluginHelper::getPlugin('simplelistslink', $this->_data->link_type);
-                    if(!empty($plugin)) {
-                        $this->_data->link_data[$this->_data->link_type] = $plugin->getName($this->_data->link);
+            if (!isset($data->link_data)) {
+                $data->link_data = array();
+                if (!empty($data->link_type)) {
+                    $plugin = SimplelistsPluginHelper::getPlugin('simplelistslink', $data->link_type);
+                    if (!empty($plugin)) {
+                        $data->link_data[$data->link_type] = $plugin->getName($data->link);
                     }
                 }
             }
         }
 
-        return $this->_data;
+        return $data;
     }
 
     /**
@@ -169,7 +171,7 @@ class SimplelistsModelItem extends YireoModel
      */
     public function getOrderingQuery()
     {
-        if($this->_orderby_default == 'ordering') {
+        if ($this->_orderby_default == 'ordering') {
             $query = 'SELECT `item`.`ordering` AS `value`, `item`.`title` AS `text`'
                 . ' FROM `#__simplelists_items` AS `item`'
                 . ' LEFT JOIN `#__simplelists_categories` AS `category` ON `category`.`id`=`item`.`id`'

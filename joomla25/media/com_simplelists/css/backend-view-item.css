@@ -1,8 +1,8 @@
 /**
- * Joomla! component Simple Lists
+ * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @link http://www.yireo.com/
  */
 
@@ -15,9 +15,12 @@ div.jpane-slider div.inner {
 }
     
 div.simplelists_link_inner {
-    /*visibility: none;*/
     padding:5px;
     margin-bottom:15px;
+}
+
+div.simplelists_link_inner_active {
+    background-color: #fffcd2;
 }
 
 table.paramlist td.paramlist_key {

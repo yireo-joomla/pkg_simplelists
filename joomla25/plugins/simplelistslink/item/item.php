@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -51,7 +51,8 @@ class plgSimpleListsLinkItem extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'Item itself';
     }    
 
@@ -62,7 +63,8 @@ class plgSimpleListsLinkItem extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         $slug = (int)$item->id;
         if(!empty($item->alias)) $slug .= ':'.$item->alias;
         $link = 'index.php?option=com_simplelists&view=item&id='.$slug;
@@ -82,7 +84,8 @@ class plgSimpleListsLinkItem extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
+    public function getInput($current = null) 
+    {
         return null;
     }
 }

@@ -1,120 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fields name="details">
-        <fieldset name="details" label="COM_SIMPLELISTS_ITEM_FIELDSET_DETAILS">
+    <fields name="basic">
+        <fieldset name="basic" label="COM_SIMPLELISTS_ITEM_FIELDSET_BASIC" addfieldpath="/administrator/components/com_categories/models/fields">
             <field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-xlarge" size="30" required="true" labelclass="control-label" />
             <field name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" class="inputbox" size="45" labelclass="control-label" />
-            <field name="state" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="span12 small" filter="intval" size="1" default="1">
+            <field name="state" type="radio" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="btn-group" labelclass="control-label" filter="intval" size="1" default="1">
                 <option value="1">JPUBLISHED</option>
                 <option value="0">JUNPUBLISHED</option>
             </field>
-            <field name="category_id" type="text" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" class="inputbox" required="true" />
+            <field name="categories" type="categoryedit" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" class="inputbox" multiple="multiple" />
             <field name="ordering" type="text" label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC" class="inputbox" size="6" default="0" labelclass="control-label" />
-            <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" class="span12 small" size="1" />
+            <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" class="inputbox span12 small" size="1" />
         </fieldset>
+    </fields>
+    <fields name="text">
         <fieldset name="text" label="COM_SIMPLELISTS_ITEM_FIELDSET_TEXT">
             <field name="text" type="editor" class="inputbox" label="LIB_YIREO_TABLE_FIELDNAME_TEXT" filter="JComponentHelper::filterText" buttons="true" />
         </fieldset>
     </fields>
     <fields name="params">
         <fieldset name="params_item" label="COM_SIMPLELISTS_ITEM_PARAMS_ITEM_FIELDSET">
-            <field name="show_item_title" type="list" default="" label="Item Title" description="PARAM ITEM TITLE">
-                <option value="">Use global</option>
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="show_item_title" type="radio" class="btn-group" default="" label="Item Title" labelclass="control-label" description="PARAM ITEM TITLE">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
-            <field name="show_item_text" type="list" default="" label="Item Text" description="PARAM ITEM TEXT">
-                <option value="">Use global</option>
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="show_item_text" type="radio" class="btn-group" default="" label="Item Text" labelclass="control-label" description="PARAM ITEM TEXT">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
-            <field name="show_item_image" type="list" default="" label="Item Image" description="PARAM ITEM IMAGE">
-                <option value="">Use global</option>
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="show_item_image" type="radio" class="btn-group" default="" label="Item Image" labelclass="control-label" description="PARAM ITEM IMAGE">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
-            <field name="item_class" type="text" default="" label="Item class" description="PARAM ITEM CLASS"/>
-            <field name="title_class" type="text" default="" label="Title class" description="PARAM ITEM TITLE CLASS"/>
-            <field name="title_link" type="list" default="" label="Item Linked Title" description="PARAM ITEM LINK TITLE">
-                <option value="">Use global</option>
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="item_class" type="text" default="" label="Item class" labelclass="control-label" description="PARAM ITEM CLASS"/>
+            <field name="title_class" type="text" default="" label="Title class" labelclass="control-label" description="PARAM ITEM TITLE CLASS"/>
+            <field name="title_link" type="radio" class="btn-group" default="" label="Item Linked Title" labelclass="control-label" description="PARAM ITEM LINK TITLE">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
-            <field name="image_link" type="list" default="" label="Item Linked Image" description="PARAM ITEM LINK IMAGE">
-                <option value="">Use global</option>
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="image_link" type="radio" class="btn-group" default="" label="Item Linked Image" labelclass="control-label" description="PARAM ITEM LINK IMAGE">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
         </fieldset>
 
         <fieldset name="params_readmore" label="COM_SIMPLELISTS_ITEM_PARAMS_READMORE_FIELDSET">
-            <field name="readmore" type="list" default="" label="Read-more link" description="PARAM ITEM READMORE">
-                <option value="">Use global</option>
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="readmore" type="radio" class="btn-group" default="" label="Read-more link" labelclass="control-label" description="PARAM ITEM READMORE">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
-            <field name="readmore_text" type="text" default="" label="Read-more text" description="PARAM ITEM READMORE TEXT"/>
-            <field name="readmore_class" type="text" default="" label="Read-more class" description="PARAM ITEM READMORE CLASS"/>
+            <field name="readmore_text" type="text" default="" label="Read-more text" labelclass="control-label" description="PARAM ITEM READMORE TEXT"/>
+            <field name="readmore_class" type="text" default="" label="Read-more class" labelclass="control-label" description="PARAM ITEM READMORE CLASS"/>
         </fieldset>
 
         <fieldset name="params_link" label="COM_SIMPLELISTS_ITEM_PARAMS_LINK_FIELDSET">
-            <field name="link_class" type="text" default="" label="Link class" description="PARAM ITEM LINK CLASS"/>
-            <field name="link_rel" type="text" default="" label="Link relationship" description="PARAM ITEM LINK REL"/>
-            <field name="link_show" type="list" default="1" label="Link show" description="PARAM ITEM LINK SHOW">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+            <field name="link_class" type="text" default="" label="Link class" labelclass="control-label" description="PARAM ITEM LINK CLASS"/>
+            <field name="link_rel" type="text" default="" label="Link relationship" labelclass="control-label" description="PARAM ITEM LINK REL"/>
+            <field name="link_show" type="radio" class="btn-group" default="1" label="Link show" labelclass="control-label" description="PARAM ITEM LINK SHOW">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
-            <field name="target" type="list" default="" label="Link Target" description="PARAM ITEM LINK TARGET">
-                <option value="">Use Global</option>
+            <field name="target" type="list" default="" label="Link Target" labelclass="control-label" description="PARAM ITEM LINK TARGET">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
                 <option value="0">Parent Window With Browser Navigation</option>
                 <option value="1">New Window With Browser Navigation</option>
                 <option value="2">New Window Without Browser Navigation</option>
             </field>
-            <field name="picture_alignment" type="list" default="" label="Image Align" description="PARAM ITEM IMAGE ALIGN">
-                <option value="">Use Global</option>
-                <option value="left">Left</option>
-                <option value="right">Right</option>
+            <field name="picture_alignment" type="list" default="" label="Image Align" labelclass="control-label" description="PARAM ITEM IMAGE ALIGN">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="left">COM_CONTENT_LEFT</option>
+                <option value="right">COM_CONTENT_RIGHT</option>
             </field>
-            <field name="show_vote" type="list" default="0" label="Voting" description="PARAM VOTING">
-                <option value="0">Hide</option>
-                <option value="1">Show</option>
+            <field name="show_vote" type="radio" class="btn-group" default="0" label="Voting" labelclass="control-label" description="PARAM VOTING">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
             </field>
-            <field name="enable_content_plugins" type="list" default="1" label="Content Plugins" description="PARAM CONTENT PLUGINS">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+            <field name="enable_content_plugins" type="radio" class="btn-group" default="1" label="Content Plugins" labelclass="control-label" description="PARAM CONTENT PLUGINS">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
         </fieldset>
 
         <fieldset name="params_publishing" label="COM_SIMPLELISTS_ITEM_PARAMS_PUBLISHING_FIELDSET">
-            <field name="created" type="calendar" default="" label="Created Date" description="PARAM ITEM CREATED" />
-            <field name="created_by" type="user" default="" label="Created By" description="PARAM ITEM CREATEDBY" />
-            <field name="modified" type="calendar" default="" label="Modified Date" description="PARAM ITEM MODIFIED" />
-            <field name="modified_by" type="user" default="" label="Modified By" description="PARAM ITEM MODIFIEDBY" />
-            <field name="publish_up" type="calendar" default="" label="Publish Up" description="PARAM ITEM PUBLISHUP" />
-            <field name="publish_down" type="calendar" default="" label="Publish Down" description="PARAM ITEM PUBLISHDOWN" />
-            <field name="new" type="list" default="0" label="New" description="">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+            <field name="created" type="calendar" default="" label="Created Date" labelclass="control-label" description="PARAM ITEM CREATED" />
+            <field name="created_by" type="user" default="" label="Created By" labelclass="control-label" description="PARAM ITEM CREATEDBY" />
+            <field name="modified" type="calendar" default="" label="Modified Date" labelclass="control-label" description="PARAM ITEM MODIFIED" />
+            <field name="modified_by" type="user" default="" label="Modified By" labelclass="control-label" description="PARAM ITEM MODIFIEDBY" />
+            <field name="publish_up" type="calendar" default="" label="Publish Up" labelclass="control-label" description="PARAM ITEM PUBLISHUP" />
+            <field name="publish_down" type="calendar" default="" label="Publish Down" labelclass="control-label" description="PARAM ITEM PUBLISHDOWN" />
+            <field name="new" type="radio" class="btn-group" default="0" label="New" labelclass="control-label" description="">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
-            <field name="featured" type="list" default="0" label="Featured" description="">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+            <field name="featured" type="radio" class="btn-group" default="0" label="Featured" labelclass="control-label" description="">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
-            <field name="popular" type="list" default="0" label="Popular" description="">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+            <field name="popular" type="radio" class="btn-group" default="0" label="Popular" labelclass="control-label" description="">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
-            <field name="approved" type="list" default="0" label="Approved" description="">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
+            <field name="approved" type="radio" class="btn-group" default="0" label="Approved" labelclass="control-label" description="">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
             </field>
         </fieldset>
 
         <fieldset name="params_meta" label="COM_SIMPLELISTS_ITEM_PARAMS_META_FIELDSET">
-            <field name="meta_description" type="textarea" rows="5" cols="30" default="" label="Meta Description" description="PARAM ITEM METADESC" />
-            <field name="meta_keywords" type="textarea" rows="5" cols="30" default="" label="Meta Keywords" description="PARAM ITEM METAKEYS" />
-            <field name="meta_robots" type="text" size="20" default="" label="Meta Robots" description="PARAM ITEM METAROBOTS" />
-            <field name="meta_author" type="text" size="20" default="" label="Meta Author" description="PARAM ITEM METAAUTHOR" />
+            <field name="meta_description" type="textarea" rows="5" cols="30" default="" label="Meta Description" labelclass="control-label" description="PARAM ITEM METADESC" />
+            <field name="meta_keywords" type="textarea" rows="5" cols="30" default="" label="Meta Keywords" labelclass="control-label" description="PARAM ITEM METAKEYS" />
+            <field name="meta_robots" type="text" size="20" default="" label="Meta Robots" labelclass="control-label" description="PARAM ITEM METAROBOTS" />
+            <field name="meta_author" type="text" size="20" default="" label="Meta Author" labelclass="control-label" description="PARAM ITEM METAAUTHOR" />
         </fieldset>
     </fields>
 </form>

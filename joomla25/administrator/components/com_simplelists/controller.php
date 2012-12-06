@@ -29,5 +29,23 @@ class SimplelistsController extends YireoController
     {
         $this->_default_view = 'items';
         parent::__construct();
+
+        // Redirect categories (@todo: When dropping J1.5 compatibility, we can also drop this workaround
+        if (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category') {
+            $app = JFactory::getApplication();
+            $app->redirect(JRoute::_('index.php?option=com_categories&extension=com_simplelists', false)); 
+            $app->close();
+        }
+    }
+
+    public function cookie()
+    {
+        if(JRequest::getCmd('name') != 'tab') {
+            die('Access denied');
+        }
+
+        $tab = JRequest::getString('tab');
+        $session = JFactory::getSession();
+        $session->set('simplelists.item.tab', $tab);
     }
 }

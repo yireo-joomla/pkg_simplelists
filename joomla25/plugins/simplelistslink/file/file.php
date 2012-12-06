@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -51,7 +51,8 @@ class plgSimpleListsLinkFile extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'Internal file';
     }    
 
@@ -62,7 +63,8 @@ class plgSimpleListsLinkFile extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         return JURI::base().$item->link;
     }
 
@@ -73,7 +75,8 @@ class plgSimpleListsLinkFile extends plgSimpleListsLinkDefault
      * @param object $item
      * @return mixed
      */
-    public function getHidden($item) {
+    public function getHidden($item) 
+    {
         $file = JPATH_SITE.'/'.$item->link;
         header('Content-type: application/force-download');
         header('Content-Transfer-Encoding: Binary');
@@ -90,14 +93,16 @@ class plgSimpleListsLinkFile extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
-        $modal_link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_file';
-        if($current!=null) {
-            $modal_link .= '&amp;folder=/'.dirname( $current ).'&amp;current='.$current;
+    public function getInput($current = null) 
+    {
+        if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
+            $link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_file';
+            if($current!=null) $link .= '&amp;folder=/'.dirname($current);
         } else {
-            $modal_link .= '&amp;current=';
+            $link = 'index.php?option=com_media&amp;view=files&amp;tmpl=component&amp;fieldid=link_file'; // @todo: No selection box
+            if($current!=null) $link .= '&amp;folder=/'.dirname($current);
         }
 
-        return $this->getModal('file', $modal_link, $current);
+        return $this->getModal('file', $link, $current);
     }
 }

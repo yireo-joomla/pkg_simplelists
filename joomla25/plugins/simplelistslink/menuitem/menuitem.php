@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -51,7 +51,8 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()  
+    {
         return 'Internal menu-link';
     }    
 
@@ -64,11 +65,18 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
      */
     public function getName($link) 
     {
-        $query = "SELECT `name` FROM #__menu WHERE `id`=".(int)$link;
+        if(YireoHelper::isJoomla15() && YireoHelper::isJoomla25()) {
+            $query = "SELECT `name` FROM #__menu WHERE `id`=".(int)$link;
+        } else {
+            $query = "SELECT `title` FROM #__menu WHERE `id`=".(int)$link;
+        }
+
         $db = JFactory::getDBO();
         $db->setQuery( $query );
         $row = $db->loadObject() ;
-        if(is_object($row)) {
+        if(is_object($row) && isset($row->name)) {
+            return $row->name;
+        } elseif(is_object($row) && isset($row->name)) {
             return $row->name;
         } else {
             return '' ;
@@ -104,7 +112,15 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
      */
     public function getInput($current = null) 
     {
-        $menu_links = JHTML::_( 'menu.linkoptions' );
-        return JHTML::_('select.genericlist', $menu_links, 'link_menuitem', 'class="inputbox" size="1"', 'value', 'text', intval($current));
+        if(YireoHelper::isJoomla15()) {
+            $links = JHTML::_( 'menu.linkoptions' );
+            return JHTML::_('select.genericlist', $links, 'link_menuitem', 'class="inputbox" size="1"', 'value', 'text', intval($current));
+        } else {
+            $form = JForm::getInstance('input', JPATH_SITE.'/plugins/simplelistslink/menuitem/form.xml');
+            $form->bind(array('input' => array('link_menuitem' => $current)));
+            foreach($form->getFieldset('input') as $field) {
+                echo $field->input; 
+            }
+        }
     }
 }
