@@ -1,19 +1,35 @@
 /**
- * Joomla! component Simple Lists
+ * Joomla! component Dynamic404
  *
  * @author Yireo
- * @copyright Copyright (C) 2011
+ * @package Dynamic404
+ * @copyright Copyright 2011
  * @link http://www.yireo.com/
  */
 
 /* Joomla! Administrator icons */
-.icon-32-copy {
-    background-image: url(../images/toolbar/icon-32-copy.png);
+.icon-32-deleteall {
+    background-image: url(../images/toolbar/icon-32-deleteall.png);
 }
 
-/* Form settings */
-input.invalid {
-    border: 2px solid red;
+.icon-32-restore {
+    background-image: url(../images/toolbar/icon-32-restore.png);
+}
+
+.icon-32-patch {
+    background-image: url(../images/toolbar/icon-32-patch.png);
+}
+
+.icon-48-logo {
+    background-image: url(../images/logo.png);
+}
+
+div.header {
+    padding-left: 100px !important;
+}
+
+div.pagetitle {
+    padding-left: 100px !important;
 }
 
 fieldset.adminform {
@@ -42,38 +58,4 @@ fieldset.adminform td.value label {
 
 fieldset.adminform td.value select {
     clear: both;
-}
-
-td.params {
-}
-
-td.params dl {
-    clear:both;
-    margin-bottom: 2px;
-    margin-top: 0px;
-}
-
-td.params dt {
-    display:block;
-    float:left;
-    background-color: #f1f1f1;
-    border-top: 1px solid white !important;
-    border-bottom: 1px solid #dfdfdf !important;
-    line-height: 30px;
-    padding-left: 5px;
-    width: 150px;
-}
-
-td.params dd {
-    line-height: 30px;
-    margin-left: 2px;
-    display:block;
-    float:left;
-}
-
-td.params label {
-}
-
-button.btn {
-    font-size: 105%;
 }

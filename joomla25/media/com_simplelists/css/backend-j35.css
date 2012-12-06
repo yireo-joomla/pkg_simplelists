@@ -1,0 +1,81 @@
+/*
+ * Joomla! component MageBridge
+ *
+ * @author Yireo (info@yireo.com)
+ * @package MageBridge
+ * @copyright Copyright 2012
+ * @link http://www.yireo.com
+ */
+
+fieldset.adminform {
+    border: 1px solid #dfdfdf !important;
+    background-color: #f1f1f1;
+}
+
+fieldset.adminform td.key {
+    background-color: #dfdfdf;
+    padding: 5px;
+    line-height: 16px;
+    text-align: right;
+}
+
+fieldset.adminform td.value label {
+    float: left;
+    clear: none;
+    min-width: 15px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 15px;
+    padding-top: 0px !important;
+    line-height: 16px;
+    display: inline;
+}
+
+fieldset.adminform td.value select {
+    clear: both;
+}
+
+fieldset.adminform td.value {
+    padding-left: 5px;
+    width: 400px !important;
+}
+
+fieldset.adminform td.value div.controls {
+    padding-left: 20px;
+}
+
+fieldset.adminform td.value div.controls label {
+    line-height: 24px;
+}
+
+/*fieldset.adminform td.value div.controls input {
+    min-height: 24px;
+}*/
+
+td.vital {
+    border: 0px solid #85b1cd !important;
+}
+
+div#cpanel div.icon {
+    text-align: center;
+    margin-right: 15px;
+    float: left;
+    margin-bottom: 15px;
+    height: 74px;
+    width: 125px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+div#cpanel div.icon:hover {
+background-color: rgba(0,0,0,.02);
+}
+
+div#cpanel div.icon span {
+    display: block;
+    text-align: center;
+}
