@@ -20,7 +20,7 @@ defined('_JEXEC') or die('Restricted access');
         <a name="<?php echo $item->href; ?>"></a>
 
         <div class="<?php echo $item->class; ?>">
-        <?php if($item->picture): ?>
+        <?php if(!empty($item->picture)): ?>
         <?php echo $item->picture; ?>
         <?php endif; ?>
 

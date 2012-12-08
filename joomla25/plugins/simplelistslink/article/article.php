@@ -91,18 +91,29 @@ class plgSimpleListsLinkArticle extends plgSimpleListsLinkDefault
 
         if(!strstr($url,'Itemid=')) {
 
-            $query = "SELECT a.*, c.alias AS catalias, s.alias AS sectionalias FROM #__content AS a "
-                . " LEFT JOIN #__categories AS c ON c.id = a.catid "
-                . " LEFT JOIN #__sections AS s ON s.id = a.sectionid "
-                . " WHERE a.`id`=".(int)$link
-            ;
+            if(YireoHelper::isJoomla15()) {
+                $query = "SELECT a.*, c.alias AS catalias, s.alias AS sectionalias FROM #__content AS a "
+                    . " LEFT JOIN #__categories AS c ON c.id = a.catid "
+                    . " LEFT JOIN #__sections AS s ON s.id = a.sectionid "
+                    . " WHERE a.`id`=".(int)$link
+                ;
+            } else {
+                $query = "SELECT a.*, c.alias AS catalias FROM #__content AS a "
+                    . " LEFT JOIN #__categories AS c ON c.id = a.catid "
+                    . " WHERE a.`id`=".(int)$link
+                ;
+            }
 
             $db =& JFactory::getDBO();
             $db->setQuery( $query );
             $article = $db->loadObject();
 
             if(!empty($article)) {
-                $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias, $article->sectionid.':'.$article->sectionalias );
+                if(YireoHelper::isJoomla15()) {
+                    $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias, $article->sectionid.':'.$article->sectionalias );
+                } else {
+                    $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias);
+                }
             }
         }
 

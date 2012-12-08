@@ -25,7 +25,7 @@ class SimplelistsViewItems extends YireoView
     public function display($tpl = null)
     {
         $this->prepareDisplay();
-        parent::display($this->getLayout(), false);
+        parent::display($this->getLayout());
     }
 
     /*
@@ -37,8 +37,8 @@ class SimplelistsViewItems extends YireoView
     public function prepareDisplay()
     {
         // Get important system variables
-        $document =& JFactory::getDocument();
-        $uri = &JFactory::getURI();
+        $document = JFactory::getDocument();
+        $uri = JFactory::getURI();
 
         // Determine the current layout
         if($this->params->get('layout') != '') {
@@ -154,14 +154,15 @@ class SimplelistsViewItems extends YireoView
         }
 
         // Assign all variables to this layout
-        $this->assignRef( 'category', $category );
-        $this->assignRef( 'totop', $totop );
-        $this->assignRef( 'empty_list', $empty_list );
-        $this->assignRef( 'url', $url);
-        $this->assignRef( 'page_class', $page_class);
+        $this->assignRef('category', $category );
+        $this->assignRef('totop', $totop );
+        $this->assignRef('empty_list', $empty_list );
+        $this->assignRef('url', $url);
+        $this->assignRef('page_class', $page_class);
 
         // Call the parent method
         parent::prepareDisplay();
+        $this->prepare_display = false;
     }
 
     /*
@@ -298,22 +299,22 @@ class SimplelistsViewItems extends YireoView
         }
 
         // Set the image-alignment for this item
-        if( $item->params->get('picture_alignment') != '' && $layout != 'picture' ) {
+        if ($item->params->get('picture_alignment') != '' && $layout != 'picture') {
             $item->picture_alignment = $item->params->get('picture_alignment');
         } else {
             $item->picture_alignment = false;
         }
 
         // Prepare the image
-        if( $item->params->get('show_item_image', 1) && !empty($item->picture)) {
+        if ($item->params->get('show_item_image', 1) && !empty($item->picture)) {
 
             $attributes = 'title="'.$item->title.'" class="simplelists"';
-            if($item->picture_alignment) $attributes .= ' align="'.$item->picture_alignment.'"';
-            $item->picture = SimplelistsHTML::image( $item->picture, $item->title, $attributes);
+            if ($item->picture_alignment) $attributes .= ' align="'.$item->picture_alignment.'"';
+            $item->picture = SimplelistsHTML::image($item->picture, $item->title, $attributes);
 
-            if($item->picture && $item->params->get('image_link') && !empty( $item->url )) {
+            if ($item->picture && $item->params->get('image_link') && !empty( $item->url )) {
 
-                if($item->params->get( 'link_class') != '') {
+                if ($item->params->get( 'link_class') != '') {
                     $item_link_class = ' class="'.$item->params->get('link_class').'"' ;
                 } else {
                     $item_link_class = '';
@@ -363,7 +364,7 @@ class SimplelistsViewItems extends YireoView
         $item->style = '';
         if($layout == 'select' || $layout == 'hover') {
             if($counter == 0) {
-                $item->style = 'display:block; visibility:visible;';
+                $item->style = 'display:block;';
             }
         }
 
@@ -402,8 +403,8 @@ class SimplelistsViewItems extends YireoView
             case 'hover':
             case 'select':
             case 'toggle':
+                YireoHelper::jquery();
                 $script = 'layout-'.$layout.'.js';
-                JHTML::_('behavior.mootools');
                 break;
 
             default:

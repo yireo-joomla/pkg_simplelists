@@ -2,12 +2,12 @@
 <extension version="1.7" type="plugin" group="simplelistslink" method="upgrade">
     <name>SimpleLists Link - CBProfile</name>
     <author>Yireo</author>
-    <creationDate>November 2011</creationDate>
-    <copyright>Copyright (C) 2011 Yireo.com. All rights reserved.</copyright>
+    <creationDate>December 2012</creationDate>
+    <copyright>Copyright (C) 2012 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.0.0</version>
+    <version>1.7.0</version>
     <description>SimpleLists link-plugin for Community Builder profiles</description>
     <files>
         <filename plugin="cbprofile">cbprofile.php</filename>

@@ -6,8 +6,8 @@
 		</message>
 	</layout>
     <fields name="request">
-        <fieldset name="request" addfieldpath="/administrator/components/com_simplelists/fields">
-            <field name="category_id" type="category" default="0" label="Category" description="PARAM CATEGORY" />
+        <fieldset name="request">
+            <field name="category_id" type="category" extension="com_simplelists" required="true" label="COM_SIMPLELISTS_CATEGORY" description="COM_SIMPLELISTS_CATEGORY_DESC" />
         </fieldset>
     </fields>
     <fields name="params">

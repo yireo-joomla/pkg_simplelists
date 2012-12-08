@@ -7,38 +7,28 @@
  * @link http://www.yireo.com/
  */
 
-window.addEvent('domready', function() {
-    var trigger = $( 'simplelist-select' );
-    var blocks = $$( '.simplelists-item' );
+jQuery(document).ready(function() {
 
-    //var fx = new Fx.Elements(triggers, {wait: false, duration: 300});
-    trigger.addEvent('change', function(event) {
-    	
-        blocks.each(function(block, j) {
-            block.setStyle( 'display', 'none' );
-            block.setStyle( 'visibility', 'hidden' );
-        });
-        
-        thisblock = 'item' + trigger.value ;
-        $(thisblock).setStyle( 'display', 'block' );
-        $(thisblock).setStyle( 'visibility', 'visible' );
+    var trigger = jQuery('#simplelist-select');
+    var blocks = jQuery('.simplelists-item');
+
+    trigger.change(function(event) {
+        blocks.hide();
+        selected = jQuery('#item' + trigger.val());
+        selected.show();
     });
     
     if( window.location.hash != '' ) {
     	
-        blocks.each(function(block, j) {
-            block.setStyle( 'display', 'none' );
-            block.setStyle( 'visibility', 'hidden' );
-        });
+        blocks.hide();
         
     	hash = window.location.hash.replace('#','');
     	id = window.location.hash.replace('#item','');
-        trigger.value = id;
+        trigger.val(id);
     	
     	blocks.each(function(item, index) {
-    		if( hash == item.id) {
-    			item.setStyle( 'display', 'block' );
-    			item.setStyle( 'visibility', 'visible' );
+    		if(hash == item.id) {
+    			item.show();
     		}
     	}); 
     }

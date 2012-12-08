@@ -14,19 +14,20 @@ defined('_JEXEC') or die('Restricted access');
 <?php echo $this->loadTemplate('_header'); ?>
 
 <?php if(!empty( $this->items)): ?>
-<div id="simplelists" class="<?php echo $this->page_class; ?>">
+<div id="simplelists-toggle" class="accordion <?php echo $this->page_class; ?>">
+<?php $i = 0; ?>
 <?php foreach( $this->items as $item ): ?>
-    <div class="<?php echo $item->class; ?>">
-        <div class="heading" style="background-color:<?php echo $this->params->get('header_bgcolor'); ?>">
+    <div class="accordion-group <?php echo $item->class; ?>">
+        <div class="accordion-heading heading" style="background-color:<?php echo $this->params->get('header_bgcolor', 'none'); ?>">
             <?php if($this->params->get('disable_jumplabels', 0) == 0) { ?>
             <a name="<?php echo $item->href; ?>" />
-            <a class="heading" href="<?php echo $this->url; ?>#<?php echo $item->href; ?>" style="color:<?php echo $this->params->get('header_fgcolor'); ?>"><?php echo $item->title; ?></a>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#simplelists-toggle" href="#<?php echo $item->href; ?>" style="color:<?php echo $this->params->get('header_fgcolor'); ?>"><?php echo $item->title; ?></a>
             <?php } else { ?>
-            <a class="heading" onclick="return false;" style="color:<?php echo $this->params->get('header_fgcolor'); ?>"><?php echo $item->title; ?></a>
+            <a class="heading" onclick="return false;" style="color:<?php echo $this->params->get('header_fgcolor', 'none'); ?>"><?php echo $item->title; ?></a>
             <?php } ?>
         </div>
-        <div class="body" id="item<?php echo $item->id; ?>">
-            <div>
+        <div class="accordion-body collapse <?php if($i == 0) echo 'in'; ?>" id="<?php echo $item->href; ?>">
+            <div class="accordion-inner">
                 <p>
                 <?php if($item->picture): ?>
                 <?php echo $item->picture; ?>
@@ -43,6 +44,7 @@ defined('_JEXEC') or die('Restricted access');
             </div>
         </div>
     </div>
+    <?php $i++; ?>
 <?php endforeach; ?>
 </div>
 <?php else: ?>
