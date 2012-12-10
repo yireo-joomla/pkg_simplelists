@@ -32,29 +32,24 @@ class SimplelistsModelCategories extends YireoModel
     {
         $this->_search = array('title');
         $this->_debug = false;
+        $this->_limit_query = false;
         $this->_orderby_default = (YireoHelper::isJoomla15()) ? 'ordering' : 'lft,rgt';
         parent::__construct('category');
     }
 
     /**
-     * Method to fetch extra data
+     * Method to add extra data
      *
      * @access public
      * @param null
      * @return array
      */
-    public function getData()
+    public function onDataLoad($item)
     {
-        $this->_data = parent::getData();
-        if(!empty($this->_data)) {
-            foreach( $this->_data as $index => $category ) {
-                if(empty($category->active)) {
-                    $category->active = $this->getActive( $category->id ) ;
-                    $this->_data[$index] = $category;
-                }
-            }
+        if (empty($item->active)) {
+            $item->active = $this->getActive($item->id);
         }
-        return $this->_data;
+        return $item;
     }
 
     /**

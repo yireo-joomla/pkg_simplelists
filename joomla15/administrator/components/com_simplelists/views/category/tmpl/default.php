@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -125,11 +125,8 @@ $cparams = JComponentHelper::getParams ('com_media');
                 array('metadata-category', 'Metadata', 'metadata'),
             ); 
 
-            echo $this->pane->startPane('content-pane');
-                
             foreach($groups as $group) {
                 $title = JText::_('Parameters').' ('.JText::_($group[1]).')';
-                echo $this->pane->startPanel($title, $group[0]);
                 if(YireoHelper::isJoomla15()) {
                     echo $this->params->render('params', $group[2]);
                 } else {
@@ -142,9 +139,7 @@ $cparams = JComponentHelper::getParams ('com_media');
                         <?php
                     }
                 }
-                echo $this->pane->endPanel();
             }
-            echo $this->pane->endPane();
             ?>
         </td>
     </tr>

@@ -107,43 +107,34 @@ function slSelectPicture(path)
 }
 
 /*
- * Some extra GUI tricks
+ * Wrapper for SimpleLists-functions called by core Media Manager
  */
-window.addEvent('domready', function() {
-
-    // Autofocus the title input-field
-    if($('title')) {
-        $('title').focus();
-    }
-});
+function jInsertFieldValue(value, id)
+{
+    if(id == 'picture_name') { slSelectPicture(value); }
+    if(id == 'link_image') { slSelectLinkImage(value); }
+    if(id == 'link_file') { slSelectLinkFile(value); }
+}
 
 /*
- * Re-create the Accordion-effect including support for a cookie
+ * Some extra GUI tricks
  */
-window.addEvent('domready', function() {
+jQuery(document).ready(function(){
 
-    var currentPane = SLCookie.read('simplelists-item-pane');
-    if(!currentPane > 0) {
-        currentPane = 0;
+    // Autofocus the title input-field
+    if(jQuery('#title')) {
+        jQuery('#title').focus();
     }
 
-    /*
-    jpanes = new Accordion($$('.panel h3.jpane-toggler'), $$('.panel div.jpane-slider'), {
-        onActive: function(toggler, i) {
-            toggler.addClass('jpane-toggler-down'); 
-            toggler.removeClass('jpane-toggler'); 
-        },
-        onBackground: function(toggler, i) { 
-            toggler.addClass('jpane-toggler');
-            toggler.removeClass('jpane-toggler-down'); 
-        },
-        onComplete: function() {
-            SLCookie.write('simplelists-item-pane', this.previous );  
-        },
-        duration: 300,
-        display: currentPane,
-        opacity: false 
+    // Fetch the selected tab if it is available
+    jQuery('a[data-toggle="tab"]').on('shown', function (e) {
+        url = '' + e.target;
+        tab = url.split('#')[1];
+        jQuery.ajax({
+            type: 'POST',
+            url: 'index.php?option=com_simplelists&task=cookie&name=tab', 
+            data: {tab: tab}
+        });
     });
-    */
 });
 

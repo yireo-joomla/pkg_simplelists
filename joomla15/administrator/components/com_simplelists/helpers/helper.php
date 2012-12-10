@@ -48,9 +48,10 @@ class SimplelistsHelper
      * @access public
      * @param int ID of current item
      * @param int ID of parent category
+     * @param type Type of listing to return
      * @return array List of categories
      */
-    public function getCategories( $id = null, $parent_id = null ) 
+    public function getCategories($id = null, $parent_id = null, $type = 'object') 
     {
         // Convert to integers
         if(!empty($id)) $id = (int)$id;
@@ -81,11 +82,19 @@ class SimplelistsHelper
             }
         }
 
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery($query);
 
         $rows = $db->loadObjectList();
-        return $rows ;
+        if($type == 'object') {
+            return $rows;
+        }
+
+        $data = array();
+        foreach($rows as $row) {
+            if($type == 'id') $data[] = $row->id;
+        }
+        return $data;
     }
 
     /**
@@ -119,7 +128,9 @@ class SimplelistsHelper
         if( $folder == '' ) {
             $folder = COM_SIMPLELISTS_BASE;
         }
-        if( JFolder::exists( $folder )) {
+
+        jimport('joomla.filesystem.folder');
+        if (JFolder::exists($folder)) {
             return true ;
         } else {
             if( JFolder::create( $folder )) {

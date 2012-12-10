@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -51,7 +51,8 @@ class plgSimpleListsLinkVimeo extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()  
+    {
         return 'Vimeo video';
     }    
 
@@ -62,7 +63,8 @@ class plgSimpleListsLinkVimeo extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         return $item->link;
     }
 
@@ -73,7 +75,8 @@ class plgSimpleListsLinkVimeo extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
+    public function getInput($current = null) 
+    {
         return '<input class="text_area" type="text" name="link_vimeo" id="link_vimeo" value="'.$this->getName($current).'" size="48" maxlength="250" />';
     }
 
@@ -84,7 +87,8 @@ class plgSimpleListsLinkVimeo extends plgSimpleListsLinkDefault
      * @param object $item
      * @return mixed
      */
-    public function getHidden($item = null) {
+    public function getHidden($item = null) 
+    {
         if($item == null) {
             return null;
         }
@@ -105,7 +109,7 @@ class plgSimpleListsLinkVimeo extends plgSimpleListsLinkDefault
         $params = implode('&amp;', $array);
 
         ob_start();
-        include dirname(__FILE__).DS.'vimeo'.DS.'default.php';
+        include dirname(__FILE__).'/vimeo/default.php';
         $text .= ob_get_contents();
         ob_end_clean();
 

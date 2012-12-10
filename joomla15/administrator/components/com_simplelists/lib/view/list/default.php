@@ -46,7 +46,7 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_PUBLISHED', $this->fields['state_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
             </th>
             <?php endif; ?>
-            <?php if($hasOrdering) : ?>
+            <?php if($hasOrdering && (YireoHelper::isJoomla15() || YireoHelper::isJoomla25())) : ?>
             <th width="8%" nowrap="nowrap">
                 <?php echo JHTML::_('grid.sort', 'LIB_YIREO_TABLE_FIELDNAME_ORDERING', $this->fields['ordering_field'], $this->lists['order_Dir'], $this->lists['order'] ); ?>
                 <?php echo JHTML::_('grid.order', $this->items ); ?>
@@ -95,7 +95,8 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                 $orderingField = $this->fields['ordering_field'];
             }
 
-            // @todo: Describe this flag
+            // @todo: Make this field configurable
+            // Determine whether to automatically insert common columns or not
             $auto_columns = true;
             ?>
             <tr class="<?php echo "row".($i%2); ?>">
@@ -112,7 +113,7 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
                     <?php echo $published; ?>
                 </td>
                 <?php endif; ?>
-                <?php if($hasOrdering) : ?>
+                <?php if($hasOrdering && (YireoHelper::isJoomla15() || YireoHelper::isJoomla25())) : ?>
                 <td class="order">
                     <?php if(isset($item->hasOrdering) && $item->hasOrdering == false) : ?>
                         <?php echo $this->getImageTag('disabled.png'); ?>
@@ -150,5 +151,3 @@ $hasOrdering = ($table->getDefaultOrderBy()) ? true : false;
 
 <?php echo $this->loadTemplate('formend'); ?>
 </form>
-
-<?php // @todo: Copyright + logo of Yireo ?>

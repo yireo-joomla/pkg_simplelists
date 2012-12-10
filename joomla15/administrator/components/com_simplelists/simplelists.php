@@ -42,6 +42,6 @@ SimplelistsHelper::checkVersions();
 $controller = new SimplelistsController( );
 
 // Perform the Request task
-$controller->execute( JRequest::getCmd('task'));
+$controller->execute(JRequest::getCmd('task'));
 $controller->redirect();
 

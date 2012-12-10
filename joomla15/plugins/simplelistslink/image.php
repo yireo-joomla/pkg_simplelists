@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -51,7 +51,8 @@ class plgSimpleListsLinkImage extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'Internal image';
     }    
 
@@ -62,7 +63,8 @@ class plgSimpleListsLinkImage extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         return JURI::base().$item->link;
     }
 
@@ -73,14 +75,16 @@ class plgSimpleListsLinkImage extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
-        $modal_link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_image';
-        if($current!=null) {
-            $modal_link .= '&amp;folder=/'.dirname( $current ).'&amp;current='.$current;
+    public function getInput($current = null) 
+    {
+        if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
+            $link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_image';
+            if($current!=null) $link .= '&amp;folder=/'.dirname($current);
         } else {
-            $modal_link .= '&amp;current=';
+            $link = 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;fieldid=link_image';
+            if($current!=null) $link .= '&amp;folder=/'.preg_replace('/^images\//', '', dirname($current));
         }
 
-        return $this->getModal('image', $modal_link, $current);
+        return $this->getModal('image', $link, $current);
     }
 }

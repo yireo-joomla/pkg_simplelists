@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -32,7 +32,7 @@ class JElementColorpicker extends JElement
 
         $link = JURI::root().COLOR_PICKER_URL.'index.php?object='.$name.'&amp;color='.preg_replace('/([^a-zA-Z0-9]?)/', '', $value);
 
-        JHTML::script('colorpicker.js', COLOR_PICKER_URL );
+        JHTML::script(COLOR_PICKER_URL.'colorpicker.js');
         JHTML::_('behavior.modal', 'a.modal');
 
         $title = JText::_('Select a Color');

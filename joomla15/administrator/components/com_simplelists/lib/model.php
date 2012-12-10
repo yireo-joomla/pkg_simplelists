@@ -7,7 +7,7 @@
  * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.2
+ * @version 0.5.1
  */
 
 // Check to ensure this file is included in Joomla!
@@ -519,18 +519,17 @@ class YireoModel extends YireoAbstractModel
                         $data[$index] = $item;
                     }
 
+                    $this->_total = count($data);
                     $this->_data = $data;
-                    $this->_total = count($this->_data); 
                 }
             }
         }
 
-        // Prepare pagination
         if ($this->isSingular() == false && $this->_limit_query == false && $this->getState('limit') > 0) {
-            return array_slice($this->_data, $this->getState('limitstart'), $this->getState('limit'));
+            $part = array_slice($this->_data, $this->getState('limitstart'), $this->getState('limit'));
+            return $part;
         }
 
-        // Return data
         return $this->_data;
     }
 
@@ -697,6 +696,22 @@ class YireoModel extends YireoAbstractModel
         jimport('joomla.utilities.date');
         $now = new JDate('now');
         $uid = $this->user->get('id');
+
+        // Convert the JForm text-array into the default data-text
+        if (!empty($data['text'])) {
+            foreach($data['text'] as $name => $value) {
+                $data[$name] = $value;
+            }
+            if(is_array($data['text'])) unset($data['text']);
+        }
+
+        // Convert the JForm basic-array into the default data-set
+        if (!empty($data['basic'])) {
+            foreach($data['basic'] as $name => $value) {
+                $data[$name] = $value;
+            }
+            unset($data['basic']);
+        }
 
         // Automatically set some data
         $data['modified'] = (method_exists('JDate', 'toSql')) ? $now->toSql() : $now->toMySQL();

@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -15,13 +15,14 @@ defined('_JEXEC') or die('Restricted access');
 $user = JFactory::getUser();
 $session = JFactory::getSession();
 $config = JFactory::getConfig();
+$token = (method_exists('JSession', 'getFormToken')) ? JSession::getFormToken() : JUtility::getToken();
 
 $folder = JFactory::getApplication()->getUserStateFromRequest('com_simplelists.files.folder', 'folder', 'images/simplelists');
 $folder = preg_replace('/^images\//', '', $folder);
 ?>
 <div style="clear:both; height:20px;"></div>
 <?php if($user->authorise('core.create', 'com_media')): ?>
-	<form action="<?php echo JURI::base(); ?>index.php?option=com_media&amp;task=file.upload&amp;folder=<?php echo $folder; ?>&amp;tmpl=component&amp;<?php echo $session->getName().'='.$session->getId(); ?>&amp;<?php echo JUtility::getToken();?>=1&amp;asset=<?php echo JRequest::getCmd('asset');?>&amp;author=<?php echo JRequest::getCmd('author');?>&amp;format=<?php echo $config->get('enable_flash')=='1' ? 'json' : '' ?>" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
+	<form action="<?php echo JURI::base(); ?>index.php?option=com_media&amp;task=file.upload&amp;folder=<?php echo $folder; ?>&amp;tmpl=component&amp;<?php echo $session->getName().'='.$session->getId(); ?>&amp;<?php echo $token;?>=1&amp;asset=<?php echo JRequest::getCmd('asset');?>&amp;author=<?php echo JRequest::getCmd('author');?>&amp;format=<?php echo $config->get('enable_flash')=='1' ? 'json' : '' ?>" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 		<fieldset id="uploadform">
 			<legend><?php echo $config->get('upload_maxsize')=='0' ? JText::_('COM_SIMPLELISTS_UPLOAD_FILES_NOLIMIT') : JText::sprintf('COM_SIMPLELISTS_UPLOAD_FILES', $config->get('upload_maxsize')); ?></legend>
 			<fieldset id="upload-noflash" class="actions">

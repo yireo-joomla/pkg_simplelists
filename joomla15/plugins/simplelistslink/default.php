@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -59,7 +59,8 @@ class plgSimpleListsLinkDefault extends JPlugin
      * @param null
      * @return bool
      */
-    public function isEnabled() {
+    public function isEnabled() 
+    {
         return true;
     }
 
@@ -70,7 +71,8 @@ class plgSimpleListsLinkDefault extends JPlugin
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'None';
     }
 
@@ -81,7 +83,8 @@ class plgSimpleListsLinkDefault extends JPlugin
      * @param mixed $link
      * @return string
      */
-    public function getName($link = null) {
+    public function getName($link = null) 
+    {
         return $link;
     }
 
@@ -103,7 +106,8 @@ class plgSimpleListsLinkDefault extends JPlugin
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
+    public function getInput($current = null) 
+    {
         return null;
     }
 
@@ -114,7 +118,8 @@ class plgSimpleListsLinkDefault extends JPlugin
      * @param object $item
      * @return mixed
      */
-    public function getHidden($item) {
+    public function getHidden($item)    
+    {
         header('Location: '.$this->getUrl($item->link));
         exit;
     }
@@ -128,7 +133,8 @@ class plgSimpleListsLinkDefault extends JPlugin
      * @param mixed $current
      * @return string
      */
-    public function getModal($type, $modal_link, $current = null) {
+    public function getModal($type, $modal_link, $current = null) 
+    {
         ?>
         <div style="float:left;">
             <input type="text" id="link_name_<?php echo $type; ?>" value="<?php echo $this->getName($current); ?>" disabled="disabled" />
@@ -136,7 +142,7 @@ class plgSimpleListsLinkDefault extends JPlugin
         <div class="button2-left">
             <div class="blank">
                 <?php $selectText = JText::_('COM_SIMPLELISTS_SELECT_'.strtoupper($type)); ?> 
-                <a class="modal-button" title="<?php echo $selectText; ?>" href="<?php echo $modal_link; ?>" rel="{handler: 'iframe', size: {x: 770, y: 500}}">
+                <a class="btn modal-button" title="<?php echo $selectText; ?>" href="<?php echo $modal_link; ?>" rel="{handler: 'iframe', size: {x: 770, y: 500}}">
                     <?php echo $selectText; ?>
                 </a>
             </div>

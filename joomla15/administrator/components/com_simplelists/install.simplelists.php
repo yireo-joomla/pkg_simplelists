@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -15,8 +15,8 @@ defined('_JEXEC') or die();
 function com_install() {
 
     // Initialize system variables
-    $db =& JFactory::getDBO();
-    $application =& JFactory::getApplication() ;
+    $db = JFactory::getDBO();
+    $application = JFactory::getApplication() ;
 
     // Do a simple PHP-check
     if(version_compare(phpversion(), '5.2.0', '>=') == false) {

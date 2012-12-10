@@ -709,9 +709,6 @@ class YireoController extends YireoAbstractController
             return false;
         }
 
-        // Hide the menu while editing or adding an item
-        JRequest::setVar( 'hidemainmenu', 1 );
-
         // Display this page
         parent::display();
         return true;

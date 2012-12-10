@@ -4,7 +4,7 @@
  *
  * @author Yireo (info@yireo.com)
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
  */
@@ -13,10 +13,10 @@
 defined('_JEXEC') or die( 'Restricted access' );
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -85,24 +85,35 @@ class plgSimpleListsLinkArticle extends plgSimpleListsLinkDefault
      */
     public function getUrl($item = null) 
     {
-        require_once JPATH_SITE.DS.'components'.DS.'com_content'.DS.'helpers'.DS.'route.php' ;
+        require_once JPATH_SITE.'/components/com_content/helpers/route.php' ;
         $link = $item->link;
         $url = ContentHelperRoute::getArticleRoute((int)$link);
 
         if(!strstr($url,'Itemid=')) {
 
-            $query = "SELECT a.*, c.alias AS catalias, s.alias AS sectionalias FROM #__content AS a "
-                . " LEFT JOIN #__categories AS c ON c.id = a.catid "
-                . " LEFT JOIN #__sections AS s ON s.id = a.sectionid "
-                . " WHERE a.`id`=".(int)$link
-            ;
+            if(YireoHelper::isJoomla15()) {
+                $query = "SELECT a.*, c.alias AS catalias, s.alias AS sectionalias FROM #__content AS a "
+                    . " LEFT JOIN #__categories AS c ON c.id = a.catid "
+                    . " LEFT JOIN #__sections AS s ON s.id = a.sectionid "
+                    . " WHERE a.`id`=".(int)$link
+                ;
+            } else {
+                $query = "SELECT a.*, c.alias AS catalias FROM #__content AS a "
+                    . " LEFT JOIN #__categories AS c ON c.id = a.catid "
+                    . " WHERE a.`id`=".(int)$link
+                ;
+            }
 
             $db =& JFactory::getDBO();
             $db->setQuery( $query );
             $article = $db->loadObject();
 
             if(!empty($article)) {
-                $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias, $article->sectionid.':'.$article->sectionalias );
+                if(YireoHelper::isJoomla15()) {
+                    $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias, $article->sectionid.':'.$article->sectionalias );
+                } else {
+                    $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias);
+                }
             }
         }
 

@@ -46,14 +46,16 @@ class SimplelistsViewCategory extends YireoView
 
         // Construct the slider-panel
         jimport('joomla.html.pane');
-        $pane = & JPane::getInstance('sliders');
-        $this->assignRef('pane', $pane);
-
-        // Add jQuery
-        if(JFactory::getApplication()->get('jquery') == false) {
-            $this->addJs('jquery.js');
-            JFactory::getApplication()->set('jquery', true);
+        if(class_exists('JPane')) {
+            $pane = & JPane::getInstance('sliders');
+            $this->assignRef('pane', $pane);
+        } else {
+            $pane = false;
+            $this->assignRef('pane', $pane);
         }
+
+        // Load jQuery 
+        YireoHelper::jquery();
 
         // Add extra JavaScript
         JHTML::_('behavior.formvalidation');

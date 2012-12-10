@@ -1,9 +1,9 @@
 /**
- * Joomla! component Dynamic404
+ * Yireo Library
  *
  * @author Yireo
- * @package Dynamic404
- * @copyright Copyright 2011
+ * @package Yireo Library
+ * @copyright Copyright 2012
  * @link http://www.yireo.com/
  */
 
@@ -25,18 +25,18 @@ div.review {
     border-top: 1px solid #cccccc;
 }
 
-div.facebook {
+div.twitter {
     margin-top: 5px;
-    background: transparent url(../images/icon-43-yfacebook.png) no-repeat 15px 10px;
+    background: transparent url(../images/icon-43-twitter.png) no-repeat 15px 10px;
     padding: 20px;
     padding-left: 85px;
     background-color: white;
     border-top: 1px solid #cccccc;
 }
 
-div.twitter {
+div.facebook {
     margin-top: 5px;
-    background: transparent url(../images/icon-43-ytwitter.png) no-repeat 15px 10px;
+    background: transparent url(../images/icon-43-facebook.png) no-repeat 15px 10px;
     padding: 20px;
     padding-left: 85px;
     background-color: white;
@@ -44,37 +44,47 @@ div.twitter {
 }
 
 h2.latest_news_header {
-    background-color: #cf3a3a;
-    border: 1px solid #a60000;
+    background-color: #6277b3;
+    background-image: linear-gradient(to bottom, #17568C, #1A3867);
+    background-repeat: repeat-x;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #184A7D;
     border-bottom: 0;
-    color: #ffffff;
+	-webkit-border-radius: 10px 10px 0px 0px ;
+	-moz-border-radius: 10px 10px 0px 0px ;
+	border-radius: 10px 10px 0px 0px ;
+    color: white;
     margin: 0;
     padding: 6px;
+    padding-left: 22px;
 }
 
 div#latest_news {
     width: auto;
     height: auto;
     padding: 5px;
-    background-color: white;
-    border: 1px solid #a60000;
-}
-
-div.loader {
-    width: 100%;
-    height: 60px;
-    background-position: center center;
-    background-image: url(../images/loader.gif);
-    background-repeat: no-repeat;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: 1px solid #184A7D;
+	-webkit-border-radius: 0px 0px 10px 10px ;
+	-moz-border-radius: 0px 0px 10px 10px ;
+	border-radius: 0px 0px 10px 10px ;
 }
 
 h2.promotion_header {
-    background-color: #cf3a3a;
-    border: 1px solid #a60000;
+    background-color: #6277b3;
+    background-image: linear-gradient(to bottom, #17568C, #1A3867);
+    background-repeat: repeat-x;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #184A7D;
     border-bottom: 0;
+	-webkit-border-radius: 10px 10px 0px 0px ;
+	-moz-border-radius: 10px 10px 0px 0px ;
+	border-radius: 10px 10px 0px 0px ;
     color: white;
     margin: 0;
     padding: 6px;
+    padding-left: 22px;
 }
 
 div#promotion {
@@ -82,8 +92,11 @@ div#promotion {
     height: auto;
     padding: 5px;
     margin-bottom: 5px;
-    background-color: #fffbdd;
-    border: 1px solid #a60000;
+    background-color: #fff;
+    border: 1px solid #184A7D;
+	-webkit-border-radius: 0px 0px 10px 10px ;
+	-moz-border-radius: 0px 0px 10px 10px ;
+	border-radius: 0px 0px 10px 10px ;
 }
 
 div#promotion h3.teaser {
@@ -101,7 +114,8 @@ div#promotion h3.teaser {
 div#promotion p.link {
     font-size: 130%;
     font-weight: bold;
-    line-height:140%;
+    line-height:10%;
+	margin-top: 20px;
     text-align:center;
 }
 

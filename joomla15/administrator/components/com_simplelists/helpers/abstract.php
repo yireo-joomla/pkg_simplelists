@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo (info@yireo.com)
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com
  */
@@ -34,6 +34,10 @@ class HelperAbstract
                 'item' => 'Item',
                 'categories' => 'Categories',
                 'category' => 'Category',
+            ),
+            'obsolete_files' => array(
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/categories/tmpl/default.php',
+                JPATH_SITE.'/media/com_simplelists/js/mootools-cookie.js',
             ),
         );
     }

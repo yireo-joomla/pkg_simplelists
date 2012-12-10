@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2011
+ * @copyright Copyright 2012
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -13,10 +13,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).DS.'default.php')) {
-    require_once dirname(__FILE__).DS.'default.php';
+if(file_exists(dirname(__FILE__).'/default.php')) {
+    require_once dirname(__FILE__).'/default.php';
 } else {
-    require_once dirname(dirname(__FILE__)).DS.'default'.DS.'default.php';
+    require_once dirname(dirname(__FILE__)).'/default/default.php';
 }
 
 /**
@@ -51,8 +51,9 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param null
      * @return bool
      */
-    public function isEnabled() {
-        if(JFolder::exists(JPATH_SITE.DS.'components'.DS.'com_comprofiler')) {
+    public function isEnabled() 
+    {
+        if(JFolder::exists(JPATH_SITE.'/components/com_comprofiler')) {
             return true;
         } else {
             return false;
@@ -66,7 +67,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param null
      * @return string
      */
-    public function getTitle() {
+    public function getTitle() 
+    {
         return 'CB user profile';
     }    
 
@@ -77,7 +79,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param mixed $link
      * @return string
      */
-    public function getName($link) {
+    public function getName($link) 
+    {
         $query = "SELECT `name` FROM #__users WHERE `id`=".(int)$link;
         $db =& JFactory::getDBO();
         $db->setQuery( $query );
@@ -96,7 +99,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param object $item
      * @return string
      */
-    public function getUrl($item = null) {
+    public function getUrl($item = null) 
+    {
         return JRoute::_('index.php?option=com_comprofiler&task=userProfile&user='.(int)$item->link);
     }
 
@@ -107,7 +111,8 @@ class plgSimpleListsLinkCBProfile extends plgSimpleListsLinkDefault
      * @param mixed $current
      * @return string
      */
-    public function getInput($current = null) {
+    public function getInput($current = null) 
+    {
         $query = "SELECT `id`, `name` FROM #__users";
         $db =& JFactory::getDBO();
         $db->setQuery( $query );

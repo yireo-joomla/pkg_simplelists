@@ -432,11 +432,12 @@ class YireoView extends YireoCommonView
         if (YireoHelper::isJoomla35() == true) $this->addCss('j35.css');
 
         // Include extra component-related JavaScript
+        YireoHelper::jquery();
         $this->addJs('default.js');
         $this->addJs('view-'.$this->_view.'.js');
 
         // Fetch parameters if they exist
-        if ( file_exists( JPATH_COMPONENT.'/models/'.$this->_name.'.xml' )) {
+        if (file_exists( JPATH_COMPONENT.'/models/'.$this->_name.'.xml' )) {
             $file = JPATH_COMPONENT.'/models/'.$this->_name.'.xml';
             $params = YireoHelper::toParameter($this->item->params, $file);
         } else if (!empty($this->item->params)) {
@@ -457,6 +458,11 @@ class YireoView extends YireoCommonView
         // Load the form if it's there
         if (YireoHelper::isJoomla15() == false) {
             $form = $this->get('Form');
+            if(!empty($form)) {
+                $form->bind(array('basic' => $this->item));
+                $form->bind(array('text' => $this->item));
+                if(!empty($params)) $form->bind(array('params' => $params->toArray()));
+            }
             $this->assignRef('form', $form);
         }
 
