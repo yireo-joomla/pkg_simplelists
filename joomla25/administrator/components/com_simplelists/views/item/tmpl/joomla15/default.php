@@ -35,7 +35,7 @@ jimport('joomla.utilities.utility');
         array('name' => 'ordering', 'custom' => $this->lists['ordering']),
         array('name' => 'access', 'custom' => $this->lists['access']),
     ); ?>
-    <?php echo $this->loadTemplate('fieldset', array('fieldset' => 'COM_SIMPLELISTS_ITEM_FIELDSET_DETAILS', 'fields' => $fields)); ?>
+    <?php echo $this->loadTemplate('fieldset', array('fieldset' => 'COM_SIMPLELISTS_ITEM_FIELDSET_BASIC', 'fields' => $fields)); ?>
     <fieldset class="adminform">
         <legend><?php echo JText::_('LIB_YIREO_TABLE_FIELDNAME_TEXT'); ?></legend>
         <table class="admintable" width="100%">

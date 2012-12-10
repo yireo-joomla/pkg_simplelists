@@ -65,6 +65,7 @@ function com_install() {
         'ALTER TABLE `#__simplelists_items` CHANGE `link_type` `link_type` VARCHAR(255) NOT NULL DEFAULT "0"',
         'ALTER TABLE `#__simplelists_items` ADD `flags` VARCHAR(10) NOT NULL AFTER `picture`',
         'DROP TABLE  `#__simplelists_plugins`',
+        'UPDATE `#__categories` SET `parent_id`=1 WHERE `extension`="com_simplelists" AND `parent_id`=0',
     );
 
     // Perform all queries - we don't care if it fails

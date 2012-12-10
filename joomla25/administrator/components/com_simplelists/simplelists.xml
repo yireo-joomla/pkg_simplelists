@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="1.6.0" method="upgrade">
-    <name>SimpleLists</name>
+    <name>COM_SIMPLELISTS</name>
     <author>Yireo</author>
     <authoremail>info@yireo.com</authoremail>
     <authorurl>http://www.yireo.com</authorurl>
     <creationDate>October 2012</creationDate>
     <copyright>Copyright 2012 Yireo</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.0.5</version>
-    <description>This component shows a simple listing of items which can be displayed through multiple views/themes</description>
+    <version>1.6.1.0</version>
+    <description>COM_SIMPLELISTS_VIEW_ITEMS_DESC</description>
 
     <!-- installation part -->
     <install>

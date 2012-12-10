@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="1.7" type="plugin" group="content" method="upgrade">
-	<name>Content - SimpleLists</name>
+	<name>PLG_CONTENT_SIMPLELISTS</name>
 	<author>Yireo</author>
-	<creationDate>May 2012</creationDate>
+	<creationDate>December 2012</creationDate>
 	<copyright>Copyright (C) 2012 Yireo. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>info@yireo.com</authorEmail>
 	<authorUrl>www.yireo.com</authorUrl>
-	<version>1.6.0.4d</version>
-	<description>A content plugin to add a SimpleLists listing to an article through specific tags</description>
+	<version>1.6.1.0</version>
+	<description>PLG_CONTENT_SIMPLELISTS_DESC</description>
 	<files>
 		<filename plugin="simplelists">simplelists.php</filename>
 		<filename>index.html</filename>
 	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_simplelists.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_simplelists.sys.ini</language>
+	</languages>
 </extension>

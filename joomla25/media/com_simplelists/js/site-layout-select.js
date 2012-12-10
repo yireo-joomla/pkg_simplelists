@@ -2,7 +2,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright (C) 2011 Yireo
+ * @copyright Copyright (C) 2012 Yireo
  * @license GNU/GPL
  * @link http://www.yireo.com/
  */
@@ -24,13 +24,8 @@ jQuery(document).ready(function() {
         
     	hash = window.location.hash.replace('#','');
     	id = window.location.hash.replace('#item','');
+        jQuery('#' + hash).show();
         trigger.val(id);
-    	
-    	blocks.each(function(item, index) {
-    		if(hash == item.id) {
-    			item.show();
-    		}
-    	}); 
     }
     
 });

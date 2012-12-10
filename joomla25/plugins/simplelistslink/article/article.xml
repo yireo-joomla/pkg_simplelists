@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="1.7" type="plugin" group="simplelistslink" method="upgrade">
-    <name>SimpleLists Link - Article</name>
+    <name>PLG_SIMPLELISTSLINK_ARTICLESimpleLists Link - Article</name>
     <author>Yireo</author>
     <creationDate>December 2012</creationDate>
     <copyright>Copyright (C) 2012 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.7.0</version>
-    <description>SimpleLists link-plugin for Joomla! articles</description>
+    <version>1.6.1</version>
+    <description>PLG_SIMPLELISTSLINK_ARTICLE_DESC</description>
     <files>
         <filename plugin="article">article.php</filename>
+        <filename>index.html</filename>
     </files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_simplelistslink_article.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_simplelistslink_article.sys.ini</language>
+	</languages>
 </extension>
