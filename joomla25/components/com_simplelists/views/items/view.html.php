@@ -403,10 +403,15 @@ class SimplelistsViewItems extends YireoView
         switch( $layout ) {
             case 'hover':
             case 'select':
-            case 'toggle':
                 YireoHelper::jquery();
                 if(YireoHelper::isJoomla25()) $this->addJs('bootstrap.min.js');
                 $script = 'layout-'.$layout.'.js';
+                break;
+
+            case 'toggle':
+                YireoHelper::jquery();
+                if(YireoHelper::isJoomla25()) $this->addJs('bootstrap.min.js');
+                if(YireoHelper::isJoomla25()) $script = 'layout-'.$layout.'.js';
                 break;
 
             default:
