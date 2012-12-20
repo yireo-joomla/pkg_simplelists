@@ -12,15 +12,10 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the helper
-require_once (dirname(__FILE__).'/helper.php');
+require_once (dirname(__FILE__).DS.'helper.php');
 
 // Fetch the list of items
 $list = modSimpleListsItemsHelper::getList($params);
-
-// Determine the readmore data
-$readmore_link = modSimpleListsItemsHelper::getUrl($params);
-$readmore_label = $params->get('readmore_label', 'Read More');
-$readmore_label = JText::_($readmore_label);
 
 // Determine the right module-style
 $style = $params->get('style', 'default');
@@ -28,10 +23,10 @@ $style = $params->get('style', 'default');
 // Add a stylesheet per style
 if($style == 'advanced') {
     $template = JFactory::getApplication()->getTemplate();
-    if(file_exists(JPATH_SITE.'/templates/'.$template.'/css/mod_simplelists_items/'.$style.'.css')) {
-        JHTML::stylesheet('templates/'.$template.'/css/mod_simplelists_items/'.$style.'.css');
-    } elseif(file_exists( JPATH_SITE.'/media/mod_simplelists_items/css/'.$style.'.css')) {
-        JHTML::stylesheet('media/mod_simplelists_items/css/'.$style.'.css');
+    if(file_exists(JPATH_SITE.DS.'templates'.DS.$template.DS.'css'.DS.'mod_simplelists_items'.DS.$style.'.css')) {
+        JHTML::stylesheet(JURI::root().'templates'.DS.$template.DS.'css'.DS.'mod_simplelists_items'.DS.$style.'.css');
+    } elseif(file_exists( JPATH_SITE.DS.'media'.DS.'mod_simplelists_items'.DS.'css'.DS.$style.'.css')) {
+        JHTML::stylesheet(JURI::root().'media'.DS.'mod_simplelists_items'.DS.'css'.DS.$style.'.css');
     }
 }
 

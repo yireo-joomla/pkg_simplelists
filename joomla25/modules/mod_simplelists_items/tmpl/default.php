@@ -19,10 +19,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</li>
 <?php endforeach; ?>
 </ul>
-<?php if(!empty($readmore_label)): ?>
-<a href="<?php echo $readmore_link; ?>"><?php echo $readmore_label; ?></a>
-<?php endif; ?>
 <?php else: ?>
-    <p><?php echo JText::_('No items found'); ?></p>
+    <p><?php echo JText::_('MOD_SIMPLELISTS_ITEMS_NO_ITEMS'); ?></p>
 <?php endif; ?>
 </div>

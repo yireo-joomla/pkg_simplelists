@@ -40,7 +40,7 @@ class modSimpleListsItemsHelper
 		$aid = $user->get('aid', 0);
 		$nullDate = $db->getNullDate();
 		$date =& JFactory::getDate();
-		$now = (method_exists('JDate', 'toSql')) ? $date->toSql() : $date->toMySQL();
+		$now = $date->toMySQL();
 
 	    switch( $ordering ) {
             case 'alpha': 
@@ -132,22 +132,4 @@ class modSimpleListsItemsHelper
 
 		return $lists;
 	}
-
-    /*
-     * Method to return a link to the SimpleLists page
-     */
-    public function getUrl(&$params)
-    {
-        $category_id = (int)$params->get('category_id');
-        $Itemid = (int)$params->get('menu_id');
-        $layout = $params->get('layout');
-
-        $needles = array(
-            'category_id' => $category_id,
-            'Itemid' => $Itemid,
-            'layout' => $layout,
-        );
-
-        return SimplelistsHelper::getUrl($needles);
-    }
 }
