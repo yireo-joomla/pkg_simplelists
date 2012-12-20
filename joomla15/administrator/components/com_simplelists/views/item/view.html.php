@@ -54,7 +54,7 @@ class SimplelistsViewItem extends YireoViewForm
         $defaultCategory = ($this->item->id == 0) ? (int)$this->getFilter('category_id', null, null, 'com_simplelists_items_') : null;
         $categories_params = array('item_id' => $this->item->id, 'multiple' => 1, 'current' => $defaultCategory);
         $this->lists['categories'] = SimplelistsHTML::selectCategories( 'categories[]', $categories_params );
- 
+        
         // Construct the modal boxes
         $modal = array() ;
         if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {

@@ -62,6 +62,9 @@ class YireoViewForm extends YireoView
      */
     public function display($tpl = null)
     {
+        // Hide the menu
+        JRequest::setVar('hidemainmenu', 1);
+    
         // Initialize tooltips
         JHTML::_('behavior.tooltip');
 
@@ -94,8 +97,8 @@ class YireoViewForm extends YireoView
             $params = YireoHelper::toRegistry($this->item->params, $file);
             $this->assignRef('params', $params);
         } else {
-            $paramsForm = JForm::getInstance('params', $file);
-            $this->assignRef('paramsForm', $paramsForm);
+            $form = JForm::getInstance('params', $file);
+            $this->assignRef('paramsForm', $form);
         }
         return true;
     }

@@ -13,15 +13,17 @@ defined('_JEXEC') or die('Restricted access');
 
 <?php echo $this->loadTemplate('_header'); ?>
 <?php 
-$width = $this->params->get('item_width');
-$item_width = (!empty($width)) ? ' style="width:'.$width.'"' : '';  
+$columns = $this->params->get('columns');
+if(!$columns > 0) $columns = 4;
+if(count($this->items) < $columns) $columns = count($this->items);
+$column_span = (int)(12 / $columns);
 ?>
 
-<div class="<?php echo $this->page_class; ?>">
+<div class="<?php echo $this->page_class; ?> row-fluid">
 <?php if(!empty( $this->items)) : ?>
     <?php foreach( $this->items as $item ) : ?>
 
-    <div class="<?php echo $item->class; ?>"<?php echo $item_width; ?>>
+    <div class="<?php echo $item->class; ?> span<?php echo $column_span; ?>">
         <div class="image">
 
             <a name="<?php echo $item->href; ?>"></a>

@@ -308,6 +308,7 @@ class SimplelistsViewItems extends YireoView
         // Prepare the image
         if ($item->params->get('show_item_image', 1) && !empty($item->picture)) {
 
+            // @todo: Add a class "img-polaroid"
             $attributes = 'title="'.$item->title.'" class="simplelists"';
             if ($item->picture_alignment) $attributes .= ' align="'.$item->picture_alignment.'"';
             $item->picture = SimplelistsHTML::image($item->picture, $item->title, $attributes);
@@ -402,9 +403,15 @@ class SimplelistsViewItems extends YireoView
         switch( $layout ) {
             case 'hover':
             case 'select':
+                YireoHelper::jquery();
+                if(YireoHelper::isJoomla25()) $this->addJs('bootstrap.min.js');
+                $script = 'layout-'.$layout.'.js';
+                break;
+
             case 'toggle':
                 YireoHelper::jquery();
-                $script = 'layout-'.$layout.'.js';
+                if(YireoHelper::isJoomla25()) $this->addJs('bootstrap.min.js');
+                if(YireoHelper::isJoomla25()) $script = 'layout-'.$layout.'.js';
                 break;
 
             default:
@@ -412,7 +419,7 @@ class SimplelistsViewItems extends YireoView
                 break;
         }
 
-        $this->addJs($script);
+        if(!empty($script)) $this->addJs($script);
     }
 
     /*

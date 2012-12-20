@@ -432,7 +432,6 @@ class YireoView extends YireoCommonView
         if (YireoHelper::isJoomla35() == true) $this->addCss('j35.css');
 
         // Include extra component-related JavaScript
-        YireoHelper::jquery();
         $this->addJs('default.js');
         $this->addJs('view-'.$this->_view.'.js');
 
