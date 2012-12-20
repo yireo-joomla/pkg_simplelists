@@ -27,7 +27,7 @@ class SimplelistsController extends YireoController
      */
     public function __construct()
     {
-        $this->_default_view = 'items';
+        $this->_default_view = 'home';
         parent::__construct();
 
         // Redirect categories (@todo: When dropping J1.5 compatibility, we can also drop this workaround

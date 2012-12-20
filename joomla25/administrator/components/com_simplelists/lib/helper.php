@@ -234,6 +234,12 @@ class YireoHelper
      */
     static public function jquery()
     {
+        // Do not load when having no HTML-document
+        $document = JFactory::getDocument();
+        if(stristr(get_class($document), 'html') == false) {
+            return;
+        }
+
         // Load jQuery using the framework (Joomla! 3.0 and higher)
         if(YireoHelper::isJoomla15() == false && YireoHelper::isJoomla25() == false) {
             return JHtml::_('jquery.framework');
@@ -248,7 +254,6 @@ class YireoHelper
         // Load jQuery
         $option = JRequest::getCmd('option');
         if (file_exists(JPATH_SITE.'/media/'.$option.'/js/jquery.js')) {
-            $document = JFactory::getDocument();
             $document->addScript(JURI::root().'media/'.$option.'/js/jquery.js');
             $document->addCustomTag('<script type="text/javascript">jQuery.noConflict();</script>');
 

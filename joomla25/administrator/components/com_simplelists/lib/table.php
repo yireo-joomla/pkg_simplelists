@@ -248,6 +248,8 @@ class YireoTable extends JTable
      */
     public function getLastInsertId()
     {
+        $primary_key = $this->getKeyName();
+        if($this->$primary_key > 0) return $this->$primary_key;
         return $this->_db->insertid();
     }
 
