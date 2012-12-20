@@ -34,8 +34,8 @@ class SimplelistsHTML
         require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/category.php';
 
         // Fetch the categories and parse them in a tree
-        $categories = SimplelistsHelper::getCategories( null, $parent_id ) ;
-        $tree = new SimplelistsCategoryTree( $categories );
+        $categories = SimplelistsHelper::getCategories(null, $parent_id);
+        $tree = new SimplelistsCategoryTree($categories);
         $categories = $tree->getList();
 
         // Add a prefix to the category-title depending on the category-level

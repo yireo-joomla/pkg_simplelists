@@ -27,15 +27,21 @@ jimport('joomla.utilities.utility');
 <tbody>
 <tr>
 <td width="50%" valign="top">
-    <?php $fields = array(
-        array('name' => 'title', 'type' => 'text', 'value' => $this->item->title),
-        array('name' => 'alias', 'type' => 'text', 'value' => $this->item->alias),
-        array('name' => 'published', 'custom' => $this->lists['published']),
-        array('name' => 'categories', 'custom' => $this->lists['categories']),
-        array('name' => 'ordering', 'custom' => $this->lists['ordering']),
-        array('name' => 'access', 'custom' => $this->lists['access']),
-    ); ?>
-    <?php echo $this->loadTemplate('fieldset', array('fieldset' => 'COM_SIMPLELISTS_ITEM_FIELDSET_BASIC', 'fields' => $fields)); ?>
+    <?php foreach($this->form->getFieldsets('basic') as $fieldset) : ?>
+    <fieldset class="adminform">
+        <legend><?php echo JText::_($fieldset->label); ?></legend>
+        <table class="admintable" width="100%">
+        <tbody>
+        <?php foreach($this->form->getFieldset($fieldset->name) as $field) : ?>
+        <tr>
+            <td class="name"><?php echo $field->label; ?></td>
+            <td class="value"><?php echo $field->input; ?></td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+        </table>
+    </fieldset>
+    <?php endforeach; ?>
     <fieldset class="adminform">
         <legend><?php echo JText::_('LIB_YIREO_TABLE_FIELDNAME_TEXT'); ?></legend>
         <table class="admintable" width="100%">
