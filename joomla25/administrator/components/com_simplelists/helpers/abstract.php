@@ -36,6 +36,11 @@ class HelperAbstract
                 'category' => 'Category',
             ),
             'obsolete_files' => array(
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/home/tmpl/default.php',
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/home/tmpl/default_ads.php',
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/home/tmpl/default_cpanel.php',
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/home/tmpl/feeds.php',
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/items/tmpl/default.php',
                 JPATH_ADMINISTRATOR.'/components/com_simplelists/views/categories/tmpl/default.php',
                 JPATH_SITE.'/media/com_simplelists/js/mootools-cookie.js',
             ),
