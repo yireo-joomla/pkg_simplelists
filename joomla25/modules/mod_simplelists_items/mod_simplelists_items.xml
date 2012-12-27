@@ -20,6 +20,11 @@
         <folder>mod_simplelists_items</folder>
     </media>
 
+    <languages>
+        <language tag="en-GB">en-GB.mod_simplelists_items.ini</language>
+        <language tag="en-GB">en-GB.mod_simplelists_items.sys.ini</language>
+    </languages>
+
     <config>
         <fields name="params">
             <fieldset name="basic" label="MOD_SIMPLELISTS_ITEMS_FIELDSET_BASIC">
