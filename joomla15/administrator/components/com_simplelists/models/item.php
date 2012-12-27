@@ -74,6 +74,7 @@ class SimplelistsModelItem extends YireoModel
         // Store these data
         $rs = parent::store($data);
         if($rs == false) {
+            $this->setError(JText::_('LIB_YIREO_TABLE_ERROR'));
             return false;
         }
 
@@ -93,6 +94,8 @@ class SimplelistsModelItem extends YireoModel
                     $this->_db->query();
                 }
             }
+        } else {
+            JError::raiseWarning('LIB_YIREO_TABLE_UNKNOWN_ID');
         }
 
         return true;

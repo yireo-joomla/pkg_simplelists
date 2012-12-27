@@ -22,12 +22,14 @@ class SimplelistsController extends YireoController
 {
     /**
      * Constructor
+     * 
      * @access public
-     * @subpackage SimpleLists
+     * @param null
+     * @return null
      */
     public function __construct()
     {
-        $this->_default_view = 'items';
+        $this->_default_view = 'home';
         parent::__construct();
 
         // Redirect categories (@todo: When dropping J1.5 compatibility, we can also drop this workaround
@@ -38,6 +40,13 @@ class SimplelistsController extends YireoController
         }
     }
 
+    /**
+     * Method to set the current tab within the Joomla! session
+     *
+     * @access public 
+     * @param null
+     * @return null
+     */
     public function cookie()
     {
         if(JRequest::getCmd('name') != 'tab') {
@@ -47,5 +56,24 @@ class SimplelistsController extends YireoController
         $tab = JRequest::getString('tab');
         $session = JFactory::getSession();
         $session->set('simplelists.item.tab', $tab);
+    }
+
+    /**
+     * Method to run SQL-update queries
+     *
+     * @access public 
+     * @param null
+     * @return null
+     */
+    public function updateQueries()
+    {
+        // Run the update-queries
+        require_once JPATH_COMPONENT.'/helpers/update.php';
+        SimplelistsUpdate::runUpdateQueries();
+
+        // Redirect
+        $link = 'index.php?option=com_simplelists&view=home';
+        $msg = JText::_('Applied database upgrades');
+        $this->setRedirect($link, $msg);
     }
 }

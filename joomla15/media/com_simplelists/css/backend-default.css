@@ -1,25 +1,13 @@
 /**
- * Joomla! component Dynamic404
+ * Joomla! component SimpleLists
  *
  * @author Yireo
- * @package Dynamic404
- * @copyright Copyright 2011
+ * @package SimpleLists
+ * @copyright Copyright 2012
  * @link http://www.yireo.com/
  */
 
 /* Joomla! Administrator icons */
-.icon-32-deleteall {
-    background-image: url(../images/toolbar/icon-32-deleteall.png);
-}
-
-.icon-32-restore {
-    background-image: url(../images/toolbar/icon-32-restore.png);
-}
-
-.icon-32-patch {
-    background-image: url(../images/toolbar/icon-32-patch.png);
-}
-
 .icon-48-logo {
     background-image: url(../images/logo.png);
 }
@@ -32,3 +20,30 @@ div.pagetitle {
     padding-left: 100px !important;
 }
 
+fieldset.adminform {
+    border: 1px solid #dfdfdf !important;
+    background-color: #f1f1f1;
+}
+
+fieldset.adminform td.key {
+    background-color: #dfdfdf;
+    padding: 5px;
+    line-height: 16px;
+    text-align: right;
+}
+
+fieldset.adminform td.value label {
+    float: left;
+    clear: none;
+    min-width: 15px;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 15px;
+    padding-top: 0px;
+    line-height: 16px;
+    display: inline;
+}
+
+fieldset.adminform td.value select {
+    clear: both;
+}

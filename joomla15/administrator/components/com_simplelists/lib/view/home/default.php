@@ -12,6 +12,7 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
+<form method="post" name="adminForm" id="adminForm">
 <table id="adminform" width="100%">
 <tr>
 <td width="60%" valign="top">
@@ -30,3 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 </td>
 </tr>
 </table>
+<input type="hidden" name="option" value="com_simplelists" />
+<input type="hidden" name="task" value="" />
+<?php echo JHTML::_( 'form.token' ); ?>
+</form>
