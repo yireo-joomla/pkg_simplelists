@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the SimpleLists helper
-include_once JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_simplelists'.DS.'helpers'.DS.'helper.php' ;
+include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helper.php' ;
 
 /*
  * Helper class
@@ -115,7 +115,7 @@ class modSimpleListsItemsHelper
                     $align = $row->params->get('picture_alignment');
                     if(empty($align)) $align = $params->get('image_align', 'left');
                     $attributes = 'alt="'.$row->title.'" title="'.$row->title.'" class="simplelists" style="float:'.$align.'"';
-                    $image_file = JPATH_SITE.DS.str_replace('/', DS, $row->picture);
+                    $image_file = JPATH_SITE.'/'.$row->picture;
                     if(is_file($image_file)) {
                         $size = getimagesize($image_file);
                         $attributes .= 'width="'.$size[0].'" height="'.$size[1].'"';
