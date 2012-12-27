@@ -19,8 +19,10 @@
     <!-- Public Target: build_simplelists -->
     <target name="build" description="Build all Joomla! packages">
         <phingcall target="build_simplelists_joomla15_component" />
+        <phingcall target="build_simplelists_joomla15_module" />
         <phingcall target="build_simplelists_joomla15_plugins" />
         <phingcall target="build_simplelists_joomla25_component" />
+        <phingcall target="build_simplelists_joomla25_module" />
         <phingcall target="build_simplelists_joomla25_plugins" />
         <phingcall target="build_simplelists_joomla25_package" />
         <phingcall target="build_simplelists_unzipfirst" />
@@ -139,6 +141,70 @@
             </fileset>
         </tar>
         <copy file="${simplelists_dir}/pkg_simplelists_${version}_j25.tgz" tofile="${simplelists_dir}/pkg_simplelists_j25.tgz" overwrite="true" />
+    </target>
+
+    <!-- Target: build_simplelists_joomla15_module -->
+    <target name="build_simplelists_joomla15_module">
+        <exec command="mkdir -p ${source_dir}/mod_simplelists_items_j15" />
+        <copy todir="${source_dir}/mod_simplelists_items_j15">
+            <fileset dir="${joomla15}/language/en-GB/">
+                <include name="en-GB.mod_simplelists_items*ini" />
+                <include name="en-GB.mod_simplelists_items.sys.ini" />
+            </fileset>
+            <fileset dir="${joomla15}/media/">
+                <include name="mod_simplelists_items/**" />
+            </fileset>
+            <fileset dir="${joomla15}/modules/mod_simplelists_items">
+                <include name="**" />
+            </fileset>
+        </copy>
+        <copy file="${gpl}" tofile="${source_dir}/mod_simplelists_items_j15/LICENSE.txt" overwrite="true" />
+
+        <exec command="rm ${simplelists_dir}/mod_simplelists_items_j15.zip" />
+        <zip destfile="${simplelists_dir}/mod_simplelists_items_j15.zip">
+            <fileset dir="${source_dir}/mod_simplelists_items_j15">
+                <include name="**/**" />
+            </fileset>
+        </zip>
+
+        <exec command="rm ${simplelists_dir}/mod_simplelists_items_j15.tgz" />
+        <tar destfile="${simplelists_dir}/mod_simplelists_items_j15.tgz" compression="gzip">
+            <fileset dir="${source_dir}/mod_simplelists_items_j15">
+                <include name="**/**" />
+            </fileset>
+        </tar>
+    </target>
+
+    <!-- Target: build_simplelists_joomla25_module -->
+    <target name="build_simplelists_joomla25_module">
+        <exec command="mkdir -p ${source_dir}/mod_simplelists_items_j25" />
+        <copy todir="${source_dir}/mod_simplelists_items_j25">
+            <fileset dir="${joomla25}/language/en-GB/">
+                <include name="en-GB.mod_simplelists_items.ini" />
+                <include name="en-GB.mod_simplelists_items.sys.ini" />
+            </fileset>
+            <fileset dir="${joomla25}/media/">
+                <include name="mod_simplelists_items/**" />
+            </fileset>
+            <fileset dir="${joomla25}/modules/mod_simplelists_items">
+                <include name="**" />
+            </fileset>
+        </copy>
+        <copy file="${gpl}" tofile="${source_dir}/mod_simplelists_items_j25/LICENSE.txt" overwrite="true" />
+
+        <exec command="rm ${simplelists_dir}/mod_simplelists_items_j25.zip" />
+        <zip destfile="${simplelists_dir}/mod_simplelists_items_j25.zip">
+            <fileset dir="${source_dir}/mod_simplelists_items_j25">
+                <include name="**/**" />
+            </fileset>
+        </zip>
+
+        <exec command="rm ${simplelists_dir}/mod_simplelists_items_j25.tgz" />
+        <tar destfile="${simplelists_dir}/mod_simplelists_items_j25.tgz" compression="gzip">
+            <fileset dir="${source_dir}/mod_simplelists_items_j25">
+                <include name="**/**" />
+            </fileset>
+        </tar>
     </target>
 
     <!-- Target: build_simplelists_joomla15_plugins -->
