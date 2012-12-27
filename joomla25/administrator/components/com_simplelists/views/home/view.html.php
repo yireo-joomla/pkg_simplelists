@@ -38,6 +38,8 @@ class SimpleListsViewHome extends YireoViewHome
         $urls['jed'] ='http://extensions.joomla.org/extensions/news-display/tables-a-lists/3650';
         $this->assignRef( 'urls', $urls );
 
+        JToolBarHelper::custom('updateQueries', 'archive', '', 'DB Upgrade', false);
+
         parent::display($tpl);
     }
 }
