@@ -4,7 +4,7 @@
         <fieldset name="basic" label="COM_SIMPLELISTS_ITEM_FIELDSET_BASIC" addfieldpath="/administrator/components/com_categories/models/fields">
             <field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-xlarge" size="30" required="true" labelclass="control-label" />
             <field name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" class="inputbox" size="45" labelclass="control-label" />
-            <field name="state" type="radio" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="btn-group" labelclass="control-label" filter="intval" size="1" default="1">
+            <field name="published" type="radio" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="btn-group" labelclass="control-label" filter="intval" size="1" default="1">
                 <option value="1">JPUBLISHED</option>
                 <option value="0">JUNPUBLISHED</option>
             </field>
