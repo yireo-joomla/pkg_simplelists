@@ -118,12 +118,17 @@
         <exec command="cat ${joomla25}/administrator/components/com_simplelists/simplelists.xml|grep /version|sed 's/[^0-9\.]*//g'" outputProperty="version" />
         <exec command="mkdir -p ${joomla25_package_dir}" />
 
-        <copy file="${simplelists_dir}/com_simplelists_${version}_j25.zip" 
-            tofile="${joomla25_package_dir}/com_simplelists_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_content_j25.zip" 
-            tofile="${joomla25_package_dir}/plg_simplelists_content_j25.zip" overwrite="true" />
-        <copy file="${joomla25_package_xml}" 
-            tofile="${joomla25_package_dir}/pkg_simplelists.xml" overwrite="true" />
+        <copy file="${simplelists_dir}/com_simplelists_${version}_j25.zip" tofile="${joomla25_package_dir}/com_simplelists_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_content_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_content_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_article_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_article_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_custom_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_custom_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_default_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_default_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_file_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_file_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_image_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_image_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_item_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_item_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_list_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_list_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelists_menuitem_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_menuitem_j25.zip" overwrite="true" />
+        <copy file="${joomla25_package_xml}" tofile="${joomla25_package_dir}/pkg_simplelists.xml" overwrite="true" />
         <copy file="${gpl}" tofile="${joomla25_package_dir}/LICENSE.txt" overwrite="true" />
 
         <exec command="rm ${simplelists_dir}/pkg_simplelists_${version}_j25.zip" />

@@ -5,10 +5,10 @@
     <author>Yireo</author>
     <authoremail>support@yireo.com</authoremail>
     <authorurl>http://www.yireo.com</authorurl>
-    <creationDate>October 2012</creationDate>
-    <copyright>Copyright 2012 Yireo.com</copyright>
+    <creationDate>January 2013</creationDate>
+    <copyright>Copyright 2013 Yireo.com</copyright>
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <url>http://www.yireo.com</url>
     <packager>Yireo</packager>
     <packagerurl>http://www.yireo.com</packagerurl>
@@ -16,5 +16,13 @@
     <files>
         <file type="component" id="com_simplelists" >com_simplelists_j25.zip</file>
         <file type="plugin" id="plg_simplelists_content" group="content">plg_simplelists_content_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_article" group="content">plg_simplelists_article_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_custom" group="content">plg_simplelists_custom_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_default" group="content">plg_simplelists_default_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_file" group="content">plg_simplelists_file_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_image" group="content">plg_simplelists_image_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_item" group="content">plg_simplelists_item_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_list" group="content">plg_simplelists_list_j25.zip</file>
+        <file type="plugin" id="plg_simplelists_menuitem" group="content">plg_simplelists_menuitem_j25.zip</file>
     </files>
 </extension>
