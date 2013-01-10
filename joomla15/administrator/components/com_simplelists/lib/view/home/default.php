@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 </td>
 </tr>
 </table>
-<input type="hidden" name="option" value="com_simplelists" />
+<input type="hidden" name="option" value="<?php echo $this->_option; ?>" />
 <input type="hidden" name="task" value="" />
 <?php echo JHTML::_( 'form.token' ); ?>
 </form>
