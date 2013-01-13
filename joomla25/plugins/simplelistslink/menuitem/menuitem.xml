@@ -9,12 +9,14 @@
     <authorUrl>www.yireo.com</authorUrl>
     <version>1.6.1</version>
     <description>PLG_SIMPLELISTSLINK_MENUITEM_DESC</description>
+
     <files>
         <filename plugin="menuitem">menuitem.php</filename>
         <filename>index.html</filename>
     </files>
-	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_simplelistslink_menuitem.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_simplelistslink_menuitem.sys.ini</language>
-	</languages>
+
+    <languages>
+        <language tag="en-GB">en-GB.plg_simplelistslink_menuitem.ini</language>
+        <language tag="en-GB">en-GB.plg_simplelistslink_menuitem.sys.ini</language>
+    </languages>
 </extension>

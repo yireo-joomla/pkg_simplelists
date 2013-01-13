@@ -9,12 +9,14 @@
     <authorUrl>www.yireo.com</authorUrl>
     <version>1.6.1</version>
     <description>PLG_SIMPLELISTSLINK_DEFAULT_DESC</description>
+
     <files>
         <filename plugin="default">default.php</filename>
         <filename>index.html</filename>
     </files>
-	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_simplelistslink_default.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_simplelistslink_default.sys.ini</language>
-	</languages>
+
+    <languages>
+        <language tag="en-GB">en-GB.plg_simplelistslink_default.ini</language>
+        <language tag="en-GB">en-GB.plg_simplelistslink_default.sys.ini</language>
+    </languages>
 </extension>

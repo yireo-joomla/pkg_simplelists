@@ -120,14 +120,14 @@
 
         <copy file="${simplelists_dir}/com_simplelists_${version}_j25.zip" tofile="${joomla25_package_dir}/com_simplelists_j25.zip" overwrite="true" />
         <copy file="${simplelists_dir}/plg_simplelists_content_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_content_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_article_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_article_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_custom_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_custom_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_default_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_default_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_file_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_file_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_image_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_image_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_item_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_item_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_list_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_list_j25.zip" overwrite="true" />
-        <copy file="${simplelists_dir}/plg_simplelists_menuitem_j25.zip" tofile="${joomla25_package_dir}/plg_simplelists_menuitem_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_article_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_article_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_custom_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_custom_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_default_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_default_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_file_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_file_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_image_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_image_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_item_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_item_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_list_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_list_j25.zip" overwrite="true" />
+        <copy file="${simplelists_dir}/plg_simplelistslink_menuitem_j25.zip" tofile="${joomla25_package_dir}/plg_simplelistslink_menuitem_j25.zip" overwrite="true" />
         <copy file="${joomla25_package_xml}" tofile="${joomla25_package_dir}/pkg_simplelists.xml" overwrite="true" />
         <copy file="${gpl}" tofile="${joomla25_package_dir}/LICENSE.txt" overwrite="true" />
 
@@ -221,28 +221,30 @@
     <!-- Target: build_simplelists_joomla15_plugin -->
     <target name="build_simplelists_joomla15_plugin">
 
-        <exec command="mkdir -p ${source_dir}/plg_simplelists_${name}_j15" />
-        <copy todir="${source_dir}/plg_simplelists_${name}_j15">
+        <property name="group" value="simplelistslink" />
+        <exec command="mkdir -p ${source_dir}/plg_${group}_${name}_j15" />
+        <copy todir="${source_dir}/plg_${group}_${name}_j15">
             <fileset dir="${joomla15}/administrator/language/en-GB/">
-                <include name="en-GB.plg_simplelists_${name}*ini" />
+                <include name="en-GB.plg_${group}_${name}.ini" />
+                <include name="en-GB.plg_${group}_${name}.sys.ini" />
             </fileset>
-            <fileset dir="${joomla15}/plugins/simplelistslink">
+            <fileset dir="${joomla15}/plugins/${group}">
                 <include name="${name}.xml" />
                 <include name="${name}.php" />
             </fileset>
         </copy>
-        <copy file="${gpl}" tofile="${source_dir}/plg_simplelists_${name}_j15/LICENSE.txt" overwrite="true" />
+        <copy file="${gpl}" tofile="${source_dir}/plg_${group}_${name}_j15/LICENSE.txt" overwrite="true" />
 
-        <exec command="rm ${simplelists_dir}/plg_simplelists_${name}_j15.zip" />
-        <zip destfile="${simplelists_dir}/plg_simplelists_${name}_j15.zip">
-            <fileset dir="${source_dir}/plg_simplelists_${name}_j15">
+        <exec command="rm ${simplelists_dir}/plg_${group}_${name}_j15.zip" />
+        <zip destfile="${simplelists_dir}/plg_${group}_${name}_j15.zip">
+            <fileset dir="${source_dir}/plg_${group}_${name}_j15">
                 <include name="**/**" />
             </fileset>
         </zip>
 
-        <exec command="rm ${simplelists_dir}/plg_simplelists_${name}_j15.tgz" />
-        <tar destfile="${simplelists_dir}/plg_simplelists_${name}_j15.tgz" compression="gzip">
-            <fileset dir="${source_dir}/plg_simplelists_${name}_j15">
+        <exec command="rm ${simplelists_dir}/plg_${group}_${name}_j15.tgz" />
+        <tar destfile="${simplelists_dir}/plg_${group}_${name}_j15.tgz" compression="gzip">
+            <fileset dir="${source_dir}/plg_${group}_${name}_j15">
                 <include name="**/**" />
             </fileset>
         </tar>
@@ -282,28 +284,31 @@
     <!-- Target: build_simplelists_joomla25_plugin -->
     <target name="build_simplelists_joomla25_plugin">
 
-        <exec command="mkdir -p ${source_dir}/plg_simplelists_${name}_j25" />
-        <copy todir="${source_dir}/plg_simplelists_${name}_j25">
+        <property name="group" value="simplelistslink" />
+        <exec command="mkdir -p ${source_dir}/plg_${group}_${name}_j25" />
+        <copy todir="${source_dir}/plg_${group}_${name}_j25">
             <fileset dir="${joomla25}/administrator/language/en-GB/">
-                <include name="en-GB.plg_simplelists_${name}*ini" />
+                <include name="en-GB.plg_${group}_${name}.ini" />
+                <include name="en-GB.plg_${group}_${name}.sys.ini" />
             </fileset>
-            <fileset dir="${joomla25}/plugins/simplelistslink/${name}">
+            <fileset dir="${joomla25}/plugins/${group}/${name}">
                 <include name="${name}.xml" />
                 <include name="${name}.php" />
+                <include name="index.html" />
             </fileset>
         </copy>
-        <copy file="${gpl}" tofile="${source_dir}/plg_simplelists_${name}_j25/LICENSE.txt" overwrite="true" />
+        <copy file="${gpl}" tofile="${source_dir}/plg_${group}_${name}_j25/LICENSE.txt" overwrite="true" />
 
-        <exec command="rm ${simplelists_dir}/plg_simplelists_${name}_j25.zip" />
-        <zip destfile="${simplelists_dir}/plg_simplelists_${name}_j25.zip">
-            <fileset dir="${source_dir}/plg_simplelists_${name}_j25">
+        <exec command="rm ${simplelists_dir}/plg_${group}_${name}_j25.zip" />
+        <zip destfile="${simplelists_dir}/plg_${group}_${name}_j25.zip">
+            <fileset dir="${source_dir}/plg_${group}_${name}_j25">
                 <include name="**/**" />
             </fileset>
         </zip>
 
-        <exec command="rm ${simplelists_dir}/plg_simplelists_${name}_j25.tgz" />
-        <tar destfile="${simplelists_dir}/plg_simplelists_${name}_j25.tgz" compression="gzip">
-            <fileset dir="${source_dir}/plg_simplelists_${name}_j25">
+        <exec command="rm ${simplelists_dir}/plg_${group}_${name}_j25.tgz" />
+        <tar destfile="${simplelists_dir}/plg_${group}_${name}_j25.tgz" compression="gzip">
+            <fileset dir="${source_dir}/plg_${group}_${name}_j25">
                 <include name="**/**" />
             </fileset>
         </tar>

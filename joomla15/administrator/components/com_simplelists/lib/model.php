@@ -471,14 +471,22 @@ class YireoModel extends YireoAbstractModel
                                 }
                             }
                         } else {
-                            // @todo: Make this compatible with Joomla! 1.7
-                            if ((bool)$this->_tbl->hasAssetId() == true) {
+                            if ($this->application->isSite() && isset($item->access) && is_numeric($item->access)) {
+                                //print_r($this->user);
+                                // @todo: Cross-match access-level with aid
+                                if ($item->access > $this->user->get('aid', 0)) {
+                                    //unset($data[$index]);
+                                    //continue;
+                                }
+                            }
+                            if ($this->application->isAdmin() && (bool)$this->_tbl->hasAssetId() == true) {
                                 $key = $this->getPrimaryKey();
                                 $id = $item->$key;
                                 $task= ($id > 0) ? 'core.manage' : 'core.create';
-                                if ($this->user->authorise($task, '#__simplelists_items.'.$id)) {
-                                    //unset($data[$index]);
-                                    //continue;
+                                // @todo: Make this compatible for all components
+                                if ($this->user->authorise($task, '#__simplelists_items.'.$id) == false) {
+                                    unset($data[$index]);
+                                    continue;
                                 }
                             }
                         }

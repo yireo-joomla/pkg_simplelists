@@ -25,9 +25,8 @@ class modSimpleListsItemsHelper
 	public function getList(&$params)
 	{
         // Get some system variables
-        $mainframe =& JFactory::getApplication();
-		$db =& JFactory::getDBO();
-		$user =& JFactory::getUser();
+		$db = JFactory::getDBO();
+		$user = JFactory::getUser();
 
         // Read the module parameters
 		$count = (int)$params->get('count', 5);
@@ -38,9 +37,7 @@ class modSimpleListsItemsHelper
 
         // Initialize some variables
 		$aid = $user->get('aid', 0);
-		$nullDate = $db->getNullDate();
-		$date =& JFactory::getDate();
-		$now = $date->toMySQL();
+		$now = date('Y-m-d H:i');
 
 	    switch( $ordering ) {
             case 'alpha': 
