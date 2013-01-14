@@ -29,8 +29,9 @@ class SimplelistsViewItems extends YireoViewList
     public function display($tpl = null)
     {
         // Set extra toolbar items for the page
-        JToolBarHelper::preferences('com_simplelists', '480');
-        //JToolBarHelper::help( 'screen.simplelist' );
+        if(YireoHelper::isJoomla15() || JFactory::getUser()->authorise('core.admin')) {
+            JToolBarHelper::preferences('com_simplelists', '480');
+        }
 
         // Preliminary check to see if any categories have been configured yet
         SimplelistsHelper::checkCategories() ;
