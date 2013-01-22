@@ -45,7 +45,7 @@ class YireoViewHome extends YireoView
             
         // Initialize the toolbar
         if (file_exists(JPATH_COMPONENT.'/config.xml')) {
-            if(YireoHelper::isJoomla15() == false && JFactory::getUser()->authorise('core.admin')) {
+            if(YireoHelper::isJoomla15() || JFactory::getUser()->authorise('core.admin')) {
                 JToolBarHelper::preferences($this->_option, 600, 800);
             }
         }

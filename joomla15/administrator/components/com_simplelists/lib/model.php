@@ -251,6 +251,9 @@ class YireoModel extends YireoAbstractModel
             }
         }
 
+        // Enable debugging
+        if($this->params->get('debug', 0) == 1) $this->_debug = true;
+
         // Determine whether this model is single or not
         if ($this->_single == null) {
             $className = get_class($this);
@@ -471,6 +474,8 @@ class YireoModel extends YireoAbstractModel
                                 }
                             }
                         } else {
+
+                            // Frontend permissions
                             if ($this->application->isSite() && isset($item->access) && is_numeric($item->access)) {
                                 $accessLevels = $this->user->getAuthorisedViewLevels();
                                 if (!array_key_exists($item->access, $accessLevels) || $accessLevels[$item->access] == 0) {
@@ -478,12 +483,24 @@ class YireoModel extends YireoAbstractModel
                                     continue;
                                 }
                             }
+
+                            // Backend permissions
                             if ($this->application->isAdmin() && (bool)$this->_tbl->hasAssetId() == true) {
+
+                                // Get the ID
                                 $key = $this->getPrimaryKey();
                                 $id = $item->$key;
-                                $task= ($id > 0) ? 'core.manage' : 'core.create';
-                                $option = str_replace('com_', '#', $this->_option);
-                                if ($this->user->authorise($task, $option)) {
+
+                                // Asset data
+                                $option = str_replace('com_', '#__', $this->_option);
+                                $view = JRequest::getCmd('view');
+
+                                // Construct the ACL-data
+                                $action = ($id > 0) ? 'core.manage' : 'core.create';
+                                $itemAsset = ($id > 0) ? $option.'_'.$view.'.'.$id : $option;
+
+                                // Check
+                                if ($this->user->authorise($action, $itemAsset) == false) {
                                     unset($data[$index]);
                                     continue;
                                 }
