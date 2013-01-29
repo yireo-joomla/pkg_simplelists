@@ -17,9 +17,7 @@ jimport('joomla.application.component.model');
 jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
 
-// Disable warnings because of open_basedir Warnings
-ini_set( 'display_errors', 0 );
-
+// Include the media-helper
 require_once( JPATH_ADMINISTRATOR.'/components/com_media/helpers/media.php' );
 
 /**
@@ -56,7 +54,7 @@ class SimpleListsModelFiles extends YireoAbstractModel
             $folder = $application->getUserStateFromRequest( $option.'.files.folder', 'folder', $default_folder );
 
             // Workaround for com_media
-            if(!is_dir(JPATH_SITE.'/'.$folder) && is_dir(JPATH_SITE.'/images/'.$folder)) {
+            if(!@is_dir(JPATH_SITE.'/'.$folder) && @is_dir(JPATH_SITE.'/images/'.$folder)) {
                 $folder = 'images/'.$folder;
             }
 
@@ -127,6 +125,9 @@ class SimpleListsModelFiles extends YireoAbstractModel
      */
     public function getList()
     {
+        // Load the component-params
+        $component_params = JComponentHelper::getParams('com_simplelists');
+
         // Only process the list once per request
         static $list;
         if(is_array($list)) {
@@ -205,8 +206,8 @@ class SimpleListsModelFiles extends YireoAbstractModel
                             $tmp->height = $dimensions[1];
                         }
 
-                        $maxbits = 524288;
-                        if($size > $maxbits) {
+                        $maxbits = $component_params->get('thumbs_limit', 524288);
+                        if($maxbits > 0 && $size > $maxbits) {
                             $tmp->src = JURI::root().SimplelistsHelper::createThumbnail($tmp->path, $ext, $tmp->src_width, $tmp->src_height, $tmp->width, $tmp->height); 
                         } else {
                             $tmp->src = JURI::root().$tmp->path_relative;
@@ -229,13 +230,13 @@ class SimpleListsModelFiles extends YireoAbstractModel
                             break;
                         }
 
-                        if(file_exists(JPATH_SITE.'/media/media/images/mime-icon-32/'.$ext.'.png')) {
+                        if(@file_exists(JPATH_SITE.'/media/media/images/mime-icon-32/'.$ext.'.png')) {
                             $tmp->path_relative = '/media/media/images/mime-icon-32/'.$ext.'.png';
-                        } elseif(file_exists(JPATH_SITE.'/media/media/images/con_info.png')) {
+                        } elseif(@file_exists(JPATH_SITE.'/media/media/images/con_info.png')) {
                             $tmp->path_relative = '/media/media/images/con_info.png';
-                        } elseif(file_exists(JPATH_ADMINISTRATOR.'/components/com_media/images/mime-icon-32/'.$ext.'.png')) {
+                        } elseif(@file_exists(JPATH_ADMINISTRATOR.'/components/com_media/images/mime-icon-32/'.$ext.'.png')) {
                             $tmp->path_relative = '/administrator/components/com_media/images/mime-icon-32/'.$ext.'.png';
-                        } elseif(file_exists(JPATH_ADMINISTRATOR.'/components/com_media/images/con_info.png')) {
+                        } elseif(@file_exists(JPATH_ADMINISTRATOR.'/components/com_media/images/con_info.png')) {
                             $tmp->path_relative = '/administrator/components/com_media/images/con_info.png';
                         }
                         $tmp->src = $tmp->path_relative;

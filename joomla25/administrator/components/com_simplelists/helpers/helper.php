@@ -353,13 +353,13 @@ class SimplelistsHelper
     {
         // Check for the caching folder
         $folder = JPATH_ADMINISTRATOR.'/cache/com_simplelists';
-        if(!JFolder::exists($folder)) {
+        if(JFolder::exists($folder) == false) {
             JFolder::create($folder);
         }
 
         // Check again for the caching folder
-        if(!JFolder::exists($folder)) {
-            // @todo: Create a warning
+        if(JFolder::exists($folder) == false) {
+            JError::raiseWarning(100, 'Failed to create cache-folder: '.$folder);
             return null;
         }
 

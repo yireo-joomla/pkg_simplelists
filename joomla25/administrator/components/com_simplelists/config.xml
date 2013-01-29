@@ -75,6 +75,7 @@
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field name="thumbs_limit" type="text" default="524288" label="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT" description="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT_DESC"/>
 		<field name="debug" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG" description="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
