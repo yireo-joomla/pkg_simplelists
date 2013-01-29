@@ -11,6 +11,7 @@
 
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
+ini_set('display_errors', 1);
 
 // Define constants for all pages 
 define('COM_SIMPLELISTS_DIR', 'images/simplelists/');
