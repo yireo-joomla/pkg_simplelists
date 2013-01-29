@@ -41,6 +41,7 @@ var base_path = '<?php echo $base_path; ?>';
 			<button type="button" class="button" onclick="javascript:submitModalForm(window.parent.slSelectNothing());"><?php echo JText::_('Cancel') ?></button>
 		</div>
 	</fieldset>
+    <p><?php echo count($this->files); ?> <?php echo JText::_('Files'); ?>, <?php echo count($this->folders); ?> <?php echo JText::_('Subfolders'); ?></p>
     <div class="manager">
     <?php 
     echo $this->loadTemplate('default_parent');
