@@ -42,7 +42,13 @@ class HelperAbstract
                 JPATH_ADMINISTRATOR.'/components/com_simplelists/views/home/tmpl/feeds.php',
                 JPATH_ADMINISTRATOR.'/components/com_simplelists/views/items/tmpl/default.php',
                 JPATH_ADMINISTRATOR.'/components/com_simplelists/views/categories/tmpl/default.php',
+                JPATH_SITE.'/components/com_simplelists/models/simplelist.php',
                 JPATH_SITE.'/media/com_simplelists/js/mootools-cookie.js',
+            ),
+            'obsolete_folders' => array(
+                JPATH_SITE.'/components/com_simplelists/views/simplelist', // @todo: Delete this recursively
+                JPATH_SITE.'/components/com_simplelists/css', // @todo: Delete this recursively
+                JPATH_SITE.'/components/com_simplelists/js', // @todo: Delete this recursively
             ),
         );
     }

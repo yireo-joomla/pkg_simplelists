@@ -20,5 +20,7 @@ jQuery(document).ready(function() {
     if( window.location.hash != '' ) {
         hash = window.location.hash.replace('#','');
         jQuery('#' + hash).parent().next().slideDown();
+    } else {
+        jQuery('a.accordion-toggle').first().parent().next().slideDown();
     }
 });
