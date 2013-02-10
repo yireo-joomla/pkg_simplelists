@@ -12,13 +12,16 @@
 defined('_JEXEC') or die('Restricted access'); ?>
 <div class="mod_simplelists_items">
 <?php if(!empty($list)) : ?>
-<ul class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
-<?php foreach ($list as $item) : ?>
-	<li class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
-        <a href="<?php echo $item->link; ?>" class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>"><?php echo $item->title; ?></a>
-	</li>
-<?php endforeach; ?>
-</ul>
+    <ul class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
+    <?php foreach ($list as $item) : ?>
+	    <li class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
+            <a href="<?php echo $item->link; ?>" class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>"><?php echo $item->title; ?></a>
+    	</li>
+    <?php endforeach; ?>
+    </ul>
+    <?php if($readmore) : ?>
+        <p class="readmore"><a href="<?php echo $readmore_link; ?>"><?php echo $readmore; ?></a></p>
+    <?php endif; ?>
 <?php else: ?>
     <p><?php echo JText::_('MOD_SIMPLELISTS_ITEMS_NO_ITEMS'); ?></p>
 <?php endif; ?>

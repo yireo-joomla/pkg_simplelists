@@ -6,7 +6,7 @@
     <authorUrl>http://www.yireo.com/</authorUrl>
     <creationDate>December 2012</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.1.0</version>
+    <version>1.6.1.4</version>
     <description>MOD_SIMPLELISTS_ITEMS_DESC</description>
 
     <files>
@@ -67,6 +67,11 @@
                 </field>
             </fieldset>
             <fieldset name="layout" label="SimpleLists Layout">
+                <field name="show_readmore" type="list" default="0" label="Show Readmore" description="Show a readmore link below the items">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="readmore_text" type="text" default="More %s" label="Readmore Text" description="Read-more text. Use %s for the SimpleLists-category." />
                 <field name="style" type="list" default="default" label="Module Style" description="The style used by this module">
                     <option value="default">Menu Layout</option>
                     <option value="advanced">Advanced Layout</option>

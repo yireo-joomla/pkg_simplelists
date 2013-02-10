@@ -20,7 +20,54 @@ include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helpe
 class modSimpleListsItemsHelper
 {
     /*
-     * Method to get a list SimpleLists items
+     * Method to get the SimpleLists category
+     */
+	public function getCategory(&$params)
+	{
+        // Get some system variables
+		$db = JFactory::getDBO();
+		$user = JFactory::getUser();
+
+        // Read the module parameters
+		$category_id = (int)$params->get('category_id');
+		$layout = $params->get('layout');
+		$Itemid = (int)$params->get('menu_id');
+
+        $query = 'SELECT c.* FROM #__categories AS c WHERE c.id = '.$category_id;
+		$db->setQuery($query);
+		$category = $db->loadObject();
+
+        // Get the Itemid
+        if($Itemid > 0) {
+		    $menu_item = SimplelistsHelper::getMenuItemFromItemId($Itemid);
+            if(!empty($menu_item)) $layout = (!empty($menu_item->layout)) ? $menu_item->layout : 'default';
+        }
+
+        // Load the menu-item differently
+        if(empty($menu_item)) {
+		    $menu_item = SimplelistsHelper::getMenuItem($category_id, $layout);
+		    if($menu_item != null) {
+			    if(isset($menu_item->query['layout'])) $layout = $menu_item->query['layout'] ;
+			    $Itemid = $menu_item->id;
+            }
+		}
+		
+        // Construct the URL-needles
+        $needles = array(
+            'category_id' => $category->id,
+            'category_alias' => $category->alias,
+            'Itemid' => $Itemid,
+            'layout' => $layout,
+        );
+
+        $category->link = SimplelistsHelper::getUrl($needles);
+        $category->title = htmlspecialchars($category->title);
+        $category->params = YireoHelper::toParameter($category->params);
+        return $category;
+    }
+    
+    /*
+     * Method to get a list of SimpleLists items
      */
 	public function getList(&$params)
 	{
@@ -76,13 +123,12 @@ class modSimpleListsItemsHelper
         // Get the Itemid
         if($Itemid > 0) {
 		    $menu_item = SimplelistsHelper::getMenuItemFromItemId($Itemid);
-            if(!empty($menu_item)) {
-                $layout = (!empty($menu_item->layout)) ? $menu_item->layout : 'default';
-            } else {
-                $layout = null;
-            }
-        } else {
-		    $menu_item = SimplelistsHelper::getMenuItem( $category_id, $layout );
+            if(!empty($menu_item)) $layout = (!empty($menu_item->layout)) ? $menu_item->layout : 'default';
+        }
+
+        // Load the menu-item differently
+        if(empty($menu_item)) {
+		    $menu_item = SimplelistsHelper::getMenuItem($category_id, $layout);
 		    if($menu_item != null) {
 			    if(isset($menu_item->query['layout'])) $layout = $menu_item->query['layout'] ;
 			    $Itemid = $menu_item->id;
