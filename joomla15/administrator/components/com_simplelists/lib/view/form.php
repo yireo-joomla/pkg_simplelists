@@ -37,6 +37,16 @@ class YireoViewForm extends YireoView
     protected $_single = true;
 
     /*
+     * Array of all the form-fields
+     */
+    protected $_fields = array();
+
+    /*
+     * Editor-field
+     */
+    protected $_editor_field = null;
+
+    /*
      * Main constructor method
      *
      * @access public
@@ -47,7 +57,10 @@ class YireoViewForm extends YireoView
     public function __construct()
     {
         // Do not load the toolbar automatically
-        //$this->loadToolbar = false;
+        //$this->loadToolbar = false; // @todo: Is this already configurable?
+
+        // Template-paths
+        $this->templatePaths[] = dirname(__FILE__).'/form';
 
         // Call the parent constructor
         return parent::__construct();
@@ -78,6 +91,73 @@ class YireoViewForm extends YireoView
     }
 
     /*
+     * Load common lists
+     *
+     * @access public
+     * @param null
+     * @return null
+     */
+    public function loadLists()
+    {
+        // Get the model and table
+        $model = $this->getModel();
+        $table = $model->getTable();
+
+        // Assign the published-list
+        if($table->hasField('published') && isset($this->item->published)) {
+            $this->lists['published'] = JHTML::_('select.booleanlist',  'published', 'class="inputbox"', $this->item->published );
+        } else {
+            $this->lists['published'] = null;
+        }
+
+        // Assign the access-list 
+        // @todo: Does this work under Joomla! 2.5+
+        if($table->hasField('published') && isset($this->item->access)) {
+            $this->lists['access'] = JHTML::_('list.accesslevel', $this->item);
+        } else {
+            $this->lists['access'] = null;
+        }
+
+        $ordering = $this->model->getOrderByDefault();
+        if(!empty($ordering) && $ordering == 'ordering') {
+            // @todo: This only works when orderby-field is "ordering"
+            $this->lists['ordering'] = JHTML::_('list.specificordering',  $this->item, $this->model->getId(), $this->model->getOrderingQuery());
+        } else {
+            $this->lists['ordering'] = null;
+        }
+    }
+
+    /*
+     * Load common fields
+     *
+     * @access public
+     * @param null
+     * @return null
+     */
+    public function loadFields()
+    {
+        // Get the model and table
+        $model = $this->getModel();
+        $table = $model->getTable();
+
+        // Construct common text-fields
+        $fields = array('title', 'name', 'label', 'alias');
+        foreach($fields as $field) {
+            if($table->hasField($field) == true && isset($this->fields[$field]) == false) {
+                $this->fields[$field] = array('name' => $field, 'type' => 'text', 'value' => $this->item->$field);
+            }
+        }
+
+        // Construct custom lists
+        $fields = array('category_id', 'parent_id', 'published', 'ordering', 'access');
+        foreach($fields as $field) {
+            if(isset($this->lists[$field])) {
+                $this->fields[$field] = array('name' => $field, 'custom' => $this->lists[$field]);
+            }
+        }
+    }
+
+    /*
      * Load the parameters form
      *
      * @access public
@@ -101,5 +181,18 @@ class YireoViewForm extends YireoView
             $this->assignRef('paramsForm', $form);
         }
         return true;
+    }
+
+
+    /*
+     * Return the editor-field
+     *
+     * @access public
+     * @param null
+     * @return string
+     */
+    public function getEditorField()
+    {
+        return $this->_editor_field;
     }
 }

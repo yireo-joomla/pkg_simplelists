@@ -52,6 +52,9 @@ defined('_JEXEC') or die('Restricted access');
         <ul>
         <?php foreach( $this->category->childs as $child ) : ?>
             <li>
+                <?php if(!empty($child->image) && file_exists(JPATH_SITE.'/images/stories/'.$child->image)) : ?>
+                    <img src="images/stories/<?php echo $child->image; ?>" align="<?php echo $child->image_position; ?>" />
+                <?php endif; ?>
                 <a href="<?php echo $child->link; ?>"><?php echo $child->title; ?></a>
                 <?php if($this->params->get('show_category_childs_description') && !empty($child->description)) : ?>
                     <p class="simplelists-children-description"><?php echo $child->description; ?></p>

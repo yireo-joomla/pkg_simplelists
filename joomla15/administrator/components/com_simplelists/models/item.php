@@ -67,8 +67,6 @@ class SimplelistsModelItem extends YireoModel
                 . ' WHERE `category`.`category_id`='.$categories[0];
             $this->_db->setQuery( $query );
             $data['ordering'] = $this->_db->loadResult() + 1;
-        } else {
-            $data['ordering'] = 0;
         }
 
         // Store these data

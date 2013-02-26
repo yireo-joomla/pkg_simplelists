@@ -32,10 +32,10 @@ class SimplelistsController extends YireoController
         $this->_default_view = 'home';
         parent::__construct();
 
-        // Redirect categories (@todo: When dropping J1.5 compatibility, we can also drop this workaround
-        if (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category') {
+        // Redirect categories
+        if (YireoHelper::isJoomla15() == false && (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category')) {
             $app = JFactory::getApplication();
-            $app->redirect(JRoute::_('index.php?option=com_categories&extension=com_simplelists', false)); 
+            $app->redirect(JRoute::_('index.php?option=com_categories&extension=com_simplelists&section=com_simplelists', false));
             $app->close();
         }
     }

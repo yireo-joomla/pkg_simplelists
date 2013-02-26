@@ -12,8 +12,10 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
+<?php if(isset($this->urls['jed'])) : ?>
 <div class="review">
     <?php echo JText::sprintf('LIB_YIREO_VIEW_HOME_LIKE', $extension); ?><br/>
     <?php echo JText::_('LIB_YIREO_VIEW_HOME_REVIEW'); ?><br/>
     <a href="<?php echo $this->urls['jed']; ?>"><?php echo $this->urls['jed']; ?></a>
 </div>
+<?php endif; ?>

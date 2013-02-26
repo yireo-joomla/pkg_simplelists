@@ -47,7 +47,7 @@ class YireoHelperView
         if ($multipleSelect == true) {
             $multipleSelect = (int)$multipleSelect;
             if ($multipleSelect == 1) $multipleSelect = 4;
-            if ($multipleSelect < count($options)) $multipleSelect = count($options);
+            if ($multipleSelect < count($options) && count($options) < 20) $multipleSelect = count($options);
             $attributes[] = 'multiple="multiple" size="'.$multipleSelect.'"';
         }
 
@@ -63,7 +63,7 @@ class YireoHelperView
      * @param 
      * @return array
      */
-    static public function getSelectOptions($items, $value, $title = null)
+    static public function getSelectOptions($items, $value = 'id', $title = 'title')
     {
         $options = array();
         if (!empty($items)) {
@@ -72,7 +72,7 @@ class YireoHelperView
                     $option = array('value' => $item->$value, 'title' => $item->$title);
 
                 } else if (empty($title) || (isset($item->$value) && !isset($item->$title))) {
-                    $option = array('value' => $item->$value, 'title' => $item->$title);
+                    $option = array('value' => $item->$value, 'title' => $item->$value);
                 }
 
                 if (isset($item->published) && $item->published == 0) $option['disable'] = 1;

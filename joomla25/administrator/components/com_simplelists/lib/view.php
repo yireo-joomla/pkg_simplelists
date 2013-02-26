@@ -804,7 +804,17 @@ class YireoView extends YireoCommonView
     public function getModel($name = null)
     {
         if (empty($name)) $name = $this->_name;
-        return parent::getModel($name);
+        $model = parent::getModel($name);
+        if (empty($model)) {
+    		jimport('joomla.application.component.model');
+        	JModel::addIncludePath(JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/models');
+
+            $classPrefix = ucfirst(preg_replace('/^com_/', '', $this->_option)).'Model';
+		    $classPrefix = preg_replace('/[^A-Z0-9_]/i', '', $classPrefix);
+		    $model = JModel::getInstance($name, $classPrefix, array());
+        }
+
+        return $model;
     }
 
     /*

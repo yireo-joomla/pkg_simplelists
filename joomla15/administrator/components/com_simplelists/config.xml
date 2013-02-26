@@ -62,6 +62,23 @@
 			<option value="left">Left</option>
 			<option value="right">Right</option>
 		</param>
+		<param name="sef_url" type="list" default="alias" label="SEF URL">
+			<option value="alias">COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_OPTION_ALIAS</option>
+			<option value="slug">COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_OPTION_SLUG</option>
+		</param>
+		<param name="use_parent_url" type="list" default="0" label="Parent URL">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</param>
+		<param name="auto_ordering" type="list" default="w" label="Auto ordering">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</param>
+		<param name="thumbs_limit" type="text" default="524288" label="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT" description="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT_DESC"/>
+		<param name="debug" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG" description="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG_DESC">
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</param>
 
     </params>
 </config>

@@ -29,11 +29,60 @@ if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
 }
 
 /**
+ * Yireo Common Controller
+ *
+ * @package Yireo
+ */
+class YireoCommonController extends YireoAbstractController
+{
+    /**
+     * Value of the last message
+     *
+     * @protected string
+     */
+    protected $msg = '';
+
+    /**
+     * Type of the last message
+     *
+     * @protected string
+     * @values error|notice|message
+     */
+    protected $msg_type = '';
+
+    /**
+     * Constructor
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param null
+     * @return null
+     */
+    public function __construct()
+    {
+        // Define variables
+        $this->_application = JFactory::getApplication();
+
+        // Add extra model-paths
+        $option = JRequest::getCmd('option');
+        if ($this->_application->isSite()) {
+            $this->addModelPath(JPATH_ADMINISTRATOR.'/components/'.$option.'/models');
+            $this->addModelPath(JPATH_SITE.'/components/'.$option.'/models');
+        } else {
+            $this->addModelPath(JPATH_ADMINISTRATOR.'/components/'.$option.'/models');
+        }
+
+        // Call the parent constructor
+        parent::__construct();
+    }
+}
+
+/**
  * Yireo Controller
  *
  * @package Yireo
  */
-class YireoController extends YireoAbstractController
+class YireoController extends YireoCommonController
 {
     /**
      * Value of the default View to use
@@ -89,21 +138,6 @@ class YireoController extends YireoAbstractController
     );
 
     /**
-     * Value of the last message
-     *
-     * @protected string
-     */
-    protected $msg = '';
-
-    /**
-     * Type of the last message
-     *
-     * @protected string
-     * @values error|notice|message
-     */
-    protected $msg_type = '';
-
-    /**
      * Constructor
      *
      * @access public
@@ -113,27 +147,15 @@ class YireoController extends YireoAbstractController
      */
     public function __construct()
     {
-        // Define variables
-        $this->_application = JFactory::getApplication();
-
-        // Add extra model-paths
-        $option = JRequest::getCmd('option');
-        if ($this->_application->isSite()) {
-            $this->addModelPath(JPATH_ADMINISTRATOR.'/components/'.$option.'/models');
-            $this->addModelPath(JPATH_SITE.'/components/'.$option.'/models');
-        } else {
-            $this->addModelPath(JPATH_ADMINISTRATOR.'/components/'.$option.'/models');
-        }
-
         // Call the parent constructor
         parent::__construct();
 
         // If no task has been set, try the default
-        if (JRequest::getCmd('view') == '') {
-            JRequest::setVar('view', $this->_default_view );
+        if (JRequest::getCmd('view') == '' && !empty($this->_default_view)) {
+            JRequest::setVar('view', $this->_default_view);
         }
 
-        // Register Extra tasks
+        // Register extra tasks
         $this->registerTask('new', 'add');
         $this->registerTask('change', 'edit');
 

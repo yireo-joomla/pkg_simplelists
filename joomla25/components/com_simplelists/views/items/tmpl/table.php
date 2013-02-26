@@ -16,13 +16,14 @@ defined('_JEXEC') or die('Restricted access');
 <?php if( !empty( $this->items)) : ?>
 
 <?php $columns = $this->params->get('columns', 1); ?>
+<?php $width = floor(100/$columns).'%'; ?>
 <?php $i = 1; ?>
 <table class="<?php echo $this->page_class; ?>">
 <?php foreach( $this->items as $item ): ?>
     <?php if($i % $columns == 1 || count($this->items) == 1 || $columns == 1): ?>
     <tr>
     <?php endif; ?>
-        <td>
+        <td width="<?php echo $width; ?>">
             <table>
                 <tr class="<?php echo $item->class; ?>">
 

@@ -145,7 +145,7 @@ class YireoHelper
 
         $file = JPATH_ADMINISTRATOR.'/components/'.$option.'/'.$name.'.xml';
 
-        if(method_exists('JInstaller', 'parseXMLInstallFile')) {
+        if(class_exists('JInstaller') && method_exists('JInstaller', 'parseXMLInstallFile')) {
             $data = JInstaller::parseXMLInstallFile($file);
             return $data['version'];
         } elseif(method_exists('JApplicationHelper', 'parseXMLInstallFile')) {

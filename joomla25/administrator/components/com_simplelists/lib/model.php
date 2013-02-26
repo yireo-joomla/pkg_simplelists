@@ -543,7 +543,7 @@ class YireoModel extends YireoAbstractModel
                         $data[$index] = $item;
                     }
 
-                    $this->_total = count($data);
+                    if($this->_limit_query == false) $this->_total = count($data);
                     $this->_data = $data;
                 }
             }
@@ -587,6 +587,7 @@ class YireoModel extends YireoAbstractModel
                 }
                 
                 $this->_total = $this->_db->loadResult();
+                $this->_db->getQuery();
             }
         }
 
@@ -757,7 +758,7 @@ class YireoModel extends YireoAbstractModel
         }
 
         // All parameters to override these values
-        if (is_array($data['params'])) {
+        if (isset($data['params']) && is_array($data['params'])) {
             if (!empty( $data['params']['created'])) $data['created'] = $data['params']['created'];
             if (!empty( $data['params']['created_date'])) $data['created'] = $data['params']['created_date'];
             if (!empty( $data['params']['created_by'])) $data['created_by'] = $data['params']['created_by'];
@@ -767,7 +768,7 @@ class YireoModel extends YireoAbstractModel
         }
 
         // Unset these parameters
-        if (is_array($data['params'])) {
+        if (isset($data['params']) && is_array($data['params'])) {
             if (isset($data['params']['created'])) unset( $data['params']['created'] );
             if (isset($data['params']['created_date'])) unset( $data['params']['created_date'] );
             if (isset($data['params']['created_by'])) unset( $data['params']['created_by'] );
@@ -1506,6 +1507,8 @@ class YireoModel extends YireoAbstractModel
         $this->_search = null;
         $this->_where = array();
         $this->_orderby = array();
+        $this->setState('limitstart', 0);
+        $this->setState('limit', 0);
     }
 
     /**

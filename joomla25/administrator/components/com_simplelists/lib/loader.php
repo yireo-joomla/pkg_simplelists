@@ -55,6 +55,7 @@ if(!function_exists('YireoLibraryLoader')) {
                 $filename = 'view/list';
                 break;
             case 'YireoController':
+            case 'YireoCommonController':
             case 'YireoAbstractController':
                 $filename = 'controller';
                 break;

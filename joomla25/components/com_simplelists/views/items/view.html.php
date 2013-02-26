@@ -103,7 +103,7 @@ class SimplelistsViewItems extends YireoView
         if(is_array($this->items) && !empty($this->items)) {
 
             // Loop through the list to set things right
-            $counter = 0;
+            $counter = 1;
             foreach($this->items as $id => $item) {
 
                 // Append category-data
@@ -111,7 +111,7 @@ class SimplelistsViewItems extends YireoView
                 $item->category_alias = $category->alias;
 
                 // Prepare each item
-                $item = $this->prepareItem($item, $layout, $counter);
+                $item = $this->prepareItem($item, $layout, $counter, count($this->items));
 
                 // Remove items that are empty
                 if($item == false) {
@@ -226,6 +226,9 @@ class SimplelistsViewItems extends YireoView
 
         // Prepare the category image
         if( $params->get('show_category_image') && isset($category->image) && !empty($category->image)) {
+            if(file_exists(JPATH_SITE.'/images/stories/'.$category->image)) {
+                $category->image = 'images/stories/'.$category->image;
+            }
             $category->image = JHTML::image($category->image, $category->title, array( 'align' => $category->image_position));
         } else {
             $params->set('show_category_image', 0);
@@ -238,9 +241,10 @@ class SimplelistsViewItems extends YireoView
      * @param object $item
      * @param string $layout
      * @param int $counter
+     * @param int $total
      * @return object
      */
-    public function prepareItem($item, $layout, $counter = 0) 
+    public function prepareItem($item, $layout, $counter = 1, $total = 0) 
     {
         $user = &JFactory::getUser();
         $dispatcher =& JDispatcher::getInstance();
@@ -346,10 +350,14 @@ class SimplelistsViewItems extends YireoView
 
         // Construct the class
         $classes = array('simplelists-item');
+        $classes[] = 'simplelists-item-'.$counter;
+        $classes[] = ($counter % 2 == 0) ? 'simplelists-item-even' : 'simplelists-item-odd';
         if($item->params->get('new') == 1) $classes[] = 'simplelists-item-new';
         if($item->params->get('featured') == 1) $classes[] = 'simplelists-item-featured';
         if($item->params->get('popular') == 1) $classes[] = 'simplelists-item-popular';
         if($item->params->get('approved') == 1) $classes[] = 'simplelists-item-approved';
+        if($counter == 1) $classes[] = 'simplelists-item-first';
+        if($counter == $total) $classes[] = 'simplelists-item-last';
         $item->class = implode(' ', $classes);
 
         // Prepare the title

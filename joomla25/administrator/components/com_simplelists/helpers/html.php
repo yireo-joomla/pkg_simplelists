@@ -28,15 +28,17 @@ class SimplelistsHTML
      * @param int ID of parent category
      * @return string HTML output
      */
-    public function getCategories($parent_id = null) 
+    public function getCategories($parent_id = null, $parse_tree = true) 
     {
         // Include the SimplelistsCategoryTree helper-class
         require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/category.php';
 
         // Fetch the categories and parse them in a tree
         $categories = SimplelistsHelper::getCategories(null, $parent_id);
-        $tree = new SimplelistsCategoryTree($categories);
-        $categories = $tree->getList();
+        if($parse_tree) {
+            $tree = new SimplelistsCategoryTree($categories);
+            $categories = $tree->getList();
+        }
 
         // Add a prefix to the category-title depending on the category-level
         foreach( $categories as $cid => $category ) {
@@ -98,7 +100,7 @@ class SimplelistsHTML
     {
         // Fetch all categories
         $parent_id = (isset($params['parent_id'])) ? $params['parent_id'] : null;
-        $categories = SimplelistsHTML::getCategories($parent_id);
+        $categories = SimplelistsHTML::getCategories($parent_id, false);
 
         // Remove the current category
         if(isset($params['self'])) {

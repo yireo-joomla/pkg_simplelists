@@ -80,6 +80,9 @@ class SimplelistsUpdate
 
     static public function runUpdateQueries()
     {
+        // Get the database object
+        $db = JFactory::getDBO();
+
         // Collection of queries were going to try
         $update_queries = array (
             'INSERT INTO `#__simplelists_categories` (`id`, `category_id` ) SELECT `id`,`catid` FROM `#__simplelists`',
@@ -117,12 +120,36 @@ class SimplelistsUpdate
             'UPDATE `#__categories` SET `parent_id`=1 WHERE `extension`="com_simplelists" AND `parent_id`=0',
         );
 
+        // Count the existing entries in the new table
+        $query = 'SELECT COUNT(*) FROM  `#__simplelists_items`';
+        $db->setQuery($query);
+        try {
+            $newItems = $db->loadResult();
+        } catch(Exception $e) {
+            $newItems = 0;
+        }
+
+        // Count the existing entries in the new table
+        $query = 'SELECT COUNT(*) FROM  `#__simplelists`';
+        $db->setQuery($query);
+        try {
+            $oldItems = $db->loadResult();
+        } catch(Exception $e) {
+            $oldItems = 0;
+        }
+
+        // If the old table contains data, and the new one doesn't, remove the new table
+        if($oldItems > 0 && $newItems < 1) {
+            array_unshift($update_queries, 'DROP TABLE `#__simplelists_items`');
+        }
+        
         // Perform all queries - we don't care if it fails
-        $db = JFactory::getDBO();
         foreach( $update_queries as $query ) {
             $db->debug(0);
             $db->setQuery( $query );
-            $db->query();
+            try {
+                $db->query();
+            } catch(Exception $e) {}
         }
     }
 }
