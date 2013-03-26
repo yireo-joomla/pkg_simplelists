@@ -36,7 +36,7 @@ class SimplelistsHelper
         } else {
             $query = "SELECT * FROM `#__categories` WHERE `id` = ".(int)$id." AND `extension`='com_simplelists' LIMIT 1";
         }
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query ) ;
         $rows = $db->loadObjectList() ;
         return $rows ;
@@ -108,7 +108,7 @@ class SimplelistsHelper
     {
         $query = 'SELECT id FROM `#__simplelists_categories` WHERE `category_id`='.(int)$category_id ;
 
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query ) ;
 
         $rows = $db->loadAssocList() ;
@@ -159,7 +159,7 @@ class SimplelistsHelper
         }
 
         $application = JFactory::getApplication() ;
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery($query);
         $rows = $db->loadAssocList() ;
         if(empty($rows)) {
@@ -203,12 +203,12 @@ class SimplelistsHelper
      * @param int $Itemid
      * @return object
      */
-    public function getMenuItemFromItemid($Itemid = 0) 
+    static public function getMenuItemFromItemid($Itemid = 0) 
     {
         static $menu_items;
         if(empty($menu_items)) {
-            $component = &JComponentHelper::getComponent('com_simplelists');
-            $menu = &JSite::getMenu();
+            $component = JComponentHelper::getComponent('com_simplelists');
+            $menu = JSite::getMenu();
             if(YireoHelper::isJoomla15()) {
                 $menu_items = $menu->getItems('componentid', $component->id);
             } else {
@@ -239,8 +239,8 @@ class SimplelistsHelper
 
         static $menu_items;
         if (empty($menu_items)) {
-            $component = &JComponentHelper::getComponent('com_simplelists');
-            $menu = &JSite::getMenu();
+            $component = JComponentHelper::getComponent('com_simplelists');
+            $menu = JSite::getMenu();
             if(YireoHelper::isJoomla15()) {
                 $menu_items = $menu->getItems('componentid', $component->id);
             } else {

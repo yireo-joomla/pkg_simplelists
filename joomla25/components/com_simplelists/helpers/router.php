@@ -19,12 +19,12 @@ require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/loader.php';
  */
 class SimplelistsHelperRouter
 {
-    public function getMenuItems()
+    static public function getMenuItems()
     {
         static $items = null;
         if(empty($items)) {
-            $component = &JComponentHelper::getComponent('com_simplelists');
-            $menu = &JSite::getMenu();
+            $component = JComponentHelper::getComponent('com_simplelists');
+            $menu = JSite::getMenu();
         
             if(YireoHelper::isJoomla15()) {
                 $items = $menu->getItems('componentid', $component->id);
