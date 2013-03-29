@@ -20,7 +20,7 @@
 				<option value="ralpha">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RALPHA</option>
 				<option value="random">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RANDOM</option>
 			</field>
-            <field name="columns" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_COLUMNS" description="COM_SIMPLELISTS_CONFIG_FIELD_COLUMNS_DESC" />
+            <field name="columns" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_COLUMNS" description="COM_SIMPLELISTS_CONFIG_FIELD_COLUMNS_DESC">
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
