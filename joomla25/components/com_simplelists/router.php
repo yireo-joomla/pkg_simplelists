@@ -17,7 +17,7 @@ require_once JPATH_SITE.'/components/com_simplelists/helpers/router.php';
 /*
  * Function to convert a system URL to a SEF URL
  */
-function SimplelistsBuildRoute(&$query)
+function SimplelistsBuildRoute($query)
 {
     // Initialize the segments
 	$segments = array();
@@ -44,7 +44,7 @@ function SimplelistsBuildRoute(&$query)
 
     // Get the menu items for this component
     $items = SimplelistsHelperRouter::getMenuItems();
-    $params = &JComponentHelper::getParams('com_simplelists');
+    $params = JComponentHelper::getParams('com_simplelists');
 
     // Break up the slug into numeric and alias values
     if (!empty($query['category_id'])) {
@@ -166,8 +166,8 @@ function SimplelistsParseRoute($segments)
     }
 
 	// Get the active menu item
-	$menu =& JSite::getMenu();
-	$item =& $menu->getActive();
+	$menu = JFactory::getApplication()->getMenu();
+	$item = $menu->getActive();
 
     // If the last segment is numeric, assume it's used pagination
     $last = count($segments) - 1;

@@ -77,7 +77,7 @@ class SimplelistsModelCategories extends YireoModel
      * @param null
      * @return mixed
      */
-    protected function buildQuery()
+    protected function buildQuery($query = '')
     {
         $query = "SELECT `category`.*, {access}, {editor}, `parent`.`title` AS `parent_title`, `parent`.`checked_out` AS `parent_checked_out`,\n"
             . " CASE WHEN CHAR_LENGTH(`category`.`alias`) THEN CONCAT_WS(':', `category`.`id`, `category`.`alias`) ELSE `category`.`id` END AS `slug`\n"

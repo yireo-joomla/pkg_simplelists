@@ -49,7 +49,7 @@ class SimplelistsViewItems extends YireoView
         }
 
         // Load the model
-        $model =& $this->getModel();
+        $model = $this->getModel();
 
         // Get the category from our model and prepare it
         $category = $model->getCategory() ;
@@ -246,8 +246,8 @@ class SimplelistsViewItems extends YireoView
      */
     public function prepareItem($item, $layout, $counter = 1, $total = 0) 
     {
-        $user = &JFactory::getUser();
-        $dispatcher =& JDispatcher::getInstance();
+        $user = JFactory::getUser();
+        $dispatcher = JDispatcher::getInstance();
         $params = $this->params;
 
         // Initialize the parameters
@@ -438,7 +438,7 @@ class SimplelistsViewItems extends YireoView
      */
     protected function firePlugins(&$row = null, $params = array()) 
     {
-        $dispatcher =& JDispatcher::getInstance();
+        $dispatcher = JDispatcher::getInstance();
         JPluginHelper::importPlugin( 'content' );
         $results = $dispatcher->trigger('onPrepareContent', array ( &$row, &$params, 0));
     }
@@ -452,7 +452,7 @@ class SimplelistsViewItems extends YireoView
     protected function prepareDocument($category) 
     {
         // Get the document object
-        $document =& JFactory::getDocument();
+        $document = JFactory::getDocument();
 
         // Set the page title
         if(JRequest::getCmd('option') == 'com_simplelists') {
@@ -484,7 +484,7 @@ class SimplelistsViewItems extends YireoView
 
         // Define the parameters
         $params = $category->params;
-        $document =& JFactory::getDocument();
+        $document = JFactory::getDocument();
 
         $meta_description = $params->get('description');
         if( !empty( $meta_description )) {

@@ -208,7 +208,7 @@ class SimplelistsHelper
         static $menu_items;
         if(empty($menu_items)) {
             $component = JComponentHelper::getComponent('com_simplelists');
-            $menu = JSite::getMenu();
+            $menu = JFactory::getApplication()->getMenu();
             if(YireoHelper::isJoomla15()) {
                 $menu_items = $menu->getItems('componentid', $component->id);
             } else {
@@ -271,7 +271,7 @@ class SimplelistsHelper
      * @param array $needles
      * @return string
      */
-    public function getUrl($needles = array())
+    static public function getUrl($needles = array())
     {
         // Construct the base-URL
         if(empty($needles['view'])) $needles['view'] = 'items';

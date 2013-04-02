@@ -24,7 +24,7 @@ class SimplelistsHelperRouter
         static $items = null;
         if(empty($items)) {
             $component = JComponentHelper::getComponent('com_simplelists');
-            $menu = JSite::getMenu();
+            $menu = JFactory::getApplication()->getMenu();
         
             if(YireoHelper::isJoomla15()) {
                 $items = $menu->getItems('componentid', $component->id);
