@@ -70,7 +70,7 @@ class SimplelistsModelItems extends YireoModel
      * @param null
      * @return mixed
      */
-    protected function buildQuery()
+    protected function buildQuery($query = '')
     {
         $query = 'SELECT item.*'
             . ' FROM #__simplelists_items AS item' 

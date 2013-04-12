@@ -22,7 +22,7 @@ class modSimpleListsItemsHelper
     /*
      * Method to get the SimpleLists category
      */
-	public function getCategory(&$params)
+	static public function getCategory($params)
 	{
         // Get some system variables
 		$db = JFactory::getDBO();
@@ -69,7 +69,7 @@ class modSimpleListsItemsHelper
     /*
      * Method to get a list of SimpleLists items
      */
-	public function getList(&$params)
+	static public function getList($params)
 	{
         // Get some system variables
 		$db = JFactory::getDBO();

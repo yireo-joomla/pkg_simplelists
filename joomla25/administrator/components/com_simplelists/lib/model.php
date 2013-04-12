@@ -442,7 +442,12 @@ class YireoModel extends YireoAbstractModel
                 if (YireoHelper::isJoomla15()) {
                     if (isset($data->access) && is_numeric($data->access)) {
                         if ($data->access > $this->user->get('aid', 0)) {
-                            JError::raiseError(403, JText::_('LIB_YIREO_MODEL_NOT_AUTHORIZED'));
+                            if($this->user->get('aid', 0) == 0) {
+                                $url = 'index.php?option=com_user&view=login';
+                                $this->application->redirect(JRoute::_($url));
+                            } else {
+                                JError::raiseError(403, JText::_('LIB_YIREO_MODEL_NOT_AUTHORIZED'));
+                            }
                             return;
                         }
                     }
