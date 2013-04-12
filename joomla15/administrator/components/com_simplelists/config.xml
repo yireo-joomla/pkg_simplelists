@@ -61,6 +61,7 @@
 			<option value="">None</option>
 			<option value="left">Left</option>
 			<option value="right">Right</option>
+			<option value="toggle">Toggle</option>
 		</param>
 		<param name="sef_url" type="list" default="alias" label="SEF URL">
 			<option value="alias">COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_OPTION_ALIAS</option>

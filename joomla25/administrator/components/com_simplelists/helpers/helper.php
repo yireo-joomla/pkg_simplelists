@@ -399,7 +399,7 @@ class SimplelistsHelper
                 imagejpeg( $thumb, $thumb_path, 50 );
                 break;
             case 'png':
-                imagepng( $thumb, $thumb_path, 50 );
+                imagepng( $thumb, $thumb_path, 9 );
                 break;
             case 'gif':
                 imagegif( $thumb, $thumb_path );

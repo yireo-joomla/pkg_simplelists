@@ -60,6 +60,7 @@
 			<option value="">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_NONE</option>
 			<option value="left">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_LEFT</option>
 			<option value="right">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_RIGHT</option>
+			<option value="toggle">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_TOGGLE</option>
 		</field>
     </fieldset>
     <fieldset name="advanced" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ADVANCED">

@@ -13,16 +13,12 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).'/default.php')) {
-    require_once dirname(__FILE__).'/default.php';
-} else {
-    require_once dirname(dirname(__FILE__)).'/default/default.php';
-}
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.php';
 
 /**
  * Plugin class
  */
-class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
+class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
 {
     /**
      * Load the parameters
@@ -116,10 +112,13 @@ class plgSimpleListsLinkMenuItem extends plgSimpleListsLinkDefault
             $links = JHTML::_( 'menu.linkoptions' );
             return JHTML::_('select.genericlist', $links, 'link_menuitem', 'class="inputbox" size="1"', 'value', 'text', intval($current));
         } else {
-            $form = JForm::getInstance('input', JPATH_SITE.'/plugins/simplelistslink/menuitem/form.xml');
-            $form->bind(array('input' => array('link_menuitem' => $current)));
-            foreach($form->getFieldset('input') as $field) {
-                echo $field->input; 
+            $xmlFile = JPATH_SITE.'/plugins/simplelistslink/menuitem/form.xml';
+            if(file_exists($xmlFile)) {
+                $form = JForm::getInstance('input', $xmlFile);
+                $form->bind(array('input' => array('link_menuitem' => $current)));
+                foreach($form->getFieldset('input') as $field) {
+                    echo $field->input; 
+                }
             }
         }
     }

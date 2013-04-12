@@ -587,7 +587,6 @@ class YireoModel extends YireoAbstractModel
                 }
                 
                 $this->_total = $this->_db->loadResult();
-                $this->_db->getQuery();
             }
         }
 

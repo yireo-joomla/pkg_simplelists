@@ -304,7 +304,9 @@ class SimplelistsViewItems extends YireoView
 
         // Set the image-alignment for this item
         if ($item->params->get('picture_alignment') != '' && $layout != 'picture') {
-            $item->picture_alignment = $item->params->get('picture_alignment');
+            $picture_alignment = $item->params->get('picture_alignment');
+            if($picture_alignment == 'toggle') $picture_alignment = ($counter % 2 == 0) ? 'right' : 'left';
+            $item->picture_alignment = $picture_alignment;
         } else {
             $item->picture_alignment = false;
         }
@@ -334,7 +336,7 @@ class SimplelistsViewItems extends YireoView
                 if(!empty($item->title)) {
                     $title = $item->title;
                     if(!empty($item->text)) {
-                        $title .= ' :: ' . $item->text;
+                        //$title .= ' :: ' . $item->text;
                     }
                 } else {
                     $title = $item->target;

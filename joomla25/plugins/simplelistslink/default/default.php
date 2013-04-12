@@ -13,12 +13,12 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-jimport( 'joomla.plugin.plugin' );
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.php';
 
 /**
  * SimpleLists Link Plugin - Default
  */ 
-class plgSimpleListsLinkDefault extends JPlugin
+class plgSimpleListsLinkDefault extends SimplelistsPluginLink
 {
     /**
      * Load the parameters
@@ -32,36 +32,12 @@ class plgSimpleListsLinkDefault extends JPlugin
         jimport('joomla.version');
         $version = new JVersion();
         if(version_compare($version->RELEASE, '1.5', 'eq')) {
-            $plugin = JPluginHelper::getPlugin('simplelistslink', 'cbprofile');
+            $plugin = JPluginHelper::getPlugin('simplelistslink', 'default');
             $params = new JParameter($plugin->params);
             return $params;
         } else {
             return $this->params;
         }
-    }
-
-    /*
-     * Method to get the plugin name
-     *
-     * @access public
-     * @param null
-     * @return string
-     */
-    public function getPluginName() 
-    {
-        return $this->_name;
-    }
-
-    /*
-     * Method to check whether this plugin can be used or not
-     *
-     * @access public
-     * @param null
-     * @return bool
-     */
-    public function isEnabled() 
-    {
-        return true;
     }
 
     /*
@@ -74,81 +50,5 @@ class plgSimpleListsLinkDefault extends JPlugin
     public function getTitle() 
     {
         return 'None';
-    }
-
-    /*
-     * Method the friendly name of a specific item
-     *
-     * @access public
-     * @param mixed $link
-     * @return string
-     */
-    public function getName($link = null) 
-    {
-        return $link;
-    }
-
-    /*
-     * Method to build the item URL 
-     *
-     * @access public
-     * @param object $item
-     * @return string
-     */
-    public function getUrl($item = null) {
-        return null;
-    }
-
-    /*
-     * Method to build the HTML when editing a item-link with this plugin
-     *
-     * @access public
-     * @param mixed $current
-     * @return string
-     */
-    public function getInput($current = null) 
-    {
-        return null;
-    }
-
-    /*
-     * Method to display the hidden-context of this item
-     *
-     * @access public
-     * @param object $item
-     * @return mixed
-     */
-    public function getHidden($item)    
-    {
-        header('Location: '.$this->getUrl($item->link));
-        exit;
-    }
-
-    /*
-     * Method to display a modal-box
-     *
-     * @access public
-     * @param string $type
-     * @param string $modal_link
-     * @param mixed $current
-     * @return string
-     */
-    public function getModal($type, $modal_link, $current = null) 
-    {
-        ?>
-        <div style="float:left;">
-            <input type="text" id="link_name_<?php echo $type; ?>" value="<?php echo $this->getName($current); ?>" disabled="disabled" />
-        </div>
-        <div class="button2-left">
-            <div class="blank">
-                <?php $selectText = JText::_('COM_SIMPLELISTS_SELECT_'.strtoupper($type)); ?> 
-                <a class="btn modal-button" title="<?php echo $selectText; ?>" href="<?php echo $modal_link; ?>" rel="{handler: 'iframe', size: {x: 770, y: 500}}">
-                    <?php echo $selectText; ?>
-                </a>
-            </div>
-        </div>
-        <input type="hidden" id="link_<?php echo $type; ?>" name="link_<?php echo $type; ?>" value="<?php echo $current; ?>" />
-        <div style="clear:both"></div>
-        <?php
     }
 }

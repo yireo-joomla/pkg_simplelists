@@ -13,16 +13,12 @@
 defined('_JEXEC') or die('Restricted access');
 
 // Include the parent class
-if(file_exists(dirname(__FILE__).'/default.php')) {
-    require_once dirname(__FILE__).'/default.php';
-} else {
-    require_once dirname(dirname(__FILE__)).'/default/default.php';
-}
+require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.php';
 
 /**
  * SimpleLists Link Plugin - File Links
  */ 
-class plgSimpleListsLinkFile extends plgSimpleListsLinkDefault
+class plgSimpleListsLinkFile extends SimplelistsPluginLink
 {
     /**
      * Load the parameters
