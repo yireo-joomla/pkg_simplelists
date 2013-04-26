@@ -78,7 +78,7 @@ jQuery(document).ready(function(){
                                 </a>
                             </div>
                             <div class="image-preview">
-                            <?php if(JFile::exists($this->item->picture_path)): ?>
+                            <?php if(!empty($this->item->picture_path) && JFile::exists($this->item->picture_path)): ?>
                                 <img width="380" id="picture-preview" src="../<?php echo $this->item->picture_uri; ?>" name="item_picture" />
                             <?php else: ?>
                                 <img width="380" id="picture-preview" src="../media/com_simplelists/images/blank.png" alt="<?php echo JText::_('No image'); ?>" name="item_picture" width="1" height="1" />' ;

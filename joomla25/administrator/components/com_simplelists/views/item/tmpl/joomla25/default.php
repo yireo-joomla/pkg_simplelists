@@ -82,7 +82,7 @@ jimport('joomla.utilities.utility');
         <tr>
             <td colspan="2" style="padding:5px;">
                 <?php 
-                if(JFile::exists($this->item->picture_path)) {
+                if(!empty($this->item->picture_path) && JFile::exists($this->item->picture_path)) {
                     echo '<img width="80" id="picture-preview" src="../'.$this->item->picture_uri.'" name="item_picture" />' ;
                 } else {
                     echo '<img width="80" id="picture-preview" src="../media/com_simplelists/images/blank.png" alt="' . JText::_( 'No image' ) . '" name="item_picture" width="1" height="1" />' ;
