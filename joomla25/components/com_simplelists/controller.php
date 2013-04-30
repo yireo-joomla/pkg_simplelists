@@ -23,6 +23,16 @@ class SimplelistsController extends YireoController
      */
     public function __construct()
     {
+        $view = JRequest::getCmd('view');
+        $Itemid = JRequest::getInt('Itemid');
+        if(empty($view) && empty($Itemid)) {
+            $app = JFactory::getApplication();
+            $url = JURI::base();
+            $app->redirect($url);
+            $app->close();
+            exit;
+        }
+
         $this->_default_view = 'items';
         parent::__construct();
     }

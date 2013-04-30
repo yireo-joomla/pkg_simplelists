@@ -43,6 +43,13 @@ class YireoModel extends YireoAbstractModel
     protected $_single = null;
 
     /**
+     * Boolean to allow for caching
+     *
+     * @protected int
+     */
+    protected $_cache = false;
+
+    /**
      * Boolean to allow for debugging
      *
      * @protected int
@@ -405,16 +412,7 @@ class YireoModel extends YireoAbstractModel
             if ($this->isSingular() && $this->getId() > 0) {
 
                 $query = $this->buildQuery();
-                $this->_db->setQuery($query);
-                if (isset($this->_debug) && $this->_debug == true) {
-                    JError::raiseNotice( 'Query', $this->getDbDebug());
-                }
-
-                $data = $this->_db->loadObject();
-
-                if ($this->_db->getErrorMsg()) {
-                    JError::raiseWarning( 'DB error', $this->_db->getErrorMsg());
-                }
+                $data = $this->getDbResult($query, 'object');
 
                 if (!empty($data)) {
 
@@ -457,15 +455,7 @@ class YireoModel extends YireoAbstractModel
             } else if ($this->isSingular() == false) {
 
                 $query = $this->buildQuery();
-                $this->_db->setQuery($query);
-                if (isset($this->_debug) && $this->_debug == true) {
-                    JError::raiseNotice('LIB_YIREO_MODEL_DEBUG_QUERY', $this->getDbDebug());
-                }
-
-                $data = $this->_db->loadObjectList();
-                if ($this->_db->getErrorMsg()) {
-                    JError::raiseWarning('LIB_YIREO_MODEL_DEBUG_ERROR', $this->_db->getErrorMsg());
-                }
+                $data = $this->getDbResult($query, 'objectList');
 
                 if (!empty($data)) {
 
@@ -585,13 +575,9 @@ class YireoModel extends YireoAbstractModel
                 $query = preg_replace('/^(.*)FROM/sm', 'SELECT COUNT(*) FROM', $query);
                 $query = preg_replace('/LIMIT(.*)$/', '', $query);
                 $query = preg_replace('/ORDER\ BY(.*)$/m', '', $query);
-                $this->_db->setQuery($query);
 
-                if (isset($this->_debug) && $this->_debug == true) {
-                    JError::raiseNotice( 'Query', $this->getDbDebug());
-                }
-                
-                $this->_total = $this->_db->loadResult();
+                $data = $this->getDbResult($query, 'result');
+                $this->_total = (int)$data;
             }
         }
 
@@ -1556,6 +1542,64 @@ class YireoModel extends YireoAbstractModel
     public function setLimitQuery($bool)
     {
         $this->_limit_query = $bool;
+    }
+
+    /**
+     * Method to fetch database-results
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param string $query
+     * @param string $type: object|objectList|result
+     * @return null
+     */
+    public function getDbResult($query, $type = 'object')
+    {
+        if($this->_cache == true) {
+            $cache = JFactory::getCache();
+            $rs = $cache->call(array($this, '_getDbResult'), $query, $type);
+        } else {
+            $rs = $this->_getDbResult($query, $type);
+        }
+
+        return $rs;
+    }
+
+    /**
+     * Method to fetch database-results
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param string $query
+     * @param string $type: object|objectList|result
+     * @return null
+     */
+    public function _getDbResult($query, $type = 'object')
+    {
+        // Set the query in the database-object
+        $this->_db->setQuery($query);
+
+        // Print the query if debugging is enabled
+        if (isset($this->_debug) && $this->_debug == true) {
+            JError::raiseNotice( 'Query', $this->getDbDebug());
+        }
+
+        // Fetch the database-result
+        if($type == 'objectList') {
+            $rs = $this->_db->loadObjectList();
+        } elseif($type == 'result') {
+            $rs = $this->_db->loadResult();
+        } else {
+            $rs = $this->_db->loadObject();
+        }
+
+        // Print an error when an error occurs
+        if (isset($this->_debug) && $this->_debug == true && $this->_db->getErrorMsg()) {
+            JError::raiseWarning( 'DB error', $this->_db->getErrorMsg());
+        }
+
+        // Return the result
+        return $rs;
     }
 
     /**
