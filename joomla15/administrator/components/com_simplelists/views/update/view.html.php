@@ -32,10 +32,10 @@ class SimplelistsViewUpdate extends JView
 	public function display($tpl = null)
 	{
         // Fetch common objects from JFactory
-        $application =& JFactory::getApplication() ;
-		$db	=& JFactory::getDBO();
-		$user =& JFactory::getUser();
-        $document =& JFactory::getDocument();
+        $application = JFactory::getApplication() ;
+		$db	= JFactory::getDBO();
+		$user = JFactory::getUser();
+        $document = JFactory::getDocument();
 
         $data = JApplicationHelper::parseXMLInstallFile(JPATH_COMPONENT.'/simplelists.xml');
 

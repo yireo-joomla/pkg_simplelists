@@ -59,7 +59,7 @@ class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
      * @param mixed $link
      * @return string
      */
-    public function getName($link) 
+    public function getName($link = null) 
     {
         if(YireoHelper::isJoomla15() && YireoHelper::isJoomla25()) {
             $query = "SELECT `name` FROM #__menu WHERE `id`=".(int)$link;

@@ -57,7 +57,7 @@ defined('_JEXEC') or die('Restricted access');
     if( count( $this->items ) > 0 ) {
 	    for ($i=0, $n=count( $this->items ); $i < $n; $i++)
         {
-            $row = &$this->items[$i];
+            $row = $this->items[$i];
             $link = JRoute::_( 'index.php?option=com_simplelists&view=plugin&task=edit&cid[]='. $row->id );
 
 			$access 	= JHTML::_('grid.access',   $row, $i );

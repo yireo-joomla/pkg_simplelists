@@ -26,7 +26,7 @@ class SimplelistsPluginHelper
     /**
      * Method to load a specific plugin
      */
-    public function getPlugin($type = null, $name = null)
+    static public function getPlugin($type = null, $name = null)
     {
         // @todo: Does not work in J1.7
         $plugin = JPluginHelper::getPlugin($type, $name);
@@ -50,7 +50,7 @@ class SimplelistsPluginHelper
         // Determine the class-name and return an instance
         $class = 'plg'.$plugin->type.$plugin->name;
         if(class_exists($class)) {
-		    $dispatcher =& JDispatcher::getInstance();
+		    $dispatcher = JDispatcher::getInstance();
             $plugin = new $class($dispatcher, (array)$plugin);
             return $plugin;
         }
@@ -61,7 +61,7 @@ class SimplelistsPluginHelper
     /**
      * Method to load plugins of a specific type
      */
-    public function getPlugins($type = null)
+    static public function getPlugins($type = null)
     {
         // Load the plugins
         $plugins = JPluginHelper::getPlugin($type);
@@ -80,7 +80,7 @@ class SimplelistsPluginHelper
     /**
      * Method to return the title of a specific plugin
      */
-    public function getPluginLinkTitle($item)
+    static public function getPluginLinkTitle($item)
     {
         $plugin = self::getPlugin('simplelistslink', $item->link_type);
         if(!empty($plugin)) {
@@ -91,7 +91,7 @@ class SimplelistsPluginHelper
     /**
      * Method to return the link-name of a specific plugin
      */
-    public function getPluginLinkName($item)
+    static public function getPluginLinkName($item)
     {
         $plugin = self::getPlugin('simplelistslink', $item->link_type);
         if(!empty($plugin)) {
@@ -102,7 +102,7 @@ class SimplelistsPluginHelper
     /**
      * Method to return the hidden-value of a specific plugin
      */
-    public function getPluginLinkHidden($item)
+    static public function getPluginLinkHidden($item)
     {
         $plugin = self::getPlugin('simplelistslink', $item->link_type);
         if(!empty($plugin)) {
@@ -113,7 +113,7 @@ class SimplelistsPluginHelper
     /**
      * Method to return the URL-value of a specific plugin
      */
-    public function getPluginLinkUrl($item)
+    static public function getPluginLinkUrl($item)
     {
         $item->params = YireoHelper::toParameter($item->params);
         $return = null;

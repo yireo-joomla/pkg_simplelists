@@ -30,7 +30,7 @@ class SimpleListsHelperAcl
     {
         // Joomla! 1.5 ACLs
         if(YireoHelper::isJoomla15()) {
-            $auth =& JFactory::getACL();
+            $auth = JFactory::getACL();
             $auth->addACL('com_simplelists', 'manage', 'users', 'super administrator');
             $auth->addACL('com_simplelists', 'manage', 'users', 'administrator');
             $auth->addACL('com_simplelists', 'manage', 'users', 'manager');
@@ -46,7 +46,7 @@ class SimpleListsHelperAcl
     public static function isAuthorized()
     {
         // Initialize system variables
-        $user =& JFactory::getUser();
+        $user = JFactory::getUser();
 
         // Check the ACLs for Joomla! 1.5
         if(YireoHelper::isJoomla15() && !$user->authorize( 'com_simplelists', 'manage' )) {

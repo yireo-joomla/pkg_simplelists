@@ -109,7 +109,7 @@ $cparams = JComponentHelper::getParams ('com_media');
                     <tr>
                         <td class="value">
                             <?php
-                            $editor =& JFactory::getEditor();
+                            $editor = JFactory::getEditor();
                             echo $editor->display( 'description', $this->item->description, '100%', '300', '44', '9' ) ;
                             ?>
                         </td>

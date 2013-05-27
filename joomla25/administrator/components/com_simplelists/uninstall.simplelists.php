@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 
 // Check if there are any items configured
 $query = 'SELECT * FROM #__simplelists';
-$db =& JFactory::getDBO();
+$db = JFactory::getDBO();
 $db->setQuery($query);
 $rows = $db->loadObjectList();
 

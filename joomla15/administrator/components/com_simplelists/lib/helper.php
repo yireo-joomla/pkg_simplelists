@@ -4,10 +4,10 @@
  *
  * @author Yireo (info@yireo.com)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 // Check to ensure this file is included in Joomla!
@@ -76,22 +76,20 @@ class YireoHelper
     /*
      * Helper-method to check whether the current Joomla! version equals some value
      *
-     * @param null
+     * @param $version string|array
      * @return bool
      */
-    static public function isJoomla($version_string)
+    static public function isJoomla($version)
     {
-        static $rs = array();
-        if (!isset($rs[$version_string])) {
-            JLoader::import( 'joomla.version' );
-            $version = new JVersion();
-            if (version_compare( $version->RELEASE, $version_string, 'eq')) {
-                $rs[$version_string] = true;
-            } else {
-                $rs[$version_string] = false;
+        JLoader::import( 'joomla.version' );
+        $jversion = new JVersion();
+        if (!is_array($version)) $version = array($version);
+        foreach($version as $v) {
+            if (version_compare( $jversion->RELEASE, $v, 'eq')) {
+                return true;
             }
         }
-        return $rs[$version_string];
+        return false;
     }
 
     /*
@@ -102,7 +100,7 @@ class YireoHelper
      */
     static public function isJoomla35()
     {
-        return self::isJoomla('3.0');
+        return self::isJoomla(array('3.0', '3.1', '3.2', '3.5'));
     }
 
     /*

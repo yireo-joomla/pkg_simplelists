@@ -17,7 +17,7 @@ jimport('joomla.utilities.utility');
 ?>
 <script language="javascript" type="text/javascript">
     <!--
-    var image_directory = '<?php echo $this->item->image_directory_uri; ?>';
+    var image_directory = '<?php echo $this->item->image_default_uri; ?>';
     var form_no_title = '<?php echo JText::_('COM_SIMPLELISTS_ITEM_EMPTY_TITLE'); ?>' ;
     -->
 </script>
@@ -49,7 +49,7 @@ jimport('joomla.utilities.utility');
         <tr>
             <td class="value">
                 <?php
-                $editor =& JFactory::getEditor();
+                $editor = JFactory::getEditor();
                 echo @$editor->display( 'text', $this->item->text, '100%', '300', '44', '9', array('pagebreak', 'readmore' )) ;
                 ?>
             </td>
@@ -82,7 +82,7 @@ jimport('joomla.utilities.utility');
         <tr>
             <td colspan="2" style="padding:5px;">
                 <?php 
-                if(JFile::exists($this->item->picture_path)) {
+                if(!empty($this->item->picture_path) && JFile::exists($this->item->picture_path)) {
                     echo '<img width="80" id="picture-preview" src="../'.$this->item->picture_uri.'" name="item_picture" />' ;
                 } else {
                     echo '<img width="80" id="picture-preview" src="../media/com_simplelists/images/blank.png" alt="' . JText::_( 'No image' ) . '" name="item_picture" width="1" height="1" />' ;

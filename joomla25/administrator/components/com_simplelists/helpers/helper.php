@@ -29,7 +29,7 @@ class SimplelistsHelper
      * @param int ID of category
      * @return array List with this category
      */
-    public function getCategory( $id = null ) 
+    static public function getCategory( $id = null ) 
     {
         if(YireoHelper::isJoomla15()) {
             $query = "SELECT * FROM `#__categories` WHERE `id` = ".(int)$id." AND `section`='com_simplelists' LIMIT 1";
@@ -51,7 +51,7 @@ class SimplelistsHelper
      * @param type Type of listing to return
      * @return array List of categories
      */
-    public function getCategories($id = null, $parent_id = null, $type = 'object') 
+    static public function getCategories($id = null, $parent_id = null, $type = 'object') 
     {
         // Convert to integers
         if(!empty($id)) $id = (int)$id;
@@ -104,7 +104,7 @@ class SimplelistsHelper
      * @param int ID of category
      * @return int Number of items
      */
-    public function getNumItems( $category_id ) 
+    static public function getNumItems( $category_id ) 
     {
         $query = 'SELECT id FROM `#__simplelists_categories` WHERE `category_id`='.(int)$category_id ;
 
@@ -122,7 +122,7 @@ class SimplelistsHelper
      * @param folder-name (default 'images/simplelists')
      * @return boolean True if the folder has been created successfully
      */
-    public function checkDirectory( $folder = '' ) 
+    static public function checkDirectory( $folder = '' ) 
     {
         $application = JFactory::getApplication() ;
         if( $folder == '' ) {
@@ -150,7 +150,7 @@ class SimplelistsHelper
      * @param null
      * @return boolean True if there is at least 1 category
      */
-    public function checkCategories() 
+    static public function checkCategories() 
     {
         if(YireoHelper::isJoomla15()) {
             $query = "SELECT * FROM #__categories WHERE `section`='com_simplelists'";
@@ -176,7 +176,7 @@ class SimplelistsHelper
      * @param null
      * @return boolean True if all versions are acceptable
      */
-    public function checkVersions() 
+    static public function checkVersions() 
     {
         $application = JFactory::getApplication() ;
 
@@ -235,7 +235,7 @@ class SimplelistsHelper
      * @param string $layout
      * @return object
      */
-    public function getMenuItem($category_id = 0, $layout = 'default') {
+    static public function getMenuItem($category_id = 0, $layout = 'default') {
 
         static $menu_items;
         if (empty($menu_items)) {
@@ -349,7 +349,7 @@ class SimplelistsHelper
      * @param string $script
      * @return string
      */
-    public function createThumbnail($image, $ext, $src_width, $src_height, $dest_width, $dest_height)
+    static public function createThumbnail($image, $ext, $src_width, $src_height, $dest_width, $dest_height)
     {
         // Check for the caching folder
         $folder = JPATH_ADMINISTRATOR.'/cache/com_simplelists';

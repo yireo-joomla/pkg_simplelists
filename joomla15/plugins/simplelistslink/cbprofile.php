@@ -75,10 +75,10 @@ class plgSimpleListsLinkCBProfile extends SimplelistsPluginLink
      * @param mixed $link
      * @return string
      */
-    public function getName($link) 
+    public function getName($link = null) 
     {
         $query = "SELECT `name` FROM #__users WHERE `id`=".(int)$link;
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query );
         $row = $db->loadObject();
         if(is_object($row)) {
@@ -110,7 +110,7 @@ class plgSimpleListsLinkCBProfile extends SimplelistsPluginLink
     public function getInput($current = null) 
     {
         $query = "SELECT `id`, `name` FROM #__users";
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query );
         $users = $db->loadObjectList();
         return JHTML::_('select.genericlist', $users, 'link_cbprofile', 'class="inputbox" size="1"', 'id', 'name', intval($current));

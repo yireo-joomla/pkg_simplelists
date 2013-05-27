@@ -47,7 +47,7 @@ class SimplelistsViewCategory extends YireoView
         // Construct the slider-panel
         jimport('joomla.html.pane');
         if(class_exists('JPane')) {
-            $pane = & JPane::getInstance('sliders');
+            $pane = JPane::getInstance('sliders');
             $this->assignRef('pane', $pane);
         } else {
             $pane = false;

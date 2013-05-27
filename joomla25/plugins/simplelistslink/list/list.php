@@ -59,10 +59,10 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
      * @param mixed $link
      * @return string
      */
-    public function getName($link) 
+    public function getName($link = null) 
     {
         $query = "SELECT `title` FROM #__categories WHERE `id`=".(int)$link;
-        $db =& JFactory::getDBO();
+        $db = JFactory::getDBO();
         $db->setQuery( $query );
         $row = $db->loadObject() ;
         if(is_object($row)) {

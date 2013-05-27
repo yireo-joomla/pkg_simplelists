@@ -28,7 +28,7 @@ class SimplelistsHTML
      * @param int ID of parent category
      * @return string HTML output
      */
-    public function getCategories($parent_id = null, $parse_tree = true) 
+    static public function getCategories($parent_id = null, $parse_tree = true) 
     {
         // Include the SimplelistsCategoryTree helper-class
         require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/category.php';
@@ -71,7 +71,7 @@ class SimplelistsHTML
      * @param    int ID of parent category
      * @return    string HTML output
      */
-    public function getCurrentCategory( $categories, $item_id = 0 ) 
+    static public function getCurrentCategory( $categories, $item_id = 0 ) 
     {
         // If there is no current item yet and we only have one category, select it
         if( $item_id == 0 ) {
@@ -100,7 +100,7 @@ class SimplelistsHTML
      * @param    int ID of parent category
      * @return    string HTML output
      */
-    public function selectCategories( $name = '', $params = array()) 
+    static public function selectCategories( $name = '', $params = array()) 
     {
         // Fetch all categories
         $parent_id = (isset($params['parent_id'])) ? $params['parent_id'] : null;
@@ -155,7 +155,7 @@ class SimplelistsHTML
      * @param int $current
      * @return string HTML output
      */
-    public function selectLinkType( $current = '' ) 
+    static public function selectLinkType( $current = '' ) 
     {
         if(YireoHelper::isJoomla15()) {
             $query = 'SELECT name AS title, element AS value FROM #__plugins WHERE folder="simplelistslink" ORDER BY ordering';
@@ -186,7 +186,7 @@ class SimplelistsHTML
      * @param    int ID of current option
      * @return    string HTML output
      */
-    public function selectImagePosition($name, $default) 
+    static public function selectImagePosition($name, $default) 
     {
         $options[] = array( 'id' => 'left', 'title' => 'Left' );
         $options[] = array( 'id' => 'right', 'title' => 'Right' );

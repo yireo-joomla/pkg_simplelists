@@ -157,6 +157,11 @@ class SimpleListsModelFiles extends YireoAbstractModel
         if($fileList !== false) {
             foreach ($fileList as $file) {
 
+                // Skip this file if it is empty
+                if(empty($file)) {
+                    continue;
+                }
+
                 // Skip this file if it is not readable
                 if(is_file($folderPath.'/'.$file) == false) {
                     continue;

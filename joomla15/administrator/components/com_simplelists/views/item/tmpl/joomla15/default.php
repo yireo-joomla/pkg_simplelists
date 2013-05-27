@@ -17,7 +17,7 @@ jimport('joomla.utilities.utility');
 ?>
 <script language="javascript" type="text/javascript">
     <!--
-    var image_directory = '<?php echo $this->item->image_directory_uri; ?>';
+    var image_directory = '<?php echo $this->item->image_default_uri; ?>';
     var form_no_title = '<?php echo JText::_('COM_SIMPLELISTS_ITEM_EMPTY_TITLE'); ?>' ;
     -->
 </script>
@@ -43,7 +43,7 @@ jimport('joomla.utilities.utility');
         <tr>
             <td class="value">
                 <?php
-                $editor =& JFactory::getEditor();
+                $editor = JFactory::getEditor();
                 echo @$editor->display( 'text', $this->item->text, '100%', '300', '44', '9', array('pagebreak', 'readmore' )) ;
                 ?>
             </td>

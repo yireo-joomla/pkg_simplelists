@@ -4,10 +4,10 @@
     <author>Yireo</author>
     <authoremail>info@yireo.com</authoremail>
     <authorurl>http://www.yireo.com</authorurl>
-    <creationDate>February 2013</creationDate>
+    <creationDate>May 2013</creationDate>
     <copyright>Copyright 2013 Yireo</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.1.4</version>
+    <version>1.6.1.5</version>
     <description>COM_SIMPLELISTS_VIEW_ITEMS_DESC</description>
 
     <!-- installation part -->
