@@ -292,9 +292,7 @@
                 <include name="en-GB.plg_${group}_${name}.sys.ini" />
             </fileset>
             <fileset dir="${joomla25}/plugins/${group}/${name}">
-                <include name="${name}.xml" />
-                <include name="${name}.php" />
-                <include name="index.html" />
+                <include name="**/**" />
             </fileset>
         </copy>
         <copy file="${gpl}" tofile="${source_dir}/plg_${group}_${name}_j25/LICENSE.txt" overwrite="true" />
