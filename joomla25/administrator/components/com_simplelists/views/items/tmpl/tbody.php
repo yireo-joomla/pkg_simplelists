@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  * @version 0.4.3
@@ -14,7 +14,7 @@
 defined('_JEXEC') or die();
 ?>
 <td>
-    <?php if(JTable::isCheckedOut($this->user->get ('id'), $item->checked_out )) { ?>
+    <?php if($this->isCheckedOut($item)) { ?>
         <span class="checked_out"><?php echo $item->title; ?></span>
     <?php } else { ?>
         <a href="<?php echo $item->edit_link; ?>" title="<?php echo JText::_('LIB_YIREO_VIEW_EDIT'); ?>"><?php echo $item->title; ?></a>

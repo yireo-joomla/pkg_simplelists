@@ -4,10 +4,10 @@
  *
  * @author Yireo (info@yireo.com)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 // Check to ensure this file is included in Joomla!
@@ -63,13 +63,16 @@ class YireoHelperView
      * @param 
      * @return array
      */
-    static public function getSelectOptions($items, $value = 'id', $title = 'title')
+    static public function getSelectOptions($items, $value = 'id', $title = 'title', $alt_title = 'name')
     {
         $options = array();
         if (!empty($items)) {
             foreach ($items as $item) {
-                if (!empty($title) && isset($item->$value) && isset($item->$title)) {
+                if (!empty($title) && isset($item->$value) && !empty($item->$title)) {
                     $option = array('value' => $item->$value, 'title' => $item->$title);
+
+                } else if (!empty($alt_title) && isset($item->$value) && !empty($item->$alt_title)) {
+                    $option = array('value' => $item->$value, 'title' => $item->$alt_title);
 
                 } else if (empty($title) || (isset($item->$value) && !isset($item->$title))) {
                     $option = array('value' => $item->$value, 'title' => $item->$value);

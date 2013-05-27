@@ -22,7 +22,7 @@ if(!empty($field)) {
     <tr>
         <td class="value">
             <?php
-            $editor =& JFactory::getEditor();
+            $editor = JFactory::getEditor();
             echo @$editor->display($field, $this->item->$field, '100%', '300', '44', '9', array('pagebreak', 'readmore' )) ;
             ?>
         </td>

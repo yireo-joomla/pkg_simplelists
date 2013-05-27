@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -37,7 +37,7 @@ class SimplelistsModelItems extends YireoModel
      * @param null
      * @return mixed
      */
-    protected function buildQuery()
+    protected function buildQuery($query = '')
     {
         $query = "SELECT item.*, {access}, {editor} FROM #__simplelists_items AS item \n";
         return parent::buildQuery($query);
