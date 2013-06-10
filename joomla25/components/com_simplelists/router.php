@@ -17,7 +17,7 @@ require_once JPATH_SITE.'/components/com_simplelists/helpers/router.php';
 /*
  * Function to convert a system URL to a SEF URL
  */
-function SimplelistsBuildRoute($query)
+function SimplelistsBuildRoute(&$query)
 {
     // Initialize the segments
 	$segments = array();
@@ -25,20 +25,21 @@ function SimplelistsBuildRoute($query)
     // Temporarily extract the Itemid
     if(isset($query['Itemid'])) {
         $Itemid = $query['Itemid'];
-        unset($query['Itemid']);
     } else {
         $Itemid = null;
     }
 
     // If this is an item view and we have to hide it
     if (!empty($query['view']) && $query['view'] == 'item' && !empty($query['task']) && $query['task'] == 'hidden') {
-
         $segments[] = 'id,'.$query['id'];
-        unset($query['view']);
-        unset($query['task']);
-        unset($query['tmpl']);
-        unset($query['id']);
-
+        if(isset($query['view'])) unset($query['view']);
+        if(isset($query['layout'])) unset($query['layout']);
+        if(isset($query['task'])) unset($query['task']);
+        if(isset($query['tmpl'])) unset($query['tmpl']);
+        if(isset($query['id'])) unset($query['id']);
+        if(isset($query['slug'])) unset($query['slug']);
+        if(isset($query['alias'])) unset($query['alias']);
+        if(isset($query['category_id'])) unset($query['category_id']);
         return $segments;
     }
 
@@ -62,19 +63,21 @@ function SimplelistsBuildRoute($query)
 
         if(isset($query['category_id'])) {
             foreach ($items as $item) {
-                if(isset($item->query['view']) && isset($item->query['category_id']) && $item->query['view'] == 'items' && $query['category_id'] == $item->query['category_id']) {
+                if(isset($item->query['view']) && $item->query['view'] == 'items'
+                        && isset($item->query['category_id']) && $query['category_id'] == $item->query['category_id']) {
                     $query['Itemid'] = $item->id;
                 }
             }
         }
 
-        unset($query['view']);
-        unset($query['task']);
-        unset($query['tmpl']);
-        unset($query['id']);
-        unset($query['slug']);
-        unset($query['alias']);
-        unset($query['category_id']);
+        if(isset($query['view'])) unset($query['view']);
+        if(isset($query['layout'])) unset($query['layout']);
+        if(isset($query['task'])) unset($query['task']);
+        if(isset($query['tmpl'])) unset($query['tmpl']);
+        if(isset($query['id'])) unset($query['id']);
+        if(isset($query['slug'])) unset($query['slug']);
+        if(isset($query['alias'])) unset($query['alias']);
+        if(isset($query['category_id'])) unset($query['category_id']);
         return $segments;
     }
 
@@ -131,11 +134,14 @@ function SimplelistsBuildRoute($query)
     }
 
     // Unset all unneeded query-parts because they should be now either segmented or referenced from the Itemid
-    unset($query['view']);
-    unset($query['category_id']);
-    unset($query['alias']);
-    unset($query['slug']);
-    unset($query['layout']);
+    if(isset($query['view'])) unset($query['view']);
+    if(isset($query['layout'])) unset($query['layout']);
+    if(isset($query['task'])) unset($query['task']);
+    if(isset($query['tmpl'])) unset($query['tmpl']);
+    if(isset($query['id'])) unset($query['id']);
+    if(isset($query['slug'])) unset($query['slug']);
+    if(isset($query['alias'])) unset($query['alias']);
+    if(isset($query['category_id'])) unset($query['category_id']);
 
     // Return the segments
 	return $segments;
