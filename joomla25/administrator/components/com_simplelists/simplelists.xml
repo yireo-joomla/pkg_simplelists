@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="1.6.0" method="upgrade">
+<extension type="component" version="2.5" method="upgrade">
     <name>COM_SIMPLELISTS</name>
     <author>Yireo</author>
     <authoremail>info@yireo.com</authoremail>
@@ -52,7 +52,7 @@
     <!-- administration part -->
     <administration>
 
-        <menu img="../media/com_simplelists/images/simplelists.png">COM_SIMPLELISTS</menu>
+        <menu img="../media/com_simplelists/images/menu-simplelists.png">COM_SIMPLELISTS</menu>
         <submenu>
             <menu link="option=com_simplelists&amp;view=home">COM_SIMPLELISTS_HOME</menu>
             <menu link="option=com_simplelists&amp;view=items">COM_SIMPLELISTS_ITEMS</menu>

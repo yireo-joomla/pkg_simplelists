@@ -12,14 +12,6 @@
     background-image: url(../images/logo.png);
 }
 
-div.header {
-    padding-left: 100px !important;
-}
-
-div.pagetitle {
-    padding-left: 100px !important;
-}
-
 fieldset.adminform {
     border: 1px solid #dfdfdf !important;
     background-color: #f1f1f1;

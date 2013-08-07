@@ -11,7 +11,7 @@
 defined('_JEXEC') or die('Restricted access'); 
 ?>
 
-<?php if( $this->params->get('show_category_title') ) : ?>
+<?php if ($this->params->get('show_category_title', 1)) : ?>
 <a name="top"></a>
 <h1 class="componentheading"><?php echo $this->category->title ?></h1>
 <?php endif; ?>
