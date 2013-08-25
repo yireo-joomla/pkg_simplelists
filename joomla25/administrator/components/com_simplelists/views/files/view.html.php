@@ -35,9 +35,13 @@ class SimpleListsViewFiles extends YireoView
 		JHTML::_('behavior.mootools');
 		JHTML::_('behavior.modal');
 
-		$this->assignRef('files', $this->get('files'));
-		$this->assignRef('folders', $this->get('folders'));
-		$this->assignRef('state', $this->get('state'));
+        $files = $this->get('files');
+        $folders = $this->get('folders');
+        $state = $this->get('state');
+
+		$this->assignRef('files', $files);
+		$this->assignRef('folders', $folders);
+		$this->assignRef('state', $state);
 
 		parent::display($tpl);
 	}
