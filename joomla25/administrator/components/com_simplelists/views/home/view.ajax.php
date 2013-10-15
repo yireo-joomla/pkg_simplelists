@@ -4,7 +4,7 @@
  *
  * @author Yireo (info@yireo.com)
  * @package SimpleLists
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com
  */
@@ -27,6 +27,7 @@ class SimpleListsViewHome extends YireoViewHomeAjax
     {
         switch(JRequest::getVar('layout')) {
             case 'feeds':
+                ini_set('display_errors', 0);
                 $feeds = $this->fetchFeeds('http://www.yireo.com/blog?format=feed&type=rss', 3);
                 $this->assignRef('feeds', $feeds);
                 break;
