@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -29,9 +29,10 @@ class SimpleListsModelFiles extends YireoAbstractModel
      * Method to set a specific state for an internal variable
      * 
      * @param mixed $property
+     * @param mixed $default
      * @return bool
      */
-    public function getState($property = null)
+    public function getState($property = null, $default = null)
     {
         static $set;
 
