@@ -2,7 +2,7 @@
  * Joomla! component Simple Lists
  *
  * @author Yireo
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2013
  * @link http://www.yireo.com/
  */
 
@@ -32,8 +32,11 @@ function slModalClose()
 {
     if(SqueezeBox) {
         SqueezeBox.close();
-    } else {
-        document.getElementById('sbox-window').close();
+    }
+
+    var box = document.getElementById('sbox-window')
+    if(box) {
+        box.close();
     }
 }
 

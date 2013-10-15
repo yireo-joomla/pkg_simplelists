@@ -2,7 +2,7 @@
  * Joomla! component Simple Lists
  *
  * @author Yireo
- * @copyright Copyright (C) 2011
+ * @copyright Copyright (C) 2013
  * @link http://www.yireo.com/
  */
 
@@ -16,11 +16,10 @@ function setImage( path, file ) {
         current_image = file;
     }
 
-        $$('div.item a').setStyle('background-color', '#ffffff' );
-        $$('div.item a').setStyle('border-color', '#eeeeee' );
-
-    $(path).setStyle('background-color', '#eeeeee'); 
-    $(path).setStyle('border-color', '#5a5a5a'); 
-    $('folder-indicator').setText( current_image );
+    jQuery('div.item a').css('background-color', '#ffffff' );
+    jQuery('div.item a').css('border-color', '#eeeeee' );
+    jQuery(path).css('background-color', '#eeeeee'); 
+    jQuery(path).css('border-color', '#5a5a5a'); 
+    jQuery('folder-indicator').html(current_image);
 }
 
