@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -57,13 +57,8 @@ class SimplelistsViewItem extends YireoViewForm
         
         // Construct the modal boxes
         $modal = array() ;
-        if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
-            $modal['picture'] = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=picture&amp;current='.$this->item->picture;
-            if($this->item->picture) $modal['picture'] .= '&amp;folder='.$this->item->picture_folder;
-        } else {
-            $modal['picture'] = 'index.php?option=com_media&amp;view=images&amp;tmpl=component&amp;fieldid=picture_name';
-            if($this->item->picture) $modal['picture'] .= '&amp;folder='.preg_replace('/^images\//', '', $this->item->picture_folder);
-        }
+        $modal['picture'] = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=picture&amp;current='.$this->item->picture;
+        if($this->item->picture) $modal['picture'] .= '&amp;folder='.$this->item->picture_folder;
         $this->assignRef('modal', $modal);
 
         // Construct the slider-panel
