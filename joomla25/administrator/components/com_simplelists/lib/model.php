@@ -855,7 +855,13 @@ class YireoModel extends YireoAbstractModel
             return false;
         }
 
-        if (!$this->_tbl->move( $direction, ' '.$field_name.' = '.$field_id )) {
+        if (!empty($field_name) && !empty($field_id)) {
+            $rt = $this->_tbl->move($direction, ' '.$field_name.' = '.$field_id);
+        } else {
+            $rt = $this->_tbl->move($direction);
+        }
+
+        if ($rt == false) {
             $this->setError($this->_db->getErrorMsg());
             return false;
         }

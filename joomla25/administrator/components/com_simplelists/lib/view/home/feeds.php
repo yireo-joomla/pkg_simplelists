@@ -4,10 +4,10 @@
  *
  * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 defined('_JEXEC') or die('Restricted access');

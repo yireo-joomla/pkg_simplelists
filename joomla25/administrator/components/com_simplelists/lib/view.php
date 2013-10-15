@@ -4,10 +4,10 @@
  *
  * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 // Check to ensure this file is included in Joomla!
@@ -427,7 +427,6 @@ class YireoView extends YireoCommonView
         // Include extra component-related CSS
         $this->addCss('default.css');
         $this->addCss('view-'.$this->_view.'.css');
-        if (YireoHelper::isJoomla15() == false) $this->addCss('j16.css'); // @deprecated
         if (YireoHelper::isJoomla25() == true) $this->addCss('j25.css');
         if (YireoHelper::isJoomla35() == true) $this->addCss('j35.css');
 
