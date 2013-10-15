@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -91,13 +91,8 @@ class plgSimpleListsLinkFile extends SimplelistsPluginLink
      */
     public function getInput($current = null) 
     {
-        if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
-            $link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_file';
-            if($current!=null) $link .= '&amp;folder=/'.dirname($current);
-        } else {
-            $link = 'index.php?option=com_media&amp;view=files&amp;tmpl=component&amp;fieldid=link_file'; // @todo: No selection box
-            if($current!=null) $link .= '&amp;folder=/'.dirname($current);
-        }
+        $link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_file';
+        if($current!=null) $link .= '&amp;folder=/'.dirname($current);
 
         return $this->getModal('file', $link, $current);
     }

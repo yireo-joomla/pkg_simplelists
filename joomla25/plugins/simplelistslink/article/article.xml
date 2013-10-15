@@ -2,12 +2,12 @@
 <extension version="2.5" type="plugin" group="simplelistslink" method="upgrade">
     <name>PLG_SIMPLELISTSLINK_ARTICLE</name>
     <author>Yireo</author>
-    <creationDate>January 2013</creationDate>
+    <creationDate>October 2013</creationDate>
     <copyright>Copyright (C) 2013 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.6.1</version>
+    <version>1.6.2</version>
     <description>PLG_SIMPLELISTSLINK_ARTICLE_DESC</description>
 
     <files>
@@ -19,4 +19,8 @@
         <language tag="en-GB">en-GB.plg_simplelistslink_article.ini</language>
         <language tag="en-GB">en-GB.plg_simplelistslink_article.sys.ini</language>
     </languages>
+
+    <updateservers>
+        <server type="extension" priority="1" name="plg_simplelistslink_article">http://www.yireo.com/updates/plg_simplelistslink_article.xml</server>
+    </updateservers>
 </extension>
