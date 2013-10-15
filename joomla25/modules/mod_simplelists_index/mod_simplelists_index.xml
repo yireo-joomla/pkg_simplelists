@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="module" version="1.5.0" method="upgrade">
+<extension type="module" version="2.5" method="upgrade">
 	<name>mod_simplelists_index</name>
 	<author>Yireo</author>
-	<creationDate>May 2013</creationDate>
+	<creationDate>October 2013</creationDate>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>info@yireo.com</authorEmail>
 	<authorUrl>https://www.yireo.com/</authorUrl>
-	<version>1.0.0</version>
+	<version>1.6.2</version>
 	<description>Module to display SimpleLists index</description>
+
 	<files>
 		<filename module="mod_simplelists_index">mod_simplelists_index.php</filename>
 		<filename>helper.php</filename>
 		<filename>index.html</filename>
 		<folder>tmpl</folder>
 	</files>
-	<params/>
-</install>
+
+    <updateservers>
+        <server type="extension" priority="1" name="mod_simplelists_index">http://www.yireo.com/updates/mod_simplelists_index.xml</server>
+    </updateservers>
+</extension>

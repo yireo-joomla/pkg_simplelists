@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -28,8 +28,8 @@ if( strlen( $short_name ) > $max_chars ) {
 ?>
 <div class="item<?php echo $class; ?>">
     <a 
-        href="javascript:setModalItem('<?php echo $this->_tmp_file->path_uri; ?>')" 
-        id="<?php echo $this->_tmp_file->path; ?>" 
+        href="javascript:setModalItem('<?php echo $this->_tmp_file->path_uri; ?>', '<?php echo md5($this->_tmp_file->path); ?>')" 
+        id="<?php echo md5($this->_tmp_file->path); ?>" 
         title="<?php echo $this->_tmp_file->name; ?>">
     <img
         src="<?php echo $this->_tmp_file->src; ?>"  

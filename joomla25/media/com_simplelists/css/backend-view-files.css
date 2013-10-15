@@ -89,16 +89,18 @@ div#folder-indicator {
 }
 
 div.item {
+    float: left;
     text-align: center;
     width: 100px;
     height: 100px;
     border: 0;
+    border: 2px solid #eeeeee;
 }
 
 div.item a {
     width: 100px;
     height: 100px;
-    border: 2px solid #eeeeee;
+    border: 0;
 }
 
 div.item a span {
@@ -106,7 +108,7 @@ div.item a span {
     width: 94px;
 }
 
-div.item a:hover {
+div.item:hover {
     border: 2px solid #a48383;
 }
 

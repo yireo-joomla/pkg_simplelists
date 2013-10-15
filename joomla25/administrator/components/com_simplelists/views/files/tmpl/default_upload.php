@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -29,7 +29,7 @@ $folder = preg_replace('/^images\//', '', $folder);
 				<label for="upload-file" class="hidelabeltxt"><?php echo JText::_('COM_SIMPLELISTS_UPLOAD_FILE'); ?></label>
 				<input type="file" id="upload-file" name="Filedata" />
 				<label for="upload-submit" class="hidelabeltxt"><?php echo JText::_('COM_SIMPLELISTS_START_UPLOAD'); ?></label>
-				<input type="submit" id="upload-submit" value="<?php echo JText::_('COM_SIMPLELISTS_START_UPLOAD'); ?>"/>
+				<input class="btn" type="submit" id="upload-submit" value="<?php echo JText::_('COM_SIMPLELISTS_START_UPLOAD'); ?>"/>
 			</fieldset>
 			<div id="upload-flash" class="hide">
 				<ul>

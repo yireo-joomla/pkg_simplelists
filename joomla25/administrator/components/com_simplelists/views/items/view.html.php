@@ -28,6 +28,9 @@ class SimplelistsViewItems extends YireoViewList
      */
     public function display($tpl = null)
     {
+        // Turn off autocleaning
+        $this->autoclean = false;
+
         // Set extra toolbar items for the page
         if(YireoHelper::isJoomla15() || JFactory::getUser()->authorise('core.admin')) {
             JToolBarHelper::preferences('com_simplelists', '480');

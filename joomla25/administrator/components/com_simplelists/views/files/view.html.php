@@ -26,14 +26,12 @@ class SimpleListsViewFiles extends YireoView
 	{
 		JResponse::allowCache(false);
 
+        YireoHelper::jquery();
         if(YireoHelper::isJoomla15()) {
     		JHTML::_('stylesheet', 'popup-imagelist.css', 'administrator/components/com_media/assets/');
         } else {
     		JHTML::_('stylesheet', 'popup-imagelist.css', 'media/media/css/');
         }
-
-		JHTML::_('behavior.mootools');
-		JHTML::_('behavior.modal');
 
         $files = $this->get('files');
         $folders = $this->get('folders');

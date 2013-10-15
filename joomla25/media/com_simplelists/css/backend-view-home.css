@@ -1,106 +1,40 @@
 /**
- * Yireo Library
+ * Yireo Library for Joomla!
  *
  * @author Yireo
- * @package Yireo Library
- * @copyright Copyright 2012
+ * @package Yireo
+ * @copyright Copyright 2013
  * @link http://www.yireo.com/
  */
 
+div.shadedbox {
+    margin-right: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border:1px solid #DADADA;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    background: #ffffff;
+    background: -moz-radial-gradient(center, ellipse cover,  #ffffff 50%, #e5e5e5 87%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(50%,#ffffff), color-stop(87%,#e5e5e5));
+    background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 50%,#e5e5e5 87%);
+    background: -o-radial-gradient(center, ellipse cover,  #ffffff 50%,#e5e5e5 87%);
+    background: -ms-radial-gradient(center, ellipse cover,  #ffffff 50%,#e5e5e5 87%);
+    background: radial-gradient(ellipse at center,  #ffffff 50%,#e5e5e5 87%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=1 );
+}
+
 div.version {
-    margin-top: 5px;
-    background: transparent url(../images/icon-43-check.png) no-repeat 15px 10px;
     padding: 20px;
-    padding-left: 85px;
-    background-color: white;
-    border-top: 1px solid #cccccc;
 }
 
-div.review {
-    margin-top: 5px;
-    background: transparent url(../images/icon-43-smile.png) no-repeat 15px 10px;
-    padding: 20px;
-    padding-left: 85px;
-    background-color: white;
-    border-top: 1px solid #cccccc;
-}
-
-div.twitter {
-    margin-top: 5px;
-    background: transparent url(../images/icon-43-twitter.png) no-repeat 15px 10px;
-    padding: 20px;
-    padding-left: 85px;
-    background-color: white;
-    border-top: 1px solid #cccccc;
-}
-
-div.facebook {
-    margin-top: 5px;
-    background: transparent url(../images/icon-43-facebook.png) no-repeat 15px 10px;
-    padding: 20px;
-    padding-left: 85px;
-    background-color: white;
-    border-top: 1px solid #cccccc;
-}
-
-h2.latest_news_header {
-    background-color: #6277b3;
-    background-image: linear-gradient(to bottom, #17568C, #1A3867);
-    background-repeat: repeat-x;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border: 1px solid #184A7D;
-    border-bottom: 0;
-	-webkit-border-radius: 10px 10px 0px 0px ;
-	-moz-border-radius: 10px 10px 0px 0px ;
-	border-radius: 10px 10px 0px 0px ;
-    color: white;
-    margin: 0;
-    padding: 6px;
-    padding-left: 22px;
-}
-
-div#latest_news {
-    width: auto;
-    height: auto;
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #fff;
-    border: 1px solid #184A7D;
-	-webkit-border-radius: 0px 0px 10px 10px ;
-	-moz-border-radius: 0px 0px 10px 10px ;
-	border-radius: 0px 0px 10px 10px ;
-}
-
-h2.promotion_header {
-    background-color: #6277b3;
-    background-image: linear-gradient(to bottom, #17568C, #1A3867);
-    background-repeat: repeat-x;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border: 1px solid #184A7D;
-    border-bottom: 0;
-	-webkit-border-radius: 10px 10px 0px 0px ;
-	-moz-border-radius: 10px 10px 0px 0px ;
-	border-radius: 10px 10px 0px 0px ;
-    color: white;
-    margin: 0;
-    padding: 6px;
-    padding-left: 22px;
-}
-
-div#promotion {
-    width: auto;
-    height: auto;
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #fff;
-    border: 1px solid #184A7D;
-	-webkit-border-radius: 0px 0px 10px 10px ;
-	-moz-border-radius: 0px 0px 10px 10px ;
-	border-radius: 0px 0px 10px 10px ;
+div#logo {
+    text-align: center;
+    margin-top: 20px;
 }
 
 div#promotion h3.teaser {
-    font-family:'Just Me Again Down Here',arial,serif;
     font-size:400%;
     line-height:100%;
     font-weight:normal;
@@ -115,9 +49,30 @@ div#promotion p.link {
     font-size: 130%;
     font-weight: bold;
     line-height:10%;
-	margin-top: 20px;
+    margin-top: 20px;
     text-align:center;
 }
 
-div#promotion p.link a {
+div#cpanel div.icon {
+    text-align: center;
+    margin-right: 15px;
+    float: left;
+    margin-bottom: 15px;
+    height: 74px;
+    width: 125px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+div#cpanel div.icon:hover {
+    background-color: rgba(0,0,0,.02);
+}
+
+div#cpanel div.icon span {
+    display: block;
+    text-align: center;
 }

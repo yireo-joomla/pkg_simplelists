@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -36,9 +36,9 @@ var base_path = '<?php echo $base_path; ?>';
 	<fieldset>
 		<div style="float:left" id="folder-indicator"><?php echo $indicator; ?></div>
 		<div style="float:right">
-			<button type="button" class="button" onclick="javascript:submitModalForm(window.parent.<?php echo $jSelect; ?>, current_item);"><?php echo JText::_('Select') ?></button>
-			<button type="button" class="button" onclick="javascript:submitModalForm(window.parent.<?php echo $jSelect; ?>, '');"><?php echo JText::_('Reset') ?></button>
-			<button type="button" class="button" onclick="javascript:submitModalForm(window.parent.slSelectNothing());"><?php echo JText::_('Cancel') ?></button>
+			<button type="button" class="button btn" onclick="javascript:submitModalForm(window.parent.<?php echo $jSelect; ?>, current_item);"><?php echo JText::_('Select') ?></button>
+			<button type="button" class="button btn" onclick="javascript:submitModalForm(window.parent.<?php echo $jSelect; ?>, '');"><?php echo JText::_('Reset') ?></button>
+			<button type="button" class="button btn" onclick="javascript:submitModalForm(window.parent.slSelectNothing());"><?php echo JText::_('Cancel') ?></button>
 		</div>
 	</fieldset>
     <p><?php echo count($this->files); ?> <?php echo JText::_('Files'); ?>, <?php echo count($this->folders); ?> <?php echo JText::_('Subfolders'); ?></p>

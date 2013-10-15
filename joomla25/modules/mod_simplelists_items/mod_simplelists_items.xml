@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="1.6.0" method="upgrade">
+<extension type="module" version="2.5" method="upgrade">
     <name>MOD_SIMPLELISTS_ITEMS</name>
     <author>Yireo</author>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>http://www.yireo.com/</authorUrl>
     <creationDate>December 2012</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.1.4</version>
+    <version>1.6.2</version>
     <description>MOD_SIMPLELISTS_ITEMS_DESC</description>
 
     <files>
@@ -97,4 +97,8 @@
             </fieldset>
         </fields>
     </config>
+
+    <updateservers>
+        <server type="extension" priority="1" name="mod_simplelists_items">http://www.yireo.com/updates/mod_simplelists_items.xml</server>
+    </updateservers>
 </extension>
