@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright (C) 2012 Yireo.com
+ * @copyright Copyright (C) 2013 Yireo.com
  * @license GNU General Public License
  * @link http://www.yireo.com/
  */
@@ -240,7 +240,7 @@ class SimplelistsHelper
         static $menu_items;
         if (empty($menu_items)) {
             $component = JComponentHelper::getComponent('com_simplelists');
-            $menu = JSite::getMenu();
+            $menu = JFactory::getApplication()->getMenu();
             if(YireoHelper::isJoomla15()) {
                 $menu_items = $menu->getItems('componentid', $component->id);
             } else {
