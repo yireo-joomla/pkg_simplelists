@@ -25,7 +25,7 @@ class SimplelistsHTML
      * @param mixed $attribs 
      * @return string HTML output
      */
-    public function image($file, $alt = null, $attribs = null)
+    static public function image($file, $alt = null, $attribs = null)
     {
         if(!file_exists(JPATH_SITE.'/'.$file)) {
             return null;
