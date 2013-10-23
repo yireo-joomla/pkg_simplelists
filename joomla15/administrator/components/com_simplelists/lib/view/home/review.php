@@ -4,18 +4,16 @@
  *
  * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 defined('_JEXEC') or die('Restricted access');
 ?>
 <?php if(isset($this->urls['jed'])) : ?>
-<div class="review">
-    <?php echo JText::sprintf('LIB_YIREO_VIEW_HOME_LIKE', $extension); ?><br/>
+    <?php echo JText::sprintf('LIB_YIREO_VIEW_HOME_LIKE', YireoHelper::getData('title')); ?><br/>
     <?php echo JText::_('LIB_YIREO_VIEW_HOME_REVIEW'); ?><br/>
     <a href="<?php echo $this->urls['jed']; ?>"><?php echo $this->urls['jed']; ?></a>
-</div>
 <?php endif; ?>

@@ -4,16 +4,15 @@
  *
  * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.5.2
  */
 
 defined('_JEXEC') or die('Restricted access');
 ?>
-<h2 class="promotion_header"><?php echo JText::_('LIB_YIREO_VIEW_HOME_ADS'); ?></h2>
-<div id="promotion">
+<div id="promotion" class="shadedbox">
     <?php if ($this->backend_feed == 1) { ?>
     <div class="loader" />
     <?php } else { ?>
@@ -21,8 +20,7 @@ defined('_JEXEC') or die('Restricted access');
     <?php } ?>
     </div>
 </div>
-<h2 class="latest_news_header"><?php echo JText::_('LIB_YIREO_VIEW_HOME_BLOG'); ?></h2>
-<div id="latest_news">
+<div id="latest_news" class="shadedbox">
     <?php if ($this->backend_feed == 1) { ?>
     <div class="loader" />
     <?php } else { ?>
