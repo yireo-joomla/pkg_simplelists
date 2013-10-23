@@ -473,9 +473,16 @@ class YireoModel extends YireoAbstractModel
                             // Frontend permissions
                             if ($this->application->isSite() && isset($item->access) && is_numeric($item->access)) {
                                 $accessLevels = $this->user->getAuthorisedViewLevels();
-                                if (!array_key_exists($item->access, $accessLevels) || $accessLevels[$item->access] == 0) {
-                                    unset($data[$index]);
-                                    continue;
+                                if (YireoHelper::isJoomla25()) {
+                                    if (!array_key_exists($item->access, $accessLevels) || $accessLevels[$item->access] == 0) {
+                                        unset($data[$index]);
+                                        continue;
+                                    }
+                                } else {
+                                    if (!in_array($item->access, $accessLevels)) {
+                                        unset($data[$index]);
+                                        continue;
+                                    }
                                 }
                             }
 
