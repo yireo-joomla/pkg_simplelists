@@ -7,7 +7,7 @@
     <creationDate>October 2013</creationDate>
     <copyright>Copyright 2013 Yireo</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.1.6</version>
+    <version>1.6.1.7</version>
     <description>COM_SIMPLELISTS_VIEW_ITEMS_DESC</description>
 
     <!-- installation part -->
@@ -30,7 +30,7 @@
     <scriptfile>script.simplelists.php</scriptfile>
     
     <!-- user part -->
-    <files folder="components/com_simplelists">
+    <files folder="site">
         <filename>controller.php</filename>
         <filename>index.html</filename>
         <filename>metadata.xml</filename>
@@ -41,11 +41,14 @@
         <folder>views</folder>
     </files>
 
-    <media folder="media">
-        <folder>com_simplelists</folder>
+    <media folder="media" destination="com_simplelists">
+        <filename>index.html</filename>
+        <folder>css</folder>
+        <folder>images</folder>
+        <folder>js</folder>
     </media>
 
-    <languages folder="language/en-GB">
+    <languages folder="site/language">
         <language tag="en-GB">en-GB.com_simplelists.ini</language>
     </languages>
 
@@ -59,15 +62,13 @@
             <menu link="option=com_simplelists&amp;view=categories">COM_SIMPLELISTS_CATEGORIES</menu>
         </submenu>
 
-        <files folder="administrator/components/com_simplelists">
+        <files folder="admin">
             <filename>access.xml</filename>
             <filename>config.xml</filename>
             <filename>controller.php</filename>
             <filename>index.html</filename>
             <filename>simplelists.php</filename>
             <filename>script.simplelists.php</filename>
-            <filename>install.simplelists.php</filename>
-            <filename>uninstall.simplelists.php</filename>
             <folder>controllers</folder>
             <folder>elements</folder>
             <folder>fields</folder>
@@ -79,10 +80,12 @@
             <folder>views</folder>
         </files>
         <files>
+            <filename>install.simplelists.php</filename>
+            <filename>uninstall.simplelists.php</filename>
             <filename>simplelists.xml</filename>
         </files>
 
-        <languages folder="administrator/language/en-GB">
+        <languages folder="admin/language">
             <language tag="en-GB">en-GB.com_simplelists.sys.ini</language>
             <language tag="en-GB">en-GB.com_simplelists.ini</language>
         </languages>
