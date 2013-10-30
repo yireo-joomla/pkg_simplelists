@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link https://www.yireo.com/
  */
@@ -23,9 +23,12 @@ class SimplelistsController extends YireoController
      */
     public function __construct()
     {
+        // Get URL-parameters
         $view = JRequest::getCmd('view');
         $Itemid = JRequest::getInt('Itemid');
-        if(empty($view) && empty($Itemid)) {
+
+        // Redirect to the base-URL if a view without Menu-Item is set
+        if (empty($view) && empty($Itemid)) {
             $app = JFactory::getApplication();
             $url = JURI::base();
             $app->redirect($url);
@@ -33,7 +36,10 @@ class SimplelistsController extends YireoController
             exit;
         }
 
+        // Set a default view
         $this->_default_view = 'items';
+
+        // Parent constructor
         parent::__construct();
     }
 }
