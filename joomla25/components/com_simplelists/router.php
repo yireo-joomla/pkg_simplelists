@@ -61,11 +61,12 @@ function SimplelistsBuildRoute(&$query)
         $segments[] = 'item';
         $segments[] = $query['id'];
 
+        // Match the category-ID with an existing Menu-Item
         if(isset($query['category_id'])) {
             foreach ($items as $item) {
-                if(isset($item->query['view']) && $item->query['view'] == 'items'
-                        && isset($item->query['category_id']) && $query['category_id'] == $item->query['category_id']) {
+                if(isset($item->query['view']) && $item->query['view'] == 'items' && isset($item->query['category_id']) && $query['category_id'] == $item->query['category_id']) {
                     $query['Itemid'] = $item->id;
+                    unset($query['category_id']);
                 }
             }
         }
@@ -87,10 +88,17 @@ function SimplelistsBuildRoute(&$query)
 
             // Matching menu-items only makes sense if there is a "view" and an "id"
             if($params->get('use_parent_url', 0) == 1) {
+
+                // If the view and the category_id are set
                 if (isset($item->query['view']) && isset($item->query['category_id']) && isset($query['view']) && isset($query['category_id'])) {
 
                     // Whoever knows how to rewrite the following into something readable, wins my respect
                     if ($query['view'] == $item->query['view'] && $query['category_id'] == $item->query['category_id']) {
+
+                        // Remove the category_id because it is already matched within the Menu-Item
+                        unset($query['category_id']);
+
+                        // Determine the right Itemid
                         if(empty($query['layout'])) {
                             $query['Itemid'] = $item->id;
                             break;
@@ -104,6 +112,7 @@ function SimplelistsBuildRoute(&$query)
                     }
                 }
             }
+
         }
     }
 
@@ -114,7 +123,7 @@ function SimplelistsBuildRoute(&$query)
     }
 
     // Check if the router found an appropriate Itemid
-    if(!isset($query['Itemid']) || !$query['Itemid'] > 0) {
+    if(!isset($query['Itemid']) || !$query['Itemid'] > 0 || isset($query['category_id'])) {
         if($params->get('sef_url') == 'slug' && !empty($query['slug'])) {
             $segments[] = $query['slug'];
         } elseif(!empty($query['alias'])) {
