@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<updates>
+    <update>
+        <name>SimpleLists</name>
+        <element>simplelists</element>
+        <type>component</type>
+        <client>0</client>
+        <version>1.6.1.7</version>
+        <infourl title="SimpleLists">http://www.yireo.com/software/joomla-extensions/simplelists</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">http://www.yireo.com/documents/com_simplelists_j25.zip</downloadurl>
+        </downloads>
+        <maintainer>Yireo</maintainer>
+        <maintainerurl>http://www.yireo.com</maintainerurl>
+        <section>Yireo</section>
+        <targetplatform name="joomla" version="2.5" />
+    </update>
+    <update>
+        <name>SimpleLists</name>
+        <element>simplelists</element>
+        <type>component</type>
+        <client>0</client>
+        <version>1.6.1.7</version>
+        <infourl title="SimpleLists">http://www.yireo.com/software/joomla-extensions/simplelists</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">http://www.yireo.com/documents/com_simplelists_j25.zip</downloadurl>
+        </downloads>
+        <maintainer>Yireo</maintainer>
+        <maintainerurl>http://www.yireo.com</maintainerurl>
+        <section>Yireo</section>
+        <targetplatform name="joomla" version="3.0" />
+    </update>
+    <update>
+        <name>SimpleLists</name>
+        <element>simplelists</element>
+        <type>component</type>
+        <client>0</client>
+        <version>1.6.1.7</version>
+        <infourl title="SimpleLists">http://www.yireo.com/software/joomla-extensions/simplelists</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">http://www.yireo.com/documents/com_simplelists_j25.zip</downloadurl>
+        </downloads>
+        <maintainer>Yireo</maintainer>
+        <maintainerurl>http://www.yireo.com</maintainerurl>
+        <section>Yireo</section>
+        <targetplatform name="joomla" version="3.1" />
+    </update>
+</updates>
