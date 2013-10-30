@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -27,7 +27,7 @@ class SimplelistsCategoryHelper
      * @param int $category_id
      * @return string
      */
-    public function getAlias( $category_id = 0 ) 
+    static public function getAlias( $category_id = 0 ) 
     {
         if(YireoHelper::isJoomla15()) {
             $query = "SELECT `alias` FROM `#__categories` WHERE `id`='".(int)$category_id."' AND `section`='com_simplelists' LIMIT 1";
@@ -47,7 +47,7 @@ class SimplelistsCategoryHelper
      * @param string $category_alias
      * @return mixed
      */
-    public function getId( $category_alias = null ) 
+    static public function getId( $category_alias = null ) 
     {
         $db = YireoHelper::getDBO();
         if(YireoHelper::isJoomla15()) {
