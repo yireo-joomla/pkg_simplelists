@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
- * @link https://www.yireo.com/
+ * @link http://www.yireo.com/
  */
 
 // no direct access
@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
  * @package Joomla
  * @subpackage Simplelists
  */
-if(!class_exists('JHTMLIcon')) {
+if (!class_exists('JHTMLIcon')) {
     class JHTMLIcon
     {
         /**
@@ -31,8 +31,8 @@ if(!class_exists('JHTMLIcon')) {
         {
             // Construct the URL
             $url = 'index.php?option=com_simplelists&view=items';
-            if(JRequest::getInt('category_id') > 0) $url .= '&category_id='.JRequest::getInt('category_id');
-            if(JRequest::getInt('Itemid') > 0) $url .= '&Itemid='.JRequest::getInt('Itemid');
+            if (JRequest::getInt('category_id') > 0) $url .= '&category_id='.JRequest::getInt('category_id');
+            if (JRequest::getInt('Itemid') > 0) $url .= '&Itemid='.JRequest::getInt('Itemid');
             $url .= '&tmpl=component';
 
             // Add JavaScript variables

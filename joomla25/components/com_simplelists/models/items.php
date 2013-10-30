@@ -5,7 +5,7 @@
  * @author Yireo
  * @copyright Copyright 2013
  * @license GNU Public License
- * @link https://www.yireo.com/
+ * @link http://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -39,9 +39,9 @@ class SimplelistsModelItems extends YireoModel
 
         parent::__construct('item');
 
-        if($this->params->get('use_pagination')) {
+        if ($this->params->get('use_pagination')) {
             $this->setLimitQuery(true);
-            if($this->params->get('limit') > 0) {
+            if ($this->params->get('limit') > 0) {
                 $this->initLimit($this->params->get('limit'));
             }
         } else {
@@ -57,7 +57,7 @@ class SimplelistsModelItems extends YireoModel
      */
     public function setIdByAlias($alias)
     {
-        if(empty($this->_id)) {
+        if (empty($this->_id)) {
             require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/helpers/category.php';
             $this->setId(SimplelistsCategoryHelper::getId($alias));
         }
@@ -93,14 +93,14 @@ class SimplelistsModelItems extends YireoModel
 
         // Apply the category-filter
         $category_id = (int)$this->getId();
-        if($category_id > 0) {
+        if ($category_id > 0) {
             $this->addWhere('relation.category_id = '.$category_id);
         }
 
         // Apply the character-filter
-        if($this->getState('no_char_filter') != 1) {
+        if ($this->getState('no_char_filter') != 1) {
             $character = JRequest::getCmd('char');
-            if(!empty($character) && preg_match( '/^([a-z]{1})$/', $character)) {
+            if (!empty($character) && preg_match( '/^([a-z]{1})$/', $character)) {
                 $this->addWhere('item.title LIKE '.$this->_db->Quote($character.'%'));
             }
         }
@@ -119,7 +119,7 @@ class SimplelistsModelItems extends YireoModel
     protected function buildQueryOrderBy()
     {
         $ordering = $this->params->get('orderby');
-        switch( $ordering ) {
+        switch ($ordering) {
             case 'alpha': 
                 $orderby = 'item.title ASC' ;
                 break ;
@@ -153,10 +153,10 @@ class SimplelistsModelItems extends YireoModel
     public function getCategory($category_id = null)
     {
         // Only run this once
-        if(empty($this->_category)) {
+        if (empty($this->_category)) {
 
             // Set the ID
-            if(empty($category_id)) $category_id = $this->getId();
+            if (empty($category_id)) $category_id = $this->getId();
 
             // Fetch the category of these items
             require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/category.php';
@@ -170,10 +170,10 @@ class SimplelistsModelItems extends YireoModel
             $model->addWhere('category.id = '.(int)$category->parent_id.' OR category.parent_id = '.(int)$category->id);
             $related = $model->getData();
 
-            foreach($related as $id => $item) {
+            foreach ($related as $id => $item) {
 
                 // Make sure this related category is not the parent-category
-                if($item->id == $category->parent_id) {
+                if ($item->id == $category->parent_id) {
                     $category->parent = $item;
                     unset( $related[$id] );
                     continue;

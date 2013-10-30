@@ -5,7 +5,7 @@
  * @author Yireo
  * @copyright Copyright 2013
  * @license GNU Public License
- * @link https://www.yireo.com/
+ * @link http://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!

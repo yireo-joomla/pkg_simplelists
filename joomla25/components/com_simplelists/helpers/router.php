@@ -5,7 +5,7 @@
  * @author Yireo
  * @copyright Copyright 2013
  * @license GNU Public License
- * @link https://www.yireo.com/
+ * @link http://www.yireo.com/
  */
 
 // no direct access
@@ -22,11 +22,11 @@ class SimplelistsHelperRouter
     static public function getMenuItems()
     {
         static $items = null;
-        if(empty($items)) {
+        if (empty($items)) {
             $component = JComponentHelper::getComponent('com_simplelists');
             $menu = JFactory::getApplication()->getMenu();
         
-            if(YireoHelper::isJoomla15()) {
+            if (YireoHelper::isJoomla15()) {
                 $items = $menu->getItems('componentid', $component->id);
             } else {
                 $items = $menu->getItems('component_id', $component->id);

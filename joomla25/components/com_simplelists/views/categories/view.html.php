@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
- * @link https://www.yireo.com/
+ * @link http://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -40,7 +40,7 @@ class SimplelistsViewCategories extends YireoView
 
         // Get the parent-category from our model
         $model = $this->getModel();
-        if(!empty($parent_id)) $model->setParent($parent_id);
+        if (!empty($parent_id)) $model->setParent($parent_id);
         $parent = $model->getParent();
 
         // Automatically fetch items, total and pagination - and assign them to the template
@@ -49,22 +49,22 @@ class SimplelistsViewCategories extends YireoView
 
         // Set the page title
         $page_title = $this->params->get('page_title');
-        if($this->params->get('show_page_title') == 1 && !empty($page_title)) {
+        if ($this->params->get('show_page_title') == 1 && !empty($page_title)) {
             $document->setTitle($page_title);
             $parent->title = $page_title;
-        } elseif(!empty($parent->title)) {
+        } elseif (!empty($parent->title)) {
             $document->setTitle($parent->title);
         }
 
         // Loop through the list to set things right
-        if(count($this->items) > 0 ) {
-            foreach( $this->items as $id => $item) {
+        if (count($this->items) > 0 ) {
+            foreach ( $this->items as $id => $item) {
 
-                if($this->params->get('show_category_title') == 0) {
+                if ($this->params->get('show_category_title') == 0) {
                     $item->title = null;
                 }
 
-                if($this->params->get('show_category_description') == 0) {
+                if ($this->params->get('show_category_description') == 0) {
                     $item->description = null;
                 }
 
@@ -80,19 +80,19 @@ class SimplelistsViewCategories extends YireoView
         }
 
         // prepare the image
-        if($this->params->get('show_category_image') && !empty( $parent->image )) {
+        if ($this->params->get('show_category_image') && !empty( $parent->image )) {
             $parent->image = JHTML::image( $parent->image, $parent->title, 'title="'.$parent->title.'" class="simplelists" align="'.$parent->image_position.'"');
         } else {
             $parent->image = null ;
         }
 
         // prepare the title
-        if($this->params->get('show_category_title') == 0) {
+        if ($this->params->get('show_category_title') == 0) {
             $parent->title = null;
         }
 
         // prepare the description
-        if($this->params->get('show_category_description') == 0) {
+        if ($this->params->get('show_category_description') == 0) {
             $parent->description = null;
         }
 

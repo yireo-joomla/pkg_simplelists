@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
- * @link https://www.yireo.com/
+ * @link http://www.yireo.com/
  */
 
 // no direct access
@@ -27,13 +27,13 @@ class SimplelistsHTML
      */
     static public function image($file, $alt = null, $attribs = null)
     {
-        if(!file_exists(JPATH_SITE.'/'.$file)) {
+        if (!file_exists(JPATH_SITE.'/'.$file)) {
             return null;
         }
 
         $info = getimagesize(JPATH_SITE.'/'.$file);
 
-        if(empty($alt)) {
+        if (empty($alt)) {
             $alt = basename($file);
         }
 
