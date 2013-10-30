@@ -27,13 +27,11 @@ class SimplelistsViewCategories extends YireoView
      */
     public function display($tpl = null)
     {
-        // Automatically fetch items, total and pagination - and assign them to the template
-        $this->setAutoClean(false);
-        $this->fetchItems();
-
-        $document =& JFactory::getDocument();
+        // Fetch URL-variables
+        $document = JFactory::getDocument();
 
         // Get some variables
+        $parent_id = $this->params->get('parent_id');
         $layout = $this->params->get('layout', 'default');
         $clayout = $this->params->get('clayout', 'default');
 
@@ -41,8 +39,13 @@ class SimplelistsViewCategories extends YireoView
         $this->addCss('view-categories-'.$clayout.'.css');
 
         // Get the parent-category from our model
-        $model =& $this->getModel();
+        $model = $this->getModel();
+        if(!empty($parent_id)) $model->setParent($parent_id);
         $parent = $model->getParent();
+
+        // Automatically fetch items, total and pagination - and assign them to the template
+        $this->setAutoClean(false);
+        $this->fetchItems();
 
         // Set the page title
         $page_title = $this->params->get('page_title');

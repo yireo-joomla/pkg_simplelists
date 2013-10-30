@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -20,6 +20,13 @@ class SimplelistsModelCategories extends YireoModel
      * @private int
      */
     private $_parent_id = null;
+
+    /**
+     * Parent category object
+     *
+     * @private object
+     */
+    private $_parent = null;
 
     /**
      * Constructor
@@ -96,13 +103,13 @@ class SimplelistsModelCategories extends YireoModel
      */
     protected function buildQueryWhere()
     {
-        if(YireoHelper::isJoomla15()) {
+        if (YireoHelper::isJoomla15()) {
             $this->addWhere('`category`.`section`="com_simplelists"');
         } else {
             $this->addWhere('`category`.`extension`="com_simplelists"');
         }
 
-        if($this->_parent_id > 0) {
+        if ($this->_parent_id > 0) {
             $this->addWhere('`category`.`parent_id`='.(int)$this->_parent_id);
         }
 
@@ -119,19 +126,19 @@ class SimplelistsModelCategories extends YireoModel
      */
     protected function buildQueryOrderBy()
     {
-        if(YireoHelper::isJoomla15()) {
+        if (YireoHelper::isJoomla15()) {
             $default_ordering = 'ordering';
         } else {
             $default_ordering = 'lft, rgt';
         }
 
         $orderby = $this->params->get('cat_orderby', $default_ordering);
-        if($orderby =='alpha') {
+        if ($orderby =='alpha') {
             $this->addOrderBy('`category`.`title` ASC');
-        } elseif($orderby =='ralpha') {
+        } elseif ($orderby =='ralpha') {
             $this->addOrderBy('`category`.`title` DESC');
         } else {
-            if($orderby == 'ordering') $orderby = $default_ordering;
+            if ($orderby == 'ordering') $orderby = $default_ordering;
             $this->addOrderBy('`category`.'.$orderby);
         }
         return parent::buildQueryOrderBy();
@@ -146,7 +153,8 @@ class SimplelistsModelCategories extends YireoModel
      */
     public function setParent($parent_id = null)
     {
-        if($parent_id > 0) {
+        // Set the parent_id if given as argument
+        if ($parent_id > 0) {
             $this->_parent_id = (int)$parent_id;
         }
     }
@@ -159,9 +167,13 @@ class SimplelistsModelCategories extends YireoModel
      */
     public function getParent($parent_id = null)
     {
-        if($parent_id > 0) $this->_parent_id = (int)$parent_id;
-        if(empty($this->_parent)) {
-            // @todo: Check if there is a nicer way to do this
+        // Set the parent_id if given as argument
+        if ($parent_id > 0) {
+            $this->_parent_id = (int)$parent_id;
+        }
+
+        // If the parent-object is empty, load it
+        if (empty($this->_parent)) {
             require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/category.php';
             $model = new SimplelistsModelCategory();
             $model->setId($this->_parent_id);
