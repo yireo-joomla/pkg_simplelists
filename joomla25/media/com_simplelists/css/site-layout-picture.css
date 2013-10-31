@@ -2,7 +2,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright (C) 2011 Yireo
+ * @copyright Copyright (C) 2013 Yireo
  * @license GNU/GPL
  * @link http://www.yireo.com/
  */
@@ -17,8 +17,6 @@ div.simplelists {
 }
 
 div.simplelists-item {
-    width: 33% ;
-    float: left ;
 }
 
 div.simplelists-item div.image {
