@@ -9,7 +9,7 @@
 		<name>SimpleLists Default Layout</name>
 		<description>SIMPLELISTS DEFAULT LAYOUT DESCRIPTION</description>
         <url>
-            <param name="category_id" type="category" section="com_simplelists" default="0" label="Category" description="PARAM CATEGORY" />
+            <param name="category_id" type="category" extension="com_simplelists"  default="0" label="Category" description="PARAM CATEGORY" />
         </url>
 		<params>
 			<param name="orderby" type="list" default="order" label="Ordering" description="PARAM ORDERING">

@@ -7,7 +7,7 @@
 	</layout>
     <fields name="params">
         <fieldset name="basic" label="SimpleLists Parent" addfieldpath="/administrator/components/com_simplelists/fields">
-            <field name="parent_id" type="category" section="com_simplelists" default="0" label="Parent Category" description="PARAM PARENT CATEGORY" />
+            <field name="parent_id" type="category" extension="com_simplelists" default="0" label="Parent Category" description="PARAM PARENT CATEGORY" />
             <field name="use_parent_url" type="list" default="0" label="Use Parent URL" description="PARAM USE PARENT URL"> 
                 <option value="0">No</option>
                 <option value="1">Yes</option>
