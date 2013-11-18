@@ -1151,7 +1151,7 @@ class YireoModel extends YireoAbstractModel
         if ($orderby == '{tableAlias}.') return;
 
         if (is_string($orderby) && !isset($this->_orderby[$orderby])) {
-            if (strstr($orderby, '.') == false) $orderby = '{tableAlias}.'.$orderby;
+            if (strstr($orderby, '.') == false && preg_match('/^RAND/', $orderby) == false) $orderby = '{tableAlias}.'.$orderby;
             if (strstr($orderby, 'accesslevel')) $orderby = str_replace('{tableAlias}.', '', $orderby);
             $this->_orderby[] = $orderby;
         }
