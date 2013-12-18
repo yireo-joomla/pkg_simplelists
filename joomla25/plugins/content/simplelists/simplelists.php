@@ -52,21 +52,21 @@ class plgContentSimplelists extends JPlugin
     private function getSimpleLists($arguments)
     {
         // Construct the paths to SimpleLists
-        $component_path = JPATH_SITE.DS.'components'.DS.'com_simplelists'.DS;
-        $component_admin_path = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_simplelists'.DS;
+        $component_path = JPATH_SITE.'/components/com_simplelists/';
+        $component_admin_path = JPATH_ADMINISTRATOR.'/components/com_simplelists/';
 
         // Include all the required classes
-        require_once $component_admin_path.'tables'.DS.'item.php';
-        require_once $component_admin_path.'tables'.DS.'category.php';
+        require_once $component_admin_path.'tables/item.php';
+        require_once $component_admin_path.'tables/category.php';
 
-        require_once $component_admin_path.'helpers'.DS.'helper.php';
-        require_once $component_admin_path.'helpers'.DS.'plugin.php';
+        require_once $component_admin_path.'helpers/helper.php';
+        require_once $component_admin_path.'helpers/plugin.php';
 
-        require_once $component_path.'helpers'.DS.'icon.php';
-        require_once $component_path.'helpers'.DS.'html.php';
+        require_once $component_path.'helpers/icon.php';
+        require_once $component_path.'helpers/html.php';
 
-        require_once $component_path.'models'.DS.'items.php';
-        require_once $component_path.'views'.DS.'items'.DS.'view.html.php';
+        require_once $component_path.'models/items.php';
+        require_once $component_path.'views/items/view.html.php';
 
         // Create and initialize a model
         $model = new SimplelistsModelItems();
@@ -74,10 +74,11 @@ class plgContentSimplelists extends JPlugin
 
         // Create and initialize a view
         $view = new SimplelistsViewItems(array('name' => 'items', 'option' => 'com_simplelists'));
-        $view->addTemplatePath($component_path.'views'.DS.'items'.DS.'tmpl');
+        $view->addTemplatePath($component_path.'views/items/tmpl');
         $view->setModel($model, true);
 
         // Prepare and load the view
+        $view->params->set('show_category_title', 0);
         $view->prepareDisplay();
         $content = $view->loadTemplate($view->getLayout());
 

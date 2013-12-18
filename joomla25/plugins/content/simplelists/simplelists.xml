@@ -2,12 +2,12 @@
 <extension version="2.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_SIMPLELISTS</name>
     <author>Yireo</author>
-    <creationDate>October 2013</creationDate>
+    <creationDate>December 2013</creationDate>
     <copyright>Copyright (C) 2013 Yireo. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.6.2</version>
+    <version>1.6.3</version>
     <description>PLG_CONTENT_SIMPLELISTS_DESC</description>
 
     <files>
