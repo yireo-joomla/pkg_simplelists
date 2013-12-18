@@ -31,6 +31,7 @@ div.version {
 
 div#logo {
     text-align: center;
+    margin-top: 20px;
 }
 
 div#promotion h3.teaser {
@@ -48,7 +49,7 @@ div#promotion p.link {
     font-size: 130%;
     font-weight: bold;
     line-height:10%;
-	margin-top: 20px;
+    margin-top: 20px;
     text-align:center;
 }
 
@@ -68,7 +69,7 @@ div#cpanel div.icon {
 }
 
 div#cpanel div.icon:hover {
-background-color: rgba(0,0,0,.02);
+    background-color: rgba(0,0,0,.02);
 }
 
 div#cpanel div.icon span {
