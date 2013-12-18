@@ -7,7 +7,7 @@
  * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.2
+ * @version 0.5.3
  */
 
 // Check to ensure this file is included in Joomla!
@@ -660,7 +660,7 @@ class YireoView extends YireoCommonView
         }
 
         $ordering = $this->model->getOrderByDefault();
-        if (!empty($ordering) && $ordering == 'ordering') {
+        if ($this->application->isAdmin() && !empty($ordering) && $ordering == 'ordering') {
             if (YireoHelper::isJoomla15()) {
                 $order = JHTML::_('list.genericordering',  $this->model->getOrderingQuery());
                 $this->lists['ordering'] = JHTML::_('select.genericlist', $order, 'ordering', 'class="inputbox" size="1"', 'value', 'text', intval($this->item->ordering));

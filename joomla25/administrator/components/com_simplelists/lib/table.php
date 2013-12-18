@@ -4,10 +4,10 @@
  *
  * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.6.0
  */
 
 // Check to ensure this file is included in Joomla!
@@ -275,13 +275,14 @@ class YireoTable extends JTable
      */
     public function getDatabaseFields()
     {
-        static $fields = null;
-        if (!is_array($fields)) {
+        $tableName = $this->getTableName();
+        static $fields = array();
+        if (!isset($fields[$tableName]) || !is_array($fields[$tableName])) {
             $db = JFactory::getDBO();
-            $db->setQuery('SHOW FIELDS FROM `'.$this->getTableName().'`'); 
-            $fields = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray(); 
+            $db->setQuery('SHOW FIELDS FROM `'.$tableName.'`'); 
+            $fields[$tableName] = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray(); 
         }
-        return $fields;
+        return $fields[$tableName];
     }
 
     /**

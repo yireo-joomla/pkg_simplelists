@@ -4,10 +4,10 @@
  *
  * @author Yireo (http://www.yireo.com/)
  * @package YireoLib
- * @copyright Copyright 2012
+ * @copyright Copyright 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
- * @version 0.5.1
+ * @version 0.5.3
  */
 
 // Check to ensure this file is included in Joomla!
@@ -473,9 +473,16 @@ class YireoModel extends YireoAbstractModel
                             // Frontend permissions
                             if ($this->application->isSite() && isset($item->access) && is_numeric($item->access)) {
                                 $accessLevels = $this->user->getAuthorisedViewLevels();
-                                if (!array_key_exists($item->access, $accessLevels) || $accessLevels[$item->access] == 0) {
-                                    unset($data[$index]);
-                                    continue;
+                                if (YireoHelper::isJoomla25()) {
+                                    if (!array_key_exists($item->access, $accessLevels) || $accessLevels[$item->access] == 0) {
+                                        unset($data[$index]);
+                                        continue;
+                                    }
+                                } else {
+                                    if (!in_array($item->access, $accessLevels)) {
+                                        unset($data[$index]);
+                                        continue;
+                                    }
                                 }
                             }
 
@@ -979,11 +986,21 @@ class YireoModel extends YireoAbstractModel
 
         // Build the default query if not set
         if (empty($query)) {
-            if ($this->_checkout == true) {
-                $query = "SELECT `{tableAlias}`.*, `editor`.`name` AS `editor` FROM `{table}` AS `{tableAlias}`\n";
+
+            // Build the fields-string to avoid a *
+            $fields = $this->_tbl->getDatabaseFields();
+            $fieldsStrings = array();
+            foreach($fields as $field) {
+                $fieldsStrings[] = '`{tableAlias}`.`'.$field.'`';
+            }
+            $fieldsString = implode(',', $fieldsStrings);
+
+            // Frontend or backend query
+            if ($this->_checkout == true && $this->application->isAdmin()) {
+                $query = "SELECT ".$fieldsString.", `editor`.`name` AS `editor` FROM `{table}` AS `{tableAlias}`\n";
                 $query .= " LEFT JOIN `#__users` AS `editor` ON `{tableAlias}`.`checked_out` = `editor`.`id`\n";
             } else {
-                $query = "SELECT `{tableAlias}`.* FROM `{table}` AS `{tableAlias}`\n";
+                $query = "SELECT ".$fieldsString." FROM `{table}` AS `{tableAlias}`\n";
             }
         }
 
@@ -1144,7 +1161,7 @@ class YireoModel extends YireoAbstractModel
         if ($orderby == '{tableAlias}.') return;
 
         if (is_string($orderby) && !isset($this->_orderby[$orderby])) {
-            if (strstr($orderby, '.') == false) $orderby = '{tableAlias}.'.$orderby;
+            if (strstr($orderby, '.') == false && preg_match('/^RAND/', $orderby) == false) $orderby = '{tableAlias}.'.$orderby;
             if (strstr($orderby, 'accesslevel')) $orderby = str_replace('{tableAlias}.', '', $orderby);
             $this->_orderby[] = $orderby;
         }
