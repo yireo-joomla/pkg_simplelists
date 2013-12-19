@@ -18,6 +18,9 @@ require_once (dirname(__FILE__).DS.'helper.php');
 
 // Fetch the list of items
 $items = modSimpleListsIndexHelper::getItems($params);
+if (empty($items)) {
+    return null;
+}
 
 // Display the output
 require(JModuleHelper::getLayoutPath('mod_simplelists_index'));
