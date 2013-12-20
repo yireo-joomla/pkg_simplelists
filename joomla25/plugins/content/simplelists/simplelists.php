@@ -79,6 +79,7 @@ class plgContentSimplelists extends JPlugin
 
         // Prepare and load the view
         $view->params->set('show_category_title', 0);
+        $view->params->set('load_css', 0);
         $view->prepareDisplay();
         $content = $view->loadTemplate($view->getLayout());
 
