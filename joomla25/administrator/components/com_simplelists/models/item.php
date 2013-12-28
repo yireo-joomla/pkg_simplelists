@@ -33,6 +33,24 @@ class SimplelistsModelItem extends YireoModel
     }
 
     /**
+     * Method to get a XML-based form
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param array $data
+     * @param bool $loadData
+     * @return mixed
+     */
+    public function getForm($data = array(), $loadData = true)
+    {   
+        $form = parent::getForm($data, $loadData);
+        $data = $this->getData();
+        $form->bind(array('basic' => $data));
+        $form->bind(array('text' => $data));
+        return $form;
+    }
+
+    /**
      * Method to store the model
      *
      * @access public
