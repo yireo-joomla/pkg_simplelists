@@ -78,4 +78,4 @@ var base_path = '<?php echo $base_path; ?>';
 	<input type="hidden" id="f_file" name="f_file" />
 	<input type="hidden" id="tmpl" name="component" />
 </form>
-<?php if(YireoHelper::isJoomla15() == false) echo $this->loadTemplate('default_upload'); ?>
+<?php echo $this->loadTemplate('default_upload'); ?>

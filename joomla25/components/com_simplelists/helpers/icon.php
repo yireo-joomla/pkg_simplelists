@@ -39,7 +39,7 @@ if (!class_exists('JHTMLIcon')) {
             $status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
 
             // Checks template image directory for image, if non found default are loaded
-            $image_folder = (YireoHelper::isJoomla15()) ? '/images/M_images/' : '/media/system/images/';
+            $image_folder = '/media/system/images/';
             $text = JHTML::_('image.site',  'printButton.png', $image_folder, NULL, NULL, JText::_( 'Print' ) );
 
             // Construct the link-attributes

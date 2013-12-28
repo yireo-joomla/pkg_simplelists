@@ -89,12 +89,7 @@ class SimplelistsModelCategory extends YireoModel
      */
     public function getOrderingQuery()
     {
-        if(YireoHelper::isJoomla15()) {
-            $query = 'SELECT `ordering` AS `value`, `title` AS `text` FROM `#__categories` WHERE `section`="com_simplelists" ORDER BY ordering';
-        } else {
-    	    $query = 'SELECT `lft` AS `value`, `title` AS `text` FROM `#__categories` WHERE `extension`="com_simplelists" ORDER BY lft';
-        }
-
+    	$query = 'SELECT `lft` AS `value`, `title` AS `text` FROM `#__categories` WHERE `extension`="com_simplelists" ORDER BY lft';
         return $query;
     }
 }

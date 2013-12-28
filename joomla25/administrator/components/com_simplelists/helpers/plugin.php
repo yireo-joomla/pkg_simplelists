@@ -34,12 +34,7 @@ class SimplelistsPluginHelper
             return null;
         }
 
-        if(YireoHelper::isJoomla15()) {
-        	$path = JPATH_PLUGINS.'/'.$plugin->type.'/'.$plugin->name.'.php';
-        } else {
-        	$path = JPATH_PLUGINS.'/'.$plugin->type.'/'.$plugin->name.'/'.$plugin->name.'.php';
-        }
-
+        $path = JPATH_PLUGINS.'/'.$plugin->type.'/'.$plugin->name.'/'.$plugin->name.'.php';
         if(!file_exists($path)) {
             return null;
         }

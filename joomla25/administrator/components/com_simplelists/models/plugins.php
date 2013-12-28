@@ -38,11 +38,7 @@ class SimplelistsModelPlugins extends YireoModel
      */
     protected function buildQuery()
     {
-        if(YireoHelper::isJoomla15()) {
-            $query = "SELECT `plugin`.*, {access}, {editor} FROM `#__plugins` AS `plugin`\n";
-        } else {
-            $query = "SELECT `plugin`.*, {access}, {editor} FROM `#__extensions` AS `plugin`\n";
-        }
+        $query = "SELECT `plugin`.*, {access}, {editor} FROM `#__extensions` AS `plugin`\n";
         return parent::buildQuery($query);
     }
 

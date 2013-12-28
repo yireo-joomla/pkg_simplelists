@@ -157,11 +157,7 @@ class SimplelistsHTML
      */
     static public function selectLinkType( $current = '' ) 
     {
-        if(YireoHelper::isJoomla15()) {
-            $query = 'SELECT name AS title, element AS value FROM #__plugins WHERE folder="simplelistslink" ORDER BY ordering';
-        } else {
-            $query = 'SELECT name AS title, element AS value FROM #__extensions WHERE type="plugin" AND folder="simplelistslink" ORDER BY ordering';
-        }
+        $query = 'SELECT name AS title, element AS value FROM #__extensions WHERE type="plugin" AND folder="simplelistslink" ORDER BY ordering';
         $db = JFactory::getDBO();
         $db->setQuery($query);
         $plugins = $db->loadObjectList();

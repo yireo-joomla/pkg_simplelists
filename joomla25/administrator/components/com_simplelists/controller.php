@@ -33,7 +33,7 @@ class SimplelistsController extends YireoController
         parent::__construct();
 
         // Redirect categories
-        if (YireoHelper::isJoomla15() == false && (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category')) {
+        if (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category') {
             $app = JFactory::getApplication();
             $app->redirect(JRoute::_('index.php?option=com_categories&extension=com_simplelists&section=com_simplelists', false));
             $app->close();

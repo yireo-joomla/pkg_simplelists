@@ -31,11 +31,7 @@ class SimplelistsHelper
      */
     static public function getCategory( $id = null ) 
     {
-        if(YireoHelper::isJoomla15()) {
-            $query = "SELECT * FROM `#__categories` WHERE `id` = ".(int)$id." AND `section`='com_simplelists' LIMIT 1";
-        } else {
-            $query = "SELECT * FROM `#__categories` WHERE `id` = ".(int)$id." AND `extension`='com_simplelists' LIMIT 1";
-        }
+        $query = "SELECT * FROM `#__categories` WHERE `id` = ".(int)$id." AND `extension`='com_simplelists' LIMIT 1";
         $db = JFactory::getDBO();
         $db->setQuery( $query ) ;
         $rows = $db->loadObjectList() ;
@@ -59,27 +55,15 @@ class SimplelistsHelper
 
         // Fetch categories with a specific ID
         if($id > 0) {
-            if(YireoHelper::isJoomla15()) {
-                $query = 'SELECT c.* FROM `#__simplelists_categories` AS s LEFT JOIN `#__categories` AS c ON c.`id` = s.`category_id` WHERE s.`id`='.(int)$id.' AND c.`section` = "com_simplelists"';
-            } else {
-                $query = 'SELECT c.* FROM `#__simplelists_categories` AS s LEFT JOIN `#__categories` AS c ON c.`id` = s.`category_id` WHERE s.`id`='.(int)$id.' AND c.`extension` = "com_simplelists"';
-            }
+            $query = 'SELECT c.* FROM `#__simplelists_categories` AS s LEFT JOIN `#__categories` AS c ON c.`id` = s.`category_id` WHERE s.`id`='.(int)$id.' AND c.`extension` = "com_simplelists"';
 
         // Fetch categories with a specific parent
         } elseif($parent_id > 0) {
-            if(YireoHelper::isJoomla15()) {
-                $query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`section`="com_simplelists" AND c.`parent_id`='.(int)$parent_id;
-            } else {
-                $query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`extension`="com_simplelists" AND c.`parent_id`='.(int)$parent_id;
-            }
+            $query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`extension`="com_simplelists" AND c.`parent_id`='.(int)$parent_id;
 
         // Fetch all categories
         } else {
-            if(YireoHelper::isJoomla15()) {
-                $query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`section`="com_simplelists"';
-            } else {
-                $query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`extension`="com_simplelists"';
-            }
+            $query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`extension`="com_simplelists"';
         }
 
         $db = JFactory::getDBO();
@@ -152,12 +136,7 @@ class SimplelistsHelper
      */
     static public function checkCategories() 
     {
-        if(YireoHelper::isJoomla15()) {
-            $query = "SELECT * FROM #__categories WHERE `section`='com_simplelists'";
-        } else {
-            $query = "SELECT * FROM #__categories WHERE `extension`='com_simplelists'";
-        }
-
+        $query = "SELECT * FROM #__categories WHERE `extension`='com_simplelists'";
         $application = JFactory::getApplication() ;
         $db = JFactory::getDBO();
         $db->setQuery($query);
@@ -209,11 +188,7 @@ class SimplelistsHelper
         if(empty($menu_items)) {
             $component = JComponentHelper::getComponent('com_simplelists');
             $menu = JFactory::getApplication()->getMenu();
-            if(YireoHelper::isJoomla15()) {
-                $menu_items = $menu->getItems('componentid', $component->id);
-            } else {
-                $menu_items = $menu->getItems('component_id', $component->id);
-            }
+            $menu_items = $menu->getItems('component_id', $component->id);
         }
 
         if(!empty($menu_items)) {
@@ -241,11 +216,7 @@ class SimplelistsHelper
         if (empty($menu_items)) {
             $component = JComponentHelper::getComponent('com_simplelists');
             $menu = JFactory::getApplication()->getMenu();
-            if(YireoHelper::isJoomla15()) {
-                $menu_items = $menu->getItems('componentid', $component->id);
-            } else {
-                $menu_items = $menu->getItems('component_id', $component->id);
-            }
+            $menu_items = $menu->getItems('component_id', $component->id);
         }
            
         $near_match = null;

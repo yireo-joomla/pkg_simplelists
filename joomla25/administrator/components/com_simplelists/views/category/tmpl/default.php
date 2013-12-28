@@ -127,17 +127,13 @@ $cparams = JComponentHelper::getParams ('com_media');
 
             foreach($groups as $group) {
                 $title = JText::_('Parameters').' ('.JText::_($group[1]).')';
-                if(YireoHelper::isJoomla15()) {
-                    echo $this->params->render('params', $group[2]);
-                } else {
-                    foreach($this->form->getFieldset($group[2]) as $field) {
-                        ?>
-                        <dl>
-                            <dt><?php echo $field->label; ?></dt>
-                            <dd><?php echo $field->input; ?></dd>
-                        <dl>
-                        <?php
-                    }
+                foreach($this->form->getFieldset($group[2]) as $field) {
+                    ?>
+                    <dl>
+                        <dt><?php echo $field->label; ?></dt>
+                        <dd><?php echo $field->input; ?></dd>
+                    <dl>
+                    <?php
                 }
             }
             ?>

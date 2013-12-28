@@ -74,20 +74,11 @@ class SimplelistsViewItem extends YireoViewForm
             $this->assignRef('pane', $pane);
         }
 
-        if(YireoHelper::isJoomla15()) {
-
-            // Include extra JavaScript
-            $this->addJs('mootools-cookie.js');
-            $this->addJs('view-browser.js');
-
-        } else {
-
-            // Fetch the selected tab
-            $session = JFactory::getSession();
-            $activeTab = $session->set('simplelists.item.tab');
-            if(empty($activeTab)) $activeTab = 'basic';
-            $this->assignRef('activeTab', $activeTab);
-        }
+        // Fetch the selected tab
+        $session = JFactory::getSession();
+        $activeTab = $session->set('simplelists.item.tab');
+        if(empty($activeTab)) $activeTab = 'basic';
+        $this->assignRef('activeTab', $activeTab);
 
         // Load the plugins
         $link_plugins = SimplelistsPluginHelper::getPlugins('simplelistslink');

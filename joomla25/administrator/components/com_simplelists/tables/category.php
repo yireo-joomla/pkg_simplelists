@@ -25,16 +25,10 @@ class TableCategory extends YireoTable
     public function __construct(& $db) 
     {
         // Initialize the default values
-        if(YireoHelper::isJoomla15()) {
-            $this->_defaults = array(
-                'section' => 'com_simplelists',
-            );
-        } else {
-            $this->_defaults = array(
-                'extension' => 'com_simplelists',
-                'level' => 1,
-            );
-        }
+        $this->_defaults = array(
+            'extension' => 'com_simplelists',
+            'level' => 1,
+        );
 
         // Set the required fields
         $this->_required = array('title');

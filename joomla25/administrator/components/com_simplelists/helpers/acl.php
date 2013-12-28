@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2013
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -28,13 +28,6 @@ class SimpleListsHelperAcl
      */
     public static function init()
     {
-        // Joomla! 1.5 ACLs
-        if(YireoHelper::isJoomla15()) {
-            $auth = JFactory::getACL();
-            $auth->addACL('com_simplelists', 'manage', 'users', 'super administrator');
-            $auth->addACL('com_simplelists', 'manage', 'users', 'administrator');
-            $auth->addACL('com_simplelists', 'manage', 'users', 'manager');
-        }
     }
 
     /*
@@ -48,12 +41,8 @@ class SimpleListsHelperAcl
         // Initialize system variables
         $user = JFactory::getUser();
 
-        // Check the ACLs for Joomla! 1.5
-        if(YireoHelper::isJoomla15() && !$user->authorize( 'com_simplelists', 'manage' )) {
-            return false;
-
         // Check the ACLs for Joomla! 1.6 and later
-        } elseif(YireoHelper::isJoomla15() == false && $user->authorise('core.manage', 'com_simplelists') == false) {
+        if($user->authorise('core.manage', 'com_simplelists') == false) {
             return false;
         }
 

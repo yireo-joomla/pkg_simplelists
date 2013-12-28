@@ -40,7 +40,7 @@ class SimplelistsModelCategories extends YireoModel
         $this->_search = array('title');
         $this->_debug = false;
         $this->_limit_query = false;
-        $this->_orderby_default = (YireoHelper::isJoomla15()) ? 'ordering' : 'lft,rgt';
+        $this->_orderby_default = 'lft,rgt';
         parent::__construct('category');
     }
 
@@ -103,11 +103,7 @@ class SimplelistsModelCategories extends YireoModel
      */
     protected function buildQueryWhere()
     {
-        if (YireoHelper::isJoomla15()) {
-            $this->addWhere('`category`.`section`="com_simplelists"');
-        } else {
-            $this->addWhere('`category`.`extension`="com_simplelists"');
-        }
+        $this->addWhere('`category`.`extension`="com_simplelists"');
 
         if ($this->_parent_id > 0) {
             $this->addWhere('`category`.`parent_id`='.(int)$this->_parent_id);
@@ -126,12 +122,7 @@ class SimplelistsModelCategories extends YireoModel
      */
     protected function buildQueryOrderBy()
     {
-        if (YireoHelper::isJoomla15()) {
-            $default_ordering = 'ordering';
-        } else {
-            $default_ordering = 'lft, rgt';
-        }
-
+        $default_ordering = 'lft, rgt';
         $orderby = $this->params->get('cat_orderby', $default_ordering);
         if ($orderby =='alpha') {
             $this->addOrderBy('`category`.`title` ASC');

@@ -29,12 +29,7 @@ class SimplelistsCategoryHelper
      */
     static public function getAlias( $category_id = 0 ) 
     {
-        if(YireoHelper::isJoomla15()) {
-            $query = "SELECT `alias` FROM `#__categories` WHERE `id`='".(int)$category_id."' AND `section`='com_simplelists' LIMIT 1";
-        } else {
-            $query = "SELECT `alias` FROM `#__categories` WHERE `id`='".(int)$category_id."' AND `extension`='com_simplelists' LIMIT 1";
-        }
-
+        $query = "SELECT `alias` FROM `#__categories` WHERE `id`='".(int)$category_id."' AND `extension`='com_simplelists' LIMIT 1";
         $db = JFactory::getDBO();
         $db->setQuery( $query );
         return $db->loadResult();
@@ -50,12 +45,7 @@ class SimplelistsCategoryHelper
     static public function getId( $category_alias = null ) 
     {
         $db = YireoHelper::getDBO();
-        if(YireoHelper::isJoomla15()) {
-            $query = "SELECT `id` FROM `#__categories` WHERE `alias`=".$db->quote($category_alias)." AND `section`='com_simplelists' LIMIT 1";
-        } else {
-            $query = "SELECT `id` FROM `#__categories` WHERE `alias`=".$db->quote($category_alias)." AND `extension`='com_simplelists' LIMIT 1";
-        }
-
+        $query = "SELECT `id` FROM `#__categories` WHERE `alias`=".$db->quote($category_alias)." AND `extension`='com_simplelists' LIMIT 1";
         $db->setQuery( $query );
         return $db->loadResult();
     }
