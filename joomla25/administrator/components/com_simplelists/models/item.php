@@ -44,7 +44,15 @@ class SimplelistsModelItem extends YireoModel
     public function getForm($data = array(), $loadData = true)
     {   
         $form = parent::getForm($data, $loadData);
+    
         $data = $this->getData();
+        if(empty($data->categories)) { 
+            $filter = $this->getFilter('category_id', null, 'cmd', 'com_simplelists_items_');
+            if(!empty($filter)) {
+                $data->categories = array($filter);
+            }
+        }
+         
         $form->bind(array('basic' => $data));
         $form->bind(array('text' => $data));
         return $form;
