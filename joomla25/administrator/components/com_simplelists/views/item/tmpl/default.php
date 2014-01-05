@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -38,29 +38,25 @@ jQuery(document).ready(function(){
             <div class="tab-content">
                 <div class="tab-pane active" id="basic">
                     <fieldset class="adminform">
-                        <?php foreach($this->form->getFieldsets('basic') as $fieldset) : ?>
                         <div class="control-group form-inline">
-                            <?php foreach($this->form->getFieldset($fieldset->name) as $field) : ?>
+                            <?php foreach($this->form->getFieldset('basic') as $field) : ?>
                                 <?php echo $field->label; ?>
                                 <div class="controls">
                                     <?php echo $field->input; ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                        <?php endforeach; ?>
                     </fieldset>
                 </div>
                 <div class="tab-pane" id="text">
                     <fieldset class="form-vertical">
-                        <?php foreach($this->form->getFieldsets('text') as $fieldset) : ?>
                         <div class="control-group form-inline">
-                            <?php foreach($this->form->getFieldset($fieldset->name) as $field) : ?>
+                            <?php foreach($this->form->getFieldset('text') as $field) : ?>
                                 <div class="controls">
                                     <?php echo $field->input; ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                        <?php endforeach; ?>
                     </fieldset>
                 </div>
                 <div class="tab-pane" id="image">

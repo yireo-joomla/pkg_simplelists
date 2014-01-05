@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -53,8 +53,7 @@ class SimplelistsModelItem extends YireoModel
             }
         }
          
-        $form->bind(array('basic' => $data));
-        $form->bind(array('text' => $data));
+        $form->bind(array('item' => $data));
         return $form;
     }
 
@@ -71,9 +70,9 @@ class SimplelistsModelItem extends YireoModel
         $table = $this->getTable();
 
         // Insert $categories manually
-        if (!empty($data['basic']['categories'])) {
-            $categories = $data['basic']['categories'] ;
-            unset($data['basic']['categories']) ;
+        if (!empty($data['item']['categories'])) {
+            $categories = $data['item']['categories'] ;
+            unset($data['item']['categories']) ;
         } elseif (!empty($data['categories'])) {
             $categories = $data['categories'] ;
             unset($data['categories']) ;

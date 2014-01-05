@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fields name="basic">
+    <fields name="item">
         <fieldset name="basic" label="COM_SIMPLELISTS_ITEM_FIELDSET_BASIC" addfieldpath="/administrator/components/com_categories/models/fields">
             <field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-xlarge" size="30" required="true" labelclass="control-label" />
             <field name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" class="inputbox" size="45" labelclass="control-label" />
@@ -12,8 +12,6 @@
             <field name="ordering" type="text" label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC" class="inputbox" size="6" default="0" labelclass="control-label" />
             <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" class="inputbox span12 small" size="1" />
         </fieldset>
-    </fields>
-    <fields name="text">
         <fieldset name="text" label="COM_SIMPLELISTS_ITEM_FIELDSET_TEXT">
             <field name="text" type="editor" class="inputbox" label="LIB_YIREO_TABLE_FIELDNAME_TEXT" filter="JComponentHelper::filterText" buttons="true" />
         </fieldset>
