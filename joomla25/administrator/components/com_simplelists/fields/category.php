@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2012
+ * @copyright Copyright (C) 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  * @deprecated Replaced with Joomla! core functionality since SimpleLists 1.6

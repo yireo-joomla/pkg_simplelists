@@ -5,7 +5,7 @@
  *
  * @author Yireo (info@yireo.com)
  * @package Yireo
- * @copyright Copyright 2012
+ * @copyright Copyright 2014
  * @license MIT-style license
  */
 
