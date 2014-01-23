@@ -374,8 +374,8 @@ class SimplelistsViewItems extends YireoView
         // Set specific layout settings
         $item->style = '';
         if($layout == 'select' || $layout == 'hover') {
-            if($counter == 0) {
-                $item->style = 'display:block;';
+            if($counter == 1) {
+                $item->style = 'display:block';
             }
         }
 
