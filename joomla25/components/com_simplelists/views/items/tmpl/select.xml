@@ -5,11 +5,6 @@
 			<![CDATA[COM_SIMPLELISTS_VIEW_ITEMS_LAYOUT_SELECT_DESC]]>
 		</message>
 	</layout>
-    <fields name="request">
-        <fieldset name="request">
-            <field name="category_id" type="category" extension="com_simplelists" required="true" label="COM_SIMPLELISTS_CATEGORY" description="COM_SIMPLELISTS_CATEGORY_DESC" />
-        </fieldset>
-    </fields>
     <fields name="params">
         <fieldset name="basic" label="COM_SIMPLELISTS_CONFIG_FIELDSET_BASIC">
 			<field name="orderby" type="list" default="order" label="COM_SIMPLELISTS_CONFIG_FIELD_ORDERING" description="COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_DESC">

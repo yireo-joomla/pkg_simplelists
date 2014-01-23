@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
         <div class="<?php echo $item->class; ?>">
 
             <?php if(!empty($item->picture)) : ?>
-            <div class="image" style="float:<?php echo $item->picture_alignment; ?>">
+            <div class="image" style="<?php if($item->picture_alignment) echo 'float:'.$item->picture_alignment; ?>">
                 <?php if($item->picture): ?>
                 <?php echo $item->picture; ?>
                 <?php endif; ?>
