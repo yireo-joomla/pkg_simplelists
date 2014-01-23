@@ -32,13 +32,18 @@ class SimplelistsModelItems extends YireoModel
      */
     public function __construct()
     {
+        // Debugging
         $this->_debug = false;
 
-        $this->setId(JRequest::getInt('category_id', '0'));
+        // Deterine the ID for SimpleLists content
+        $category_id = JRequest::getInt('category_id', '0');
+        $this->setId($category_id);
         $this->setIdByAlias(JRequest::getString('alias', ''));
 
+        // Construct the item
         parent::__construct('item');
 
+        // Set pagination
         if ($this->params->get('use_pagination')) {
             $this->setLimitQuery(true);
             if ($this->params->get('limit') > 0) {

@@ -42,4 +42,31 @@ class SimplelistsController extends YireoController
         // Parent constructor
         parent::__construct();
     }
+
+	public function getModel($name = '', $prefix = '', $config = array())
+    {
+        // Deterine the ID for SimpleLists content
+        $category_id = JRequest::getInt('category_id', '0');
+        $plugin_name = null;
+        $model_name = 'items';
+
+        // Allow for additional plugins to determine the ID
+        JPluginHelper::importPlugin('simplelistscontent');
+        JFactory::getApplication()->triggerEvent('onSimpleListsContentGetId', array(&$category_id, &$plugin_name, &$model_name));
+
+        // Override the model
+        if(!empty($plugin_name)) {
+            $modelFile = JPATH_SITE.'/plugins/simplelistscontent/'.$plugin_name.'/model.php';
+            if(file_exists($modelFile)) include_once $modelFile;
+            $tableFile = JPATH_SITE.'/plugins/simplelistscontent/'.$plugin_name.'/table.php';
+            if(file_exists($tableFile)) include_once $tableFile;
+
+            if(class_exists($model_name)) {
+                $model = new $model_name();
+                return $model;
+            }
+        }
+
+        return parent::getModel($name, $prefix, $config);
+    }
 }

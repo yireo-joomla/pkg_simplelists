@@ -7,7 +7,7 @@
     <creationDate>January 2014</creationDate>
     <copyright>Copyright 2014 Yireo</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.1.11</version>
+    <version>1.6.2.1</version>
     <description>COM_SIMPLELISTS_VIEW_ITEMS_DESC</description>
 
     <!-- installation part -->
@@ -70,7 +70,6 @@
             <filename>simplelists.php</filename>
             <filename>script.simplelists.php</filename>
             <folder>controllers</folder>
-            <folder>elements</folder>
             <folder>fields</folder>
             <folder>helpers</folder>
             <folder>lib</folder>

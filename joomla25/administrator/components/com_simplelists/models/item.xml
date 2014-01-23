@@ -2,12 +2,11 @@
 <form>
     <fields name="item">
         <fieldset name="basic" label="COM_SIMPLELISTS_ITEM_FIELDSET_BASIC" addfieldpath="/administrator/components/com_categories/models/fields">
-            <field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-xlarge" size="30" required="true" labelclass="control-label" />
+            <field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-xlarge" size="45" required="true" labelclass="control-label" />
             <field name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" class="inputbox" size="45" labelclass="control-label" />
-            <field name="published" type="radio" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="btn-group" labelclass="control-label" filter="intval" size="1" default="1">
-                <option value="1">JPUBLISHED</option>
-                <option value="0">JUNPUBLISHED</option>
-            </field>
+        </fieldset>
+        <fieldset name="basic" label="COM_SIMPLELISTS_ITEM_FIELDSET_BASIC" addfieldpath="/administrator/components/com_simplelists/fields">
+            <field name="published" type="published" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" labelclass="control-label" filter="intval" size="1" default="1" />
             <field name="categories" type="categoryedit" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" class="inputbox" multiple="multiple" size="16" />
             <field name="ordering" type="text" label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC" class="inputbox" size="6" default="0" labelclass="control-label" />
             <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" class="inputbox span12 small" size="1" />

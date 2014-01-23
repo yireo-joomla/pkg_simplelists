@@ -29,8 +29,14 @@ class SimplelistsController extends YireoController
      */
     public function __construct()
     {
+        // Default view
         $this->_default_view = 'home';
+
+        // Call the parent
         parent::__construct();
+
+        // Check for the System Plugin
+        YireoHelperInstall::autoInstallEnablePlugin('simplelists', 'system', 'http://www.yireo.com/documents/plg_system_simplelists_j25.zip', JText::_('COM_SIMPLELISTS_SYSTEMPLUGIN'));
 
         // Redirect categories
         if (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category') {

@@ -27,12 +27,11 @@ jimport('joomla.utilities.utility');
 <tbody>
 <tr>
 <td width="50%" valign="top">
-    <?php foreach($this->form->getFieldsets('basic') as $fieldset) : ?>
     <fieldset class="adminform">
-        <legend><?php echo JText::_($fieldset->label); ?></legend>
+        <legend><?php echo JText::_('COM_SIMPLELISTS_ITEM_FIELDSET_BASIC'); ?></legend>
         <table class="admintable" width="100%">
         <tbody>
-        <?php foreach($this->form->getFieldset($fieldset->name) as $field) : ?>
+        <?php foreach($this->form->getFieldset('basic') as $field) : ?>
         <tr>
             <td class="name"><?php echo $field->label; ?></td>
             <td class="value"><?php echo $field->input; ?></td>
@@ -41,7 +40,6 @@ jimport('joomla.utilities.utility');
         </tbody>
         </table>
     </fieldset>
-    <?php endforeach; ?>
     <fieldset class="adminform">
         <legend><?php echo JText::_('LIB_YIREO_TABLE_FIELDNAME_TEXT'); ?></legend>
         <table class="admintable" width="100%">
