@@ -4,10 +4,10 @@
     <author>Yireo</author>
     <authoremail>info@yireo.com</authoremail>
     <authorurl>http://www.yireo.com</authorurl>
-    <creationDate>January 2014</creationDate>
+    <creationDate>March 2014</creationDate>
     <copyright>Copyright 2014 Yireo</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.2.1</version>
+    <version>1.6.2.2</version>
     <description>COM_SIMPLELISTS_VIEW_ITEMS_DESC</description>
 
     <!-- installation part -->
@@ -57,9 +57,9 @@
 
         <menu img="../media/com_simplelists/images/menu-simplelists.png">COM_SIMPLELISTS</menu>
         <submenu>
-            <menu link="option=com_simplelists&amp;view=home">COM_SIMPLELISTS_HOME</menu>
-            <menu link="option=com_simplelists&amp;view=items">COM_SIMPLELISTS_ITEMS</menu>
-            <menu link="option=com_simplelists&amp;view=categories">COM_SIMPLELISTS_CATEGORIES</menu>
+            <menu link="option=com_simplelists&amp;view=home">COM_SIMPLELISTS_VIEW_HOME</menu>
+            <menu link="option=com_simplelists&amp;view=items">COM_SIMPLELISTS_VIEW_ITEMS</menu>
+            <menu link="option=com_simplelists&amp;view=categories">COM_SIMPLELISTS_VIEW_CATEGORIES</menu>
         </submenu>
 
         <files folder="admin">
@@ -87,6 +87,7 @@
         <languages folder="admin/language">
             <language tag="en-GB">en-GB.com_simplelists.sys.ini</language>
             <language tag="en-GB">en-GB.com_simplelists.ini</language>
+            <language tag="en-GB">en-GB.lib_yireo.ini</language>
         </languages>
 
     </administration>
