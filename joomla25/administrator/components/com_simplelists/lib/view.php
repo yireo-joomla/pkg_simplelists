@@ -79,6 +79,9 @@ class YireoCommonView extends YireoAbstractView
         $this->_name = $this->_view;
         $this->_option_id = $this->_option.'_'.$this->_view.'_';
         if ($this->application->isSite()) $this->_option_id .= JRequest::getInt('Itemid').'_';
+
+        // Load additional language-files
+        YireoHelper::loadLanguageFile();
     }
 
     /*
@@ -97,7 +100,7 @@ class YireoCommonView extends YireoAbstractView
             if (!empty($views)) {
                 foreach ($views as $view => $view_title) {
                     if ($this->_view == $view) {
-                        $title = $view_title;
+                        $title = JText::_('COM_MAGEBRIDGE_VIEW_'.$view);
                         break;
                     }
                 }
@@ -494,7 +497,7 @@ class YireoView extends YireoCommonView
                     $layout = null;
                 }
 
-                $titleLabel = strtoupper($this->_option).'_'.strtoupper($title);
+                $titleLabel = strtoupper($this->_option).'_VIEW_'.strtoupper($title);
                 
                 if (is_dir(JPATH_COMPONENT.'/views/'.$view)) {
 
@@ -883,7 +886,7 @@ class YireoView extends YireoCommonView
 
         foreach($paths as $path) {
             if(file_exists(JPATH_SITE.$path)) {
-                return '<img src="'.JURI::root().$path.'" alt="'.$name.'" />';
+                return '<img src="'.$path.'" alt="'.$name.'" />';
             }
         }
 

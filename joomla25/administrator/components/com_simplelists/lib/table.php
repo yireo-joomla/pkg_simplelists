@@ -273,16 +273,31 @@ class YireoTable extends JTable
      * @param null
      * @return array
      */
-    public function getDatabaseFields()
+    public function getDatabaseFields($tableName = null)
     {
-        $tableName = $this->getTableName();
+        if(empty($tableName)) $tableName = $this->getTableName();
         static $fields = array();
         if (!isset($fields[$tableName]) || !is_array($fields[$tableName])) {
-            $db = JFactory::getDBO();
-            $db->setQuery('SHOW FIELDS FROM `'.$tableName.'`'); 
-            $fields[$tableName] = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray(); 
+            $cache = JFactory::getCache('lib_yireo_table');
+            $cache->setCaching(0);
+            $fields[$tableName] = $cache->call(array('YireoTable', 'getCachedDatabaseFields'), $tableName);
         }
         return $fields[$tableName];
+    }
+
+    /**     
+     * Helper-method to get all fields from this table
+     *  
+     * @access public
+     * @param null
+     * @return array
+     */     
+    static public function getCachedDatabaseFields($tableName)
+    {   
+        $db = JFactory::getDBO();
+        $db->setQuery('SHOW FIELDS FROM `'.$tableName.'`');
+        $fields = (method_exists($db, 'loadColumn')) ? $db->loadColumn() : $db->loadResultArray();
+        return $fields;
     }
 
     /**

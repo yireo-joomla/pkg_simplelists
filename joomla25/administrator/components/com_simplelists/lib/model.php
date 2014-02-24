@@ -985,10 +985,16 @@ class YireoModel extends YireoAbstractModel
         // Build the default query if not set
         if (empty($query)) {
 
+            // Skip certain fields in frontend
+            $skipFrontendFields = array('locked', 'published', 'published_up', 'published_down',
+                'checked_out', 'checked_out_time', 'created', 'created_by', 'created_by_alias', 
+                'modified', 'modified_by', 'modified_by_alias', 'ordering');
+
             // Build the fields-string to avoid a *
             $fields = $this->_tbl->getDatabaseFields();
             $fieldsStrings = array();
             foreach($fields as $field) {
+                if(in_array($field, $skipFrontendFields)) continue;
                 $fieldsStrings[] = '`{tableAlias}`.`'.$field.'`';
             }
             $fieldsString = implode(',', $fieldsStrings);
@@ -1573,7 +1579,7 @@ class YireoModel extends YireoAbstractModel
     public function getDbResult($query, $type = 'object')
     {
         if($this->_cache == true) {
-            $cache = JFactory::getCache();
+            $cache = JFactory::getCache('lib_yireo_model');
             $rs = $cache->call(array($this, '_getDbResult'), $query, $type);
         } else {
             $rs = $this->_getDbResult($query, $type);
@@ -1641,7 +1647,6 @@ class YireoModel extends YireoAbstractModel
      * @subpackage Yireo
      * @param null
      * @return string
-     * @todo: Implement this method
      */
     protected function getOption()
     {

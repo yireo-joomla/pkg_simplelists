@@ -72,6 +72,9 @@ class YireoCommonController extends YireoAbstractController
             $this->addModelPath(JPATH_ADMINISTRATOR.'/components/'.$option.'/models');
         }
 
+        // Load additional language-files
+        YireoHelper::loadLanguageFile();
+
         // Call the parent constructor
         parent::__construct();
     }
@@ -99,7 +102,7 @@ class YireoController extends YireoCommonController
     protected $_model = null;
 
     /**
-     * @todo: Boolean to allow or disallow frontend editing
+     * Boolean to allow or disallow frontend editing
      *
      * @protected bool
      */
@@ -162,6 +165,14 @@ class YireoController extends YireoCommonController
         // Allow or disallow frontend editing
         if ($this->_application->isSite() && in_array(JRequest::getCmd('task', 'display'), $this->_allow_tasks) == false) {
             JError::raiseError(500, JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
+        }
+
+        // Check for ACLs in backend
+        if ($this->_application->isAdmin()) {
+            $user = JFactory::getUser();
+            if($user->authorise('core.manage', JRequest::getCmd('option')) == false) {
+                $this->_application->redirect('index.php', JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
+            }
         }
 
         // Neat trick to automatically remove obsolete files
@@ -490,10 +501,10 @@ class YireoController extends YireoCommonController
         } else {
             if (count($cid) == 1) {
                 $singleName = $this->getSingleName(JRequest::getCmd('view'));
-                $this->msg = JText::_('LIB_YIREO_CONTROLLER_'.strtoupper($singleName). '_PUBLISHED');
+                $this->msg = JText::_('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED');
             } else {
                 $pluralName = $this->getPluralName(JRequest::getCmd('view'));
-                $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_'.strtoupper($pluralName). '_PUBLISHED', count($cid));
+                $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_PUBLISHED', count($cid));
             }
         }
 
@@ -528,10 +539,10 @@ class YireoController extends YireoCommonController
         } else {
             if (count($cid) == 1) {
                 $singleName = $this->getSingleName(JRequest::getCmd('view'));
-                $this->msg = JText::_('LIB_YIREO_CONTROLLER_'.strtoupper($singleName). '_UNPUBLISHED');
+                $this->msg = JText::_('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED');
             } else {
                 $pluralName = $this->getPluralName(JRequest::getCmd('view'));
-                $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_'.strtoupper($pluralName). '_UNPUBLISHED', count($cid));
+                $this->msg = JText::sprintf('LIB_YIREO_CONTROLLER_ITEM_UNPUBLISHED', count($cid));
             }
         }
 
@@ -664,7 +675,7 @@ class YireoController extends YireoCommonController
         // Security check
         JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        // @todo: this entire function is based on SimpleLists, but needs to be tested with other extensions
+        // Fetch base-variables
         $url = JRequest::getVar('url', '', 'default', 'string');
         $rating = JRequest::getVar('user_rating', 0, '', 'int');
         $id = JRequest::getVar('cid', 0, '', 'int');
@@ -770,7 +781,6 @@ class YireoController extends YireoCommonController
 
             // If it is still empty, try to create the model manually instead
             if (empty($model)) {
-                // @todo: Throw a log-warning here
                 $model = new YireoModel($name, $name.'s', $name.'_id');
             }
 
