@@ -17,7 +17,7 @@ class modSimpleListsIndexHelper
     /*
      * Method to get a list of items
      */
-	public function getItems(&$params)
+	static public function getItems($params)
 	{
         include_once JPATH_SITE.'/components/com_simplelists/models/items.php' ;
         $model = new SimplelistsModelItems();
