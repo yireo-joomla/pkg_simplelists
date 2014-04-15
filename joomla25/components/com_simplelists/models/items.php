@@ -172,7 +172,7 @@ class SimplelistsModelItems extends YireoModel
             // Fetch the related categories (parent and children) of this category
             require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/categories.php';
             $model = new SimplelistsModelCategories();
-            $model->addWhere('category.id = '.(int)$category->parent_id.' OR category.parent_id = '.(int)$category->id);
+            $model->addWhere('category.id = '.(int)$category->id.' AND category.parent_id = '.(int)$category->parent_id);
             $related = $model->getData();
 
             foreach ($related as $id => $item) {
