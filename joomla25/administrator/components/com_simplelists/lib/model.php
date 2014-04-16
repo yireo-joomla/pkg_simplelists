@@ -33,42 +33,21 @@ if(YireoHelper::isJoomla25()) {
  *
  * @package Yireo
  */
-class YireoModel extends YireoAbstractModel
+class YireoCommonModel extends YireoAbstractModel
 {
-    /**
-     * Indicator if this is a model for multiple or single entries
+    /*
+     * Boolean to skip table-detection
      *
      * @protected int
      */
-    protected $_single = null;
+    protected $_skip_table = true;
 
-    /**
-     * Boolean to allow for caching
+    /*
+     * Boolean to allow forms in the frontend
      *
      * @protected int
      */
-    protected $_cache = false;
-
-    /**
-     * Boolean to allow for debugging
-     *
-     * @protected int
-     */
-    protected $_debug = false;
-
-    /**
-     * Boolean to allow for filtering
-     *
-     * @protected int
-     */
-    protected $_allow_filter = true;
-
-    /**
-     * Boolean to allow for checking out
-     *
-     * @protected int
-     */
-    protected $_checkout = true;
+    protected $_frontend_form = false;
 
     /**
      * Database table object
@@ -111,6 +90,73 @@ class YireoModel extends YireoAbstractModel
      * @protected array
      */
     protected $_data = null;
+
+    /**
+     * Override the default method to allow for skipping table creation
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param string $name
+     * @param string $prefix
+     * @param array $options
+     * @return mixed
+     */
+    public function getTable($name = '', $prefix = 'Table', $options = array())
+    {
+        if ($this->_skip_table == true) return null;
+        if (empty($name)) $name = $this->_tbl_alias;
+        return parent::getTable($name, $prefix, $options);
+    }
+}
+
+/**
+ * Yireo Model 
+ *
+ * @package Yireo
+ */
+class YireoModel extends YireoCommonModel
+{
+    /**
+     * Indicator if this is a model for multiple or single entries
+     *
+     * @protected int
+     */
+    protected $_single = null;
+
+    /**
+     * Boolean to allow for caching
+     *
+     * @protected int
+     */
+    protected $_cache = false;
+
+    /**
+     * Boolean to allow for debugging
+     *
+     * @protected int
+     */
+    protected $_debug = false;
+
+    /**
+     * Boolean to allow for filtering
+     *
+     * @protected int
+     */
+    protected $_allow_filter = true;
+
+    /**
+     * Boolean to allow for checking out
+     *
+     * @protected int
+     */
+    protected $_checkout = true;
+
+    /*
+     * Boolean to skip table-detection
+     *
+     * @protected int
+     */
+    protected $_skip_table = false;
 
     /**
      * Category total
@@ -236,10 +282,17 @@ class YireoModel extends YireoAbstractModel
         $this->_entity = $tableAlias;
 
         // Detect the orderby-default
-        $this->_orderby_default = $this->_tbl->getDefaultOrderBy();
+        if(empty($this->_orderby_default)) $this->_orderby_default = $this->_tbl->getDefaultOrderBy();
         if(empty($this->_orderby_title)) {
             if ($this->_tbl->hasField('title')) $this->_orderby_title = 'title';
             if ($this->_tbl->hasField('name')) $this->_orderby_title = 'name';
+        }
+
+        // Detect checkout
+        if ($this->_tbl->hasField('checked_out')) {
+            $this->_checkout = true;
+        } else {
+            $this->_checkout = false;
         }
 
         // Create the option-namespace
@@ -341,12 +394,7 @@ class YireoModel extends YireoAbstractModel
     public function initLimit($limit = null) 
     {
         if (is_numeric($limit) == false) {
-            $limit = $this->application->getUserStateFromRequest( 'global.list.limit', 'limit', $this->application->getCfg('list_limit'), 'int' );
-        }
-
-        if ($limit == 0) {
-            $limit = $this->application->getCfg('list_limit');
-            $this->application->setUserState('limit', $limit);
+            $limit = $this->getFilter('list_limit', $this->application->getCfg('list_limit')); 
         }
         $this->setState('limit', $limit);
     }
@@ -439,6 +487,9 @@ class YireoModel extends YireoAbstractModel
 
                     $data->metadata = $this->getMetadata();
                     $this->_data = $data;
+
+                } else {
+                    $data = (object)null;
                 }
 
                 // Check to see if the data is published
@@ -994,7 +1045,7 @@ class YireoModel extends YireoAbstractModel
             $fields = $this->_tbl->getDatabaseFields();
             $fieldsStrings = array();
             foreach($fields as $field) {
-                if(in_array($field, $skipFrontendFields)) continue;
+                if($this->application->isSite() && in_array($field, $skipFrontendFields)) continue;
                 $fieldsStrings[] = '`{tableAlias}`.`'.$field.'`';
             }
             $fieldsString = implode(',', $fieldsStrings);
@@ -1106,7 +1157,9 @@ class YireoModel extends YireoAbstractModel
         if (!empty($this->_search) && !empty($search)) {
             $where_search = array();
             foreach ($this->_search as $column) {
-                $where_search[] = "`".$this->_tbl_alias."`.`$column` LIKE '%$search%'";
+                if(strstr($column, '.') == false && strstr($column, '`') == false) $column = "`".$column."`";
+                if(strstr($column, '.') == false) $column = "`".$this->_tbl_alias."`.".$column;
+                $where_search[] = "$column LIKE '%$search%'";
             }
         }
 
@@ -1315,13 +1368,21 @@ class YireoModel extends YireoAbstractModel
      */
     public function getForm($data = array(), $loadData = true)
     {
-        // Do not continue if this is not a backend singular view
-        if ($this->application->isAdmin() == false || $this->isSingular() == false) {
+        // Do not continue if this is not the right backend
+        if ($this->application->isAdmin() == false && $this->_frontend_form == false) {
+            return false;
+        }
+
+        // Do not continue if this is not a singular view
+        if ($this->isSingular() == false) {
             return false;
         }
 
         // Read the form from XML
         $xmlFile = JPATH_ADMINISTRATOR.'/components/'.$this->_option.'/models/'.$this->_entity.'.xml';
+        if (!file_exists($xmlFile)) {
+            $xmlFile = JPATH_SITE.'/components/'.$this->_option.'/models/'.$this->_entity.'.xml';
+        }
 
         if (!file_exists($xmlFile)) {
             return false;
@@ -1411,22 +1472,6 @@ class YireoModel extends YireoAbstractModel
         if (!empty($params)) {
             $this->params = $params;
         }
-    }
-
-    /**
-     * Override the default method to make sure we always get the right table
-     *
-     * @access public
-     * @subpackage Yireo
-     * @param string $name
-     * @param string $prefix
-     * @param array $options
-     * @return mixed
-     */
-    public function getTable($name = '', $prefix = 'Table', $options = array())
-    {
-        if (empty($name)) $name = $this->_tbl_alias;
-        return parent::getTable($name, $prefix, $options);
     }
 
     /**

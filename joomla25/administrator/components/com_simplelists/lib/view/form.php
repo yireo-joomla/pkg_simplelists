@@ -61,11 +61,17 @@ class YireoViewForm extends YireoView
      */
     public function __construct()
     {
-        // Do not load the toolbar automatically
-        $this->loadToolbar = false;
-
         // Call the parent constructor
-        return parent::__construct();
+        $rt = parent::__construct();
+
+        // Detect the editor field
+        if (empty($this->_editor_field) && !empty($this->_table)) {
+            if($this->_table->hasField('body')) $this->_editor_field = 'body';
+            if($this->_table->hasField('description')) $this->_editor_field = 'description';
+            if($this->_table->hasField('text')) $this->_editor_field = 'text';
+        }
+
+        return $rt;
     }
 
     /*
@@ -86,6 +92,7 @@ class YireoViewForm extends YireoView
         // Automatically fetch the item and assign it to the layout
         $this->fetchItem();
 
+        if ($this->prepare_display == true) $this->prepareDisplay();
         parent::display($tpl);
     }
 

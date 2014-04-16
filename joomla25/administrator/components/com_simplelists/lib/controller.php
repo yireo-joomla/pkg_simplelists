@@ -406,10 +406,10 @@ class YireoController extends YireoCommonController
         $this->setId(0);
 
         // Store these data
-        $this->store();
+        $id = $this->store();
 
         // Redirect to the form-page
-        $this->doRedirect( JRequest::getVar('view'), array( 'id' => $this->getId(), 'task' => 'copy'));
+        $this->doRedirect( JRequest::getVar('view'), array( 'id' => $id, 'task' => 'copy'));
     }
 
     /**
@@ -912,6 +912,12 @@ class YireoController extends YireoCommonController
      */
     protected function getIds()
     {
+        // Fetch the single ID
+        $id = JRequest::getInt('id');
+        if($id > 0) {
+            return array($id);
+        }
+
         // Fetch the ID-list and make sure it renders as a list of numbers
         $cid = JRequest::getVar( 'cid', array(0), 'post', 'array' );
         JArrayHelper::toInteger($cid);

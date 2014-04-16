@@ -100,7 +100,7 @@ class YireoCommonView extends YireoAbstractView
             if (!empty($views)) {
                 foreach ($views as $view => $view_title) {
                     if ($this->_view == $view) {
-                        $title = JText::_('COM_MAGEBRIDGE_VIEW_'.$view);
+                        $title = JText::_(JRequest::getCmd('option').'_VIEW_'.$view);
                         break;
                     }
                 }
@@ -268,10 +268,6 @@ class YireoCommonView extends YireoAbstractView
         jimport('joomla.filesystem.path');
         $template = JPath::find($this->templatePaths, $file);
 
-        //if($_SERVER['REMOTE_ADDR'] == '84.86.237.157') {
-        //    print_r($this->templatePaths);
-        //}
-
         // If this template is empty, try to use alternatives
         if(empty($template) && $file == 'default.php') {
             $file = 'form.php'; 
@@ -313,7 +309,6 @@ class YireoCommonView extends YireoAbstractView
         }
         else {
             return null;
-            //return JText::_('LIB_YIREO_NO_TEMPLATE');
         }
     }
 }
@@ -381,6 +376,10 @@ class YireoView extends YireoCommonView
                 $this->_single = true;
             }
         }
+
+        // Insert the model & table
+        $this->_model = $this->getModel();
+        if(!empty($this->_model)) $this->_table = $this->_model->getTable();
 
         // Add some backend-elements
         if ($this->application->isAdmin()) {
@@ -728,14 +727,10 @@ class YireoView extends YireoCommonView
                 . "            if (result == '') {\n"
                 . "                alert('Empty result');\n"
                 . "            } else {\n"
-                . "                if (type == 'input') {\n"
-                . "                    jQuery(element_id).value = result;\n"
-                . "                } else {\n"
-                . "                    jQuery(element_id).innerHTML = result;\n"
-                . "                }\n"
+                . "                 jQuery('#' + element_id).val(result);\n"
                 . "            }\n"
                 . "        }\n"
-                . "    }).send();\n"
+                . "    });\n"
                 . "}\n"
                 . "</script>";
         }
@@ -803,6 +798,7 @@ class YireoView extends YireoCommonView
 
             $classPrefix = ucfirst(preg_replace('/^com_/', '', $this->_option)).'Model';
             $classPrefix = preg_replace('/[^A-Z0-9_]/i', '', $classPrefix);
+            $classPrefix = str_replace(' ', '', ucwords(str_replace('_', ' ', $classPrefix)));
 
             if (YireoHelper::isJoomla25()) {
                 $model = JModel::getInstance($name, $classPrefix, array());
@@ -881,6 +877,7 @@ class YireoView extends YireoCommonView
     {
         $paths = array(
             '/media/'.$this->_option.'/images/'.$name,
+            '/media/lib_yireo/images/'.$name,
             '/images/'.$name,
         );
 
