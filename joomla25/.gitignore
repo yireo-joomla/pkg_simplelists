@@ -377,7 +377,8 @@ plugins/finder/
 plugins/index.html
 plugins/quickicon/
 plugins/search/
-plugins/system/
+plugins/system/*
+!plugins/system/simplelists/
 plugins/user/
 robots.txt
 templates/
