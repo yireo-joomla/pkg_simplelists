@@ -261,9 +261,7 @@ class SimplelistsViewItems extends YireoView
 
         // Run the content through Content Plugins
         if( $item->params->get('enable_content_plugins', 1) == 1 ) {
-            JPluginHelper::importPlugin( 'content' );
-            $iparams = array();
-            $results = $dispatcher->trigger('onPrepareContent', array ( &$item, &$iparams, 0));
+            $item->text = JHtml::_('content.prepare', $item->text);
         }
 
         // Disable the text when needed
