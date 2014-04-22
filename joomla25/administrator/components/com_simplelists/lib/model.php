@@ -21,7 +21,7 @@ require_once dirname(__FILE__).'/loader.php';
  *
  * @package Yireo
  */
-if(YireoHelper::isJoomla25()) {
+if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
     jimport('joomla.application.component.model');
     class YireoAbstractModel extends JModel {}
 } else {
@@ -1696,7 +1696,9 @@ class YireoModel extends YireoCommonModel
     protected function getOption()
     {
         $classParts = explode('Model', get_class($this));
-        $comPart = (!empty($classParts[0])) ? strtolower($classParts[0]) : null;
+        $comPart = (!empty($classParts[0])) ? $classParts[0] : null;
+        $comPart = preg_replace('/([A-Z])/', '_\\1', $comPart);
+        $comPart = strtolower(preg_replace('/^_/', '', $comPart));
         $option = (!empty($comPart) && $comPart != 'yireo') ? 'com_'.$comPart : JRequest::getCmd('option');
         return $option;
     }

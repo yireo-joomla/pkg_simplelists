@@ -23,7 +23,7 @@ require_once( JPATH_ADMINISTRATOR.'/components/com_media/helpers/media.php' );
 /**
  * SimpleLists Component Files Model
  */
-class SimpleListsModelFiles extends YireoAbstractModel
+class SimpleListsModelFiles extends YireoCommonModel
 {
     /*
      * Method to set a specific state for an internal variable
