@@ -11,8 +11,8 @@
     <description>PLG_SYSTEM_SIMPLELISTS_DESC</description>
 
     <files>
+        <folder>form</folder>
         <filename plugin="simplelists">simplelists.php</filename>
-        <filename>form.xml</filename>
         <filename>index.html</filename>
     </files>
 

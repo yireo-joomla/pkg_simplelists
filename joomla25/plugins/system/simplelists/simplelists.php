@@ -56,7 +56,7 @@ class plgSystemSimplelists extends JPlugin
 
         // Skip this for non-Menu-Item pages
         if(JRequest::getCmd('option') != 'com_menus' || JRequest::getCmd('view') != 'item') {
-            //return;
+            return;
         }
 
         // Make sure this only works for SimpleLists Items Menu-Items
@@ -66,7 +66,7 @@ class plgSystemSimplelists extends JPlugin
         }
         
         // Add the plugin-form to main form
-        $formFile = dirname(__FILE__).'/form.xml';
+        $formFile = dirname(__FILE__).'/form/form.xml';
         if(file_exists($formFile)) {
             $form->loadFile($formFile, false);
         }
