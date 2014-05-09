@@ -44,6 +44,7 @@ class HelperAbstract
                 JPATH_ADMINISTRATOR.'/components/com_simplelists/views/categories/tmpl/default.php',
                 JPATH_SITE.'/components/com_simplelists/models/simplelist.php',
                 JPATH_SITE.'/media/com_simplelists/js/mootools-cookie.js',
+                JPATH_SITE.'/plugins/system/simplelists/form.xml',
             ),
             'obsolete_folders' => array(
                 JPATH_ADMINISTRATOR.'/components/com_simplelists/views/update',

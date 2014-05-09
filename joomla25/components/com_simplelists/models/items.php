@@ -34,6 +34,7 @@ class SimplelistsModelItems extends YireoModel
     {
         // Debugging
         $this->_debug = false;
+        $this->_tbl_prefix_auto = true;
 
         // Deterine the ID for SimpleLists content
         $category_id = JRequest::getInt('category_id', '0');
