@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 /**
 * Category Table class
 */
-class TableCategory extends YireoTable
+class SimpleListsTableCategory extends YireoTable
 {
     /**
      * Constructor

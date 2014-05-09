@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 /**
 * Item Table class
 */
-class TableItem extends YireoTable
+class SimpleListsTableItem extends YireoTable
 {
     /**
      * Constructor
@@ -24,7 +24,6 @@ class TableItem extends YireoTable
      */
     public function __construct(& $db) 
     {
-        // @todo: Extra field "approved"
         // Initialize the fields
         $this->_fields = array(
             'id' => null,

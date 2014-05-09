@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 *
 * @package SimpleLists
 */
-class TablePlugin extends JTable
+class SimpleListsTablePlugin extends JTable
 {
     /**
      * Constructor
