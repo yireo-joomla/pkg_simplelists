@@ -28,7 +28,6 @@ class SimplelistsPluginHelper
      */
     static public function getPlugin($type = null, $name = null)
     {
-        // @todo: Does not work in J1.7
         $plugin = JPluginHelper::getPlugin($type, $name);
         if(empty($plugin) || !is_object($plugin)) {
             return null;
