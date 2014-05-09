@@ -41,6 +41,7 @@ class SimplelistsModelCategories extends YireoModel
         $this->_debug = false;
         $this->_limit_query = false;
         $this->_orderby_default = 'lft,rgt';
+        $this->_tbl_prefix_auto = true;
         parent::__construct('category');
     }
 

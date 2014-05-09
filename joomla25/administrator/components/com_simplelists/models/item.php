@@ -29,6 +29,7 @@ class SimplelistsModelItem extends YireoModel
     public function __construct()
     {
         $this->_orderby_title = 'title';
+        $this->_tbl_prefix_auto = true;
         parent::__construct('item');
     }
 

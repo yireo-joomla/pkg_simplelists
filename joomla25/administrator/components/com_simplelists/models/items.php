@@ -27,6 +27,7 @@ class SimplelistsModelItems extends YireoModel
     public function __construct()
     {
         $this->_search = array('title');
+        $this->_tbl_prefix_auto = true;
         parent::__construct('item');
     }
 
