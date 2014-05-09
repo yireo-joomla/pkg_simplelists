@@ -34,8 +34,9 @@ class SimplelistsViewItem extends YireoViewForm
         // Give a warning if no categories are configured
         SimplelistsHelper::checkCategories() ;
 
-        // Load jQuery
+        // Load jQuery and bootstrap
         YireoHelper::jquery();
+        YireoHelper::bootstrap();
 
         // Fetch the item automatically
         $this->fetchItem(true);

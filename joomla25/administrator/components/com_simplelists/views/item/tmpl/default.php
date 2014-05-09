@@ -49,7 +49,7 @@ jQuery(document).ready(function(){
                     </fieldset>
                 </div>
                 <div class="tab-pane" id="text">
-                    <fieldset class="form-vertical">
+                    <fieldset class="adminform form-vertical">
                         <div class="control-group form-inline">
                             <?php foreach($this->form->getFieldset('text') as $field) : ?>
                                 <div class="controls">
@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
                     </fieldset>
                 </div>
                 <div class="tab-pane" id="image">
-                    <fieldset class="form-vertical">
+                    <fieldset class="adminform form-vertical">
                         <div class="control-group">
                             <div class="controls">
                                 <input type="text" id="picture_name" value="<?php echo $this->item->picture; ?>" />
@@ -77,21 +77,21 @@ jQuery(document).ready(function(){
                             <?php if(!empty($this->item->picture_path) && JFile::exists($this->item->picture_path)): ?>
                                 <img width="380" id="picture-preview" src="../<?php echo $this->item->picture_uri; ?>" name="item_picture" />
                             <?php else: ?>
-                                <img width="380" id="picture-preview" src="../media/com_simplelists/images/blank.png" alt="<?php echo JText::_('No image'); ?>" name="item_picture" width="1" height="1" />' ;
+                                <img width="380" id="picture-preview" src="../media/com_simplelists/images/blank.png" alt="<?php echo JText::_('No image'); ?>" name="item_picture" width="1" height="1" />
                             <?php endif; ?>
                             </div>
                         </div>
                     </fieldset>
                 </div>
                 <div class="tab-pane tab-pane-plugins" id="link">
-                    <fieldset class="form-vertical">
+                    <fieldset class="adminform form-vertical">
                         <?php if(!empty($this->link_plugins)) : ?>
                         <div class="control-group">
                         <?php foreach($this->link_plugins as $plugin) : ?>
                             <?php if($plugin->isEnabled() == false) continue; ?>
                             <?php $link_type = $plugin->getPluginName(); ?>
                             <?php $active = ($link_type == $this->item->link_type) ? true : false; ?>
-                            <label class="simplelists_link" for="link_type_<?php echo $link_type; ?>" id="link_type_<?php echo $link_type; ?>_label">
+                            <label class="simplelists_link radio" for="link_type_<?php echo $link_type; ?>" id="link_type_<?php echo $link_type; ?>_label">
                                 <?php $checked = ($active) ? 'checked="checked"' : '' ; ?>
                                 <input type="radio" class="simplelists_link" id="link_type_<?php echo $link_type; ?>" name="link_type" value="<?php echo $link_type; ?>" <?php echo $checked; ?> />
                                 <?php echo $plugin->getTitle(); ?>
