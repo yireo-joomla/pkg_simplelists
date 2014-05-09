@@ -223,6 +223,50 @@ class YireoHelper
     }
 
     /*
+     * Add in Bootstrap
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param null
+     * @return null
+     */
+    static public function bootstrap()
+    {
+        if (self::isJoomla25()) {
+
+            // Check if bootstrap is loaded already
+            $application = JFactory::getApplication();
+            if(method_exists($application, 'set')) $application->set('bootstrap', true);
+
+            $document = JFactory::getDocument();
+            $option = JRequest::getCmd('option');
+
+            $document->addStyleSheet(JURI::root().'media/'.$option.'/css/bootstrap.min.css');
+            $document->addStyleSheet(JURI::root().'media/'.$option.'/css/backend-bootstrap-j25.css');
+            $document->addScript('//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js');
+        } else {
+          JHtml::_('bootstrap.framework');
+        }
+    }
+
+    /*
+     * Method to check whether Bootstrap is used
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param null
+     * @return boolean
+     */
+    static public function hasBootstrap()
+    {
+        $application = JFactory::getApplication();
+        if (method_exists($application, 'get') && $application->get('bootstrap') == true) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
      * Add in jQuery
      *
      * @access public
@@ -250,10 +294,10 @@ class YireoHelper
         }
 
         // Do not load this for specific extensions
-        if(JRequest::getCmd('option') == 'com_virtuemart') return false;
+        $option = JRequest::getCmd('option');
+        if($option == 'com_virtuemart') return false;
 
         // Load jQuery
-        $option = JRequest::getCmd('option');
         if (file_exists(JPATH_SITE.'/media/'.$option.'/js/jquery.js')) {
             $document->addScript(JURI::root().'media/'.$option.'/js/jquery.js');
             $document->addCustomTag('<script type="text/javascript">jQuery.noConflict();</script>');

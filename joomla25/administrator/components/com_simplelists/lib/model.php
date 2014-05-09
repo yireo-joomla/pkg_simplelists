@@ -78,6 +78,13 @@ class YireoCommonModel extends YireoAbstractModel
     protected $_tbl_key = null;
 
     /**
+     * Flag to automatically set the table class prefix
+     *
+     * @protected boolean
+     */
+    protected $_tbl_prefix_auto = false;
+
+    /**
      * Unique id
      *
      * @protected int
@@ -105,6 +112,7 @@ class YireoCommonModel extends YireoAbstractModel
     {
         if ($this->_skip_table == true) return null;
         if (empty($name)) $name = $this->_tbl_alias;
+        if (!empty($this->_tbl_prefix)) $prefix = $this->_tbl_prefix;
         return parent::getTable($name, $prefix, $options);
     }
 }
@@ -243,6 +251,13 @@ class YireoModel extends YireoCommonModel
     protected $_orderby_title = null;
 
     /**
+     * List of fields to autoconvert into column-seperated fields
+     *
+     * @protected array
+     */
+    protected $_columnFields = array();
+
+    /**
      * Enable the limit in the query (or in the data-array)
      *
      * @protected string
@@ -266,14 +281,25 @@ class YireoModel extends YireoCommonModel
      */
     public function __construct($tableAlias = null)
     {
-        // Call the parent constructor
-        parent::__construct();
-
         // Import use full variables from JFactory
         $this->application = JFactory::getApplication();
         $this->user = JFactory::getUser();
 
+        // Create the option-namespace
+        $classParts = explode('Model', get_class($this));
+        $this->_view = (!empty($classParts[1])) ? strtolower($classParts[1]) : JRequest::getCmd('view');
+        $this->_option = $this->getOption();
+        $this->_option_id = $this->_option.'_'.$this->_view.'_';
+        if ($this->application->isSite()) $this->_option_id .= JRequest::getInt('Itemid').'_';
+        $this->_component = preg_replace('/^com_/', '', $this->_option);
+        $this->_component = preg_replace('/[^A-Z0-9_]/i', '', $this->_component);
+        $this->_component = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_component)));
+
+        // Call the parent constructor
+        parent::__construct();
+
         // Set the database variables
+        if($this->_tbl_prefix_auto == true) $this->_tbl_prefix = $this->_component.'Table';
         // @todo: Set this in a metadata array 
         $this->_tbl_alias = $tableAlias;
         $this->_tbl = $this->getTable($tableAlias);
@@ -285,6 +311,7 @@ class YireoModel extends YireoCommonModel
         if(empty($this->_orderby_default)) $this->_orderby_default = $this->_tbl->getDefaultOrderBy();
         if(empty($this->_orderby_title)) {
             if ($this->_tbl->hasField('title')) $this->_orderby_title = 'title';
+            if ($this->_tbl->hasField('label')) $this->_orderby_title = 'label';
             if ($this->_tbl->hasField('name')) $this->_orderby_title = 'name';
         }
 
@@ -294,13 +321,6 @@ class YireoModel extends YireoCommonModel
         } else {
             $this->_checkout = false;
         }
-
-        // Create the option-namespace
-        $classParts = explode('Model', get_class($this));
-        $this->_view = (!empty($classParts[1])) ? strtolower($classParts[1]) : JRequest::getCmd('view');
-        $this->_option = $this->getOption();
-        $this->_option_id = $this->_option.'_'.$this->_view.'_';
-        if ($this->application->isSite()) $this->_option_id .= JRequest::getInt('Itemid').'_';
 
         // Set the parameters for the frontend
         if (empty($this->params)) {
@@ -476,6 +496,15 @@ class YireoModel extends YireoCommonModel
 
                 if (!empty($data)) {
 
+                    // Prepare the column-fields
+                    if(!empty($this->_columnFields)) {
+                        foreach($this->_columnFields as $columnField) {
+                            if(!empty($data->$columnField) && !is_array($data->$columnField)) {
+                                $data->$columnField = explode('|', $data->$columnField);
+                            }
+                        }
+                    }
+
                     // Allow to modify the data
                     if (method_exists($this, 'onDataLoad')) {
                         $data = $this->onDataLoad($data);
@@ -552,6 +581,15 @@ class YireoModel extends YireoCommonModel
                             if ($this->user->authorise($action, $itemAsset) == false) {
                                 unset($data[$index]);
                                 continue;
+                            }
+                        }
+
+                        // Prepare the column-fields
+                        if(!empty($this->_columnFields)) {
+                            foreach($this->_columnFields as $columnField) {
+                                if(!empty($item->$columnField) && !is_array($item->$columnField)) {
+                                    $item->$columnField = explode('|', $item->$columnField);
+                                }
                             }
                         }
 
@@ -822,6 +860,15 @@ class YireoModel extends YireoCommonModel
             if (isset($data['params']['modified_by'])) unset( $data['params']['modified_by'] );
         }
 
+        // Prepare the column-fields
+        if(!empty($this->_columnFields)) {
+            foreach($this->_columnFields as $columnField) {
+                if(!empty($data[$columnField]) && is_array($data[$columnField])) {
+                    $data[$columnField] = implode('|', $data[$columnField]);
+                }
+            }
+        }
+
         // Bind the form fields to the table
         if (!$this->_tbl->bind($data)) {
             $this->setError($this->_db->getErrorMsg());
@@ -1037,9 +1084,9 @@ class YireoModel extends YireoCommonModel
         if (empty($query)) {
 
             // Skip certain fields in frontend
-            $skipFrontendFields = array('locked', 'published', 'published_up', 'published_down',
-                'checked_out', 'checked_out_time', 'created', 'created_by', 'created_by_alias', 
-                'modified', 'modified_by', 'modified_by_alias', 'ordering');
+            $skipFrontendFields = array(
+                'locked', 'published', 'published_up', 'published_down', 'checked_out', 'checked_out_time'
+            );
 
             // Build the fields-string to avoid a *
             $fields = $this->_tbl->getDatabaseFields();
