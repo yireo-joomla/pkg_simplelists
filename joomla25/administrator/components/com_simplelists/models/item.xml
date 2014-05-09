@@ -7,9 +7,9 @@
         </fieldset>
         <fieldset name="basic" label="COM_SIMPLELISTS_ITEM_FIELDSET_BASIC" addfieldpath="/administrator/components/com_simplelists/fields">
             <field name="published" type="published" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" labelclass="control-label" filter="intval" size="1" default="1" />
-            <field name="categories" type="categoryedit" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" class="inputbox" multiple="multiple" size="16" />
+            <field name="categories" type="categoryedit" label="JCATEGORY" description="JFIELD_CATEGORY_DESC" labelclass="control-label" class="inputbox" multiple="multiple" size="16" />
             <field name="ordering" type="text" label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC" class="inputbox" size="6" default="0" labelclass="control-label" />
-            <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" class="inputbox span12 small" size="1" />
+            <field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" description="JFIELD_ACCESS_DESC" labelclass="control-label" class="inputbox span12 small" size="1" />
         </fieldset>
         <fieldset name="text" label="COM_SIMPLELISTS_ITEM_FIELDSET_TEXT">
             <field name="text" type="editor" class="inputbox" label="LIB_YIREO_TABLE_FIELDNAME_TEXT" filter="JComponentHelper::filterText" buttons="true" />
