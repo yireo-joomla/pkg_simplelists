@@ -46,9 +46,12 @@ class HelperAbstract
                 JPATH_SITE.'/media/com_simplelists/js/mootools-cookie.js',
             ),
             'obsolete_folders' => array(
-                JPATH_SITE.'/components/com_simplelists/views/simplelist', // @todo: Delete this recursively
-                JPATH_SITE.'/components/com_simplelists/css', // @todo: Delete this recursively
-                JPATH_SITE.'/components/com_simplelists/js', // @todo: Delete this recursively
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/update',
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/item/tmpl/joomla15',
+                JPATH_ADMINISTRATOR.'/components/com_simplelists/views/item/tmpl/joomla25',
+                JPATH_SITE.'/components/com_simplelists/views/simplelist',
+                JPATH_SITE.'/components/com_simplelists/css',
+                JPATH_SITE.'/components/com_simplelists/js',
             ),
         );
     }
