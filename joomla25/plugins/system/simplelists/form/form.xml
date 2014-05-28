@@ -1,9 +1,0 @@
-<form>
-    <fields name="request">
-        <fieldset name="request">
-            <field name="category_id" type="category" extension="com_simplelists" default="0" required="false" label="COM_SIMPLELISTS_CATEGORY" description="COM_SIMPLELISTS_CATEGORY_DESC">
-                <option value="0">JNONE</option>
-            </field>
-        </fieldset>
-    </fields>
-</form>

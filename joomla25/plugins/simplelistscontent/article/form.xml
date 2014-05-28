@@ -1,9 +1,0 @@
-<form>
-    <fields name="request">
-        <fieldset name="request">
-            <field name="acategory_id" label="PLG_SIMPLELISTSCONTENT_ARTICLE_FIELD_ACATEGORY_ID" type="category" default="0" extension="com_content">
-                <option value="0">JNONE</option>
-            </field>
-        </fieldset>
-    </fields>
-</form>
