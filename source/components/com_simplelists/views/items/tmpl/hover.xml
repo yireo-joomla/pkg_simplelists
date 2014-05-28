@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SIMPLELISTS_VIEW_ITEMS_LAYOUT_HOVER_LABEL">
+		<message>
+			<![CDATA[COM_SIMPLELISTS_VIEW_ITEMS_LAYOUT_HOVER_DESC]]>
+		</message>
+	</layout>
+    <fields name="params">
+        <fieldset name="basic" label="COM_SIMPLELISTS_CONFIG_FIELDSET_BASIC">
+			<field name="orderby" type="list" default="order" label="COM_SIMPLELISTS_CONFIG_FIELD_ORDERING" description="COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_DESC">
+				<option value="order">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_ORDER</option>
+				<option value="rdate">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RDATE</option>
+				<option value="date">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_DATE</option>
+				<option value="alpha">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_ALPHA</option>
+				<option value="ralpha">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RALPHA</option>
+				<option value="random">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RANDOM</option>
+			</field>
+		</fieldset>
+		<fieldset name="layout" label="COM_SIMPLELISTS_CONFIG_FIELDSET_LAYOUT">
+            <field name="show_totop" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_TOTOP" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_TOTOP_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="totop_image" type="imagelist" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_TOTOP_IMAGE" directory="images/simplelists" hide_default="1" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_TOTOP_IMAGE_DESC" />
+            <field name="totop_text" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_TOTOP_TEXT" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_TOTOP_TEXT_DESC" />
+		</fieldset>
+		<fieldset name="styling" label="COM_SIMPLELISTS_CONFIG_FIELDSET_STYLING">
+			<field name="load_lightbox" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_LOAD_LIGHTBOX" description="COM_SIMPLELISTS_CONFIG_FIELD_LOAD_LIGHTBOX_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="load_css" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_LOAD_CSS" description="COM_SIMPLELISTS_CONFIG_FIELD_LOAD_CSS_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			<field name="load_js" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_LOAD_JS" description="COM_SIMPLELISTS_CONFIG_FIELD_LOAD_JS_DESC">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+		</fieldset>
+		<fieldset name="pagination" label="COM_SIMPLELISTS_CONFIG_FIELDSET_PAGINATION">
+            <field name="use_pagination" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_USE_PAGINATION" description="COM_SIMPLELISTS_CONFIG_FIELD_USE_PAGINATION_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="limit" type="text" default="" size="2" maxsize="2" label="COM_SIMPLELISTS_CONFIG_FIELD_LIMIT" description="COM_SIMPLELISTS_CONFIG_FIELD_LIMIT_DESC" />
+            <field name="show_index" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_INDEX" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_INDEX_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="show_alpha_index" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ALPHA_INDEX" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ALPHA_INDEX_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+		</fieldset>
+		<fieldset name="hierarchy" label="COM_SIMPLELISTS_CONFIG_FIELDSET_HIERARCHY">
+            <field name="show_category_parent" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_PARENT" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_PARENT_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="show_category_childs" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_CHILDS" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_CHILDS_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="show_category_childs_description" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_CHILDS_DESCRIPTION" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_CHILDS_DESCRIPTION_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+		</fieldset>
+		<fieldset name="other" label="COM_SIMPLELISTS_CONFIG_FIELDSET_OTHER">
+			<field name="show_header_modules" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_HEADER_MODULES" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_HEADER_MODULES_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+			<field name="show_footer_modules" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_FOOTER_MODULES" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_FOOTER_MODULES_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+            <field name="show_feed" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_FEED" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_FEED_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+			<field name="show_empty_list" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_EMPTY_LIST" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_EMPTY_LIST_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+			</field>
+            <field name="show_pdf_icon" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_PDF_ICON" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_PDF_ICON_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+            <field name="show_print_icon" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_PRINT_ICON" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_PRINT_ICON_DESC">
+                <option value="0">JHIDE</option>
+                <option value="1">JSHOW</option>
+            </field>
+		</fieldset>
+	</fields>
+</metadata>

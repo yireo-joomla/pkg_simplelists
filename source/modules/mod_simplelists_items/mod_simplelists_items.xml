@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" method="upgrade">
+    <name>MOD_SIMPLELISTS_ITEMS</name>
+    <author>Yireo</author>
+    <authorEmail>info@yireo.com</authorEmail>
+    <authorUrl>http://www.yireo.com/</authorUrl>
+    <creationDate>May 2014</creationDate>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>1.6.4</version>
+    <description>MOD_SIMPLELISTS_ITEMS_DESC</description>
+
+    <files folder="site">
+        <filename module="mod_simplelists_items">mod_simplelists_items.php</filename>
+        <filename>helper.php</filename>
+        <filename>index.html</filename>
+        <folder>tmpl</folder>
+    </files>
+    <files>
+        <filename>mod_simplelists_items.xml</filename>
+    </files>
+
+    <media folder="media" destination="mod_simplelists_items">
+        <filename>index.html</filename>
+        <folder>css</folder>
+    </media>
+
+    <languages folder="site/language">
+        <language tag="en-GB">en-GB.mod_simplelists_items.ini</language>
+        <language tag="en-GB">en-GB.mod_simplelists_items.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic" label="MOD_SIMPLELISTS_ITEMS_FIELDSET_BASIC">
+                <field name="category_id" type="category" extension="com_simplelists" default="0" label="MOD_SIMPLELISTS_ITEMS_FIELD_CATEGORY_ID" description="MOD_SIMPLELISTS_ITEMS_FIELD_CATEGORY_ID_DESC" />
+                <field name="count" type="text" default="5" label="MOD_SIMPLELISTS_ITEMS_FIELD_COUNT" description="MOD_SIMPLELISTS_ITEMS_FIELD_COUNT_DESC" />
+                <field name="ordering" type="list" default="latest" label="MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING" description="MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_DESC">
+                    <option value="order">MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_OPTION_ORDER</option>
+                    <option value="date">MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_OPTION_DATE</option>
+                    <option value="rdate">MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_OPTION_RDATE</option>
+                    <option value="alpha">MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_OPTION_ALPHA</option>
+                    <option value="ralpha">MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_OPTION_RALPHA</option>
+                    <option value="random">MOD_SIMPLELISTS_ITEMS_FIELD_ORDERING_OPTION_RANDOM</option>
+                </field>
+            </fieldset>
+            <fieldset name="items" label="SimpleLists Items">
+                <field name="show_title" type="list" default="1" label="Show title" description="Display the title for each item">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="show_text" type="list" default="0" label="Show text" description="Display the text for each item">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="show_image" type="list" default="0" label="Show image" description="Display the image for each item">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="image_align" type="list" default="left" label="Image alignment" description="How the text wraps around the image">
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                    <option value="none">None</option>
+                </field>
+                <field name="link_title" type="list" default="0" label="Link title" description="Link the title of each item">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="link_image" type="list" default="0" label="Link image" description="Link the image of each item">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+            </fieldset>
+            <fieldset name="layout" label="SimpleLists Layout">
+                <field name="show_readmore" type="list" default="0" label="Show Readmore" description="Show a readmore link below the items">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="readmore_text" type="text" default="More %s" label="Readmore Text" description="Read-more text. Use %s for the SimpleLists-category." />
+                <field name="style" type="list" default="default" label="Module Style" description="The style used by this module">
+                    <option value="default">Menu Layout</option>
+                    <option value="advanced">Advanced Layout</option>
+                </field>
+                <field name="layout" type="list" default="" label="Destination Layout" description="The layout used by the destination page">
+                    <option value="">-- Default --</option>
+                    <option value="basic">Basic Layout</option>
+                    <option value="default">Default Layout</option>
+                    <option value="hover">Hover Layout</option>
+                    <option value="picture">Picture Layout</option>
+                    <option value="table">Table Layout</option>
+                    <option value="toggle">Toggle Layout</option>
+                </field>
+                <field name="menu_id" type="menuitem" default="" label="Destination Menu Item" description="" />
+            </fieldset>
+            <fieldset name="advanced" label="Advanced Options">
+                <field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+                <field name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+                    <option value="1">Use global</option>
+                    <option value="0">No caching</option>
+                </field>
+                <field name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+            </fieldset>
+        </fields>
+    </config>
+
+    <updateservers>
+        <server type="extension" priority="1" name="mod_simplelists_items">http://www.yireo.com/updates/mod_simplelists_items.xml</server>
+    </updateservers>
+</extension>

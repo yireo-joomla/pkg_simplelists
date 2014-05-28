@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="simplelistslink" method="upgrade">
+    <name>PLG_SIMPLELISTSLINK_EASYBLOG</name>
+    <author>Yireo</author>
+    <creationDate>October 2013</creationDate>
+    <copyright>Copyright (C) 2013 Yireo.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>info@yireo.com</authorEmail>
+    <authorUrl>www.yireo.com</authorUrl>
+    <version>1.6.2</version>
+    <description>PLG_SIMPLELISTSLINK_EASYBLOG_DESC</description>
+
+    <files>
+        <filename plugin="easyblog">easyblog.php</filename>
+        <filename>index.html</filename>
+    </files>
+
+    <languages>
+        <language tag="en-GB">en-GB.plg_simplelistslink_easyblog.ini</language>
+        <language tag="en-GB">en-GB.plg_simplelistslink_easyblog.sys.ini</language>
+    </languages>
+
+    <updateservers>
+        <server type="extension" priority="1" name="plg_simplelistslink_easyblog">http://www.yireo.com/updates/plg_simplelistslink_easyblog.xml</server>
+    </updateservers>
+</extension>

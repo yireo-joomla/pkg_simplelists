@@ -1,0 +1,18 @@
+/**
+ * Joomla! component SimpleLists
+ *
+ * @author Yireo
+ * @copyright Copyright (C) 2014 Yireo
+ * @license GNU/GPL
+ * @link http://www.yireo.com/
+ */
+
+div.simplelists-pagenavigation ul {
+    list-style: none;
+}
+
+div.simplelists-pagenavigation ul li {
+    list-style: none;
+    float: left;
+}
+

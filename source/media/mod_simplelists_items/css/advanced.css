@@ -1,0 +1,12 @@
+div.mod_simplelists_items {
+    position: relative;
+}
+
+div.mod_simplelists_items div.simplelists-item {
+    clear:both;
+    width: 100%;
+}
+
+div.mod_simplelists_items div.simplelists-item:after {
+    clear:both;
+}
