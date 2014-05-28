@@ -112,7 +112,7 @@ class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
             $links = JHTML::_( 'menu.linkoptions' );
             return JHTML::_('select.genericlist', $links, 'link_menuitem', 'class="inputbox" size="1"', 'value', 'text', intval($current));
         } else {
-            $xmlFile = JPATH_SITE.'/plugins/simplelistslink/menuitem/form.xml';
+            $xmlFile = JPATH_SITE.'/plugins/simplelistslink/menuitem/form/form.xml';
             if(file_exists($xmlFile)) {
                 $form = JForm::getInstance('input', $xmlFile);
                 $form->bind(array('input' => array('link_menuitem' => $current)));

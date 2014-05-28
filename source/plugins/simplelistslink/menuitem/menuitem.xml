@@ -13,7 +13,7 @@
     <files>
         <filename plugin="menuitem">menuitem.php</filename>
         <filename>index.html</filename>
-        <filename>form.xml</filename>
+        <folder>form</folder>
     </files>
 
     <languages>
