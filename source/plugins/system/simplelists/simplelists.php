@@ -59,7 +59,9 @@ class plgSystemSimplelists extends JPlugin
         }
 
         // Skip this for non-Menu-Item pages
-        if(JRequest::getCmd('view') != 'item' && JRequest::getCmd('task') != 'apply') {
+        $allowedViews = array('view');
+        $allowedTasks = array('apply', 'item.apply', 'save', 'item.save');
+        if(!in_array(JRequest::getCmd('view'), $allowedViews) && !in_array(JRequest::getCmd('task'), $allowedTasks)) {
             return;
         }
 
