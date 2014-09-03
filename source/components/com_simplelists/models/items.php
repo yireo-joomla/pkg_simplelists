@@ -56,6 +56,44 @@ class SimplelistsModelItems extends YireoModel
     }
 
     /**
+     * Method to get data
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param null
+     * @return array
+     */
+    public function onDataLoadAfter($items)
+    {
+        $ordering = $this->params->get('orderby');
+        if($ordering == 'published') {
+            usort($items, 'SimplelistsModelItems::sortByPublishUp');
+        }
+
+        return $items;
+    }
+
+    /**
+     * Static method used for sorting data
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param object $item1
+     * @param object $item2
+     * @return int
+     */
+    static public function sortByPublishUp($item1, $item2)
+    {
+        $item1_date = @strtotime($item1->params->get('publish_up'));
+        $item2_date = @strtotime($item2->params->get('publish_up'));
+
+        if(empty($item1_date)) return -1;
+        if($item1_date > $item2_date) return 1;
+        if($item1_date < $item2_date) return -1;
+        return 0;
+    }
+
+    /**
      * Method to set the simplelist alias
      *
      * @access public
