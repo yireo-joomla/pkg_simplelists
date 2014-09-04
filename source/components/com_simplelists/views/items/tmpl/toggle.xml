@@ -15,6 +15,7 @@
 				<option value="ralpha">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RALPHA</option>
 				<option value="random">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RANDOM</option>
 				<option value="published">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_PUBLISHED</option>
+				<option value="rpublished">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RPUBLISHED</option>
 			</field>
 			<field name="disable_jumplabels" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_DISABLE_JUMPLABELS" description="COM_SIMPLELISTS_CONFIG_FIELD_DISABLE_JUMPLABELS_DESC">
 				<option value="0">JYES</option>

@@ -68,6 +68,9 @@ class SimplelistsModelItems extends YireoModel
         $ordering = $this->params->get('orderby');
         if($ordering == 'published') {
             usort($items, 'SimplelistsModelItems::sortByPublishUp');
+        } elseif($ordering == 'rpublished') {
+            usort($items, 'SimplelistsModelItems::sortByPublishUp');
+            $items = array_reverse($items);
         }
 
         return $items;

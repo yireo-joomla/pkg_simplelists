@@ -15,6 +15,7 @@
 				<option value="ralpha">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RALPHA</option>
 				<option value="random">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RANDOM</option>
 				<option value="published">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_PUBLISHED</option>
+				<option value="rpublished">COM_SIMPLELISTS_CONFIG_FIELD_ORDERING_OPTION_RPUBLISHED</option>
 			</field>
 		</fieldset>
 		<fieldset name="layout" label="COM_SIMPLELISTS_CONFIG_FIELDSET_LAYOUT">
