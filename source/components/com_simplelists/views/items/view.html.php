@@ -195,14 +195,18 @@ class SimplelistsViewItems extends YireoView
         }
 
         // Prepare the category URL
-        if( $params->get('show_category_parent') && !empty( $category->parent)) {
-            $needles = array('category_id' => $category->parent->id);
-            if(isset($category->parent->alias)) $needles['category_alias'] = $category->parent->alias;
-            $category->parent->link = SimplelistsHelper::getUrl($needles);
+        if ($params->get('show_category_parent') && !empty($category->parent)) {
+            if($category->parent->id > 1) {
+                $needles = array('category_id' => $category->parent->id);
+                if(isset($category->parent->alias)) $needles['category_alias'] = $category->parent->alias;
+                $category->parent->link = SimplelistsHelper::getUrl($needles);
+            } else {
+                $category->parent = null;
+            }
         }
 
         // Loop through the child-categories
-        if( $params->get('show_category_childs') && !empty( $category->childs )) {
+        if ($params->get('show_category_childs') && !empty( $category->childs )) {
             foreach( $category->childs as $child ) {
                 $child->params = YireoHelper::toParameter($child->params);
                 $child_layout = $child->params->get('layout', $layout);
@@ -518,7 +522,7 @@ class SimplelistsViewItems extends YireoView
         $application = JFactory::getApplication();
         $pathway = $application->getPathway();
 
-        if($category->parent_id > 0) {
+        if($category->parent_id > 1) {
             $pathway->addItem($category->title);
             $parent = SimplelistsHelper::getCategory($category->parent_id);
             $this->addPathway($parent);
