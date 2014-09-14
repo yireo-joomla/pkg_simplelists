@@ -6,4 +6,23 @@
             </field>
         </fieldset>
     </fields>
+    <fields name="params">
+        <fieldset name="basic">
+            <field name="show_category_title" type="list" default="" label="Category Title" description="PARAM CATEGORY TITLE">
+                <option value="">Use global</option>
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="show_category_description" type="list" default="" label="Category Description" description="PARAM CATEGORY DESCRIPTION">
+                <option value="">Use global</option>
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+            <field name="show_category_image" type="list" default="" label="Category Image" description="PARAM CATEGORY IMAGE">
+                <option value="">Use global</option>
+                <option value="0">Hide</option>
+                <option value="1">Show</option>
+            </field>
+        </fieldset>
+    </fields>
 </form>
