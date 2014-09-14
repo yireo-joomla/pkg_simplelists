@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
         <?php echo $this->category->image; ?>
         <?php endif;?>
         <?php if( $this->params->get('show_category_description') ) : ?>
-        <span id="simplelists-description"><?php echo $this->category->description ?></span>
+        <div class="simplelists-description"><?php echo $this->category->description ?></div>
         <?php endif; ?>
     </div>
 <?php endif; ?>
