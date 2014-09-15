@@ -53,15 +53,25 @@ class plgSystemSimplelists extends JPlugin
             return;
         }
 
+        // Modify the form for Menu-Items
+        $this->modifyMenuItemForm($form, $data);
+
+        // Modify the form for Menu-Items
+        $this->modifyCategoryForm($form, $data);
+
+        return true;
+    }
+
+    public function modifyMenuItemForm($form, $data)
+    {
         // Skip this for non-Menu-Item pages
         if(JRequest::getCmd('option') != 'com_menus') { 
             return;
         }
 
         // Skip this for non-Menu-Item pages
-        $allowedViews = array('view');
         $allowedTasks = array('apply', 'item.apply', 'save', 'item.save');
-        if(!in_array(JRequest::getCmd('view'), $allowedViews) && !in_array(JRequest::getCmd('task'), $allowedTasks)) {
+        if(JRequest::getCmd('view') != 'item' && !in_array(JRequest::getCmd('task'), $allowedTasks)) {
             return;
         }
 
@@ -80,6 +90,34 @@ class plgSystemSimplelists extends JPlugin
         // Allow for additional plugins to change the form
         JPluginHelper::importPlugin('simplelistscontent');
         JFactory::getApplication()->triggerEvent('onSimpleListsContentPrepareForm', array(&$form, $data));
+
+        return true;
+    }
+
+    public function modifyCategoryForm($form, $data)
+    {
+        // Skip this for non-category pages
+        if(JRequest::getCmd('option') != 'com_categories') { 
+            return;
+        }
+
+        // Skip this for non-category pages
+        $allowedTasks = array('apply', 'category.apply', 'save', 'category.save');
+        if(JRequest::getCmd('view') != 'category' && !in_array(JRequest::getCmd('task'), $allowedTasks)) {
+            return;
+        }
+
+        // Make sure this only works for SimpleLists Items Menu-Items
+        if (is_array($data)) $data = (object)$data;
+        if (!isset($data->link) || strstr($data->link, 'index.php?option=com_simplelists&view=items') == false) {
+            //return;
+        }
+        
+        // Add the plugin-form to main form
+        $formFile = dirname(__FILE__).'/form/category.xml';
+        if(file_exists($formFile)) {
+            $form->loadFile($formFile, false);
+        }
 
         return true;
     }
