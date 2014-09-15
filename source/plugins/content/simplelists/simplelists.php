@@ -88,15 +88,16 @@ class plgContentSimplelists extends JPlugin
     }
 
     /**
-     * Event onPrepareContent
+     * Event onContentPrepare
      * 
      * @access public
-     * @param object $row
+     * @param string $context
+     * @param object $item
      * @param JParameter $params
      * @param mixed $page
      * @return null
      */
-	public function onPrepareContent( &$row, &$params, $limitstart )
+    public function onContentPrepare($context, &$item, $params, $page)
 	{
         // Only run this plugin in the frontend
         $application = JFactory::getApplication();
@@ -104,7 +105,7 @@ class plgContentSimplelists extends JPlugin
         if(!class_exists('YireoHelper')) return;
 
         // Check for a {simplelists *} tag
-        if(preg_match_all('/{simplelists([^}]+)}/', $row->text, $tags)) {
+        if(preg_match_all('/{simplelists([^}]+)}/', $item->text, $tags)) {
 
             foreach($tags[1] as $tagindex => $tag) {
 
@@ -122,27 +123,13 @@ class plgContentSimplelists extends JPlugin
                     $content = $this->getSimpleLists($arguments);
                 }
 
-                // Replace the tag in the article content
-                $row->text = str_replace($tags[0][$tagindex], $content, $row->text);
+                // Replace the tag in the item content
+                $item->text = str_replace($tags[0][$tagindex], $content, $item->text);
+                $item->fulltext = str_replace($tags[0][$tagindex], $content, $item->fulltext);
+                $item->introtext = str_replace($tags[0][$tagindex], $content, $item->introtext);
             }
-
         }
 
-        return;
+        return true;
 	}
-
-    /**
-     * Joomla! 1.6 alias
-     * 
-     * @access public
-     * @param string $content
-     * @param object $article
-     * @param JParameter $params
-     * @param mixed $limitstart
-     * @return null
-     */
-    public function onContentPrepare($content, &$article, &$params, $limitstart)
-    {
-        $this->onPrepareContent($article, $params, $limitstart);
-    }
 }
