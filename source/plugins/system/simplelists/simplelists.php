@@ -82,7 +82,7 @@ class plgSystemSimplelists extends JPlugin
         }
         
         // Add the plugin-form to main form
-        $formFile = dirname(__FILE__).'/form/form.xml';
+        $formFile = dirname(__FILE__).'/form/menuitem.xml';
         if(file_exists($formFile)) {
             $form->loadFile($formFile, false);
         }
@@ -101,18 +101,17 @@ class plgSystemSimplelists extends JPlugin
             return;
         }
 
+        // Skip this for non-SL pages
+        if(JRequest::getCmd('extension') != 'com_simplelists') { 
+            return;
+        }
+
         // Skip this for non-category pages
         $allowedTasks = array('apply', 'category.apply', 'save', 'category.save');
         if(JRequest::getCmd('view') != 'category' && !in_array(JRequest::getCmd('task'), $allowedTasks)) {
             return;
         }
 
-        // Make sure this only works for SimpleLists Items Menu-Items
-        if (is_array($data)) $data = (object)$data;
-        if (!isset($data->link) || strstr($data->link, 'index.php?option=com_simplelists&view=items') == false) {
-            //return;
-        }
-        
         // Add the plugin-form to main form
         $formFile = dirname(__FILE__).'/form/category.xml';
         if(file_exists($formFile)) {

@@ -92,6 +92,11 @@
                 <field name="menu_id" type="menuitem" default="" label="Destination Menu Item" description="" />
             </fieldset>
             <fieldset name="advanced" label="Advanced Options">
+                <field
+                    name="layout"
+                    type="modulelayout"
+                    label="JFIELD_ALT_LAYOUT_LABEL"
+                    description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
                 <field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
                 <field name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
                     <option value="1">Use global</option>

@@ -45,5 +45,5 @@ if($params->get('show_readmore')) {
 }
 
 // Display the output
-if(empty($style)) $style = 'default';
+if(empty($style)) $style = $params->get('layout', 'default');
 require JModuleHelper::getLayoutPath('mod_simplelists_items', $style);
