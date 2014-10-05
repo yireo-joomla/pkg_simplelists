@@ -181,7 +181,7 @@ class SimplelistsViewItems extends YireoView
 
         // Convert the parameters to an object
         $category->params = YireoHelper::toParameter($category->params);
-        $params = $this->params;
+        $params = clone($this->params);
 
         // Override the default parameters with the category parameters
         foreach($category->params->toArray() as $name => $value) {
@@ -252,7 +252,7 @@ class SimplelistsViewItems extends YireoView
     {
         $user = JFactory::getUser();
         $dispatcher = JDispatcher::getInstance();
-        $params = $this->params;
+        $params = clone($this->params);
 
         // Initialize the parameters
         if( $item->params ) {
