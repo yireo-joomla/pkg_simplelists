@@ -56,8 +56,14 @@ class SimplelistsModelItem extends YireoModel
                 $data->categories = array($filter);
             }
         }
-         
+
+        // Allow third party plugins to change the form
+        JPluginHelper::importPlugin('simplelistscontent');
+        JFactory::getApplication()->triggerEvent('onSimplelistsItemPrepareForm', array(&$form, &$data));
+
+        // Bind the form data
         $form->bind(array('item' => $data));
+
         return $form;
     }
 

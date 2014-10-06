@@ -4,9 +4,9 @@
     <author>Yireo</author>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>http://www.yireo.com/</authorUrl>
-    <creationDate>May 2014</creationDate>
+    <creationDate>October 2014</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.4</version>
+    <version>1.6.5</version>
     <description>MOD_SIMPLELISTS_ITEMS_DESC</description>
 
     <files folder="site">

@@ -11,9 +11,9 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); ?>
 <div class="mod_simplelists_items">
-<?php if(!empty($list)) : ?>
+<?php if(!empty($items)) : ?>
     <ul class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
-    <?php foreach ($list as $item) : ?>
+    <?php foreach ($items as $item) : ?>
 	    <li class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
             <a href="<?php echo $item->link; ?>" class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>"><?php echo $item->title; ?></a>
     	</li>

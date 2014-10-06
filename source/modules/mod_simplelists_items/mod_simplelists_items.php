@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 require_once (dirname(__FILE__).'/helper.php');
 
 // Fetch the category and the list of items
-$list = modSimpleListsItemsHelper::getList($params);
+$items = modSimpleListsItemsHelper::getItems($params);
 $category = modSimpleListsItemsHelper::getCategory($params);
 
 // Determine the right module-style

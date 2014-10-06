@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('Restricted access'); ?>
 <div class="mod_simplelists_items">
 <div class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
-<?php foreach ($list as $item) : ?>
+<?php foreach ($items as $item) : ?>
 	<div class="simplelists-item">
 
         <?php if($params->get('show_image') && $params->get('link_image')) : ?>

@@ -4,7 +4,7 @@
  *
  * @author Yireo (info@yireo.com)
  * @package SimpleLists
- * @copyright Copyright 2013
+ * @copyright Copyright 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -23,25 +23,6 @@ include_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/loader.php';
  */
 class plgContentSimplelists extends JPlugin
 {
-    /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        if(YireoHelper::isJoomla15() == false) {
-            return $this->params;
-        } else {
-            jimport('joomla.html.parameter');
-            $plugin = JPluginHelper::getPlugin('content', 'simplelists');
-            $params = new JParameter($plugin->params);
-            return $params;
-        }
-    }
-
     /**
      * Construct a SimpleLists output
      * 

@@ -65,12 +65,32 @@ class SimplelistsModelItems extends YireoModel
      */
     public function onDataLoadAfter($items)
     {
+        // Remove unwanted items
+        foreach ($items as $index => $item)
+        {
+            $event_date_from = $item->params->get('event_date_from');
+            if (!empty($event_date_from) && strtotime($event_date_from) < time())
+            {
+                unset($items[$index]);
+                continue;
+            }
+        }
+
         $ordering = $this->params->get('orderby');
-        if($ordering == 'published') {
+        if ($ordering == 'published')
+        {
             usort($items, 'SimplelistsModelItems::sortByPublishUp');
-        } elseif($ordering == 'rpublished') {
+
+        }
+        elseif ($ordering == 'rpublished')
+        {
             usort($items, 'SimplelistsModelItems::sortByPublishUp');
             $items = array_reverse($items);
+
+        }
+        elseif ($ordering == 'event')
+        {
+            usort($items, 'SimplelistsModelItems::sortByEventDateFrom');
         }
 
         return $items;
@@ -89,6 +109,26 @@ class SimplelistsModelItems extends YireoModel
     {
         $item1_date = @strtotime($item1->params->get('publish_up'));
         $item2_date = @strtotime($item2->params->get('publish_up'));
+
+        if(empty($item1_date)) return -1;
+        if($item1_date > $item2_date) return 1;
+        if($item1_date < $item2_date) return -1;
+        return 0;
+    }
+
+    /**
+     * Static method used for sorting data by event_date_from
+     *
+     * @access public
+     * @subpackage Yireo
+     * @param object $item1
+     * @param object $item2
+     * @return int
+     */
+    static public function sortByEventDateFrom($item1, $item2)
+    {
+        $item1_date = @strtotime($item1->params->get('event_date_from'));
+        $item2_date = @strtotime($item2->params->get('event_date_from'));
 
         if(empty($item1_date)) return -1;
         if($item1_date > $item2_date) return 1;
