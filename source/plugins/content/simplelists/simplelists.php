@@ -58,6 +58,12 @@ class plgContentSimplelists extends JPlugin
         $view->addTemplatePath($component_path.'views/items/tmpl');
         $view->setModel($model, true);
 
+       // Merge the category parameters
+        $category = $model->getCategory();
+        if(isset($category->params)) {
+            $view->params->merge(YireoHelper::toRegistry($category->params));
+        }
+
         // Prepare and load the view
         $view->params->set('show_category_title', 0);
         $view->params->set('load_css', 0);
