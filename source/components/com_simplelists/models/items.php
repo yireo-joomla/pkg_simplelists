@@ -69,7 +69,14 @@ class SimplelistsModelItems extends YireoModel
         foreach ($items as $index => $item)
         {
             $event_date_from = $item->params->get('event_date_from');
-            if (!empty($event_date_from) && strtotime($event_date_from) < time())
+            $event_date_to = $item->params->get('event_date_to');
+
+            if (!empty($event_date_to) && strtotime($event_date_to) + (60*60*24) < time())
+            {
+                unset($items[$index]);
+                continue;
+            }
+            elseif (empty($event_date_to) && !empty($event_date_from) && strtotime($event_date_from) + (60*60*24) < time())
             {
                 unset($items[$index]);
                 continue;
