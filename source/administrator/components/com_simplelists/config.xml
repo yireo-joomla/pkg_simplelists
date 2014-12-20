@@ -1,62 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
     <fieldset name="category" label="COM_SIMPLELISTS_CONFIG_FIELDSET_CATEGORY">
-        <field name="show_category_title" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_TITLE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_TITLE_DESC">
+        <field name="show_category_title" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_TITLE"
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_TITLE_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
-        <field name="show_category_description" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION_DESC">
+        <field name="show_category_description" type="radio" default="1" class="btn-group" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
-        <field name="show_category_image" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_IMAGE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_IMAGE_DESC">
+        <field name="show_category_image" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_IMAGE" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_CATEGORY_IMAGE_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
     </fieldset>
     <fieldset name="item-basic" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ITEM_BASIC">
-        <field name="show_item_title" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TITLE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TITLE_DESC">
+        <field name="show_item_title" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TITLE" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TITLE_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
-        <field name="show_item_text" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TEXT" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TEXT_DESC">
+        <field name="show_item_text" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TEXT" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_TEXT_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
-        <field name="show_item_image" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_IMAGE" description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_IMAGE_DESC">
+        <field name="show_item_image" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_IMAGE" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SHOW_ITEM_IMAGE_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
-        <field name="title_link" type="radio" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_TITLE_LINK" description="COM_SIMPLELISTS_CONFIG_FIELD_TITLE_LINK_DESC">
+        <field name="title_link" type="radio" default="0" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_TITLE_LINK" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_TITLE_LINK_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
-        <field name="image_link" type="radio" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_IMAGE_LINK" description="COM_SIMPLELISTS_CONFIG_FIELD_IMAGE_LINK_DESC">
+        <field name="image_link" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_IMAGE_LINK" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_IMAGE_LINK_DESC">
             <option value="0">JHIDE</option>
             <option value="1">JSHOW</option>
         </field>
     </fieldset>
     <fieldset name="item-readmore" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ITEM_READMORE">
-		<field name="readmore" type="radio" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE" description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_DESC">
+		<field name="readmore" type="radio" default="0" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_DESC">
 			<option value="0">JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>
-		<field name="readmore_text" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_TEXT" description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_TEXT_DESC"/>
-		<field name="readmore_class" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_CLASS" description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_CLASS_DESC"/>
+		<field name="readmore_text" type="text" default="" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_TEXT" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_TEXT_DESC"/>
+		<field name="readmore_class" type="text" default="" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_CLASS" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_READMORE_CLASS_DESC"/>
     </fieldset>
     <fieldset name="item-other" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ITEM_OTHER">
-		<field name="link_class" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_CLASS" description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_CLASS_DESC" />
-		<field name="link_rel" type="text" default="" label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_REL" description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_REL_DESC" />
-        <field name="link_show" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_SHOW" description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_SHOW_DESC">
+		<field name="link_class" type="text" default="" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_CLASS" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_CLASS_DESC" />
+		<field name="link_rel" type="text" default="" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_REL" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_REL_DESC" />
+        <field name="link_show" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_LINK_SHOW" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_LINK_SHOW_DESC">
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
-		<field name="target" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_TARGET" description="COM_SIMPLELISTS_CONFIG_FIELD_TARGET_DESC">
+		<field name="target" type="list" default="0" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_TARGET" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_TARGET_DESC">
 			<option value="0">COM_SIMPLELISTS_CONFIG_FIELD_TARGET_OPTION_0</option>
 			<option value="1">COM_SIMPLELISTS_CONFIG_FIELD_TARGET_OPTION_1</option>
 			<option value="2">COM_SIMPLELISTS_CONFIG_FIELD_TARGET_OPTION_2</option>
 		</field>
-		<field name="picture_alignment" type="list" default="left" label="COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT" description="COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_DESC">
+		<field name="picture_alignment" type="list" default="left" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_DESC">
 			<option value="">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_NONE</option>
 			<option value="left">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_LEFT</option>
 			<option value="right">COM_SIMPLELISTS_CONFIG_FIELD_PICTURE_ALIGNMENT_OPTION_RIGHT</option>
@@ -64,25 +96,36 @@
 		</field>
     </fieldset>
     <fieldset name="advanced" label="COM_SIMPLELISTS_CONFIG_FIELDSET_ADVANCED">
-		<field name="sef_url" type="list" default="alias" label="COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL" description="COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_DESC">
+		<field name="sef_url" type="list" default="alias" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_DESC">
 			<option value="alias">COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_OPTION_ALIAS</option>
 			<option value="slug">COM_SIMPLELISTS_CONFIG_FIELD_SEF_URL_OPTION_SLUG</option>
 		</field>
-		<field name="use_parent_url" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_USE_PARENT_URL" description="COM_SIMPLELISTS_CONFIG_FIELD_USE_PARENT_URL_DESC">
+		<field name="use_parent_url" type="radio" default="0" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_USE_PARENT_URL" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_USE_PARENT_URL_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="auto_ordering" type="list" default="1" label="COM_SIMPLELISTS_CONFIG_FIELD_AUTO_ORDERING" description="COM_SIMPLELISTS_CONFIG_FIELD_AUTO_ORDERING_DESC">
+		<field name="auto_ordering" type="radio" default="1" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_AUTO_ORDERING" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_AUTO_ORDERING_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
-		<field name="thumbs_limit" type="text" default="524288" label="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT" description="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT_DESC"/>
-		<field name="debug" type="list" default="0" label="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG" description="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG_DESC">
+		<field name="thumbs_limit" type="text" default="524288" 
+            label="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_THUMBS_LIMIT_DESC"/>
+		<field name="debug" type="radio" default="0" class="btn-group"
+            label="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG" 
+            description="COM_SIMPLELISTS_CONFIG_FIELD_DEBUG_DESC">
 			<option value="0">JNO</option>
 			<option value="1">JYES</option>
 		</field>
     </fieldset>
 	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC" label="JCONFIG_PERMISSIONS_LABEL">
-		<field name="rules" type="rules" component="com_simplelists" filter="rules" validate="rules" label="JCONFIG_PERMISSIONS_LABEL" section="component" />
+		<field name="rules" type="rules" component="com_simplelists" filter="rules" validate="rules" 
+            label="JCONFIG_PERMISSIONS_LABEL" section="component" />
 	</fieldset>
 </config>
