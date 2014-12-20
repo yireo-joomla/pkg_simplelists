@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2013
+ * @copyright Copyright 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -20,26 +20,6 @@ require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.ph
  */ 
 class plgSimpleListsLinkImage extends SimplelistsPluginLink
 {
-    /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */ 
-    private function getParams()
-    {   
-        jimport('joomla.version');
-        $version = new JVersion();
-        if(version_compare($version->RELEASE, '1.5', 'eq')) {
-            $plugin = JPluginHelper::getPlugin('simplelistslink', 'image');
-            $params = new JParameter($plugin->params);
-            return $params;
-        } else {
-            return $this->params;
-        }
-    }
-
     /*
      * Method to get the title for this plugin 
      *  
@@ -73,7 +53,7 @@ class plgSimpleListsLinkImage extends SimplelistsPluginLink
      */
     public function getInput($current = null) 
     {
-        if(YireoHelper::isJoomla25() || YireoHelper::isJoomla15()) {
+        if(YireoHelper::isJoomla25()) {
             $link = 'index.php?option=com_simplelists&amp;view=files&amp;tmpl=component&amp;type=link_image';
             if($current!=null) $link .= '&amp;folder=/'.dirname($current);
         } else {

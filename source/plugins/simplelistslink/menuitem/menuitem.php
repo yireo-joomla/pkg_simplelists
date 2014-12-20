@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2013
+ * @copyright Copyright 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -20,26 +20,6 @@ require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.ph
  */
 class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
 {
-    /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        jimport('joomla.version');
-        $version = new JVersion();
-        if(version_compare($version->RELEASE, '1.5', 'eq')) {
-            $plugin = JPluginHelper::getPlugin('simplelistslink', 'menuitem');
-            $params = new JParameter($plugin->params);
-            return $params;
-        } else {
-            return $this->params;
-        }
-    }
-
     /*
      * Method to get the title for this plugin 
      *  
@@ -61,7 +41,7 @@ class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
      */
     public function getName($link = null) 
     {
-        if(YireoHelper::isJoomla15() && YireoHelper::isJoomla25()) {
+        if(YireoHelper::isJoomla25()) {
             $query = "SELECT `name` FROM #__menu WHERE `id`=".(int)$link;
         } else {
             $query = "SELECT `title` FROM #__menu WHERE `id`=".(int)$link;
@@ -108,17 +88,12 @@ class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
      */
     public function getInput($current = null) 
     {
-        if(YireoHelper::isJoomla15()) {
-            $links = JHTML::_( 'menu.linkoptions' );
-            return JHTML::_('select.genericlist', $links, 'link_menuitem', 'class="inputbox" size="1"', 'value', 'text', intval($current));
-        } else {
-            $xmlFile = JPATH_SITE.'/plugins/simplelistslink/menuitem/form/form.xml';
-            if(file_exists($xmlFile)) {
-                $form = JForm::getInstance('input', $xmlFile);
-                $form->bind(array('input' => array('link_menuitem' => $current)));
-                foreach($form->getFieldset('input') as $field) {
-                    echo $field->input; 
-                }
+        $xmlFile = JPATH_SITE.'/plugins/simplelistslink/menuitem/form/form.xml';
+        if(file_exists($xmlFile)) {
+            $form = JForm::getInstance('input', $xmlFile);
+            $form->bind(array('input' => array('link_menuitem' => $current)));
+            foreach($form->getFieldset('input') as $field) {
+                echo $field->input; 
             }
         }
     }

@@ -3,7 +3,7 @@
  * Joomla! search plugin for Simple Lists
  *
  * @author Yireo
- * @copyright Copyright (C) 2013 Yireo
+ * @copyright Copyright (C) 2014 Yireo
  * @license GNU/GPL
  * @link http://www.yireo.com/
  */
@@ -65,7 +65,7 @@ class plgSearchSimpleLists extends JPlugin
         }
 
         // Perform the search
-        $limit = $this->getParams()->get('search_limit', 50);
+        $limit = $this->params->get('search_limit', 50);
         $list = SimplelistsHelperSearch::search($text, $phrase, $ordering, $limit);
 
         // Loop through the search-results, and optimize the results
@@ -93,26 +93,5 @@ class plgSearchSimpleLists extends JPlugin
         }
 
         return $results;
-    }
-
-    /**
-     * Load the parameters
-     *
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        JLoader::import( 'joomla.version' );
-        $jversion = new JVersion();
-        if(version_compare( $jversion->RELEASE, '1.5', 'eq') == false) {
-            return $this->params;
-        } else {
-            jimport('joomla.html.parameter');
-            $plugin = JPluginHelper::getPlugin('search', 'simplelists');
-            $params = new JParameter($plugin->params);
-            return $params;
-        }
     }
 }

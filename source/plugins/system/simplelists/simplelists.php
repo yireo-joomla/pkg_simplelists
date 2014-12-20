@@ -21,18 +21,6 @@ jimport( 'joomla.plugin.plugin' );
 class plgSystemSimplelists extends JPlugin
 {
     /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
      * Plugin event when this form is being prepared
      *
      * @param JForm $form

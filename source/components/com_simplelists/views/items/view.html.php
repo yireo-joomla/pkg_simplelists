@@ -77,7 +77,7 @@ class SimplelistsViewItems extends YireoView
             $totop = null;
 
             if( $this->params->get('totop_image') && is_file( JPATH_SITE.'/images/simplelists/'.$this->params->get('totop_image'))) {
-                $totop_image = JHTML::image( 'images/simplelists/'.$this->params->get('totop_image'), $totop_text );
+                $totop_image = SimplelistsHTML::image('images/simplelists/'.$this->params->get('totop_image'), $totop_text);
                 $totop_image = JHTML::link( $url.'#top', $totop_image, 'class="totop"' );
                 $totop .= $totop_image ;
             }
@@ -233,7 +233,7 @@ class SimplelistsViewItems extends YireoView
             if(file_exists(JPATH_SITE.'/images/stories/'.$category->image)) {
                 $category->image = 'images/stories/'.$category->image;
             }
-            $category->image = JHTML::image($category->image, $category->title, array( 'align' => $category->image_position));
+            $category->picture = SimplelistsHTML::image($category->picture, $category->title);
         } else {
             $params->set('show_category_image', 0);
         }

@@ -146,7 +146,7 @@ class modSimpleListsItemsHelper
                         $size = getimagesize($image_file);
                         $attributes .= 'width="'.$size[0].'" height="'.$size[1].'"';
                     }
-                    $item->picture = JHTML::image( $item->picture, $item->title, $attributes );
+                    $item->picture = SimplelistsHTML::image($item->picture, $item->title, $attributes);
                 } else {
                     $item->picture = null;
                 }

@@ -71,7 +71,7 @@ class SimplelistsViewSimplelist extends JView
 
         // prepare the category image
         if( $params->get('show_category_image') && $category->image ) {
-            $category->image = JHTML::image( 'images/simplelists/'.$category->image, $category->title, array( 'align' => $category->image_position));
+            $category->image = SimplelistsHTML::image('images/simplelists/'.$category->image, $category->title, array( 'align' => $category->image_position));
         } else {
             $params->set('show_category_image', 0);
         }

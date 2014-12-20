@@ -4,7 +4,7 @@
  *
  * @author Yireo (info@yireo.com)
  * @package SimpleLists
- * @copyright Copyright 2013
+ * @copyright Copyright 2014
  * @license GNU Public License
  * @link http://www.yireo.com
  */
@@ -20,26 +20,6 @@ require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.ph
  */
 class plgSimpleListsLinkArticle extends SimplelistsPluginLink
 {
-    /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        jimport('joomla.version');
-        $version = new JVersion();
-        if(version_compare($version->RELEASE, '1.5', 'eq')) {
-            $plugin = JPluginHelper::getPlugin('simplelistslink', 'article');
-            $params = new JParameter($plugin->params);
-            return $params;
-        } else {
-            return $this->params;
-        }
-    }
-
     /*
      * Method to get the title for this plugin 
      *  
@@ -87,29 +67,17 @@ class plgSimpleListsLinkArticle extends SimplelistsPluginLink
 
         if(!strstr($url,'Itemid=')) {
 
-            if(YireoHelper::isJoomla15()) {
-                $query = "SELECT a.*, c.alias AS catalias, s.alias AS sectionalias FROM #__content AS a "
-                    . " LEFT JOIN #__categories AS c ON c.id = a.catid "
-                    . " LEFT JOIN #__sections AS s ON s.id = a.sectionid "
-                    . " WHERE a.`id`=".(int)$link
-                ;
-            } else {
-                $query = "SELECT a.*, c.alias AS catalias FROM #__content AS a "
-                    . " LEFT JOIN #__categories AS c ON c.id = a.catid "
-                    . " WHERE a.`id`=".(int)$link
-                ;
-            }
+            $query = "SELECT a.*, c.alias AS catalias FROM #__content AS a "
+                . " LEFT JOIN #__categories AS c ON c.id = a.catid "
+                . " WHERE a.`id`=".(int)$link
+            ;
 
             $db = JFactory::getDBO();
             $db->setQuery( $query );
             $article = $db->loadObject();
 
             if(!empty($article)) {
-                if(YireoHelper::isJoomla15()) {
-                    $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias, $article->sectionid.':'.$article->sectionalias );
-                } else {
-                    $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias);
-                }
+                $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias);
             }
         }
 
@@ -129,11 +97,7 @@ class plgSimpleListsLinkArticle extends SimplelistsPluginLink
      */
     public function getInput($current = null) 
     {
-        if(YireoHelper::isJoomla15()) {
-            $modal_link = 'index.php?option=com_content&amp;task=element&amp;tmpl=component';
-        } else {
-            $modal_link = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;function=slSelectArticle';
-        }
+        $modal_link = 'index.php?option=com_content&amp;view=articles&amp;layout=modal&amp;tmpl=component&amp;function=slSelectArticle';
         return $this->getModal('article', $modal_link, $current);
     }
 }

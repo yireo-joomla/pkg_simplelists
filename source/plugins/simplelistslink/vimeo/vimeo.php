@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2013
+ * @copyright Copyright 2014
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -20,26 +20,6 @@ require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.ph
  */
 class plgSimpleListsLinkVimeo extends SimplelistsPluginLink
 {
-    /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        jimport('joomla.version');
-        $version = new JVersion();
-        if(version_compare($version->RELEASE, '1.5', 'eq')) {
-            $plugin = JPluginHelper::getPlugin('simplelistslink', 'vimeo');
-            $params = new JParameter($plugin->params);
-            return $params;
-        } else {
-            return $this->params;
-        }
-    }
-
     /*
      * Method to get the title for this plugin 
      *  

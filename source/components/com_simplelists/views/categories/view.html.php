@@ -81,7 +81,7 @@ class SimplelistsViewCategories extends YireoView
 
         // prepare the image
         if ($this->params->get('show_category_image') && !empty( $parent->image )) {
-            $parent->image = JHTML::image( $parent->image, $parent->title, 'title="'.$parent->title.'" class="simplelists" align="'.$parent->image_position.'"');
+            $parent->image = SimplelistsHTML::image($parent->image, $parent->title, 'title="'.$parent->title.'" class="simplelists" align="'.$parent->image_position.'"');
         } else {
             $parent->image = null ;
         }

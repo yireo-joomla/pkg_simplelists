@@ -20,26 +20,6 @@ require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/lib/plugin/link.ph
  */
 class plgSimpleListsLinkCBProfile extends SimplelistsPluginLink
 {
-    /**
-     * Load the parameters
-     * 
-     * @access private
-     * @param null
-     * @return JParameter
-     */
-    private function getParams()
-    {
-        jimport('joomla.version');
-        $version = new JVersion();
-        if(version_compare($version->RELEASE, '1.5', 'eq')) {
-            $plugin = JPluginHelper::getPlugin('simplelistslink', 'cbprofile');
-            $params = new JParameter($plugin->params);
-            return $params;
-        } else {
-            return $this->params;
-        }
-    }
-
     /*
      * Method to check whether this plugin can be used or not
      *

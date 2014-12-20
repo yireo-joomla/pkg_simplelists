@@ -43,8 +43,7 @@ class SimplelistsHTML
         // Add a prefix to the category-title depending on the category-level
         foreach( $categories as $cid => $category ) {
 
-
-            // Add a fake-level (j15 compat)
+            // Add a fake-level if needed
             if(!isset($category->level)) $category->level = 1;
 
             // Add a simple prefix to the category name
