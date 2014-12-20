@@ -569,16 +569,34 @@ class YireoModel extends YireoCommonModel
                             $key = $this->getPrimaryKey();
                             $id = $item->$key;
 
-                            // Asset data
-                            $option = str_replace('com_', '#__', $this->_option);
-                            $view = JRequest::getCmd('view');
+                            // Determine the owner
+                            $owner = 0;
+                            if(!empty($item->created_by)) {
+                                $owner = (int)$item->created_by;
+                            } elseif(!empty($item->modified_by)) {
+                                $owner = (int)$item->modified_by;
+                            } elseif(!empty($item->owned_by)) {
+                                $owner = (int)$item->owned_by;
+                            }
 
-                            // Construct the ACL-data
-                            $action = ($id > 0) ? 'core.manage' : 'core.create';
-                            $itemAsset = ($id > 0) ? $option.'_'.$view.'.'.$id : $option;
+                            if($owner == 0) {
+                                $owner = $this->user->id;
+                            }
 
-                            // Check
-                            if ($this->user->authorise($action, $itemAsset) == false) {
+                            // Get the ACL rules
+                            $canEdit = $this->user->authorise('core.edit', $this->_option);
+                            $canEditOwn = $this->user->authorise('core.edit.own', $this->_option);
+
+                            // Determine authorisation
+                            $authorise = false;
+                            if($canEdit) {
+                                $authorise = true;
+                            } elseif($canEditOwn && $owner == $this->user->id) {
+                                $authorise = true;
+                            }
+
+                            // Authorise
+                            if ($authorise == false) {
                                 unset($data[$index]);
                                 continue;
                             }
