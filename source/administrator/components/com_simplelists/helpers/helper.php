@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright (C) 2014 Yireo.com
+ * @copyright Copyright 2015 Yireo.com
  * @license GNU General Public License
  * @link http://www.yireo.com/
  */

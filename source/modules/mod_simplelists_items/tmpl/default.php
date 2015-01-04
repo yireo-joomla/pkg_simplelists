@@ -3,7 +3,7 @@
  * Joomla! module SimpleLists Items
  *
  * @author Yireo
- * @copyright Copyright 2012
+ * @copyright Copyright 2015
  * @license GNU Public License
  * @link https://www.yireo.com/
  */

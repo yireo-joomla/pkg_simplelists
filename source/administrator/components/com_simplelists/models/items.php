@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright (C) 2014
+ * @copyright Copyright 2015
  * @license GNU Public License
  * @link http://www.yireo.com/
  */
@@ -27,7 +27,7 @@ class SimplelistsModelItems extends YireoModel
     public function __construct()
     {
         $this->_search = array('title');
-        $this->_debug = true;
+        //$this->_debug = true;
         $this->_tbl_prefix_auto = true;
         parent::__construct('item');
     }
