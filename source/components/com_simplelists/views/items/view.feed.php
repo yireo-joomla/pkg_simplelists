@@ -25,10 +25,10 @@ class SimplelistsViewItems extends YireoView
     public function display($tpl = null)
     {
         // Fetch the document and set the current URL as feed-point
-        $document =& JFactory::getDocument();
+        $document = JFactory::getDocument();
 
         // Load the model
-        $model =& $this->getModel();
+        $model = $this->getModel();
 
         // Get the category from our model
         $category = $model->getCategory() ;
@@ -40,7 +40,7 @@ class SimplelistsViewItems extends YireoView
         // Set the document properties
         $needles = array('category_id' => $category->id, 'category_alias' => $category->alias);
         $category_url = SimpleListsHelper::getUrl($needles);
-        $document->set('link', $category_url );
+        $document->setLink($category_url);
         $document->setGenerator('');
 
         // Check if the list is empty
@@ -50,23 +50,25 @@ class SimplelistsViewItems extends YireoView
             foreach($this->items as $id => $item ) {
 
                 // Initialize the feed-item
-                $feed = new JFeedItem();
-                $feed->set('title', $item->title);
-                $feed->set('link', $category_url.'#item'.$item->id);
-                $feed->set('description', $item->text);
-                $feed->set('category', $category->title);
+                $feedData = array(
+                    'title' => $item->title,
+                    'link' => $category_url.'#item'.$item->id,
+                    'description' => $item->text,
+                    'category' => $category->title,
+                );
 
                 // Set the date
                 $modified = strtotime($item->modified);
                 $created = strtotime($item->created);
                 if($modified > 0) {
-                    $feed->set('date', $item->modified);
+                    $feedData['date'] = $item->modified;
                 } elseif($created > 0) {
-                    $feed->set('date', $item->created);
+                    $feedData['date'] = $item->created;
                 } else {
-                    $feed->set('date', date('R'));
+                    $feedData['date'] = date('R');
                 }
-                
+
+                $feed = new JFeedItem($feedData);
                 $document->addItem($feed);
             }
         }
