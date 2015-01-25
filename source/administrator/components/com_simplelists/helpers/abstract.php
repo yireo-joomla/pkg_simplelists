@@ -26,7 +26,7 @@ class HelperAbstract
             'menu' => array(
                 'home' => 'Home',
                 'items' => 'Items',
-                'categories' => 'Categories',
+                'option=com_categories&extension=com_simplelists' => 'Categories',
             ),
             'views' => array(
                 'home' => 'Home',

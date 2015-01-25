@@ -118,6 +118,7 @@ class SimplelistsUpdate
             'ALTER TABLE `#__simplelists_items` ADD `flags` VARCHAR(10) NOT NULL AFTER `picture`',
             'DROP TABLE  `#__simplelists_plugins`',
             'UPDATE `#__categories` SET `parent_id`=1 WHERE `extension`="com_simplelists" AND `parent_id`=0',
+            'UPDATE `#__menu` SET `link`="index.php?option=com_categories&extension=com_simplelists" WHERE `link`="index.php?option=com_simplelists&view=categories" and client_id=1',
         );
 
         // Count the existing entries in the new table

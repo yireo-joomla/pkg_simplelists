@@ -382,4 +382,11 @@ class SimplelistsHelper
         // Return the thumbnail
         return 'administrator/cache/com_simplelists/'.$thumb_file;
     }
+
+    public static function addSubmenu()
+    {
+        $config = array('option' => 'com_simplelists');
+        $view = new YireoCommonView($config);
+        $view->setMenu();
+    }
 }

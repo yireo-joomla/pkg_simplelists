@@ -26,9 +26,9 @@ class SimpleListsViewHome extends YireoViewHome
     public function display($tpl = null)
     {
         $icons = array();
-        $icons[] = $this->icon( 'item', 'New Item', 'item.png');
-        $icons[] = $this->icon( 'items', 'Items', 'items.png');
-        $icons[] = $this->icon( 'category', 'Categories', 'categories.png');
+        $icons[] = $this->icon('item', 'New Item', 'item.png');
+        $icons[] = $this->icon('items', 'Items', 'items.png');
+        $icons[] = $this->icon('category', 'Categories', 'categories.png');
         $this->assignRef( 'icons', $icons );
 
         $urls = array();
