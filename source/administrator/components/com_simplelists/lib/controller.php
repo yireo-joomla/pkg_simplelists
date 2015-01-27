@@ -61,13 +61,14 @@ class YireoCommonController extends YireoAbstractController
     public function __construct()
     {
         // Define variables
-        $this->_application = JFactory::getApplication();
-        $this->_jinput = $this->_application->input;
+        $this->_app = JFactory::getApplication();
+        $this->_application = $this->_app;
+        $this->_jinput = $this->_app->input;
 
         // Add extra model-paths
         $option = $this->_jinput->getCmd('option');
 
-        if ($this->_application->isSite())
+        if ($this->_app->isSite())
         {
             $this->addModelPath(JPATH_ADMINISTRATOR.'/components/'.$option.'/models');
             $this->addModelPath(JPATH_SITE.'/components/'.$option.'/models');
@@ -175,15 +176,15 @@ class YireoController extends YireoCommonController
         $this->registerTask('change', 'edit');
 
         // Allow or disallow frontend editing
-        if ($this->_application->isSite() && in_array($this->_jinput->getCmd('task', 'display'), $this->_allow_tasks) == false) {
+        if ($this->_app->isSite() && in_array($this->_jinput->getCmd('task', 'display'), $this->_allow_tasks) == false) {
             JError::raiseError(500, JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
         }
 
         // Check for ACLs in backend
-        if ($this->_application->isAdmin()) {
+        if ($this->_app->isAdmin()) {
             $user = JFactory::getUser();
             if($user->authorise('core.manage', $this->_jinput->getCmd('option')) == false) {
-                $this->_application->redirect('index.php', JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
+                $this->_app->redirect('index.php', JText::_('LIB_YIREO_CONTROLLER_ILLEGAL_REQUEST'));
             }
         }
 
@@ -280,7 +281,16 @@ class YireoController extends YireoCommonController
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
         // Fetch the POST-data
-        if(empty($post)) $post = $this->_jinput->post->getArray();
+        if(empty($post)) {
+            $inputPost = $this->_jinput->post;
+            if(YireoHelper::compareJoomlaVersion('3.2.0', 'gt')) {
+                $post = $inputPost->getArray();
+            } else {
+                $post = $this->_app->input->getArray($_POST);
+            }
+        }
+
+        // Fetch the ID
         $post['id'] = $this->getId();
         $this->id = $post['id'] ;
 
@@ -887,7 +897,7 @@ class YireoController extends YireoCommonController
         }
 
         // Set the redirect, including messages if they are set
-        if ($this->_application->isSite()) $link = JRoute::_($link);
+        if ($this->_app->isSite()) $link = JRoute::_($link);
         $this->setRedirect($link, $this->msg, $this->msg_type);
         return true;
     }
@@ -959,12 +969,12 @@ class YireoController extends YireoCommonController
     {
         if (version_compare(phpversion(), self::PHP_SUPPORTED_VERSION, 'lt')) {
             $message = JText::sprintf('LIB_YIREO_PHP_UNSUPPORTED', phpversion(), self::PHP_SUPPORTED_VERSION);
-            $this->_application->enqueueMessage($message, 'error');
+            $this->_app->enqueueMessage($message, 'error');
         }
 
         if (version_compare(phpversion(), '5.4', 'lt')) {
             $message = JText::sprintf('LIB_YIREO_PHP54_UPGRADE_NOTICE', phpversion(), self::PHP_SUPPORTED_VERSION);
-            $this->_application->enqueueMessage($message, 'warning');
+            $this->_app->enqueueMessage($message, 'warning');
         }
     }
 }

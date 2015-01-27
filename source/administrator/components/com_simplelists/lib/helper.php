@@ -72,6 +72,18 @@ class YireoHelper
     }
 
     /*
+     * Helper-method to return the current Joomla version
+     *
+     * @return bool
+     */
+    static public function getJoomlaVersion()
+    {
+        JLoader::import( 'joomla.version' );
+        $jversion = new JVersion();
+        return $jversion->RELEASE;
+    }
+
+    /*
      * Helper-method to check whether the current Joomla! version equals some value
      *
      * @param $version string|array
@@ -79,11 +91,10 @@ class YireoHelper
      */
     static public function isJoomla($version)
     {
-        JLoader::import( 'joomla.version' );
-        $jversion = new JVersion();
+        $jversion = self::getJoomlaVersion();
         if (!is_array($version)) $version = array($version);
         foreach($version as $v) {
-            if (version_compare( $jversion->RELEASE, $v, 'eq')) {
+            if (version_compare( $jversion, $v, 'eq')) {
                 return true;
             }
         }
@@ -125,6 +136,18 @@ class YireoHelper
     static public function isJoomla15()
     {
         return self::isJoomla('1.5');
+    }
+
+    /*
+     * Helper-method to check whether the current Joomla! version is 1.5
+     *
+     * @param null
+     * @return bool
+     */
+    static public function compareJoomlaVersion($version, $comparison)
+    {
+        $jversion = self::getJoomlaVersion();
+        return version_compare( $jversion, $version, $comparison);
     }
 
     /**
