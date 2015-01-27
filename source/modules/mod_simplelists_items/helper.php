@@ -13,6 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // Include the SimpleLists helper
 include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helper.php' ;
+include_once JPATH_SITE.'/components/com_simplelists/helpers/html.php' ;
 
 /*
  * Helper class
