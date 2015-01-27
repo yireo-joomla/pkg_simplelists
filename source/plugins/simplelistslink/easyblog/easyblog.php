@@ -55,7 +55,7 @@ class plgSimpleListsLinkEasyBlog extends SimplelistsPluginLink
      * @param mixed $link
      * @return string
      */
-    public function getName($link) 
+    public function getName($link = null) 
     {
         $query = "SELECT `title` FROM #__easyblog_post WHERE `id`=".(int)$link;
         $db = JFactory::getDBO();
