@@ -2,11 +2,11 @@
 <extension type="module" version="2.5" method="upgrade">
 	<name>mod_simplelists_index</name>
 	<author>Yireo</author>
-	<creationDate>October 2013</creationDate>
+	<creationDate>January 2015</creationDate>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>info@yireo.com</authorEmail>
 	<authorUrl>https://www.yireo.com/</authorUrl>
-	<version>1.6.2</version>
+	<version>1.6.9</version>
 	<description>Module to display SimpleLists index</description>
 
 	<files>
