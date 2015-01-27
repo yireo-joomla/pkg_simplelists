@@ -61,6 +61,15 @@ jQuery(document).ready(function(){
                 </div>
                 <div class="tab-pane" id="image">
                     <fieldset class="adminform form-vertical">
+                        <?php if(YireoHelper::isJoomla25() == false) : ?>
+                        <div class="control-group form-inline">
+                            <?php foreach($this->form->getFieldset('image') as $field) : ?>
+                                <div class="controls">
+                                    <?php echo $field->input; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php else: ?>
                         <div class="control-group">
                             <div class="controls">
                                 <input type="text" id="picture_name" value="<?php echo $this->item->picture; ?>" />
@@ -81,6 +90,7 @@ jQuery(document).ready(function(){
                             <?php endif; ?>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </fieldset>
                 </div>
                 <div class="tab-pane tab-pane-plugins" id="link">

@@ -14,6 +14,9 @@
         <fieldset name="text" label="COM_SIMPLELISTS_ITEM_FIELDSET_TEXT">
             <field name="text" type="editor" class="inputbox" label="LIB_YIREO_TABLE_FIELDNAME_TEXT" filter="JComponentHelper::filterText" buttons="true" />
         </fieldset>
+        <fieldset name="image" label="COM_SIMPLELISTS_ITEM_FIELDSET_IMAGE">
+            <field name="picture" type="media" class="inputbox" label="LIB_YIREO_TABLE_FIELDNAME_PICTURE" filter="JComponentHelper::filterText" buttons="true" />
+        </fieldset>
     </fields>
     <fields name="params">
         <fieldset name="params_item" label="COM_SIMPLELISTS_ITEM_PARAMS_ITEM_FIELDSET">
