@@ -4,6 +4,12 @@
             <field name="category_id" type="category" extension="com_simplelists" default="0" required="false" label="COM_SIMPLELISTS_CATEGORY" description="COM_SIMPLELISTS_CATEGORY_DESC">
                 <option value="0">JNONE</option>
             </field>
+            <field name="layout" type="componentlayout"
+                label="JFIELD_ALT_LAYOUT_LABEL"
+                description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
+                useglobal="true"
+                extension="com_simplelists" view="items"
+            />
         </fieldset>
     </fields>
 </form>
