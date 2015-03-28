@@ -94,7 +94,28 @@ class YireoCommonController extends YireoAbstractController
 class YireoController extends YireoCommonController
 {
     /**
-     * Value of the default View to use
+     * Value of the current stable PHP 5.4 version
+     *
+     * @constant
+     */
+    const PHP_STABLE_54 = '5.4.36';
+
+    /**
+     * Value of the current stable PHP 5.5 version
+     *
+     * @constant
+     */
+    const PHP_STABLE_55 = '5.5.20';
+
+    /**
+     * Value of the current stable PHP 5.6 version
+     *
+     * @constant
+     */
+    const PHP_STABLE_56 = '5.6.4';
+
+    /**
+     * Value of the minimum supported PHP version
      *
      * @constant
      */
@@ -297,7 +318,22 @@ class YireoController extends YireoCommonController
         // Make sure fields that are configured as "raw" are loaded correspondingly
         if (!empty($this->_allow_raw)) {
             foreach ( $this->_allow_raw as $raw ) {
-                $post[$raw] = $this->_jinput->get($raw, '', 'post', 'string', JREQUEST_ALLOWRAW);
+                if(isset($post[$raw])) {
+                    if(YireoHelper::compareJoomlaVersion('3.2.0', 'gt')) {
+                        $post[$raw] = $this->_jinput->get($raw, '', 'raw');
+                    } else {
+                        $post[$raw] = $_POST[$raw];
+                    }
+                }
+
+                if(isset($post['item'][$raw])) {
+                    if(YireoHelper::compareJoomlaVersion('3.2.0', 'gt')) {
+                        $array = $this->_jinput->getArray(array('item' => array($raw => 'raw')));
+                        $post['item'][$raw] = $array['item'][$raw];
+                    } else {
+                        $post['item'][$raw] = $_POST['item'][$raw];
+                    }
+                }
             }
         }
 
@@ -967,13 +1003,31 @@ class YireoController extends YireoCommonController
      */
     protected function showPhpSupported()
     {
-        if (version_compare(phpversion(), self::PHP_SUPPORTED_VERSION, 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP_UNSUPPORTED', phpversion(), self::PHP_SUPPORTED_VERSION);
+        $phpversion = phpversion();
+        $phpmajor = explode('.', $phpversion);
+        $phpmajor = $phpmajor[0].'.'.$phpmajor[1];
+        if (version_compare($phpversion, self::PHP_SUPPORTED_VERSION, 'lt')) {
+            $message = JText::sprintf('LIB_YIREO_PHP_UNSUPPORTED', $phpversion, self::PHP_SUPPORTED_VERSION);
             $this->_app->enqueueMessage($message, 'error');
         }
 
-        if (version_compare(phpversion(), '5.4', 'lt')) {
-            $message = JText::sprintf('LIB_YIREO_PHP54_UPGRADE_NOTICE', phpversion(), self::PHP_SUPPORTED_VERSION);
+        if (version_compare($phpversion, '5.4', 'lt')) {
+            $message = JText::sprintf('LIB_YIREO_PHP54_UPGRADE_NOTICE', $phpversion, self::PHP_SUPPORTED_VERSION);
+            $this->_app->enqueueMessage($message, 'warning');
+        }
+
+        if ($phpmajor == '5.4' && version_compare($phpversion, self::PHP_STABLE_54, 'lt')) {
+            $message = JText::sprintf('LIB_YIREO_PHP_OUTDATED_NOTICE', $phpversion, self::PHP_STABLE_54);
+            $this->_app->enqueueMessage($message, 'warning');
+        }
+
+        if ($phpmajor == '5.5' && version_compare($phpversion, self::PHP_STABLE_55, 'lt')) {
+            $message = JText::sprintf('LIB_YIREO_PHP_OUTDATED_NOTICE', $phpversion, self::PHP_STABLE_55);
+            $this->_app->enqueueMessage($message, 'warning');
+        }
+
+        if ($phpmajor == '5.6' && version_compare($phpversion, self::PHP_STABLE_56, 'lt')) {
+            $message = JText::sprintf('LIB_YIREO_PHP_OUTDATED_NOTICE', $phpversion, self::PHP_STABLE_56);
             $this->_app->enqueueMessage($message, 'warning');
         }
     }
