@@ -47,9 +47,9 @@ class plgSearchSimpleLists extends JPlugin
 	public function onContentSearch($text, $phrase = '', $ordering = '', $areas = null)
     {
         // Fetch system variables
-        $app =& JFactory::getApplication();
-        $db =& JFactory::getDBO();
-        $user =& JFactory::getUser();
+        $app = JFactory::getApplication();
+        $db = JFactory::getDBO();
+        $user = JFactory::getUser();
 
         // If the SimpleLists search-area is not included in this search-request, skip this plugin
         if(is_array($areas)) {
@@ -66,7 +66,8 @@ class plgSearchSimpleLists extends JPlugin
 
         // Perform the search
         $limit = $this->params->get('search_limit', 50);
-        $list = SimplelistsHelperSearch::search($text, $phrase, $ordering, $limit);
+        $searchHelper = new SimplelistsHelperSearch;
+        $list = $searchHelper->search($text, $phrase, $ordering, $limit);
 
         // Loop through the search-results, and optimize the results
         if(!empty($list)) {
