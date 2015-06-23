@@ -66,4 +66,48 @@ class SimplelistsModelItems extends YireoModel
 
         return parent::buildQueryWhere();
     }
+    
+    
+    /**
+     * Method to get a category
+     */
+    public function getCategory($category_id = null)
+    {
+        // Only run this once
+        if (empty($this->_category)) {
+
+            // Set the ID
+            if (empty($category_id)) $category_id = $this->getId();
+
+            // Fetch the category of these items
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/category.php';
+            $model = new SimplelistsModelCategory();
+            $model->setId($category_id);
+            $category = $model->getData();
+
+            // Fetch the related categories (parent and children) of this category
+            require_once JPATH_ADMINISTRATOR.'/components/com_simplelists/models/categories.php';
+            $model = new SimplelistsModelCategories();
+            $model->addWhere('category.id = '.(int)$category->parent_id.' OR category.parent_id = '.(int)$category->id);
+            $related = $model->getData();
+
+            foreach ($related as $id => $item) {
+
+                // Make sure this related category is not the parent-category
+                if ($item->id == $category->parent_id) {
+                    $category->parent = $item;
+                    unset( $related[$id] );
+                    continue;
+                }
+            }
+
+            $category->childs = $related;
+
+            // Insert this category in the model
+            $this->_category = $category;
+        }
+
+        return $this->_category;
+    }    
+    
 }
