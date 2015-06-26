@@ -107,7 +107,7 @@ class SimplelistsViewSimplelist extends JView
                 }
 
                 // prepare the URL
-                $item->url = SimplelistsPluginHelper::getPluginLinkUrl($item));
+                $item->url = SimplelistsPluginHelper::getPluginLinkUrl($item);
 
                 // create a simple target-string
                 switch( $item->params->get('target') ) {
