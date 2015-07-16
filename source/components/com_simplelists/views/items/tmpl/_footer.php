@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <?php if( $this->params->get('show_footer_modules') == 1 ) : ?>
-    <?php $modules =& JModuleHelper::getModules( 'simplelists_footer' );
+    <?php $modules = JModuleHelper::getModules( 'simplelists_footer' );
     if( !empty( $modules )) { foreach( $modules as $m ) { ?>
 
         <div class="simplelists-footer">
@@ -30,9 +30,8 @@ defined('_JEXEC') or die('Restricted access');
 </ul>
 <?php endif; ?>
 
-<?php if($this->params->get('use_pagination')): ?>
+<?php if ($this->params->get('use_pagination') && $this->pagination->pages_total > 0) : ?>
     <div class="simplelists-pagenavigation">
         <?php echo $this->pagination->getPagesLinks(); ?>
     </div>
 <?php endif; ?>
-

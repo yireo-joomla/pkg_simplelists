@@ -87,8 +87,8 @@ class SimplelistsViewItem extends YireoView
     public function _prepareItem($item, $layout) 
     {
         // Get system variables
-        $user = &JFactory::getUser();
-        $dispatcher =& JDispatcher::getInstance();
+        $user = JFactory::getUser();
+        $dispatcher = JDispatcher::getInstance();
         $params = $this->params;
 
         // Run the content through Content Plugins

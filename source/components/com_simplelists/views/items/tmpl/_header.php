@@ -75,14 +75,14 @@ defined('_JEXEC') or die('Restricted access');
     </div>
 <?php endif; ?>
 
-<?php if( $this->params->get('use_pagination') ) : ?>
+<?php if ($this->params->get('use_pagination') && $this->pagination->pages_total > 0) : ?>
     <div class="simplelists-pagecounter">
         <?php echo $this->pagination->getPagesCounter(); ?>
     </div>
 <?php endif; ?>
 
 <?php if( $this->params->get('show_header_modules') == 1 ) {
-    $modules =& JModuleHelper::getModules( 'simplelists-header' );
+    $modules = JModuleHelper::getModules( 'simplelists-header' );
     if( !empty( $modules )) {
         foreach( $modules as $m ) {
             ?>
@@ -94,4 +94,6 @@ defined('_JEXEC') or die('Restricted access');
     }
 } ?>
 
-<?php if( $this->params->get('show_alpha_index') == 1 ) { echo $this->loadTemplate('_alphabar'); } ?>
+<?php if( $this->params->get('show_alpha_index') == 1 ) : ?>
+    <?php echo $this->loadTemplate('_alphabar'); ?>
+<?php endif; ?>

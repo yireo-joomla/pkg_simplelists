@@ -30,17 +30,17 @@ class SimplelistsViewSimplelist extends JView
      */
     public function display($tpl = null)
     {
-        $document =& JFactory::getDocument();
-        $dispatcher =& JDispatcher::getInstance();
+        $document = JFactory::getDocument();
+        $dispatcher = JDispatcher::getInstance();
 
         // Ugly way to get around PHP-notices
         ini_set('display_errors', 0);
 
         // load the parameters
-        $params = &JComponentHelper::getParams( 'com_simplelists' );
+        $params = JComponentHelper::getParams( 'com_simplelists' );
 
         // load the model
-        $model =& $this->getModel();
+        $model = $this->getModel();
 
         // get the category from our model
         $category = $model->getCategory() ;
