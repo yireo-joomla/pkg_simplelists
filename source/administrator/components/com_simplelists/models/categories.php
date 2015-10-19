@@ -107,7 +107,26 @@ class SimplelistsModelCategories extends YireoModel
         $this->addWhere('`category`.`extension`="com_simplelists"');
 
         if ($this->_parent_id > 0) {
-            $this->addWhere('`category`.`parent_id`='.(int)$this->_parent_id);
+            $where = array();
+
+            $levels = explode('|', $this->params->get('category_child_levels', 1));
+
+            if (in_array(1, $levels))
+            {
+                $where[] = 'category.parent_id = '.(int)$this->_parent_id;
+            }
+
+            if (in_array(2, $levels))
+            {
+                $where[] = 'category.parent_id IN (SELECT id from `#__categories` where parent_id = '.(int)$this->_parent_id.')';
+            }
+
+            if (in_array(3, $levels))
+            {
+                $where[] = 'category.parent_id IN (SELECT parent_id from `#__categories` where parent_id = '.(int)$this->_parent_id.')';
+            }
+
+            $this->addWhere('(' . implode(' OR ', $where) . ')');
         }
 
         return parent::buildQueryWhere();

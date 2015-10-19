@@ -245,7 +245,7 @@ class SimplelistsViewItems extends YireoViewList
 		}
 
 		// Prepare the category URL
-		if ($params->get('show_category_parent') && !empty($category->parent))
+		if ($this->params->get('show_category_parent') && !empty($category->parent))
 		{
 			if ($category->parent->id > 1)
 			{
@@ -265,9 +265,9 @@ class SimplelistsViewItems extends YireoViewList
 		}
 
 		// Loop through the child-categories
-		if ($params->get('show_category_childs') && !empty($category->childs))
+		if ($this->params->get('show_category_childs') && !empty($category->childs))
 		{
-			foreach ($category->childs as $child)
+			foreach ($category->childs as &$child)
 			{
 				$child->params = YireoHelper::toParameter($child->params);
 				$child_layout = $child->params->get('layout', $layout);

@@ -25,7 +25,7 @@ class SimpleListsViewHome extends YireoViewHomeAjax
      */
     public function display($tpl = null)
     {
-        switch(JRequest::getVar('layout')) {
+        switch(JFactory::getApplication()->input->get('layout')) {
             case 'feeds':
                 ini_set('display_errors', 0);
                 $feeds = $this->fetchFeeds('http://www.yireo.com/blog?format=feed&type=rss', 3);

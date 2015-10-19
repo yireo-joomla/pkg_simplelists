@@ -94,6 +94,14 @@
                 <option value="0">Hide</option>
                 <option value="1">Show</option>
             </field>
+            <field name="category_child_levels" type="list" default="1" label="Child Level" description="">
+                <option value="1">Level 1 (direct children)</option>
+                <option value="2">Level 2 (children of children)</option>
+                <option value="2">Level 3 (children of children of children)</option>
+                <option value="1|2">Both level 1 and 2</option>
+                <option value="2|3">Both level 2 and 3</option>
+                <option value="1|2|3">All 3 levels</option>
+            </field>
         </fieldset>
         <fieldset name="other" label="SimpleLists Other options">
             <field name="show_header_modules" type="list" default="0" label="Header modules" description="PARAM HEADER MODULES">

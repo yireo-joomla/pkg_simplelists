@@ -29,7 +29,7 @@ $pagination = $this->pagination;
 
 <?php if (($this->params->get('show_category_image') && !empty($this->category->image)) || ($this->params->get('show_category_description') && !empty($this->category->description))) : ?>
 	<div class="simplelists-category">
-		<?php if ($this->params->get('show_category_image')) : ?>
+		<?php if ($this->params->get('show_category_image') && !empty($this->category->image)) : ?>
 			<?php echo $this->category->image; ?>
 		<?php endif; ?>
 		<?php if ($this->params->get('show_category_description')) : ?>

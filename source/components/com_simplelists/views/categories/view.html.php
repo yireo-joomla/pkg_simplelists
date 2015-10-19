@@ -76,7 +76,7 @@ class SimplelistsViewCategories extends YireoView
                 $this->items[$id] = $item;
             }
         } else {
-            $this->assignRef( 'message', JText::_( 'No categories found' ));
+            $this->message = JText::_('No categories found');
         }
 
         // prepare the image
@@ -96,7 +96,7 @@ class SimplelistsViewCategories extends YireoView
             $parent->description = null;
         }
 
-        $this->assignRef('category', $parent );
+        $this->category = $parent;
         parent::display($tpl);
     }
 }

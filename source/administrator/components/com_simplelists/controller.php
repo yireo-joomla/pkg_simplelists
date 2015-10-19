@@ -35,8 +35,11 @@ class SimplelistsController extends YireoController
         // Call the parent
         parent::__construct();
 
+        // Check for the Yireo Library
+        YireoHelperInstall::autoInstallLibrary('yireo', 'https://www.yireo.com/documents/lib_yireo_j3x.zip', 'Yireo Library');
+
         // Check for the System Plugin
-        YireoHelperInstall::autoInstallEnablePlugin('simplelists', 'system', 'http://www.yireo.com/documents/plg_system_simplelists_j25.zip', JText::_('COM_SIMPLELISTS_SYSTEMPLUGIN'));
+        YireoHelperInstall::autoInstallEnablePlugin('simplelists', 'system', 'https://www.yireo.com/documents/plg_system_simplelists_j3x.zip', JText::_('COM_SIMPLELISTS_SYSTEMPLUGIN'));
 
         // Redirect categories
         if (JRequest::getCmd('view') == 'categories' || JRequest::getCmd('view') == 'category') {
