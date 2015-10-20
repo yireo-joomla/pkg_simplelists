@@ -2,7 +2,7 @@
 <extension version="2.5" type="plugin" group="search" method="upgrade">
     <name>PLG_SEARCH_SIMPLELISTS</name>
     <author>Yireo</author>
-    <creationDate>September 2015</creationDate>
+    <creationDate>October 2015</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>https://www.yireo.com/</authorUrl>

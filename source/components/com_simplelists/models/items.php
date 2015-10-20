@@ -34,9 +34,9 @@ class SimplelistsModelItems extends YireoModel
 
 		// Deterine the ID for SimpleLists content
 		$app = JFactory::getApplication();
-		$category_id = $app->getInt('category_id', '0');
+		$category_id = $app->input->getInt('category_id', '0');
 		$this->setId($category_id);
-		$this->setIdByAlias($app->getString('alias', ''));
+		$this->setIdByAlias($app->input->getString('alias', ''));
 
 		// Construct the item
 		parent::__construct('item');
