@@ -85,7 +85,7 @@ class plgSimpleListsLinkVimeo extends SimplelistsPluginLink
         $params = implode('&amp;', $array);
 
         ob_start();
-        include dirname(__FILE__).'/vimeo/default.php';
+        include dirname(__FILE__).'/tmpl/default.php';
         $text .= ob_get_contents();
         ob_end_clean();
 
