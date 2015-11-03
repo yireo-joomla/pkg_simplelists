@@ -6,7 +6,7 @@
     <authorUrl>http://www.yireo.com/</authorUrl>
     <creationDate>October 2015</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-    <version>1.6.9</version>
+    <version>1.7.4</version>
     <description>MOD_SIMPLELISTS_ITEMS_DESC</description>
 
     <files folder="site">
@@ -14,17 +14,18 @@
         <filename>helper.php</filename>
         <filename>index.html</filename>
         <folder>tmpl</folder>
+        <folder>language</folder>
     </files>
+
     <files>
         <filename>mod_simplelists_items.xml</filename>
     </files>
 
-    <media folder="media" destination="mod_simplelists_items">
-        <filename>index.html</filename>
+    <media folder="media/mod_simplelists_items" destination="mod_simplelists_items">
         <folder>css</folder>
     </media>
 
-    <languages folder="site/language">
+    <languages folder="site/language/en-GB">
         <language tag="en-GB">en-GB.mod_simplelists_items.ini</language>
         <language tag="en-GB">en-GB.mod_simplelists_items.sys.ini</language>
     </languages>
@@ -66,6 +67,10 @@
                     <option value="1">Yes</option>
                 </field>
                 <field name="link_image" type="list" default="0" label="Link image" description="Link the image of each item">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="link_list" type="list" default="1" label="Link to list" description="Link to list of this item, or disable to link to items link itself">
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </field>

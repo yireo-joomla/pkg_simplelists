@@ -15,7 +15,13 @@ defined('_JEXEC') or die('Restricted access'); ?>
     <ul class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
     <?php foreach ($items as $item) : ?>
 	    <li class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
-            <a href="<?php echo $item->link; ?>" class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>"><?php echo $item->title; ?></a>
+            <?php if (!empty($item->link)) : ?>
+            <a href="<?php echo $item->link; ?>" class="simplelists<?php echo $params->get('moduleclass_sfx'); ?>">
+                <?php echo $item->title; ?>
+            </a>
+            <?php else: ?>
+                <?php echo $item->title; ?>
+            <?php endif; ?>
     	</li>
     <?php endforeach; ?>
     </ul>

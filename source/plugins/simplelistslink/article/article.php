@@ -65,25 +65,18 @@ class plgSimpleListsLinkArticle extends SimplelistsPluginLink
         $link = $item->link;
         $url = ContentHelperRoute::getArticleRoute((int)$link);
 
-        if(!strstr($url,'Itemid=')) {
+        $query = "SELECT a.*, c.alias AS catalias FROM #__content AS a "
+            . " LEFT JOIN #__categories AS c ON c.id = a.catid "
+            . " WHERE a.`id`=".(int)$link
+        ;
 
-            $query = "SELECT a.*, c.alias AS catalias FROM #__content AS a "
-                . " LEFT JOIN #__categories AS c ON c.id = a.catid "
-                . " WHERE a.`id`=".(int)$link
-            ;
+        $db = JFactory::getDBO();
+        $db->setQuery( $query );
+        $article = $db->loadObject();
 
-            $db = JFactory::getDBO();
-            $db->setQuery( $query );
-            $article = $db->loadObject();
-
-            if(!empty($article)) {
-                $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias);
-            }
+        if(!empty($article)) {
+            $url = ContentHelperRoute::getArticleRoute($article->id.':'.$article->alias, $article->catid.':'.$article->catalias);
         }
-
-        /*if(!strstr($url,'Itemid=')) {
-            $url .= '&Itemid='.JRequest::getInt('Itemid');
-        }*/
 
         return $url;
     }

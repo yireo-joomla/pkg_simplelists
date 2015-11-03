@@ -21,8 +21,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
             <?php echo $item->picture; ?>
         <?php endif; ?>
 
-        <?php if($params->get('show_title') && $params->get('link_title')) : ?>
-            <h3><a href="<?php echo $item->link; ?>"><?php echo $item->title; ?></a></h3>
+        <?php if(!empty($item->link) && $params->get('show_title') && $params->get('link_title')) : ?>
+            <h3>
+                <a href="<?php echo $item->link; ?>"><?php echo $item->title; ?></a>
+            </h3>
         <?php elseif($params->get('show_title')) : ?>
             <h3><?php echo $item->title; ?></h3>
         <?php endif; ?>

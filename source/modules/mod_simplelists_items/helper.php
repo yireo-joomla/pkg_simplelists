@@ -11,28 +11,34 @@
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Include the SimpleLists helper
+// Include the SimpleLists classes
 include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/helper.php' ;
+include_once JPATH_SITE.'/administrator/components/com_simplelists/helpers/plugin.php' ;
 include_once JPATH_SITE.'/components/com_simplelists/helpers/html.php' ;
 
 /*
  * Helper class
  */
-class modSimpleListsItemsHelper
+class ModSimpleListsItemsHelper
 {
+    public function __construct($params)
+    {
+        $this->params = $params;
+    }
+
     /*
      * Method to get the SimpleLists category
      */
-	static public function getCategory($params)
+	public function getCategory()
 	{
         // Get some system variables
 		$db = JFactory::getDBO();
 		$user = JFactory::getUser();
 
         // Read the module parameters
-		$category_id = (int)$params->get('category_id');
-		$layout = $params->get('layout');
-		$Itemid = (int)$params->get('menu_id');
+		$category_id = (int)$this->params->get('category_id');
+		$layout = $this->params->get('layout');
+		$Itemid = (int)$this->params->get('menu_id');
 
         $query = 'SELECT c.* FROM #__categories AS c WHERE c.id = '.$category_id;
 		$db->setQuery($query);
@@ -70,19 +76,19 @@ class modSimpleListsItemsHelper
     /*
      * Method to get a list of SimpleLists items
      */
-    static public function getItems($params)
+    public function getItems()
     {
         // Get some system variables
         $db = JFactory::getDBO();
         $user = JFactory::getUser();
-        $category = self::getCategory($params);
+        $category = self::getCategory();
 
         // Read the module parameters
-        $ordering = $params->get('ordering', 5);
-        $count = (int)$params->get('count', 5);
-        $category_id = (int)$params->get('category_id');
-        $layout = $params->get('layout');
-        $Itemid = (int)$params->get('menu_id');
+        $ordering = $this->params->get('ordering', 5);
+        $count = (int)$this->params->get('count', 5);
+        $category_id = (int)$this->params->get('category_id');
+        $layout = $this->params->get('layout');
+        $Itemid = (int)$this->params->get('menu_id');
 
         // Include the model
         $modelFile = JPATH_SITE.'/components/com_simplelists/models/items.php';
@@ -124,23 +130,19 @@ class modSimpleListsItemsHelper
         if(!empty($items)) {
             foreach ($items as $item) {
 
-                $needles = array(
-                    'category_id' => $category->id,
-                    'category_alias' => $category->alias,
-                    'item_id' => $item->id,
-                    'item_alias' => $item->alias,
-                    'Itemid' => $Itemid,
-                    'layout' => $layout,
-                );
+                if($this->params->get('link_list', 1) == 1) {
+                    $item->link = $this->getCategoryUrl($category, $item, $Itemid, $layout);
+                } else {
+                    $item->link = $this->getItemUrl($category, $item, $Itemid, $layout);
+                }
 
                 $item->href = ($item->alias) ? $item->alias : 'item'.$item->id;
-                $item->link = SimplelistsHelper::getUrl($needles);
                 $item->title = htmlspecialchars( $item->title );
                 $item->params = YireoHelper::toParameter($item->params);
 
-                if($params->get('show_image',0) == 1) {
+                if($this->params->get('show_image',0) == 1) {
                     $align = $item->params->get('picture_alignment');
-                    if(empty($align)) $align = $params->get('image_align', 'left');
+                    if(empty($align)) $align = $this->params->get('image_align', 'left');
                     $attributes = 'alt="'.$item->title.'" title="'.$item->title.'" class="simplelists" style="float:'.$align.'"';
                     $image_file = JPATH_SITE.'/'.$item->picture;
                     if(is_file($image_file)) {
@@ -157,5 +159,32 @@ class modSimpleListsItemsHelper
         }
 
         return $result;
+    }
+
+    public function getItemUrl($category, $item, $Itemid, $layout)
+    {
+		$url = SimplelistsPluginHelper::getPluginLinkUrl($item);
+
+        if (empty($url)) {
+            return null;
+            //return $this->getCategoryUrl($category, $item, $Itemid, $layout);
+        }
+
+        $url = JRoute::_($url);
+        return $url;
+    }
+
+    public function getCategoryUrl($category, $item, $Itemid, $layout)
+    {
+                $needles = array(
+                    'category_id' => $category->id,
+                    'category_alias' => $category->alias,
+                    'item_id' => $item->id,
+                    'item_alias' => $item->alias,
+                    'Itemid' => $Itemid,
+                    'layout' => $layout,
+                );
+
+                return SimplelistsHelper::getUrl($needles);
     }
 }
