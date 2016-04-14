@@ -2,15 +2,15 @@
 /**
  * Joomla! component SimpleLists
  *
- * @author Yireo
- * @package SimpleLists
+ * @author    Yireo
+ * @package   SimpleLists
  * @copyright Copyright 2015
- * @license GNU Public License
- * @link http://www.yireo.com/
+ * @license   GNU Public License
+ * @link      http://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 
 // Import Joomla! libraries
 jimport('joomla.application.component.model');
@@ -18,264 +18,323 @@ jimport('joomla.filesystem.folder');
 jimport('joomla.filesystem.file');
 
 // Include the media-helper
-require_once( JPATH_ADMINISTRATOR.'/components/com_media/helpers/media.php' );
+require_once(JPATH_ADMINISTRATOR . '/components/com_media/helpers/media.php');
 
 /**
  * SimpleLists Component Files Model
  */
 class SimpleListsModelFiles extends YireoCommonModel
 {
-    /*
-     * Method to set a specific state for an internal variable
-     * 
-     * @param mixed $property
-     * @param mixed $default
-     * @return bool
-     */
-    public function getState($property = null, $default = null)
-    {
-        static $set;
+	/*
+	 * Method to set a specific state for an internal variable
+	 *
+	 * @param mixed $property
+	 * @param mixed $default
+	 * @return bool
+	 */
+	public function getState($property = null, $default = null)
+	{
+		static $set;
 
-        $option = JRequest::getCmd( 'option' );
-        $application = JFactory::getApplication();
+		$application = JFactory::getApplication();
+		$option = $application->input->getCmd('option');
 
-        if (!$set) {
+		if (!$set)
+		{
+			// Current type
+			$type = $application->getUserStateFromRequest($option . '.type', 'type', '');
+			$this->setState('type', $type);
 
-            // current type
-            $type = $application->getUserStateFromRequest( $option.'.type', 'type', '' );
-            $this->setState('type', $type);
+			if ($type == 'link_file')
+			{
+				$default_folder = 'images/';
+			}
+			else
+			{
+				$default_folder = COM_SIMPLELISTS_DIR;
+			}
 
-            if( $type == 'link_file' ) {
-                $default_folder = 'images/';
-            } else {
-                $default_folder = COM_SIMPLELISTS_DIR;
-            }
+			// Current folder
+			$folder = $application->getUserStateFromRequest($option . '.files.folder', 'folder', $default_folder);
 
-            // Current folder
-            $folder = $application->getUserStateFromRequest( $option.'.files.folder', 'folder', $default_folder );
+			// Workaround for com_media
+			if (!@is_dir(JPATH_SITE . '/' . $folder) && @is_dir(JPATH_SITE . '/images/' . $folder))
+			{
+				$folder = 'images/' . $folder;
+			}
 
-            // Workaround for com_media
-            if(!@is_dir(JPATH_SITE.'/'.$folder) && @is_dir(JPATH_SITE.'/images/'.$folder)) {
-                $folder = 'images/'.$folder;
-            }
+			// Save the state of this folder
+			if ($folder == '.')
+			{
+				$folder = false;
+			}
 
-            // Save the state of this folder
-            if($folder == '.') $folder = false;
-            if(!empty($folder) && preg_match('/\/$/', $folder) == false) $folder = $folder.'/';
-            $this->setState('folder', $folder);
+			if (!empty($folder) && preg_match('/\/$/', $folder) == false)
+			{
+				$folder = $folder . '/';
+			}
 
-            // Save the state of this folder
-            $parent = dirname($folder);
-            if(empty($folder)) $parent = false;
-            $this->setState('parent', $parent);
+			$this->setState('folder', $folder);
 
-            // Current item 
-            $current = $application->getUserStateFromRequest( $option.'.files.current', 'current', '' );
-            $this->setState('current', $current);
+			// Save the state of this folder
+			$parent = dirname($folder);
 
-            $set = true;
-        }
-        return parent::getState($property);
-    }
+			if (empty($folder))
+			{
+				$parent = false;
+			}
 
-    /**
-     * Method to return the current filelist
-     *
-     * @access public
-     * @param null
-     * @return array
-     */
-    public function getFiles()
-    {
-        $list = $this->getList();
-        return $list['files'];
-    }
+			$this->setState('parent', $parent);
 
-    /**
-     * Method to return the current filelist
-     *
-     * @access public
-     * @param null
-     * @return array
-     */
-    public function getFolders()
-    {
-        $list = $this->getList();
-        return $list['subfolders'];
-    }
+			// Current item
+			$current = $application->getUserStateFromRequest($option . '.files.current', 'current', '');
+			$this->setState('current', $current);
 
-    /**
-     * Method to return the current filelist
-     *
-     * @access public
-     * @param null
-     * @return array
-     */
-    public function getDocuments()
-    {
-        $list = $this->getList();
-        return $list['docs'];
-    }
+			$set = true;
+		}
 
-    /**
-     * Method to return the current filelist
-     *
-     * @access public
-     * @param null
-     * @return array
-     */
-    public function getList()
-    {
-        // Load the component-params
-        $component_params = JComponentHelper::getParams('com_simplelists');
+		return parent::getState($property);
+	}
 
-        // Only process the list once per request
-        static $list;
-        if(is_array($list)) {
-            return $list;
-        }
+	/**
+	 * Method to return the current filelist
+	 *
+	 * @access public
+	 *
+	 * @param null
+	 *
+	 * @return array
+	 */
+	public function getFiles()
+	{
+		$list = $this->getList();
 
-        // Initialize variables
-        $folder = $this->getState('folder');
-        $folderPath = JPATH_SITE.'/'.$folder;
-        $type = $this->getState('type');
+		return $list['files'];
+	}
 
-        // Initialize the lists
-        $files = array();
-        $subfolders = array();
-        $docs = array();
+	/**
+	 * Method to return the current filelist
+	 *
+	 * @access public
+	 *
+	 * @param null
+	 *
+	 * @return array
+	 */
+	public function getFolders()
+	{
+		$list = $this->getList();
 
-        // Get the list of files and folders from the given folder
-        if(is_readable($folderPath)) {
-            $fileList = JFolder::files($folderPath);
-            $subfolderList = JFolder::folders($folderPath);
-        } else {
-            $fileList = false;
-            $subfolderList = false;
-        }
+		return $list['subfolders'];
+	}
 
-        // Iterate over the files if they exist
-        if($fileList !== false) {
-            foreach ($fileList as $file) {
+	/**
+	 * Method to return the current filelist
+	 *
+	 * @access public
+	 *
+	 * @param null
+	 *
+	 * @return array
+	 */
+	public function getDocuments()
+	{
+		$list = $this->getList();
 
-                // Skip this file if it is empty
-                if(empty($file)) {
-                    continue;
-                }
+		return $list['docs'];
+	}
 
-                // Skip this file if it is not readable
-                if(is_file($folderPath.'/'.$file) == false) {
-                    continue;
-                }
+	/**
+	 * Method to return the current filelist
+	 *
+	 * @access public
+	 *
+	 * @param null
+	 *
+	 * @return array
+	 */
+	public function getList()
+	{
+		// Load the component-params
+		$component_params = JComponentHelper::getParams('com_simplelists');
 
-                // Skip files starting with a dot
-                if(substr($file, 0, 1) == '.') {
-                    continue;
-                }
+		// Only process the list once per request
+		static $list;
 
-                // Skip specific files
-                if(strtolower($file) == 'index.html' || preg_match('/\.(php)$/', $file)) {
-                    continue;
-                }
+		if (is_array($list))
+		{
+			return $list;
+		}
 
-                $tmp = new JObject();
-                $tmp->name = $file;
-                $tmp->path = $folderPath.'/'.$file;
-                $tmp->path_relative = $folder.$file;
-                $tmp->path_uri = $tmp->path_relative;
-                $tmp->size = filesize($tmp->path);
+		// Initialize variables
+		$folder = $this->getState('folder');
+		$folderPath = JPATH_SITE . '/' . $folder;
+		$type = $this->getState('type');
 
-                $ext = strtolower(JFile::getExt($file));
-                switch ($ext)
-                {
-                    // Image
-                    case 'jpg':
-                    case 'png':
-                    case 'gif':
-                    case 'xcf':
-                    case 'odg':
-                    case 'bmp':
-                    case 'jpeg':
-                        $info = @getimagesize($tmp->path);
-                        $size = @filesize($tmp->path);
-                        $tmp->width = @$info[0];
-                        $tmp->height = @$info[1];
-                        $tmp->src_width = $tmp->width;
-                        $tmp->src_height = $tmp->height;
-                        $tmp->type = @$info[2];
-                        $tmp->mime = @$info['mime'];
+		// Initialize the lists
+		$files = array();
+		$subfolders = array();
+		$docs = array();
 
-                        $maxsize = 60;
-                        if (($info[0] > $maxsize) || ($info[1] > $maxsize)) {
-                            $dimensions = MediaHelper::imageResize($info[0], $info[1], $maxsize);
-                            $tmp->width = $dimensions[0];
-                            $tmp->height = $dimensions[1];
-                        }
+		// Get the list of files and folders from the given folder
+		if (is_readable($folderPath))
+		{
+			$fileList = JFolder::files($folderPath);
+			$subfolderList = JFolder::folders($folderPath);
+		}
+		else
+		{
+			$fileList = false;
+			$subfolderList = false;
+		}
 
-                        $maxbits = $component_params->get('thumbs_limit', 524288);
-                        if($maxbits > 0 && $size > $maxbits) {
-                            $tmp->src = JURI::root().SimplelistsHelper::createThumbnail($tmp->path, $ext, $tmp->src_width, $tmp->src_height, $tmp->width, $tmp->height); 
-                        } else {
-                            $tmp->src = JURI::root().$tmp->path_relative;
-                        }
+		// Iterate over the files if they exist
+		if ($fileList !== false)
+		{
+			foreach ($fileList as $file)
+			{
+				// Skip this file if it is empty
+				if (empty($file))
+				{
+					continue;
+				}
 
-                        $files[] = $tmp;
-                        break;
+				// Skip this file if it is not readable
+				if (is_file($folderPath . '/' . $file) == false)
+				{
+					continue;
+				}
 
-                    // Non-image document
-                    default:
+				// Skip files starting with a dot
+				if (substr($file, 0, 1) == '.')
+				{
+					continue;
+				}
 
-                        if( $type != 'link_file' ) {
-                            break;
-                        }
+				// Skip specific files
+				if (strtolower($file) == 'index.html' || preg_match('/\.(php)$/', $file))
+				{
+					continue;
+				}
 
-                        // First read the Media Manager parameters and check if this extension is allowed
-                        $media_params = JComponentHelper::getParams( 'com_media' );
-                        $allowable = explode( ',', $media_params->get( 'upload_extensions' ));
-                        if( in_array( $ext, $allowable ) == false ) {
-                            break;
-                        }
+				$tmp = new JObject();
+				$tmp->name = $file;
+				$tmp->path = $folderPath . '/' . $file;
+				$tmp->path_relative = $folder . $file;
+				$tmp->path_uri = $tmp->path_relative;
+				$tmp->size = filesize($tmp->path);
 
-                        if(@file_exists(JPATH_SITE.'/media/media/images/mime-icon-32/'.$ext.'.png')) {
-                            $tmp->path_relative = '/media/media/images/mime-icon-32/'.$ext.'.png';
-                        } elseif(@file_exists(JPATH_SITE.'/media/media/images/con_info.png')) {
-                            $tmp->path_relative = '/media/media/images/con_info.png';
-                        } elseif(@file_exists(JPATH_ADMINISTRATOR.'/components/com_media/images/mime-icon-32/'.$ext.'.png')) {
-                            $tmp->path_relative = '/administrator/components/com_media/images/mime-icon-32/'.$ext.'.png';
-                        } elseif(@file_exists(JPATH_ADMINISTRATOR.'/components/com_media/images/con_info.png')) {
-                            $tmp->path_relative = '/administrator/components/com_media/images/con_info.png';
-                        }
-                        $tmp->src = $tmp->path_relative;
+				$ext = strtolower(JFile::getExt($file));
 
-                        $info = @getimagesize(JPATH_SITE.'/'.$tmp->path_relative);
-                        $tmp->width = @$info[0];
-                        $tmp->height = @$info[1];
+				switch ($ext)
+				{
+					// Image
+					case 'jpg':
+					case 'png':
+					case 'gif':
+					case 'xcf':
+					case 'odg':
+					case 'bmp':
+					case 'jpeg':
+						$info = @getimagesize($tmp->path);
+						$size = @filesize($tmp->path);
+						$tmp->width = @$info[0];
+						$tmp->height = @$info[1];
+						$tmp->src_width = $tmp->width;
+						$tmp->src_height = $tmp->height;
+						$tmp->type = @$info[2];
+						$tmp->mime = @$info['mime'];
 
-                        $files[] = $tmp;
-                        break;
-                }
-            }
-        }
+						$maxsize = 60;
 
-        // Iterate over the folders if they exist
-        if($subfolderList !== false) {
-            foreach($subfolderList as $subfolder) {
-    
-                $tmp = new JObject();
-                $tmp->name = basename($subfolder);
-                $tmp->path = JPath::clean($folderPath.'/'.$subfolder);
-                $tmp->path_relative = str_replace(JPATH_ROOT.'/', '', $tmp->path);
-                $tmp->path_uri = $tmp->path_relative;
-                $count = MediaHelper::countFiles($tmp->path);
-                $tmp->files = $count[0];
-                $tmp->subfolders = $count[1];
+						if (($info[0] > $maxsize) || ($info[1] > $maxsize))
+						{
+							$dimensions = MediaHelper::imageResize($info[0], $info[1], $maxsize);
+							$tmp->width = $dimensions[0];
+							$tmp->height = $dimensions[1];
+						}
 
-                $subfolders[] = $tmp;
-            }
-        }
+						$maxbits = $component_params->get('thumbs_limit', 524288);
 
-        $list = array('subfolders' => $subfolders, 'docs' => $docs, 'files' => $files);
+						if ($maxbits > 0 && $size > $maxbits)
+						{
+							$tmp->src = JURI::root() . SimplelistsHelper::createThumbnail($tmp->path, $ext, $tmp->src_width, $tmp->src_height, $tmp->width, $tmp->height);
+						}
+						else
+						{
+							$tmp->src = JURI::root() . $tmp->path_relative;
+						}
 
-        return $list;
-    }
+						$files[] = $tmp;
+						break;
+
+					// Non-image document
+					default:
+
+						if ($type != 'link_file')
+						{
+							break;
+						}
+
+						// First read the Media Manager parameters and check if this extension is allowed
+						$media_params = JComponentHelper::getParams('com_media');
+						$allowable = explode(',', $media_params->get('upload_extensions'));
+
+						if (in_array($ext, $allowable) == false)
+						{
+							break;
+						}
+
+						if (@file_exists(JPATH_SITE . '/media/media/images/mime-icon-32/' . $ext . '.png'))
+						{
+							$tmp->path_relative = '/media/media/images/mime-icon-32/' . $ext . '.png';
+						}
+						elseif (@file_exists(JPATH_SITE . '/media/media/images/con_info.png'))
+						{
+							$tmp->path_relative = '/media/media/images/con_info.png';
+						}
+						elseif (@file_exists(JPATH_ADMINISTRATOR . '/components/com_media/images/mime-icon-32/' . $ext . '.png'))
+						{
+							$tmp->path_relative = '/administrator/components/com_media/images/mime-icon-32/' . $ext . '.png';
+						}
+						elseif (@file_exists(JPATH_ADMINISTRATOR . '/components/com_media/images/con_info.png'))
+						{
+							$tmp->path_relative = '/administrator/components/com_media/images/con_info.png';
+						}
+
+						$tmp->src = $tmp->path_relative;
+
+						$info = @getimagesize(JPATH_SITE . '/' . $tmp->path_relative);
+						$tmp->width = @$info[0];
+						$tmp->height = @$info[1];
+
+						$files[] = $tmp;
+						break;
+				}
+			}
+		}
+
+		// Iterate over the folders if they exist
+		if ($subfolderList !== false)
+		{
+			foreach ($subfolderList as $subfolder)
+			{
+
+				$tmp = new JObject();
+				$tmp->name = basename($subfolder);
+				$tmp->path = JPath::clean($folderPath . '/' . $subfolder);
+				$tmp->path_relative = str_replace(JPATH_ROOT . '/', '', $tmp->path);
+				$tmp->path_uri = $tmp->path_relative;
+				$count = MediaHelper::countFiles($tmp->path);
+				$tmp->files = $count[0];
+				$tmp->subfolders = $count[1];
+
+				$subfolders[] = $tmp;
+			}
+		}
+
+		$list = array('subfolders' => $subfolders, 'docs' => $docs, 'files' => $files);
+
+		return $list;
+	}
 }

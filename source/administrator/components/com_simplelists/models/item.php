@@ -224,8 +224,6 @@ class SimplelistsModelItem extends YireoModel
 	/**
 	 * Method to add extra data
 	 *
-	 * @access public
-	 *
 	 * @param object $data
 	 *
 	 * @return object

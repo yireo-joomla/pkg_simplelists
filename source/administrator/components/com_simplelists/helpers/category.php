@@ -61,16 +61,37 @@ class SimplelistsCategoryHelper
  */
 class SimplelistsCategoryTree
 {
+	/**
+	 * @var array
+	 */
 	private $items = array();
 
+	/**
+	 * @var array
+	 */
 	private $tree = array();
 
+	/**
+	 * @var array
+	 */
 	private $list = array();
 
+	/**
+	 * @var string
+	 */
 	private $type = '';
 
+	/**
+	 * @var null
+	 */
 	private $root = null;
 
+	/**
+	 * SimplelistsCategoryTree constructor.
+	 *
+	 * @param array  $items
+	 * @param string $type
+	 */
 	public function __construct($items = array(), $type = '')
 	{
 		$this->items = $items;
@@ -78,11 +99,19 @@ class SimplelistsCategoryTree
 		return null;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getItems()
 	{
 		return $this->items;
 	}
 
+	/**
+	 * @param array $items
+	 *
+	 * @return null
+	 */
 	public function setItems($items = array())
 	{
 		$this->items = $items;
@@ -90,6 +119,11 @@ class SimplelistsCategoryTree
 		return null;
 	}
 
+	/**
+	 * @param array $type
+	 *
+	 * @return null
+	 */
 	public function setType($type = array())
 	{
 		$this->type = $type;
@@ -97,6 +131,9 @@ class SimplelistsCategoryTree
 		return null;
 	}
 
+	/**
+	 * @return array|null
+	 */
 	public function _getRoot()
 	{
 		if (empty($this->root))
@@ -112,6 +149,9 @@ class SimplelistsCategoryTree
 		return $this->root;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getTree()
 	{
 		if (empty($this->tree))
@@ -124,6 +164,9 @@ class SimplelistsCategoryTree
 		return $this->tree;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getList()
 	{
 		if (empty($this->list))
@@ -134,6 +177,13 @@ class SimplelistsCategoryTree
 		return $this->list;
 	}
 
+	/**
+	 * @param     $parent
+	 * @param int $level
+	 * @param int $counter
+	 *
+	 * @return mixed
+	 */
 	private function getTreeRecursive($parent, $level = 0, $counter = 0)
 	{
 		$parent->level = $level;
@@ -158,6 +208,11 @@ class SimplelistsCategoryTree
 		return $parent;
 	}
 
+	/**
+	 * @param int $level
+	 *
+	 * @return string
+	 */
 	public function getIndent($level = 0)
 	{
 		$indent = '';

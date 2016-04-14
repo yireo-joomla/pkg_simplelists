@@ -23,11 +23,11 @@ jimport('yireo.loader');
 // Check for helper
 if (!class_exists('YireoHelperInstall'))
 {
-    require_once JPATH_COMPONENT . '/helpers/install.php';
-    YireoHelperInstall::autoInstallLibrary('yireo', 'https://www.yireo.com/documents/lib_yireo_j3x.zip', 'Yireo Library');
-    $application = JFactory::getApplication();
-    $application->redirect('index.php?option=com_simplelists');
-    $application->close();
+	require_once JPATH_COMPONENT . '/helpers/install.php';
+	YireoHelperInstall::autoInstallLibrary('yireo', 'https://www.yireo.com/documents/lib_yireo_j3x.zip', 'Yireo Library');
+	$application = JFactory::getApplication();
+	$application->redirect('index.php?option=com_simplelists');
+	$application->close();
 }
 
 // Check for function

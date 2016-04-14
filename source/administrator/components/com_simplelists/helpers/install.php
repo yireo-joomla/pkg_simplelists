@@ -134,7 +134,8 @@ class YireoHelperInstall
 			CURLOPT_SSL_VERIFYHOST => false,
 			CURLOPT_FRESH_CONNECT => false,
 			CURLOPT_FORBID_REUSE => false,
-			CURLOPT_BUFFERSIZE => 8192));
+			CURLOPT_BUFFERSIZE => 8192
+		));
 
 		$data = curl_exec($ch);
 		curl_close($ch);
