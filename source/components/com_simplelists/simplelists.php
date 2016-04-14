@@ -11,8 +11,8 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-// Require the loader
-require_once JPATH_COMPONENT_ADMINISTRATOR.'/lib/loader.php';
+// Load the Yireo library
+jimport('yireo.loader');
 
 // Require other files
 require_once JPATH_COMPONENT.'/controller.php';

@@ -20,6 +20,7 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to display the content
 	 *
 	 * @param string $tpl
+	 * @return null;
 	 */
 	public function display($tpl = null)
 	{
@@ -42,14 +43,10 @@ class SimplelistsViewItems extends YireoViewList
 
 	/**
 	 * Method to prepare for displaying (used by SimpleLists views but also SimpleLists Content Plugin)
-	 *
-	 * @param null
-	 * @return null
 	 */
 	public function prepareDisplay()
 	{
 		// Get important system variables
-		$document = JFactory::getDocument();
 		$uri = JURI::getInstance();
 
 		// Determine the current layout
@@ -58,9 +55,9 @@ class SimplelistsViewItems extends YireoViewList
 			$layout = $this->params->get('layout');
 			$this->setLayout($layout);
 		}
-		elseif ($this->application->input->getCmd('layout') != '')
+		elseif ($this->input->getCmd('layout') != '')
 		{
-			$layout = $this->application->input->getCmd('layout');
+			$layout = $this->input->getCmd('layout');
 			$this->setLayout($layout);
 		}
 		else
@@ -159,11 +156,11 @@ class SimplelistsViewItems extends YireoViewList
 			if ($this->params->get('show_feed') == 1)
 			{
 				$link = '&format=feed&limitstart=';
-				$document->addHeadLink(JRoute::_($link . '&type=rss'), 'alternate', 'rel', array(
+				$this->doc->addHeadLink(JRoute::_($link . '&type=rss'), 'alternate', 'rel', array(
 					'type' => 'application/rss+xml',
 					'title' => 'RSS 2.0'));
 
-				$document->addHeadLink(JRoute::_($link . '&type=atom'), 'alternate', 'rel', array(
+				$this->doc->addHeadLink(JRoute::_($link . '&type=atom'), 'alternate', 'rel', array(
 					'type' => 'application/atom+xml',
 					'title' => 'Atom 1.0'));
 			}
@@ -321,7 +318,6 @@ class SimplelistsViewItems extends YireoViewList
 	 */
 	public function prepareItem($item, $layout, $counter = 1, $total = 0)
 	{
-		$user = JFactory::getUser();
 		$dispatcher = JEventDispatcher::getInstance();
 		$params = clone($this->params);
 
@@ -557,7 +553,6 @@ class SimplelistsViewItems extends YireoViewList
 	 */
 	protected function loadJS($layout)
 	{
-		// Load javascript depending on the layout
 		switch ($layout)
 		{
 			case 'hover':
@@ -607,7 +602,7 @@ class SimplelistsViewItems extends YireoViewList
 	{
 		$dispatcher = JEventDispatcher::getInstance();
 		JPluginHelper::importPlugin('content');
-		$results = $dispatcher->trigger('onPrepareContent', array(&$row, &$params, 0));
+		$dispatcher->trigger('onPrepareContent', array(&$row, &$params, 0));
 	}
 
 	/**
@@ -618,21 +613,18 @@ class SimplelistsViewItems extends YireoViewList
 	 */
 	protected function prepareDocument($category)
 	{
-		// Get the document object
-		$document = JFactory::getDocument();
-
 		// Set the page title
-		if (JRequest::getCmd('option') == 'com_simplelists')
+		if ($this->input->getCmd('option') == 'com_simplelists')
 		{
 			$page_title = $this->params->get('page_title');
 
 			if ($this->params->get('show_page_title') == 1 && !empty($page_title))
 			{
-				$document->setTitle($page_title);
+				$this->doc->setTitle($page_title);
 			}
 			elseif (!empty($category->title))
 			{
-				$document->setTitle($category->title);
+				$this->doc->setTitle($category->title);
 			}
 		}
 
@@ -656,47 +648,44 @@ class SimplelistsViewItems extends YireoViewList
 		}
 
 		// Define the parameters
+		/** @var \Joomla\Registry\Registry $params */
 		$params = $category->params;
-		$document = JFactory::getDocument();
 
 		$meta_description = $params->get('description');
 
 		if (!empty($meta_description))
 		{
-			$document->setDescription($meta_description);
+			$this->doc->setDescription($meta_description);
 		}
 
 		$meta_keywords = $params->get('keywords');
 
 		if (!empty($meta_keywords))
 		{
-			$document->setMetadata('keywords', $meta_keywords);
+			$this->doc->setMetadata('keywords', $meta_keywords);
 		}
 
 		$meta_author = $params->get('author');
 
 		if (!empty($meta_author))
 		{
-			$document->setMetadata('author', $meta_author);
+			$this->doc->setMetadata('author', $meta_author);
 		}
 	}
 
 	/**
 	 * Method to add items to the breadcrumbs (pathway)
 	 *
-	 * @param object $category
-	 * @return null
+	 * @param object|array $category
 	 */
 	protected function addPathway($category)
 	{
-		// Sanity check
 		if (!is_object($category))
 		{
-			return null;
+			return;
 		}
 
-		$application = JFactory::getApplication();
-		$pathway = $application->getPathway();
+		$pathway = $this->app->getPathway();
 
 		if ($category->parent_id > 1)
 		{

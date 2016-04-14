@@ -24,6 +24,13 @@ class SimplelistsModelItems extends YireoModel
 	protected $_category = null;
 
 	/**
+	 * Enable the limit in the query (or in the data-array)
+	 *
+	 * @protected string
+	 */
+	protected $_limit_query = false;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -55,6 +62,13 @@ class SimplelistsModelItems extends YireoModel
 		{
 			$this->setLimitQuery(false);
 		}
+	}
+
+	public function getPagination()
+	{
+		$pagination = parent::getPagination();
+		$pagination->setAdditionalUrlParam('category_id', $this->getId());
+		return $pagination;
 	}
 
 	/**
@@ -288,13 +302,14 @@ class SimplelistsModelItems extends YireoModel
 
 			// Fetch the category of these items
 			require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/models/category.php';
-			$model = new SimplelistsModelCategory();
+			$model = new SimplelistsModelCategory;
 			$model->setId($category_id);
 			$category = $model->getData();
 
 			// Fetch the related categories (parent and children) of this category
 			require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/models/categories.php';
-			$model = new SimplelistsModelCategories();
+			$model = new SimplelistsModelCategories;
+			$model->resetFilters();
 
 			$where = array();
 			$where[] = 'category.id = ' . (int) $category->parent_id;
@@ -303,7 +318,7 @@ class SimplelistsModelItems extends YireoModel
 
 			$model->addWhere('(' . implode(' OR ', $where) . ')');
 
-			$related = $model->getData();
+			$related = $model->getData(true);
 
 			foreach ($related as $id => $item)
 			{

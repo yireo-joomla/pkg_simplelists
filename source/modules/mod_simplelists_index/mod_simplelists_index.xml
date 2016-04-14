@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="2.5" method="upgrade">
-	<name>MOD_SIMPLELISTS_INDEX</name>
-	<author>Yireo</author>
-	<creationDate>October 2015</creationDate>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<authorEmail>info@yireo.com</authorEmail>
-	<authorUrl>https://www.yireo.com/</authorUrl>
-	<version>1.7.4</version>
-	<description>MOD_SIMPLELISTS_INDEX_DESC</description>
+    <name>MOD_SIMPLELISTS_INDEX</name>
+    <author>Yireo</author>
+    <creationDate>April 2016</creationDate>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>info@yireo.com</authorEmail>
+    <authorUrl>https://www.yireo.com/</authorUrl>
+    <version>1.8.0</version>
+    <description>MOD_SIMPLELISTS_INDEX_DESC</description>
 
-	<files folder="site">
-		<filename module="mod_simplelists_index">mod_simplelists_index.php</filename>
-		<filename>helper.php</filename>
-		<folder>tmpl</folder>
-		<folder>language</folder>
-	</files>
+    <files folder="site">
+        <filename module="mod_simplelists_index">mod_simplelists_index.php</filename>
+        <filename>helper.php</filename>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
 
     <files>
         <filename>mod_simplelists_index.xml</filename>
@@ -26,6 +26,8 @@
     </languages>
 
     <updateservers>
-        <server type="extension" priority="1" name="mod_simplelists_index">http://www.yireo.com/updates/mod_simplelists_index.xml</server>
+        <server type="extension" priority="1" name="mod_simplelists_index">
+            http://www.yireo.com/updates/mod_simplelists_index.xml
+        </server>
     </updateservers>
 </extension>

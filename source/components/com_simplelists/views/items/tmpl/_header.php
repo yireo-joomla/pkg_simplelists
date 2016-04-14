@@ -48,7 +48,6 @@ $pagination = $this->pagination;
 	</div>
 <?php endif; ?>
 
-
 <?php if ($this->params->get('show_category_childs') && !empty($this->category->childs)) : ?>
 	<div class="simplelists-children">
 		<ul>
