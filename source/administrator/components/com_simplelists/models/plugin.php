@@ -12,7 +12,7 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class SimplelistsModelCategory extends YireoModel
+class SimplelistsModelPlugin extends YireoModel
 {
     /**
      * Indicator whether to debug this model or not
@@ -21,10 +21,6 @@ class SimplelistsModelCategory extends YireoModel
 
     /**
      * Constructor
-     *
-     * @access public
-     * @param null
-     * @return null
      */
     public function __construct()
     {

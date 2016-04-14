@@ -2,11 +2,11 @@
 /**
  * Joomla! component SimpleLists
  *
- * @author Yireo
- * @package SimpleLists
+ * @author    Yireo
+ * @package   SimpleLists
  * @copyright Copyright 2015
- * @license GNU Public License
- * @link http://www.yireo.com/
+ * @license   GNU Public License
+ * @link      http://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -14,208 +14,300 @@ defined('_JEXEC') or die();
 
 class SimplelistsModelItem extends YireoModel
 {
-    /**
-     * Indicator whether to debug this model or not
-     */
-    protected $_debug = false;
+	/**
+	 * Indicator whether to debug this model or not
+	 */
+	protected $_debug = false;
 
-    /**
-     * Constructor
-     *
-     * @access public
-     * @param null
-     * @return null
-     */
-    public function __construct()
-    {
-        $this->_orderby_title = 'title';
-        $this->_tbl_prefix_auto = true;
-        parent::__construct('item');
-    }
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		$this->_orderby_title = 'title';
+		$this->_tbl_prefix_auto = true;
 
-    /**
-     * Method to get a XML-based form
-     *
-     * @access public
-     * @subpackage Yireo
-     * @param array $data
-     * @param bool $loadData
-     * @return mixed
-     */
-    public function getForm($data = array(), $loadData = true)
-    {   
-        $form = parent::getForm($data, $loadData);
-        if(empty($form)) {
-            return null;
-        }
-    
-        $data = $this->getData();
-        if(empty($data->categories)) { 
-            $filter = $this->getFilter('category_id', null, 'cmd', 'com_simplelists_items_');
-            if(!empty($filter)) {
-                $data->categories = array($filter);
-            }
-        }
+		$this->addTablePath(JPATH_COMPONENT_ADMINISTRATOR . '/tables/');
 
-        // Allow third party plugins to change the form
-        JPluginHelper::importPlugin('simplelistscontent');
-        JFactory::getApplication()->triggerEvent('onSimplelistsItemPrepareForm', array(&$form, &$data));
+		parent::__construct('item');
+	}
 
-        // Bind the form data
-        $form->bind(array('item' => $data));
+	/**
+	 * Method to get a XML-based form
+	 *
+	 * @param array $data
+	 * @param bool  $loadData
+	 *
+	 * @return mixed
+	 */
+	public function getForm($data = array(), $loadData = true)
+	{
+		$form = parent::getForm($data, $loadData);
 
-        return $form;
-    }
+		if (empty($form))
+		{
+			return null;
+		}
 
-    /**
-     * Method to store the model
-     *
-     * @access public
-     * @param mixed $data
-     * @return bool
-     */
-    public function store($data)
-    {
-        $params = JComponentHelper::getParams ('com_simplelists');
-        $table = $this->getTable();
+		$data = $this->getData();
 
-        // Insert $categories manually
-        if (!empty($data['item']['categories'])) {
-            $categories = $data['item']['categories'] ;
-            unset($data['item']['categories']) ;
-        } elseif (!empty($data['categories'])) {
-            $categories = $data['categories'] ;
-            unset($data['categories']) ;
-        }
+		if (empty($data->categories))
+		{
+			$filter = $this->getFilter('category_id', null, 'cmd', 'com_simplelists_items_');
 
-        // Insert link manually
-        if (isset($data['link_type'])) {
-            $type = $data['link_type'];
-            if(!empty($data['input']['link_'.$type])) $data['link'] = $data['input']['link_'.$type];
-            if(!empty($data['link_'.$type])) $data['link'] = $data['link_'.$type];
-        }
+			if (!empty($filter))
+			{
+				$data->categories = array($filter);
+			}
+		}
 
-        // Remove the old category-relations
-        if ($params->get('auto_ordering', 1) == 1 && $data['id'] == 0 && count($categories) == 1) {
-            $query = 'SELECT MAX(`item`.`ordering`) FROM `#__simplelists_items` AS `item`'
-                . ' LEFT JOIN `#__simplelists_categories` AS `category` ON `category`.`id`=`item`.`id`'
-                . ' WHERE `category`.`category_id`='.$categories[0];
-            $this->_db->setQuery( $query );
-            $data['ordering'] = $this->_db->loadResult() + 1;
-        }
+		// Allow third party plugins to change the form
+		JPluginHelper::importPlugin('simplelistscontent');
+		$this->app->triggerEvent('onSimplelistsItemPrepareForm', array(&$form, &$data));
 
-        // Store these data
-        $rs = parent::store($data);
-        if($rs == false) {
-            $this->setError(JText::_('LIB_YIREO_TABLE_ERROR'));
-            return false;
-        }
+		// Bind the form data
+		$form->bind(array('item' => $data));
 
-        // Handle category-relations
-        if($this->getId() > 0) {
+		return $form;
+	}
 
-            // Remove the old category-relations
-            $query = 'DELETE FROM `#__simplelists_categories` WHERE `id`='.(int)$this->getId();
-            $this->_db->setQuery($query);
-            $this->_db->query();
+	/**
+	 * Method to store the model
+	 *
+	 * @param mixed $data
+	 *
+	 * @throws Exception
+	 * @return bool
+	 */
+	public function store($data)
+	{
+		$params = JComponentHelper::getParams('com_simplelists');
+		$categories = array();
 
-            // Store the new category-relations
-            if(!empty($categories)) {
-                foreach($categories as $c) {
-                    $query = 'INSERT INTO `#__simplelists_categories` SET `id`='.(int)$this->getId().',`category_id`='.(int)$c;
-                    $this->_db->setQuery($query);
-                    $this->_db->query();
-                }
-            }
-        } else {
-            JError::raiseWarning('LIB_YIREO_TABLE_UNKNOWN_ID');
-        }
+		// Insert $categories manually
+		if (!empty($data['item']['categories']))
+		{
+			$categories = $data['item']['categories'];
+			unset($data['item']['categories']);
+		}
+		elseif (!empty($data['categories']))
+		{
+			$categories = $data['categories'];
+			unset($data['categories']);
+		}
 
-        return true;
-    }
+		// Insert link manually
+		if (isset($data['link_type']))
+		{
+			$type = $data['link_type'];
 
-    /**
-     * Method to remove an item
-     *
-     * @access public
-     * @param array $cid
-     * @return boolean True on success
-     */
-    public function delete($cid = array())
-    {
-        $result = false;
+			if (!empty($data['input']['link_' . $type]))
+			{
+				$data['link'] = $data['input']['link_' . $type];
+			}
 
-        if (count( $cid )) {
+			if (!empty($data['link_' . $type]))
+			{
+				$data['link'] = $data['link_' . $type];
+			}
+		}
 
-            // Convert this array
-            JArrayHelper::toInteger($cid);
-            $cids = implode( ',', $cid );
+		// Remove the old category-relations
+		if ($params->get('auto_ordering', 1) == 1 && $data['id'] == 0 && count($categories) == 1)
+		{
+			$db = $this->db;
+			$query = $db->getQuery(true);
+			$query->select('MAX(' . $db->quoteName('item.ordering') . ')');
+			$query->from($db->quoteName('#__simplelists_items', 'item'));
+			$query->leftJoin($db->quoteName('#__simplelists_categories', 'category') . ' ON ' . $db->quoteName('category.id') . '=' . $db->quoteName('item.id'));
+			$query->where($db->quoteName('category.category_id') . '=' . (int) $categories[0]);
 
-            // Call the parent function
-            if(parent::delete($cid) == false) {
-                return false;
-            }
+			$this->_db->setQuery($query);
+			$data['ordering'] = $this->_db->loadResult() + 1;
+		}
 
-            // Also remove all item/category relations
-            $query = 'DELETE FROM `#__simplelists_categories` WHERE `id` IN ('.$cids.')';
-            $this->_db->setQuery( $query );
-            if(!$this->_db->query()) {
-                $this->setError($this->_db->getErrorMsg());
-                return false;
-            }
-        }
+		// Store these data
+		$rs = parent::store($data);
 
-        return true;
-    }
+		if ($rs == false)
+		{
+			throw new Exception(JText::_('LIB_YIREO_TABLE_ERROR'));
+		}
 
-    /**
-     * Method to add extra data
-     *
-     * @access public
-     * @param array $data
-     * @return array
-     */
-    public function onDataLoad($data)
-    {
-        // If these data exist, add extra info 
-        if (empty($_data)) {
+		// Handle category-relations
+		if (!$this->getId() > 0)
+		{
+			throw new Exception(JText::_('LIB_YIREO_TABLE_UNKNOWN_ID'));
+		}
 
-            // Fetch the categories
-            $data->categories = SimplelistsHelper::getCategories($data->id, null, 'id');
+		// Remove the old category-relations
+		$this->removeCategories(array((int) $this->getId()));
 
-            // Fetch the extra link data
-            if (!isset($data->link_data)) {
-                $data->link_data = array();
-                if (!empty($data->link_type)) {
-                    $plugin = SimplelistsPluginHelper::getPlugin('simplelistslink', $data->link_type);
-                    if (!empty($plugin)) {
-                        $data->link_data[$data->link_type] = $plugin->getName($data->link);
-                    }
-                }
-            }
-        }
+		// Store the new category-relations
+		if (!empty($categories))
+		{
+			foreach ($categories as $categoryId)
+			{
+				$categoryMapping = new stdClass();
+				$categoryMapping->id = (int) $this->getId();
+				$categoryMapping->category_id = (int) $categoryId;
+				$this->db->insertObject('#__simplelists_categories', $categoryMapping);
+			}
+		}
 
-        return $data;
-    }
+		return true;
+	}
 
-    /**
-     * Method to get the ordering query
-     *
-     * @access public 
-     * @param null
-     * @return string
-     */
-    public function getOrderingQuery()
-    {
-        if ($this->_orderby_default == 'ordering') {
-            $query = 'SELECT `item`.`ordering` AS `value`, `item`.`title` AS `text`'
-                . ' FROM `#__simplelists_items` AS `item`'
-                . ' LEFT JOIN `#__simplelists_categories` AS `category` ON `category`.`id`=`item`.`id`'
-                . ' WHERE `category`.`category_id` IN (SELECT `category_id` FROM `#__simplelists_categories` WHERE `id`='.(int)$this->_data->id.')'
-                . ' ORDER BY `item`.`ordering`';
-            return $query;
-        }
+	/**
+	 * Method to remove an item
+	 *
+	 * @param array $cid
+	 *
+	 * @return boolean True on success
+	 * @throws Exception
+	 */
+	public function delete($cid = array())
+	{
+		if (empty($cid))
+		{
+			return true;
+		}
 
-        return null;
-    }
+		// Convert this array
+		\Joomla\Utilities\ArrayHelper::toInteger($cid);
+
+		// Call the parent function
+		if (parent::delete($cid) == false)
+		{
+			return false;
+		}
+
+		// Remove all item/category relations
+		$this->removeCategories($cid);
+
+		return true;
+	}
+
+	/**
+	 * Remove categories
+	 *
+	 * @param array $ids
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
+	protected function removeCategories($ids)
+	{
+		if (empty($ids))
+		{
+			return false;
+		}
+
+		if (count($ids) == 1 && empty($ids[0]))
+		{
+			return false;
+		}
+
+		/** @var JDatabaseDriver $db */
+		$db = $this->db;
+
+		// Remove all item/category relations
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__simplelists_categories'));
+		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
+		$db->setQuery($query);
+		$db->execute();
+
+		return true;
+	}
+
+	/**
+	 * Method to add extra data
+	 *
+	 * @access public
+	 *
+	 * @param object $data
+	 *
+	 * @return object
+	 */
+	public function onDataLoad($data)
+	{
+		// If these data exist, add extra info
+		if (empty($data->categories))
+		{
+			// Fetch the categories
+			$data->categories = SimplelistsHelper::getCategories($data->id, null, 'id');
+
+			// Fetch the extra link data
+			$data = $this->appendLinkData($data);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param object $data
+	 *
+	 * @return object
+	 */
+	protected function appendLinkData($data)
+	{
+		if (isset($data->link_data))
+		{
+			return $data;
+		}
+
+		$data->link_data = array();
+
+		if (empty($data->link_type))
+		{
+			return $data;
+		}
+
+		$plugin = SimplelistsPluginHelper::getPlugin('simplelistslink', $data->link_type);
+
+		if (empty($plugin))
+		{
+			return $data;
+		}
+
+		$data->link_data[$data->link_type] = $plugin->getName($data->link);
+
+		return $data;
+	}
+
+	/**
+	 * Method to get the ordering query
+	 *
+	 * @access public
+	 *
+	 * @param null
+	 *
+	 * @return string
+	 */
+	public function getOrderingQuery()
+	{
+		if ($this->_orderby_default != 'ordering')
+		{
+			return null;
+		}
+
+		/** @var JDatabaseDriver $db */
+		$db = $this->db;
+
+		$subQuery = $db->getQuery(true);
+		$subQuery->select($db->quoteName('category_id'));
+		$subQuery->from($db->quoteName('#__simplelists_categories'));
+		$subQuery->where($db->quoteName('id') . ' = ' . (int) $this->_data->id);
+
+		$query = $db->getQuery(true);
+		$query->select($db->quoteName('item.ordering', 'value'));
+		$query->select($db->quoteName('item.title', 'text'));
+		$query->from($db->quoteName('#__simplelists_items', 'item'));
+		$query->leftJoin($db->quoteName('#__simplelists_categories', 'category') . ' ON ' . $db->quoteName('category.id') . '=' . $db->quoteName('item.id'));
+		$query->where($db->quoteName('category.category_id') . ' IN (' . (string) $subQuery . ')');
+		$query->order($db->quoteName('item.ordering'));
+
+		return $query;
+	}
 }

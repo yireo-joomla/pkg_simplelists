@@ -21,10 +21,12 @@ class com_simplelistsInstallerScript
 			case "install":
 			case "update":
 				include_once JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_simplelists' . DS . 'install.simplelists.php';
+
 				if (function_exists('com_install'))
 				{
 					com_install();
 				}
+
 				break;
 		}
 	}

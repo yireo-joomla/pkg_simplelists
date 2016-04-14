@@ -17,8 +17,24 @@ define('COM_SIMPLELISTS_DIR', 'images/simplelists/');
 define('COM_SIMPLELISTS_BASE', JPATH_ROOT . '/' . COM_SIMPLELISTS_DIR);
 define('COM_SIMPLELISTS_BASEURL', JURI::root() . COM_SIMPLELISTS_DIR);
 
-// Require the Yireo loader
-require_once JPATH_COMPONENT . '/lib/loader.php';
+// Load the Yireo library
+jimport('yireo.loader');
+
+// Check for helper
+if (!class_exists('YireoHelperInstall'))
+{
+    require_once JPATH_COMPONENT . '/helpers/install.php';
+    YireoHelperInstall::autoInstallLibrary('yireo', 'https://www.yireo.com/documents/lib_yireo_j3x.zip', 'Yireo Library');
+    $application = JFactory::getApplication();
+    $application->redirect('index.php?option=com_simplelists');
+    $application->close();
+}
+
+// Check for function
+if (!function_exists('YireoLibraryLoader'))
+{
+	die('Yireo Library is not installed and could not be installed automatically');
+}
 
 // Manage common includes
 require_once JPATH_COMPONENT . '/helpers/acl.php';
@@ -40,9 +56,10 @@ SimplelistsHelper::checkDirectory();
 SimplelistsHelper::checkVersions();
 
 // Initialize the controller
-$controller = new SimplelistsController();
+$controller = new SimplelistsController;
 
 // Perform the Request task
-$controller->execute(JRequest::getCmd('task'));
+$app = JFactory::getApplication();
+$controller->execute($app->input->getCmd('task'));
 $controller->redirect();
 
