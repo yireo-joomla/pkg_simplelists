@@ -53,7 +53,7 @@ function SimplelistsBuildRoute(&$query)
 	// Search for an appropriate menu item
 	if ($params->get('use_parent_url', 0) == 1)
 	{
-		$this->copyItemidFromItems();
+		$routeQuery->copyItemidFromItems();
 	}
 
 	// Set the alias if it is not present
