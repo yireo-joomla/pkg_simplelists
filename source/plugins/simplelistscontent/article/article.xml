@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.7.0</version>
+    <version>1.8.3</version>
     <description>PLG_SIMPLELISTSCONTENT_ARTICLE_DESC</description>
 
     <files>
@@ -21,6 +21,6 @@
     </languages>
 
     <updateservers>
-        <server type="extension" priority="1" name="plg_simplelistscontent_article">http://www.yireo.com/updates/plg_simplelistscontent_article.xml</server>
+        <server type="extension" priority="1" name="plg_simplelistscontent_article">https://www.yireo.com/updates/plg_simplelistscontent_article.xml</server>
     </updateservers>
 </extension>
