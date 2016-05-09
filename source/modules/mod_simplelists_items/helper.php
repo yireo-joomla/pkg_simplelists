@@ -19,6 +19,7 @@ include_once JPATH_SITE . '/components/com_simplelists/helpers/html.php';
 /*
  * Helper class
  */
+
 class ModSimpleListsItemsHelper
 {
 	public function __construct($params)
@@ -39,7 +40,11 @@ class ModSimpleListsItemsHelper
 		$layout = $this->params->get('layout');
 		$Itemid = (int) $this->params->get('menu_id');
 
-		$query = 'SELECT c.* FROM #__categories AS c WHERE c.id = ' . $category_id;
+		/** @var JDatabaseQuery $query */
+		$query = $db->getQuery(true);
+		$query->select('c.*');
+		$query->from('#__categories', 'c');
+		$query->where($db->quoteName('c.id') . '=' . $category_id);
 		$db->setQuery($query);
 		$category = $db->loadObject();
 
@@ -148,11 +153,20 @@ class ModSimpleListsItemsHelper
 		}
 
 		$result = array();
+		$dispatcher = JDispatcher::getInstance();
 
 		if (!empty($items))
 		{
 			foreach ($items as $item)
 			{
+				// Run the content through Content Plugins
+				if ($item->params->get('enable_content_plugins', 1) == 1)
+				{
+					JPluginHelper::importPlugin('content');
+					$itemParams = array();
+					$dispatcher->trigger('onPrepareContent', array(&$item, &$itemParams, 0));
+				}
+
 				if ($this->params->get('link_list', 1) == 1)
 				{
 					$item->link = $this->getCategoryUrl($category, $item, $Itemid, $layout);

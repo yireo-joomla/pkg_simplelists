@@ -115,6 +115,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="com_simplelists">http://www.yireo.com/updates/com_simplelists.xml</server>
+        <server type="extension" priority="1" name="com_simplelists">https://www.yireo.com/updates/com_simplelists.xml</server>
     </updateservers>
 </extension>

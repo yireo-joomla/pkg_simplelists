@@ -23,6 +23,6 @@
     </config>
 
     <updateservers>
-        <server type="extension" priority="1" name="plg_search_simplelists">http://www.yireo.com/updates/plg_search_simplelists.xml</server>
+        <server type="extension" priority="1" name="plg_search_simplelists">https://www.yireo.com/updates/plg_search_simplelists.xml</server>
     </updateservers>
 </extension>

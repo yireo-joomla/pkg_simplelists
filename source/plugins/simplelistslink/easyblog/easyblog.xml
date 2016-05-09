@@ -21,6 +21,6 @@
     </languages>
 
     <updateservers>
-        <server type="extension" priority="1" name="plg_simplelistslink_easyblog">http://www.yireo.com/updates/plg_simplelistslink_easyblog.xml</server>
+        <server type="extension" priority="1" name="plg_simplelistslink_easyblog">https://www.yireo.com/updates/plg_simplelistslink_easyblog.xml</server>
     </updateservers>
 </extension>

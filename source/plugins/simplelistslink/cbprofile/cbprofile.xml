@@ -21,6 +21,6 @@
     </languages>
 
     <updateservers>
-        <server type="extension" priority="1" name="plg_simplelistslink_cbprofile">http://www.yireo.com/updates/plg_simplelistslink_cbprofile.xml</server>
+        <server type="extension" priority="1" name="plg_simplelistslink_cbprofile">https://www.yireo.com/updates/plg_simplelistslink_cbprofile.xml</server>
     </updateservers>
 </extension>

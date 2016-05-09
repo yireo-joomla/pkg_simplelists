@@ -22,7 +22,7 @@
 
     <updateservers>
         <server type="extension" priority="1" name="plg_simplelistslink_item">
-            http://www.yireo.com/updates/plg_simplelistslink_item.xml
+            https://www.yireo.com/updates/plg_simplelistslink_item.xml
         </server>
     </updateservers>
 </extension>

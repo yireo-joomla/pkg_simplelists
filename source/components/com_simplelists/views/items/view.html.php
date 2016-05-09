@@ -741,4 +741,14 @@ class SimplelistsViewItems extends YireoViewList
 
 		return 0;
 	}
+
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
 }

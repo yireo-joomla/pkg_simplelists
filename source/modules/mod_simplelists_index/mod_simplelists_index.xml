@@ -27,7 +27,7 @@
 
     <updateservers>
         <server type="extension" priority="1" name="mod_simplelists_index">
-            http://www.yireo.com/updates/mod_simplelists_index.xml
+            https://www.yireo.com/updates/mod_simplelists_index.xml
         </server>
     </updateservers>
 </extension>

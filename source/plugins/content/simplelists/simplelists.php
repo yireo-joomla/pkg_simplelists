@@ -65,12 +65,14 @@ class plgContentSimplelists extends JPlugin
 
 		if (isset($category->params))
 		{
-			$view->params->merge(YireoHelper::toRegistry($category->params));
+            $viewParams = $view->getParams();
+            $viewParams->merge(YireoHelper::toRegistry($category->params));
 		}
 
 		// Prepare and load the view
-		$view->params->set('show_category_title', 0);
-		$view->params->set('load_css', 0);
+        $viewParams->set('show_category_title', 0);
+        $viewParams->set('load_css', 0);
+        $view->setParams($viewParams);
 		$view->prepareDisplay();
 		$content = $view->loadTemplate($view->getLayout());
 
