@@ -20,6 +20,11 @@ jimport('joomla.plugin.plugin');
  */
 class SimplelistsPluginLink extends JPlugin
 {
+	/**
+	 * @var bool
+	 */
+	protected $autoloadLanguage = true;
+	
 	/*
 	 * Method to get the plugin name
 	 *

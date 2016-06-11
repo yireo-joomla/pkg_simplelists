@@ -20,8 +20,6 @@ require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/libraries/plugin
  */
 class PlgSimpleListsLinkHikashop extends SimplelistsPluginLink
 {
-	protected $autoloadLanguage = true;
-
 	/*
 	 * Method to check whether this plugin can be used or not
 	 *
