@@ -43,7 +43,7 @@ class ModSimpleListsItemsHelper
 		/** @var JDatabaseQuery $query */
 		$query = $db->getQuery(true);
 		$query->select('c.*');
-		$query->from('#__categories', 'c');
+		$query->from($db->quoteName('#__categories', 'c'));
 		$query->where($db->quoteName('c.id') . '=' . $category_id);
 		$db->setQuery($query);
 		$category = $db->loadObject();
