@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author    Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
  * @link      https://www.yireo.com/
  */
@@ -146,7 +146,7 @@ class SimplelistsViewItem extends YireoView
 		{
 			$readmore_text = $item->params->get('readmore_text', JText::sprintf('Read more', $item->title));
 			$readmore_css = trim('readon ' . $item->params->get('readmore_class', ''));
-			$item->readmore = JHTML::link($item->url, $readmore_text, 'title="' . $item->title . '" class="' . $readmore_css . '"' . $item->target);
+			$item->readmore = JHtml::link($item->url, $readmore_text, 'title="' . $item->title . '" class="' . $readmore_css . '"' . $item->target);
 		}
 		else
 		{
@@ -179,7 +179,7 @@ class SimplelistsViewItem extends YireoView
 		{
 			if ($item->params->get('title_link') && !empty($item->url))
 			{
-				$item->title = JHTML::link($item->url, $item->title, $item->target);
+				$item->title = JHtml::link($item->url, $item->title, $item->target);
 			}
 		}
 		else

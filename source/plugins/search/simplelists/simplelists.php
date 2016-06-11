@@ -3,9 +3,9 @@
  * Joomla! search plugin for Simple Lists
  *
  * @author Yireo
- * @copyright Copyright 2015 Yireo
+ * @copyright Copyright 2016 Yireo
  * @license GNU/GPL
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // no direct access
@@ -48,7 +48,7 @@ class plgSearchSimpleLists extends JPlugin
     {
         // Fetch system variables
         $app = JFactory::getApplication();
-        $db = JFactory::getDBO();
+        $db = JFactory::getDbo();
         $user = JFactory::getUser();
 
         // If the SimpleLists search-area is not included in this search-request, skip this plugin

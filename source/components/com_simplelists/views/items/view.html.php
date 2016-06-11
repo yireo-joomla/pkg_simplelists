@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author    Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
  * @link      https://www.yireo.com/
  */
@@ -47,7 +47,7 @@ class SimplelistsViewItems extends YireoViewList
 	public function prepareDisplay()
 	{
 		// Get important system variables
-		$uri = JURI::getInstance();
+		$uri = JUri::getInstance();
 
 		// Determine the current layout
 		if ($this->params->get('layout') != '')
@@ -99,14 +99,14 @@ class SimplelistsViewItems extends YireoViewList
 			if ($this->params->get('totop_image') && is_file(JPATH_SITE . '/images/simplelists/' . $this->params->get('totop_image')))
 			{
 				$totop_image = SimplelistsHTML::image('images/simplelists/' . $this->params->get('totop_image'), $totop_text);
-				$totop_image = JHTML::link($url . '#top', $totop_image, 'class="totop"');
+				$totop_image = JHtml::link($url . '#top', $totop_image, 'class="totop"');
 				$totop .= $totop_image;
 			}
 
 			if ($this->params->get('totop_text'))
 			{
 				$totop_text = '<span class="totop_text">' . $totop_text . '</span>';
-				$totop_text = JHTML::link($url . '#top', $totop_text, 'class="totop"');
+				$totop_text = JHtml::link($url . '#top', $totop_text, 'class="totop"');
 				$totop .= $totop_text;
 			}
 		}
@@ -181,7 +181,7 @@ class SimplelistsViewItems extends YireoViewList
 		// Load the lightbox only, if set through the parameters
 		if ($this->params->get('load_lightbox'))
 		{
-			JHTML::_('behavior.modal', 'a.lightbox');
+			JHtml::_('behavior.modal', 'a.lightbox');
 		}
 
 		// Construct the page class
@@ -376,7 +376,7 @@ class SimplelistsViewItems extends YireoViewList
 		{
 			$readmore_text = $item->params->get('readmore_text', JText::sprintf('Read more', $item->title));
 			$readmore_css = trim('readon ' . $item->params->get('readmore_class', ''));
-			$item->readmore = JHTML::link($item->url, $readmore_text, 'title="' . $item->title . '" class="' . $readmore_css . '"' . $item->target);
+			$item->readmore = JHtml::link($item->url, $readmore_text, 'title="' . $item->title . '" class="' . $readmore_css . '"' . $item->target);
 		}
 		else
 		{
@@ -449,7 +449,7 @@ class SimplelistsViewItems extends YireoViewList
 
 				$title = htmlentities($title);
 
-				$item->picture = JHTML::link($item->url, $item->picture, 'title="' . $title . '"' . $item->target . $item_link_class . $item_link_rel);
+				$item->picture = JHtml::link($item->url, $item->picture, 'title="' . $title . '"' . $item->target . $item_link_class . $item_link_rel);
 			}
 		}
 		else
@@ -499,7 +499,7 @@ class SimplelistsViewItems extends YireoViewList
 		{
 			if ($item->params->get('title_link') && !empty($item->url))
 			{
-				$item->title = JHTML::link($item->url, $item->title, $item->target);
+				$item->title = JHtml::link($item->url, $item->title, $item->target);
 			}
 		}
 		else

@@ -4,9 +4,9 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!  
@@ -58,7 +58,7 @@ class SimplelistsViewCategory extends YireoView
         YireoHelper::jquery();
 
         // Add extra JavaScript
-        JHTML::_('behavior.formvalidation');
+        JHtml::_('behavior.formvalidation');
         $this->addJs('form-validation.js');
 
         parent::display($tpl);

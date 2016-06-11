@@ -34,7 +34,7 @@ class SimpleListsViewHome extends YireoViewHome
 		$urls = array();
 		$urls['twitter'] = 'http://twitter.com/yireo';
 		$urls['facebook'] = 'http://www.facebook.com/yireo';
-		$urls['tutorials'] = 'http://www.yireo.com/tutorials/simplelists';
+		$urls['tutorials'] = 'https://www.yireo.com/tutorials/simplelists';
 		$urls['jed'] = 'http://extensions.joomla.org/extensions/news-display/tables-a-lists/3650';
 		$this->urls = $urls;
 

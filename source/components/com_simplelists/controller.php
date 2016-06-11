@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -30,7 +30,7 @@ class SimplelistsController extends YireoController
         // Redirect to the base-URL if a view without Menu-Item is set
         if (empty($view) && empty($Itemid)) {
             $app = JFactory::getApplication();
-            $url = JURI::base();
+            $url = JUri::base();
             $app->redirect($url);
             $app->close();
             exit;

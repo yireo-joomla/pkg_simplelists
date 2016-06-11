@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -15,7 +15,7 @@ defined('_JEXEC') or die();
 function com_install()
 {
 	// Initialize system variables
-	$db = JFactory::getDBO();
+	$db = JFactory::getDbo();
 	$application = JFactory::getApplication();
 
 	// Do a simple PHP-check

@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -40,7 +40,7 @@ class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
 	{
 		$query = "SELECT `title` FROM #__menu WHERE `id`=" . (int) $link;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$row = $db->loadObject();
 
@@ -63,7 +63,7 @@ class plgSimpleListsLinkMenuItem extends SimplelistsPluginLink
 	public function getUrl($item = null)
 	{
 		$query = "SELECT `id`,`link` FROM #__menu WHERE `id`=" . (int) $item->link;
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$row = $db->loadObject();
 

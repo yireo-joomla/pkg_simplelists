@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author    Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // no direct access
@@ -49,14 +49,14 @@ if (!class_exists('JHTMLIcon'))
 
 			// Checks template image directory for image, if non found default are loaded
 			$image_folder = '/media/system/images/';
-			$text = JHTML::_('image.site', 'printButton.png', $image_folder, null, null, JText::_('Print'));
+			$text = JHtml::_('image.site', 'printButton.png', $image_folder, null, null, JText::_('Print'));
 
 			// Construct the link-attributes
 			$attribs['title'] = JText::_('Print');
 			$attribs['onclick'] = "window.open(this.href,'win2','" . $status . "'); return false;";
 			$attribs['rel'] = 'nofollow';
 
-			return JHTML::_('link', JRoute::_($url), $text);
+			return JHtml::_('link', JRoute::_($url), $text);
 		}
 
 		/**

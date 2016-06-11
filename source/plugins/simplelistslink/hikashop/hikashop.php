@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -102,6 +102,6 @@ class PlgSimpleListsLinkHikashop extends SimplelistsPluginLink
 		$db->setQuery($query);
 		$users = $db->loadObjectList();
 
-		return JHTML::_('select.genericlist', $users, 'link_hikashop', 'class="inputbox" size="1"', 'product_id', 'product_name', intval($current));
+		return JHtml::_('select.genericlist', $users, 'link_hikashop', 'class="inputbox" size="1"', 'product_id', 'product_name', intval($current));
 	}
 }

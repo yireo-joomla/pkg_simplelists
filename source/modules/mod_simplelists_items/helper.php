@@ -3,9 +3,9 @@
  * Joomla! module for Simple Lists
  *
  * @author    Yireo
- * @copyright Copyright 2015 Yireo
+ * @copyright Copyright 2016 Yireo
  * @license   GNU/GPL
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -33,7 +33,7 @@ class ModSimpleListsItemsHelper
 	public function getCategory()
 	{
 		// Get some system variables
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		// Read the module parameters
 		$category_id = (int) $this->params->get('category_id');

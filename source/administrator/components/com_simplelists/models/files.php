@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -258,11 +258,11 @@ class SimpleListsModelFiles extends YireoCommonModel
 
 						if ($maxbits > 0 && $size > $maxbits)
 						{
-							$tmp->src = JURI::root() . SimplelistsHelper::createThumbnail($tmp->path, $ext, $tmp->src_width, $tmp->src_height, $tmp->width, $tmp->height);
+							$tmp->src = JUri::root() . SimplelistsHelper::createThumbnail($tmp->path, $ext, $tmp->src_width, $tmp->src_height, $tmp->width, $tmp->height);
 						}
 						else
 						{
-							$tmp->src = JURI::root() . $tmp->path_relative;
+							$tmp->src = JUri::root() . $tmp->path_relative;
 						}
 
 						$files[] = $tmp;

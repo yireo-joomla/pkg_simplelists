@@ -4,9 +4,9 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -30,10 +30,10 @@ class JElementColorpicker extends JElement
         $document = JFactory::getDocument();
         $fieldName = $control_name.'['.$name.']';
 
-        $link = JURI::root().COLOR_PICKER_URL.'index.php?object='.$name.'&amp;color='.preg_replace('/([^a-zA-Z0-9]?)/', '', $value);
+        $link = JUri::root().COLOR_PICKER_URL.'index.php?object='.$name.'&amp;color='.preg_replace('/([^a-zA-Z0-9]?)/', '', $value);
 
-        JHTML::script(COLOR_PICKER_URL.'colorpicker.js');
-        JHTML::_('behavior.modal', 'a.modal');
+        JHtml::script(COLOR_PICKER_URL.'colorpicker.js');
+        JHtml::_('behavior.modal', 'a.modal');
 
         $title = JText::_('Select a Color');
         $short_title = JText::_('Select');

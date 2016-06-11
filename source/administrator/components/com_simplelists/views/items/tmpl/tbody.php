@@ -4,9 +4,9 @@
  *
  * @author Yireo
  * @package YireoLib
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  * @version 0.4.3
  */
 
@@ -22,7 +22,7 @@ defined('_JEXEC') or die();
 </td>
 <td align="center">
     <?php if( $item->picture ) { ?>
-    <a class="modal" href="<?php echo JURI::base() . '../' . $item->picture;?>">
+    <a class="modal" href="<?php echo JUri::base() . '../' . $item->picture;?>">
         <img src="../media/com_simplelists/images/image.png" title="<?php echo basename( $item->picture );?>" />
     </a>
     <?php } else { ?>

@@ -4,9 +4,9 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -27,7 +27,7 @@ class SimpleListsViewFiles extends YireoView
 		JResponse::allowCache(false);
 
         YireoHelper::jquery();
-    	JHTML::_('stylesheet', 'popup-imagelist.css', 'media/media/css/');
+    	JHtml::_('stylesheet', 'popup-imagelist.css', 'media/media/css/');
 
         $files = $this->get('files');
         $folders = $this->get('folders');

@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla! 
@@ -94,8 +94,8 @@ class SimplelistsViewItem extends YireoViewForm
 		$this->link_plugins = SimplelistsPluginHelper::getPlugins('simplelistslink');
 
 		// Add extra stuff
-		JHTML::_('behavior.tooltip');
-		JHTML::_('behavior.modal', 'a.modal-button');
+		JHtml::_('behavior.tooltip');
+		JHtml::_('behavior.modal', 'a.modal-button');
 
 		parent::display($tpl);
 	}

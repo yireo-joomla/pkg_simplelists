@@ -4,9 +4,9 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -24,23 +24,23 @@ defined('_JEXEC') or die('Restricted access');
 				<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $this->items ); ?>);" />
 			</th>
 			<th class="title">
-				<?php echo JHTML::_('grid.sort',  'Title', 'plugin.title', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+				<?php echo JHtml::_('grid.sort',  'Title', 'plugin.title', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th class="title">
-				<?php echo JHTML::_('grid.sort',  'Group', 'plugin.group', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+				<?php echo JHtml::_('grid.sort',  'Group', 'plugin.group', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th width="5%" nowrap="nowrap">
-				<?php echo JHTML::_('grid.sort',  'Published', 'plugin.published', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+				<?php echo JHtml::_('grid.sort',  'Published', 'plugin.published', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 			<th width="8%" nowrap="nowrap">
-				<?php echo JHTML::_('grid.sort',  'Order', 'plugin.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?>
-				<?php echo JHTML::_('grid.order',  $this->items ); ?>
+				<?php echo JHtml::_('grid.sort',  'Order', 'plugin.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+				<?php echo JHtml::_('grid.order',  $this->items ); ?>
 			</th>
             <th width="7%">
-                <?php echo JHTML::_('grid.sort',   'Access', 'accesslevel', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+                <?php echo JHtml::_('grid.sort',   'Access', 'accesslevel', $this->lists['order_Dir'], $this->lists['order'] ); ?>
             </th>
 			<th width="1%" nowrap="nowrap">
-				<?php echo JHTML::_('grid.sort',  'ID', 'plugin.id', $this->lists['order_Dir'], $this->lists['order'] ); ?>
+				<?php echo JHtml::_('grid.sort',  'ID', 'plugin.id', $this->lists['order_Dir'], $this->lists['order'] ); ?>
 			</th>
 		</tr>
 	</thead>
@@ -60,9 +60,9 @@ defined('_JEXEC') or die('Restricted access');
             $row = $this->items[$i];
             $link = JRoute::_( 'index.php?option=com_simplelists&view=plugin&task=edit&cid[]='. $row->id );
 
-			$access 	= JHTML::_('grid.access',   $row, $i );
-            $checked 	= JHTML::_('grid.checkedout',   $row, $i );
-            $published 	= JHTML::_('grid.published', $row, $i );
+			$access 	= JHtml::_('grid.access',   $row, $i );
+            $checked 	= JHtml::_('grid.checkedout',   $row, $i );
+            $published 	= JHtml::_('grid.published', $row, $i );
             
             $ordering = ($this->lists['order'] == 'p.ordering');
             ?>
@@ -118,5 +118,5 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="" />
-<?php echo JHTML::_( 'form.token' ); ?>
+<?php echo JHtml::_( 'form.token' ); ?>
 </form>

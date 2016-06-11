@@ -4,9 +4,9 @@
  *
  * @author Yireo (info@yireo.com)
  * @package YireoLib
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com
+ * @link https://www.yireo.com
  * @version 0.6.0
  */
 
@@ -159,7 +159,7 @@ class YireoHelperInstall
 		if (is_dir(JPATH_SITE . '/libraries/' . $library))
 		{
 			$query = 'SELECT `name` FROM `#__extensions` WHERE `type`="library" AND `element`="' . $library . '"';
-			$db = JFactory::getDBO();
+			$db = JFactory::getDbo();
 			$db->setQuery($query);
 
 			return (bool) $db->loadObject();

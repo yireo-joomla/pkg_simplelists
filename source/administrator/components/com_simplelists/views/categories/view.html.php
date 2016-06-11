@@ -4,9 +4,9 @@
  *
  * @author Yireo
  * @package SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
- * @link http://www.yireo.com/
+ * @link https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!  
@@ -30,7 +30,7 @@ class SimplelistsViewCategories extends YireoViewList
 	{
         // Set toolbar items for the page
         JToolBarHelper::preferences('com_simplelists', '480');
-        JHTML::_('behavior.tooltip');
+        JHtml::_('behavior.tooltip');
 
         // Automatically fetch items, total and pagination - and assign them to the template
         $this->fetchItems();
@@ -49,7 +49,7 @@ class SimplelistsViewCategories extends YireoViewList
         $options[] = array( 'id' => 'tree', 'title' => 'Tree' );
         $options[] = array( 'id' => 'flat', 'title' => 'Flat list' );
 		$extra = 'onchange="document.adminForm.submit();"';
-		$this->lists['listview'] = JHTML::_('select.genericlist', $options, 'filter_listview', $extra, 'id', 'title', $listview);
+		$this->lists['listview'] = JHtml::_('select.genericlist', $options, 'filter_listview', $extra, 'id', 'title', $listview);
 
 		parent::display($tpl);
 	}

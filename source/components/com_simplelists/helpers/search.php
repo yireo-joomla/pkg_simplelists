@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author    Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // no direct access
@@ -35,7 +35,7 @@ class SimplelistsHelperSearch
 	public function search($text, $phrase = '', $ordering = '', $limit)
 	{
 		// Fetch system variables
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		// Construct the current date
 		$nullDate = $db->getNullDate();

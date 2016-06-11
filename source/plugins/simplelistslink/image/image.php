@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -38,7 +38,7 @@ class plgSimpleListsLinkImage extends SimplelistsPluginLink
 	 */
 	public function getUrl($item = null)
 	{
-		return JURI::base() . $item->link;
+		return JUri::base() . $item->link;
 	}
 
 	/*

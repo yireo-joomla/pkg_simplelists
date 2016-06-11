@@ -3,9 +3,9 @@
  * Joomla! component SimpleLists
  *
  * @author    Yireo
- * @copyright Copyright 2015 Yireo.com
+ * @copyright Copyright 2016 Yireo.com
  * @license   GNU General Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // no direct access
@@ -31,7 +31,7 @@ class SimplelistsHelper
 	static public function getCategory($id = null)
 	{
 		$query = "SELECT * FROM `#__categories` WHERE `id` = " . (int) $id . " AND `extension`='com_simplelists' LIMIT 1";
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$rows = $db->loadObjectList();
 
@@ -80,7 +80,7 @@ class SimplelistsHelper
 			$query = 'SELECT c.* FROM `#__categories` AS c WHERE c.`extension`="com_simplelists"';
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 
 		$rows = $db->loadObjectList();
@@ -116,7 +116,7 @@ class SimplelistsHelper
 	{
 		$query = 'SELECT id FROM `#__simplelists_categories` WHERE `category_id`=' . (int) $category_id;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 
 		$rows = $db->loadAssocList();
@@ -178,7 +178,7 @@ class SimplelistsHelper
 	{
 		$query = "SELECT * FROM #__categories WHERE `extension`='com_simplelists'";
 		$application = JFactory::getApplication();
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$rows = $db->loadAssocList();
 

@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -42,7 +42,7 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 	public function getName($link = null)
 	{
 		$query = "SELECT `title` FROM #__categories WHERE `id`=" . (int) $link;
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$row = $db->loadObject();
 
@@ -78,10 +78,10 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 
 		if (version_compare($version->RELEASE, '1.5', 'eq'))
 		{
-			return JHTML::_('list.category', 'link_simplelist', 'com_simplelists', (int) $current);
+			return JHtml::_('list.category', 'link_simplelist', 'com_simplelists', (int) $current);
 		}
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('*')
 			->from('#__categories')
@@ -101,6 +101,6 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 			$options[] = array('value' => $row->id, 'text' => $row->title);
 		}
 
-		return JHTML::_('select.genericlist', $options, 'link_simplelist', null, 'value', 'text', (int) $current);
+		return JHtml::_('select.genericlist', $options, 'link_simplelist', null, 'value', 'text', (int) $current);
 	}
 }

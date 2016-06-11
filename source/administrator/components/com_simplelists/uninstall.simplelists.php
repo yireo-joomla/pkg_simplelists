@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // Check to ensure this file is included in Joomla!
@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 
 // Check if there are any items configured
 $query = 'SELECT * FROM #__simplelists';
-$db = JFactory::getDBO();
+$db = JFactory::getDbo();
 $db->setQuery($query);
 $rows = $db->loadObjectList();
 

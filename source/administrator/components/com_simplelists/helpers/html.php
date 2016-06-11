@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -159,7 +159,7 @@ class SimplelistsHTML
 		if (isset($params['nullvalue']) && $params['nullvalue'] == 1)
 		{
 			$nulltitle = (isset($params['nulltitle'])) ? $params['nulltitle'] : JText::_('COM_SIMPLELISTS_SELECT_CATEGORY');
-			array_unshift($categories, JHTML::_('select.option', 0, '- ' . $nulltitle . ' -', 'id', 'title'));
+			array_unshift($categories, JHtml::_('select.option', 0, '- ' . $nulltitle . ' -', 'id', 'title'));
 		}
 
 		// If $javascript is true, we submit the form as soon as an option has been selected
@@ -168,7 +168,7 @@ class SimplelistsHTML
 			$extra .= 'onchange="document.adminForm.submit();"';
 		}
 
-		return JHTML::_('select.genericlist', $categories, $name, $extra, 'id', 'title', $current);
+		return JHtml::_('select.genericlist', $categories, $name, $extra, 'id', 'title', $current);
 	}
 
 	/**
@@ -181,25 +181,25 @@ class SimplelistsHTML
 	static public function selectLinkType($current = '')
 	{
 		$query = 'SELECT name AS title, element AS value FROM #__extensions WHERE type="plugin" AND folder="simplelistslink" ORDER BY ordering';
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$plugins = $db->loadObjectList();
 
 		$options = array();
-		$options[] = JHTML::_('select.option', '', '- ' . JText::_('COM_SIMPLELISTS_SELECT_LINKTYPE') . ' -', 'id', 'title');
+		$options[] = JHtml::_('select.option', '', '- ' . JText::_('COM_SIMPLELISTS_SELECT_LINKTYPE') . ' -', 'id', 'title');
 
 		if (!empty($plugins))
 		{
 			foreach ($plugins as $plugin)
 			{
 				$title = trim(preg_replace('/simplelists\ \-/i', '', $plugin->title));
-				$options[] = JHTML::_('select.option', $plugin->value, $title, 'id', 'title');
+				$options[] = JHtml::_('select.option', $plugin->value, $title, 'id', 'title');
 			}
 		}
 
 		$javascript = 'onchange="document.adminForm.submit();"';
 
-		return JHTML::_('select.genericlist', $options, 'filter_link_type', $javascript, 'id', 'title', $current);
+		return JHtml::_('select.genericlist', $options, 'filter_link_type', $javascript, 'id', 'title', $current);
 	}
 
 	/**
@@ -219,6 +219,6 @@ class SimplelistsHTML
 		$options[] = array('id' => 'top', 'title' => 'Top');
 		$options[] = array('id' => 'bottom', 'title' => 'Bottom');
 
-		return JHTML::_('select.genericlist', $options, $name, null, 'id', 'title', $default);
+		return JHtml::_('select.genericlist', $options, $name, null, 'id', 'title', $default);
 	}
 }

@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -55,7 +55,7 @@ class plgSimpleListsLinkEasyBlog extends SimplelistsPluginLink
 	public function getName($link = null)
 	{
 		$query = "SELECT `title` FROM #__easyblog_post WHERE `id`=" . (int) $link;
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$row = $db->loadObject();
 
@@ -87,10 +87,10 @@ class plgSimpleListsLinkEasyBlog extends SimplelistsPluginLink
 	public function getInput($current = null)
 	{
 		$query = "SELECT `id`, `title` FROM #__easyblog_post";
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$users = $db->loadObjectList();
 
-		return JHTML::_('select.genericlist', $users, 'link_easyblog', 'class="inputbox" size="1"', 'id', 'title', intval($current));
+		return JHtml::_('select.genericlist', $users, 'link_easyblog', 'class="inputbox" size="1"', 'id', 'title', intval($current));
 	}
 }

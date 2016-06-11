@@ -1,9 +1,9 @@
 <?php
 /**
  * @author    Yireo
- * @copyright Copyright 2015 Yireo
+ * @copyright Copyright 2016 Yireo
  * @license   GNU/GPL
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access

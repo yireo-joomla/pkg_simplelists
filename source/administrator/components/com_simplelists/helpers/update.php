@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // no direct access
@@ -23,7 +23,7 @@ class SimplelistsUpdate
 	static public function runUpdateQueries()
 	{
 		// Get the database object
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 
 		// Collection of queries were going to try
 		$update_queries = array(

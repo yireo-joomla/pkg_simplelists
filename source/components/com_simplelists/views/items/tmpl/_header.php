@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author    Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
  * @link      https://www.yireo.com/
  */
@@ -21,8 +21,8 @@ $pagination = $this->pagination;
 
 <?php if ($this->params->get('show_pdf_icon') || $this->params->get('show_print_icon')): ?>
 	<div class="icons">
-		<?php if ($this->params->get('show_pdf_icon')): ?><?php echo JHTML::_('icon.pdf'); ?><?php endif; ?>
-		<?php if ($this->params->get('show_print_icon')): ?><?php echo JHTML::_('icon.print_popup'); ?><?php endif; ?>
+		<?php if ($this->params->get('show_pdf_icon')): ?><?php echo JHtml::_('icon.pdf'); ?><?php endif; ?>
+		<?php if ($this->params->get('show_print_icon')): ?><?php echo JHtml::_('icon.print_popup'); ?><?php endif; ?>
 	</div>
 	<div style="clear:both"></div>
 <?php endif; ?>

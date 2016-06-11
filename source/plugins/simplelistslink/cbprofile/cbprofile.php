@@ -4,9 +4,9 @@
  *
  * @author    Yireo
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com/
+ * @link      https://www.yireo.com/
  */
 
 // No direct access
@@ -59,7 +59,7 @@ class plgSimpleListsLinkCBProfile extends SimplelistsPluginLink
 	public function getName($link = null)
 	{
 		$query = "SELECT `name` FROM #__users WHERE `id`=" . (int) $link;
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$row = $db->loadObject();
 
@@ -91,10 +91,10 @@ class plgSimpleListsLinkCBProfile extends SimplelistsPluginLink
 	public function getInput($current = null)
 	{
 		$query = "SELECT `id`, `name` FROM #__users";
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$users = $db->loadObjectList();
 
-		return JHTML::_('select.genericlist', $users, 'link_cbprofile', 'class="inputbox" size="1"', 'id', 'name', intval($current));
+		return JHtml::_('select.genericlist', $users, 'link_cbprofile', 'class="inputbox" size="1"', 'id', 'name', intval($current));
 	}
 }

@@ -4,9 +4,9 @@
  *
  * @author    Yireo (info@yireo.com)
  * @package   SimpleLists
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license   GNU Public License
- * @link      http://www.yireo.com
+ * @link      https://www.yireo.com
  */
 
 // Check to ensure this file is included in Joomla!
@@ -42,7 +42,7 @@ class plgSimpleListsLinkArticle extends SimplelistsPluginLink
 	public function getName($link = null)
 	{
 		$query = "SELECT `title` FROM #__content WHERE `id`=" . (int) $link;
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$row = $db->loadObject();
 
@@ -71,7 +71,7 @@ class plgSimpleListsLinkArticle extends SimplelistsPluginLink
 
 		$query = "SELECT a.*, c.alias AS catalias FROM #__content AS a " . " LEFT JOIN #__categories AS c ON c.id = a.catid " . " WHERE a.`id`=" . (int) $link;
 
-		$db = JFactory::getDBO();
+		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$article = $db->loadObject();
 

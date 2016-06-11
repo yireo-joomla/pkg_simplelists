@@ -30,11 +30,11 @@ if ($style == 'advanced')
 
 	if (file_exists(JPATH_SITE . '/templates/' . $template . '/css/mod_simplelists_items/' . $style . '.css'))
 	{
-		JHTML::stylesheet(JURI::root() . 'templates/' . $template . '/css/mod_simplelists_items/' . $style . '.css');
+		JHtml::stylesheet(JUri::root() . 'templates/' . $template . '/css/mod_simplelists_items/' . $style . '.css');
 	}
 	elseif (file_exists(JPATH_SITE . '/media/mod_simplelists_items/css/' . $style . '.css'))
 	{
-		JHTML::stylesheet(JURI::root() . 'media/mod_simplelists_items/css/' . $style . '.css');
+		JHtml::stylesheet(JUri::root() . 'media/mod_simplelists_items/css/' . $style . '.css');
 	}
 }
 

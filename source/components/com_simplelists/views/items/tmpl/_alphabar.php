@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU General Public License
  * @link https://www.yireo.com/
  */
@@ -15,7 +15,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 $alphabet = array();
 
 // include an ALL-option
-$uri = clone( JURI::getInstance() );
+$uri = clone( JUri::getInstance() );
 $uri->delVar( 'char' );
 $url = $uri->toString();
 $alphabet[] = '<span class="char"><a href="'.$url.'">' . JText::_('All') . '</a></span>';
@@ -23,7 +23,7 @@ $alphabet[] = '<span class="char"><a href="'.$url.'">' . JText::_('All') . '</a>
 // gather all characters
 for( $i = 97 ; $i < 123 ; $i++ ) { 
     $character = chr($i);
-    $uri = clone( JURI::getInstance() );
+    $uri = clone( JUri::getInstance() );
     $uri->setVar( 'char', $character );
     $url = JRoute::_($uri->toString(), true);
     $characterCount = $this->getCharacterCount($character);

@@ -3,7 +3,7 @@
  * Joomla! component SimpleLists
  *
  * @author Yireo
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license GNU Public License
  * @link https://www.yireo.com/
  */
@@ -71,7 +71,7 @@ class SimplelistsViewSimplelist extends JView
 
         // prepare the category image
         if( $params->get('show_category_image') && $category->image ) {
-            $category->image = SimplelistsHTML::image( JURI::base().'images/simplelists/'.$category->image, $category->title, array( 'align' => $category->image_position));
+            $category->image = SimplelistsHTML::image( JUri::base().'images/simplelists/'.$category->image, $category->title, array( 'align' => $category->image_position));
         } else {
             $params->set('show_category_image', 0);
         }
@@ -127,7 +127,7 @@ class SimplelistsViewSimplelist extends JView
                 if( $item->params->get('readmore') == 1 && $item->url ) {
                     $readmore_text = $item->params->get( 'readmore_text', JText::sprintf( 'Read more', $item->title )) ;
                     $readmore_css = trim( 'readon ' . $item->params->get( 'readmore_class', '' ));
-                    $item->readmore = JHTML::link( $item->url, $readmore_text, 'title="'.$item->title.'" class="'.$readmore_css.'"'.$item->target );
+                    $item->readmore = JHtml::link( $item->url, $readmore_text, 'title="'.$item->title.'" class="'.$readmore_css.'"'.$item->target );
                 } else {
                     $item->readmore = false;
                 }
@@ -158,7 +158,7 @@ class SimplelistsViewSimplelist extends JView
                             $item_link_rel = '';
                         }
 
-                        $item->picture = JHTML::link( $item->url, $item->picture, 'title="'.$item->title.'"'.$item->target.$item_link_class.$item_link_rel );
+                        $item->picture = JHtml::link( $item->url, $item->picture, 'title="'.$item->title.'"'.$item->target.$item_link_class.$item_link_rel );
                     }
                 } else {
                     $item->picture = null ;
@@ -167,7 +167,7 @@ class SimplelistsViewSimplelist extends JView
                 // prepare the title
                 if( $item->params->get('show_item_title') ) {
                     if( $item->params->get('title_link') && !empty( $item->url )) {
-                        $item->title = JHTML::link( $item->url, $item->title, $item->target );
+                        $item->title = JHtml::link( $item->url, $item->title, $item->target );
                     }
                 } else {
                     $item->title = null ;
