@@ -77,6 +77,7 @@ class SimplelistsPluginHelper
 			}
 			else
 			{
+				$plugin->loadLanguage();
 				$plugins[$index] = $plugin;
 			}
 		}
