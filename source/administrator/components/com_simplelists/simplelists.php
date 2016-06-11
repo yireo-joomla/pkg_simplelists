@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 // Define constants for all pages 
 define('COM_SIMPLELISTS_DIR', 'images/simplelists/');
 define('COM_SIMPLELISTS_BASE', JPATH_ROOT . '/' . COM_SIMPLELISTS_DIR);
-define('COM_SIMPLELISTS_BASEURL', JURI::root() . COM_SIMPLELISTS_DIR);
+define('COM_SIMPLELISTS_BASEURL', JUri::root() . COM_SIMPLELISTS_DIR);
 
 // Load the Yireo library
 jimport('yireo.loader');
@@ -31,7 +31,7 @@ if (!class_exists('YireoHelperInstall'))
 }
 
 // Check for function
-if (!function_exists('YireoLibraryLoader'))
+if (!class_exists('\Yireo\System\Autoloader'))
 {
 	die('Yireo Library is not installed and could not be installed automatically');
 }
