@@ -66,7 +66,7 @@ class PlgSimpleListsLinkHikashop extends SimplelistsPluginLink
 
 		if (is_object($row))
 		{
-			return $row->name;
+			return $row->product_name;
 		}
 	}
 
