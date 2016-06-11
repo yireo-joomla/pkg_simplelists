@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="simplelistslink" method="upgrade">
+    <name>PLG_SIMPLELISTSLINK_HIKASHOP</name>
+    <author>Yireo</author>
+    <creationDate>April 2016</creationDate>
+    <copyright>Copyright 2015 Yireo.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>info@yireo.com</authorEmail>
+    <authorUrl>www.yireo.com</authorUrl>
+    <version>1.8.0</version>
+    <description>PLG_SIMPLELISTSLINK_HIKASHOP_DESC</description>
+
+    <files>
+        <filename plugin="hikashop">hikashop.php</filename>
+        <filename>index.html</filename>
+    </files>
+
+    <languages>
+        <language tag="en-GB">en-GB.plg_simplelistslink_hikashop.ini</language>
+        <language tag="en-GB">en-GB.plg_simplelistslink_hikashop.sys.ini</language>
+    </languages>
+
+    <updateservers>
+        <server type="extension" priority="1" name="plg_simplelistslink_hikashop">https://www.yireo.com/updates/plg_simplelistslink_hikashop.xml</server>
+    </updateservers>
+</extension>
