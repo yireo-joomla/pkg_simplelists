@@ -16,18 +16,27 @@ include_once JPATH_SITE . '/administrator/components/com_simplelists/helpers/hel
 include_once JPATH_SITE . '/administrator/components/com_simplelists/helpers/plugin.php';
 include_once JPATH_SITE . '/components/com_simplelists/helpers/html.php';
 
-/*
+/**
  * Helper class
  */
-
 class ModSimpleListsItemsHelper
 {
+	/**
+	 * @var \Joomla\Registry\Registry
+	 */
+	protected $params;
+	
+	/**
+	 * ModSimpleListsItemsHelper constructor.
+	 *
+	 * @param $params
+	 */
 	public function __construct($params)
 	{
 		$this->params = $params;
 	}
 
-	/*
+	/**
 	 * Method to get the SimpleLists category
 	 */
 	public function getCategory()
@@ -51,7 +60,7 @@ class ModSimpleListsItemsHelper
 		// Get the Itemid
 		if ($Itemid > 0)
 		{
-			$menu_item = SimplelistsHelper::getMenuItemFromItemId($Itemid);
+			$menu_item = SimplelistsHelper::getMenuItemFromItemid($Itemid);
 
 			if (!empty($menu_item))
 			{
@@ -89,7 +98,7 @@ class ModSimpleListsItemsHelper
 		return $category;
 	}
 
-	/*
+	/**
 	 * Method to get a list of SimpleLists items
 	 */
 	public function getItems()
@@ -128,7 +137,7 @@ class ModSimpleListsItemsHelper
 		// Get the Itemid
 		if ($Itemid > 0)
 		{
-			$menu_item = SimplelistsHelper::getMenuItemFromItemId($Itemid);
+			$menu_item = SimplelistsHelper::getMenuItemFromItemid($Itemid);
 
 			if (!empty($menu_item))
 			{
@@ -153,7 +162,7 @@ class ModSimpleListsItemsHelper
 		}
 
 		$result = array();
-		$dispatcher = JDispatcher::getInstance();
+		$dispatcher = JEventDispatcher::getInstance();
 
 		if (!empty($items))
 		{

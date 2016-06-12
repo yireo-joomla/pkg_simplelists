@@ -15,7 +15,7 @@ defined('_JEXEC') or die();
 /**
  * Simplelists Items Model
  */
-class SimplelistsModelItems extends YireoModel
+class SimplelistsModelItems extends YireoModelItems
 {
 	/**
 	 * Constructor
@@ -24,7 +24,7 @@ class SimplelistsModelItems extends YireoModel
 	{
 		$this->_search = array('title');
 		//$this->_debug = true;
-		$this->_tbl_prefix_auto = true;
+		$this->setConfig('table_prefix_auto', true);
 
 		parent::__construct('item');
 	}
@@ -61,7 +61,7 @@ class SimplelistsModelItems extends YireoModel
 
 		if (!empty($link_type))
 		{
-			$this->addWhere('item.link_type =' . $this->_db->Quote($link_type));
+			$this->addWhere('item.link_type =' . $this->_db->quote($link_type));
 		}
 
 		return parent::buildQueryWhere();
