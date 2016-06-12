@@ -78,9 +78,34 @@ class PlgSimpleListsLinkHikashop extends SimplelistsPluginLink
 	 */
 	public function getUrl($item = null)
 	{
-		require_once JPATH_SITE . '/components/com_hikashop/helpers/router.php';
+		require_once JPATH_SITE . '/components/com_hikashop/helpers/route.php';
 
-		return HikashopRouter::_('index.php?option=com_hikashop&view=entry&id=' . (int) $item->link);
+		$details = $this->getProductDetails($item->link);
+		$productAlias = $item->link . ':' . $details->product_name;
+		$categoryId = $details->category_id;
+
+		return hikashopTagRouteHelper::getProductRoute($productAlias, $categoryId, '');
+	}
+
+	/**
+	 * @param $productId
+	 *
+	 * @return mixed
+	 */
+	protected function getProductDetails($productId)
+	{
+		$db = JFactory::getDbo();
+
+		$query = $db->getQuery(true);
+		$query->select($db->quoteName(['p.product_name', 'cp.category_id']));
+		$query->from($db->quoteName('#__hikashop_product', 'p'));
+		$query->leftJoin($db->quoteName('#__hikashop_product_category', 'cp') . ' ON ' . $db->quoteName('p.product_id') . '=' . $db->quoteName('cp.product_id'));
+		$query->where($db->quoteName('p.product_id') . '=' . (int) $productId);
+
+		$db->setQuery($query);
+		$row = $db->loadObject();
+		
+		return $row;
 	}
 
 	/*

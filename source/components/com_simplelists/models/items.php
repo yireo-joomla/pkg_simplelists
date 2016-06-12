@@ -14,39 +14,27 @@ defined('_JEXEC') or die();
 /**
  * Simplelists Items Model
  */
-class SimplelistsModelItems extends YireoModel
+class SimplelistsModelItems extends YireoModelItems
 {
 	/**
 	 * Data for the category containing these items
 	 *
-	 * @protected int
+	 * @protected object
 	 */
-	protected $_category = null;
-
-	/**
-	 * Enable the limit in the query (or in the data-array)
-	 *
-	 * @protected string
-	 */
-	protected $_limit_query = false;
+	protected $category = null;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
-		// Debugging
-		$this->_debug = false;
-		$this->_tbl_prefix_auto = true;
-
-		// Deterine the ID for SimpleLists content
-		$app = JFactory::getApplication();
-		$category_id = $app->input->getInt('category_id', '0');
-		$this->setId($category_id);
-		$this->setIdByAlias($app->input->getString('alias', ''));
-
 		// Construct the item
 		parent::__construct('item');
+
+		// Deterine the ID for SimpleLists content
+		$categoryId = $this->input->getInt('category_id', '0');
+		$this->setId($categoryId);
+		$this->setIdByAlias($this->input->getString('alias', ''));
 
 		// Set pagination
 		if ($this->params->get('use_pagination'))
@@ -64,10 +52,14 @@ class SimplelistsModelItems extends YireoModel
 		}
 	}
 
+	/**
+	 * @return JPagination
+	 */
 	public function getPagination()
 	{
 		$pagination = parent::getPagination();
 		$pagination->setAdditionalUrlParam('category_id', $this->getId());
+
 		return $pagination;
 	}
 
@@ -84,7 +76,7 @@ class SimplelistsModelItems extends YireoModel
 		foreach ($items as $index => $item)
 		{
 			$event_date_from = $item->params->get('event_date_from');
-			$event_date_to = $item->params->get('event_date_to');
+			$event_date_to   = $item->params->get('event_date_to');
 
 			if (!empty($event_date_to) && strtotime($event_date_to) + (60 * 60 * 24) < time())
 			{
@@ -98,21 +90,36 @@ class SimplelistsModelItems extends YireoModel
 			}
 		}
 
-		$ordering = $this->params->get('orderby');
+		$items = $this->sortItems($items, $this->params->get('order_by'));
 
+		return $items;
+	}
+
+	/**
+	 * @param array $items
+	 * @param string $ordering
+	 *
+	 * @return array
+	 */
+	protected function sortItems($items, $ordering)
+	{
 		if ($ordering == 'published')
 		{
 			usort($items, 'SimplelistsModelItems::sortByPublishUp');
-
+			return $items;
 		}
-		elseif ($ordering == 'rpublished')
+
+		if ($ordering == 'rpublished')
 		{
 			usort($items, 'SimplelistsModelItems::sortByPublishUp');
 			$items = array_reverse($items);
+			return $items;
 		}
-		elseif ($ordering == 'event')
+
+		if ($ordering == 'event')
 		{
 			usort($items, 'SimplelistsModelItems::sortByEventDateFrom');
+			return $items;
 		}
 
 		return $items;
@@ -183,11 +190,11 @@ class SimplelistsModelItems extends YireoModel
 	/**
 	 * Method to set the simplelist alias
 	 *
-	 * @param string Simplelist category-alias
+	 * @param string $alias Simplelist category-alias
 	 */
 	public function setIdByAlias($alias)
 	{
-		if (empty($this->_id))
+		if (empty($this->id))
 		{
 			require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/helpers/category.php';
 			$this->setId(SimplelistsCategoryHelper::getId($alias));
@@ -197,13 +204,15 @@ class SimplelistsModelItems extends YireoModel
 	/**
 	 * Method to build the database query
 	 *
+	 * @param $query string
+	 *
 	 * @return mixed
 	 */
 	protected function buildQuery($query = '')
 	{
-		$query = 'SELECT item.*' . ' FROM #__simplelists_items AS item';
-		$query .= ' LEFT JOIN #__simplelists_categories AS relation ON item.id = relation.id';
-		$query .= ' LEFT JOIN #__categories AS category ON category.id = relation.category_id';
+		$query = 'SELECT item.*' . ' FROM ' . $this->db->quoteName('#__simplelists_items') . ' AS item';
+		$query .= ' LEFT JOIN ' . $this->db->quoteName('#__simplelists_categories') . ' AS relation ON ' . $this->db->quoteName('item.id') . '=' . $this->db->quoteName('relation.id');
+		$query .= ' LEFT JOIN ' . $this->db->quoteName('#__categories') . '  AS category ON ' . $this->db->quoteName('category.id') . '=' . $this->db->quoteName('relation.category_id');
 
 		return parent::buildQuery($query);
 	}
@@ -219,24 +228,24 @@ class SimplelistsModelItems extends YireoModel
 	 */
 	protected function buildQueryWhere()
 	{
-		$this->addWhere('category.published = 1');
+		$this->addWhere($this->db->quoteName('category.published') . ' = 1');
 
 		// Apply the category-filter
-		$category_id = (int) $this->getId();
+		$categoryId = (int) $this->getId();
 
-		if ($category_id > 0)
+		if ($categoryId > 0)
 		{
-			$this->addWhere('relation.category_id = ' . $category_id);
+			$this->addWhere($this->db->quoteName('relation.category_id') . ' = ' . $categoryId);
 		}
 
 		// Apply the character-filter
 		if ($this->getState('no_char_filter') != 1)
 		{
-			$character = JRequest::getCmd('char');
+			$character = $this->input->getCmd('char');
 
 			if (!empty($character) && preg_match('/^([a-z]{1})$/', $character))
 			{
-				$this->addWhere('item.title LIKE ' . $this->_db->Quote($character . '%'));
+				$this->addWhere($this->db->quoteName('item.title') . ' LIKE ' . $this->db->quote($character . '%'));
 			}
 		}
 
@@ -287,23 +296,27 @@ class SimplelistsModelItems extends YireoModel
 
 	/**
 	 * Method to get a category
+	 * 
+	 * @param int $categoryId
+	 * 
+	 * @return object
 	 */
-	public function getCategory($category_id = null)
+	public function getCategory($categoryId = null)
 	{
 		// Only run this once
-		if (empty($this->_category))
+		if (empty($this->category))
 		{
 
 			// Set the ID
-			if (empty($category_id))
+			if (empty($categoryId))
 			{
-				$category_id = $this->getId();
+				$categoryId = $this->getId();
 			}
 
 			// Fetch the category of these items
 			require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/models/category.php';
 			$model = new SimplelistsModelCategory;
-			$model->setId($category_id);
+			$model->setId($categoryId);
 			$category = $model->getData();
 
 			// Fetch the related categories (parent and children) of this category
@@ -311,7 +324,7 @@ class SimplelistsModelItems extends YireoModel
 			$model = new SimplelistsModelCategories;
 			$model->resetFilters();
 
-			$where = array();
+			$where   = array();
 			$where[] = 'category.id = ' . (int) $category->parent_id;
 			$where[] = 'category.parent_id = ' . (int) $category->id;
 			//$where[] = 'category.parent_id IN (SELECT id from `#__categories` where parent_id = '.(int)$category->id.')';
@@ -322,7 +335,6 @@ class SimplelistsModelItems extends YireoModel
 
 			foreach ($related as $id => $item)
 			{
-
 				// Make sure this related category is not the parent-category
 				if ($item->id == $category->parent_id)
 				{
@@ -335,9 +347,9 @@ class SimplelistsModelItems extends YireoModel
 			$category->childs = $related;
 
 			// Insert this category in the model
-			$this->_category = $category;
+			$this->category = $category;
 		}
 
-		return $this->_category;
+		return $this->category;
 	}
 }

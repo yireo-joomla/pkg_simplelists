@@ -19,6 +19,9 @@ defined('_JEXEC') or die('Restricted access');
  */
 if (!class_exists('JHTMLIcon'))
 {
+	/**
+	 * Class JHTMLIcon
+	 */
 	class JHTMLIcon
 	{
 		/**
@@ -29,7 +32,7 @@ if (!class_exists('JHTMLIcon'))
 		public function print_popup()
 		{
 			// Construct the URL
-			$url = 'index.php?option=com_simplelists&view=items';
+			$url   = 'index.php?option=com_simplelists&view=items';
 			$input = JFactory::getApplication()->input;
 
 			if ($input->getInt('category_id') > 0)
@@ -49,12 +52,12 @@ if (!class_exists('JHTMLIcon'))
 
 			// Checks template image directory for image, if non found default are loaded
 			$image_folder = '/media/system/images/';
-			$text = JHtml::_('image.site', 'printButton.png', $image_folder, null, null, JText::_('Print'));
+			$text         = JHtml::_('image.site', 'printButton.png', $image_folder, null, null, JText::_('Print'));
 
 			// Construct the link-attributes
-			$attribs['title'] = JText::_('Print');
+			$attribs['title']   = JText::_('Print');
 			$attribs['onclick'] = "window.open(this.href,'win2','" . $status . "'); return false;";
-			$attribs['rel'] = 'nofollow';
+			$attribs['rel']     = 'nofollow';
 
 			return JHtml::_('link', JRoute::_($url), $text);
 		}

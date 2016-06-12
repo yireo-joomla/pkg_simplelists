@@ -9,23 +9,17 @@
  * @link      https://www.yireo.com/
  */
 
-// Check to ensure this file is included in Joomla!
+// Check to ensure this file is included in Joomla
 defined('_JEXEC') or die();
 
-class SimplelistsModelItem extends YireoModel
+class SimplelistsModelItem extends YireoModelItem
 {
-	/**
-	 * Indicator whether to debug this model or not
-	 */
-	protected $_debug = false;
-
 	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
 		$this->_orderby_title = 'title';
-		$this->_tbl_prefix_auto = true;
 
 		$this->addTablePath(JPATH_COMPONENT_ADMINISTRATOR . '/tables/');
 
@@ -38,7 +32,7 @@ class SimplelistsModelItem extends YireoModel
 	 * @param array $data
 	 * @param bool  $loadData
 	 *
-	 * @return mixed
+	 * @return false|JForm
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -46,7 +40,7 @@ class SimplelistsModelItem extends YireoModel
 
 		if (empty($form))
 		{
-			return null;
+			return false;
 		}
 
 		$data = $this->getData();
@@ -277,10 +271,6 @@ class SimplelistsModelItem extends YireoModel
 	/**
 	 * Method to get the ordering query
 	 *
-	 * @access public
-	 *
-	 * @param null
-	 *
 	 * @return string
 	 */
 	public function getOrderingQuery()
@@ -296,7 +286,7 @@ class SimplelistsModelItem extends YireoModel
 		$subQuery = $db->getQuery(true);
 		$subQuery->select($db->quoteName('category_id'));
 		$subQuery->from($db->quoteName('#__simplelists_categories'));
-		$subQuery->where($db->quoteName('id') . ' = ' . (int) $this->_data->id);
+		$subQuery->where($db->quoteName('id') . ' = ' . (int) $this->data->id);
 
 		$query = $db->getQuery(true);
 		$query->select($db->quoteName('item.ordering', 'value'));

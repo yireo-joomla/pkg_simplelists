@@ -107,7 +107,7 @@ class ModSimpleListsItemsHelper
 		$category = self::getCategory();
 
 		// Read the module parameters
-		$ordering = $this->params->get('ordering', 5);
+		$ordering = $this->params->get('ordering', 'order');
 		$count = (int) $this->params->get('count', 5);
 		$category_id = (int) $this->params->get('category_id');
 		$layout = $this->params->get('layout');
@@ -131,7 +131,10 @@ class ModSimpleListsItemsHelper
 		$model->setId($category_id);
 		$model->initLimit($count);
 		$model->initLimitstart(0);
-		$model->params->set('orderby', $ordering);
+
+		$modelParams = $model->getParams();
+		$modelParams->set('order_by', $ordering);
+		$model->setParams($modelParams);
 		$items = $model->getData();
 
 		// Get the Itemid
