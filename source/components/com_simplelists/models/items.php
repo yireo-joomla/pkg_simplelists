@@ -36,6 +36,8 @@ class SimplelistsModelItems extends YireoModelItems
 		$this->setId($categoryId);
 		$this->setIdByAlias($this->input->getString('alias', ''));
 
+		//$this->setConfig('debug', true);
+
 		// Set pagination
 		if ($this->params->get('use_pagination'))
 		{
@@ -202,96 +204,66 @@ class SimplelistsModelItems extends YireoModelItems
 	}
 
 	/**
-	 * Method to build the database query
+	 * Method to modify the query
 	 *
-	 * @param $query string
+	 * @param $query JDatabaseQuery
 	 *
-	 * @return mixed
+	 * @return JDatabaseQuery
 	 */
-	protected function buildQuery($query = '')
+	public function onBuildQuery($query)
 	{
-		$query = 'SELECT item.*' . ' FROM ' . $this->db->quoteName('#__simplelists_items') . ' AS item';
-		$query .= ' LEFT JOIN ' . $this->db->quoteName('#__simplelists_categories') . ' AS relation ON ' . $this->db->quoteName('item.id') . '=' . $this->db->quoteName('relation.id');
-		$query .= ' LEFT JOIN ' . $this->db->quoteName('#__categories') . '  AS category ON ' . $this->db->quoteName('category.id') . '=' . $this->db->quoteName('relation.category_id');
+		$query->leftJoin($this->db->quoteName('#__simplelists_categories', 'relation') . ' ON ' . $this->db->quoteName('item.id') . '=' . $this->db->quoteName('relation.id'));
+		$query->leftJoin($this->db->quoteName('#__categories', 'category') . ' ON ' . $this->db->quoteName('category.id') . '=' . $this->db->quoteName('relation.category_id'));
 
-		return parent::buildQuery($query);
-	}
+		$query->where($this->db->quoteName('category.published') . ' = 1');
 
-	/**
-	 * Method to build the query WHERE segment
-	 *
-	 * @access protected
-	 *
-	 * @param null
-	 *
-	 * @return string
-	 */
-	protected function buildQueryWhere()
-	{
-		$this->addWhere($this->db->quoteName('category.published') . ' = 1');
-
-		// Apply the category-filter
 		$categoryId = (int) $this->getId();
 
 		if ($categoryId > 0)
 		{
-			$this->addWhere($this->db->quoteName('relation.category_id') . ' = ' . $categoryId);
+			$query->where($this->db->quoteName('relation.category_id') . ' = ' . $categoryId);
 		}
 
-		// Apply the character-filter
 		if ($this->getState('no_char_filter') != 1)
 		{
 			$character = $this->input->getCmd('char');
 
 			if (!empty($character) && preg_match('/^([a-z]{1})$/', $character))
 			{
-				$this->addWhere($this->db->quoteName('item.title') . ' LIKE ' . $this->db->quote($character . '%'));
+				$query->where($this->db->quoteName('item.title') . ' LIKE ' . $this->db->quote($character . '%'));
 			}
 		}
 
-		return parent::buildQueryWhere();
-	}
-
-	/**
-	 * Method to build the query ORDER BY segment
-	 *
-	 * @access     protected
-	 * @subpackage Yireo
-	 *
-	 * @param null
-	 *
-	 * @return string
-	 */
-	protected function buildQueryOrderBy()
-	{
 		$ordering = $this->params->get('orderby');
+
 		switch ($ordering)
 		{
 			case 'alpha':
-				$orderby = 'item.title ASC';
+				$orderby = $this->db->quoteName('item.title') . ' ASC';
 				break;
 			case 'ralpha':
-				$orderby = 'item.title DESC';
+				$orderby = $this->db->quoteName('item.title') . ' DESC';
 				break;
 			case 'date':
-				$orderby = 'item.created DESC, item.modified DESC';
+				$orderby = $this->db->quoteName('item.created') . ' DESC, ' . $this->db->quoteName('item.modified') . ' DESC';
 				break;
 			case 'rdate':
-				$orderby = 'item.created ASC, item.modified ASC';
+				$orderby = $this->db->quoteName('item.created') . ' ASC, ' . $this->db->quoteName('item.modified') . ' ASC';
 				break;
 			case 'random':
 				$orderby = 'RAND()';
 				break;
 			case 'rorder':
-				$orderby = 'item.ordering DESC';
+				$orderby = $this->db->quoteName('item.ordering') . ' DESC';
 				break;
 			default:
-				$orderby = 'item.ordering';
+				$orderby = $this->db->quoteName('item.ordering');
 				break;
 		}
-		$this->addOrderby($orderby);
 
-		return parent::buildQueryOrderBy();
+		$query->order($orderby);
+
+		return $query;
 	}
 
 	/**

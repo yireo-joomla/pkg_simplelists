@@ -22,49 +22,40 @@ class SimplelistsModelItems extends YireoModelItems
 	 */
 	public function __construct()
 	{
-		$this->_search = array('title');
-		//$this->_debug = true;
-		$this->setConfig('table_prefix_auto', true);
-
 		parent::__construct('item');
+
+		$this->query->setConfig('search_fields', ['title']);
 	}
 
 	/**
-	 * Method to build the database query
+	 * Method to modify the query
 	 *
-	 * @param string $query
+	 * @param $query JDatabaseQuery
 	 *
-	 * @return mixed
+	 * @return JDatabaseQuery
 	 */
-	protected function buildQuery($query = '')
-	{
-		$query = "SELECT item.*, {access}, {editor} FROM #__simplelists_items AS item \n";
-
-		return parent::buildQuery($query);
-	}
-
-	/**
-	 * Method to build the query WHERE segment
-	 *
-	 * @return string
-	 */
-	protected function buildQueryWhere()
+	public function onBuildQuery($query)
 	{
 		$category_id = (int) $this->getFilter('category_id');
 
 		if ($category_id > 0)
 		{
-			$this->addWhere('item.id IN (SELECT `id` FROM `#__simplelists_categories` WHERE `category_id`=' . $category_id . ')');
+			$subQuery = $this->db->getQuery(true);
+			$subQuery->select($this->db->quoteName('id'));
+			$subQuery->from($this->db->quoteName('#__simplelists_categories'));
+			$subQuery->where($this->db->quoteName('category_id') . '=' . (int) $category_id);
+
+			$query->where('item.id IN (' . (string) $subQuery . ')');
 		}
 
 		$link_type = $this->getFilter('link_type');
 
 		if (!empty($link_type))
 		{
-			$this->addWhere('item.link_type =' . $this->_db->quote($link_type));
+			$query->where($this->db->quoteName('item.link_type') . '=' . $this->_db->quote($link_type));
 		}
 
-		return parent::buildQueryWhere();
+		return $query;
 	}
 
 	/**
@@ -118,6 +109,7 @@ class SimplelistsModelItems extends YireoModelItems
 	protected function getCategoryData($id)
 	{
 		require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/models/category.php';
+
 		$model = new SimplelistsModelCategory;
 		$model->setId($id);
 
@@ -132,8 +124,8 @@ class SimplelistsModelItems extends YireoModelItems
 	protected function getCategoriesData($ids)
 	{
 		require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/models/categories.php';
-		$model = new SimplelistsModelCategories;
 
+		$model  = new SimplelistsModelCategories;
 		$wheres = array();
 
 		foreach ($ids as $id)

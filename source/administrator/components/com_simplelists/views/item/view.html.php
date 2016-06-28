@@ -69,17 +69,7 @@ class SimplelistsViewItem extends YireoViewForm
 			$this->modal['picture'] .= '&amp;folder=' . $this->item->picture_folder;
 		}
 
-		// Construct the slider-panel
-		jimport('joomla.html.pane');
-
-		if (class_exists('JPane'))
-		{
-			$this->pane = JPane::getInstance('sliders');
-		}
-		else
-		{
-			$this->pane = null;
-		}
+		$this->pane = null;
 
 		// Fetch the selected tab
 		$session = JFactory::getSession();
@@ -97,6 +87,6 @@ class SimplelistsViewItem extends YireoViewForm
 		JHtml::_('behavior.tooltip');
 		JHtml::_('behavior.modal', 'a.modal-button');
 
-		parent::display($tpl);
+		return parent::display($tpl);
 	}
 }

@@ -162,14 +162,6 @@ class SimplelistsModelItem extends YireoModelItem
 	 */
 	public function delete($cid = array())
 	{
-		if (empty($cid))
-		{
-			return true;
-		}
-
-		// Convert this array
-		\Joomla\Utilities\ArrayHelper::toInteger($cid);
-
 		// Call the parent function
 		if (parent::delete($cid) == false)
 		{
