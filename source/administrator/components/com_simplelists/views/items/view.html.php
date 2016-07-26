@@ -51,13 +51,13 @@ class SimplelistsViewItems extends YireoViewList
 			$this->items[$index] = $item;
 		}
 
-		// build list of categories
-		$category_id_params         = array(
+		// Build list of categories
+		$category_id_params = array(
 			'current'    => $this->getFilter('category_id'),
 			'javascript' => 1,
 			'nullvalue'  => 1
 		);
-		
+
 		$this->lists['category_id'] = SimplelistsHTML::selectCategories('filter_category_id', $category_id_params);
 		$this->lists['link_type']   = SimplelistsHTML::selectLinkType($this->getFilter('link_type'));
 

@@ -9,33 +9,31 @@
 /*
  * Form validation function
  */
-function submitbutton(pressbutton) 
-{
+function submitbutton(pressbutton) {
     var form = document.adminForm;
     if (pressbutton == 'cancel') {
-        submitform( pressbutton );
+        submitform(pressbutton);
         return;
     }
 
     // do field validation
-    if (form.title.value == ""){
-        alert( form_no_title );
+    if (form.title.value == "") {
+        alert(form_no_title);
     } else {
-        submitform( pressbutton );
+        submitform(pressbutton);
     }
 }
 
 /*
  * Generic function to close a modal-box
  */
-function slModalClose()
-{
-    if(SqueezeBox) {
+function slModalClose() {
+    if (SqueezeBox) {
         SqueezeBox.close();
     }
 
     var box = document.getElementById('sbox-window')
-    if(box) {
+    if (box) {
         box.close();
     }
 }
@@ -43,8 +41,7 @@ function slModalClose()
 /*
  * Function (J1.5) to select an article through modal popup
  */
-function jSelectArticle(id, title) 
-{
+function jSelectArticle(id, title) {
     document.getElementById('link_article').value = id;
     document.getElementById('link_name_article').value = title;
     document.getElementById('link_type_article').checked = true;
@@ -54,8 +51,7 @@ function jSelectArticle(id, title)
 /*
  * Function (J1.6+) to select an article through modal popup
  */
-function slSelectArticle(id, title) 
-{
+function slSelectArticle(id, title) {
     document.getElementById('link_article').value = id;
     document.getElementById('link_name_article').value = title;
     document.getElementById('link_type_article').checked = true;
@@ -65,8 +61,7 @@ function slSelectArticle(id, title)
 /*
  * Function (J1.x) to select a linkimage through modal popup
  */
-function slSelectLinkImage(path) 
-{
+function slSelectLinkImage(path) {
     document.getElementById('link_image').value = path;
     document.getElementById('link_name_image').value = path;
     document.getElementById('link_type_image').checked = true;
@@ -76,8 +71,7 @@ function slSelectLinkImage(path)
 /*
  * Function (J1.x) to select ... nothing
  */
-function slSelectNothing() 
-{
+function slSelectNothing() {
     slModalClose();
 }
 
@@ -85,8 +79,7 @@ function slSelectNothing()
 /*
  * Function (J1.x) to select a linkfile through modal popup
  */
-function slSelectLinkFile(path) 
-{
+function slSelectLinkFile(path) {
     document.getElementById('link_file').value = path;
     document.getElementById('link_name_file').value = path;
     document.getElementById('link_type_file').checked = true;
@@ -96,48 +89,58 @@ function slSelectLinkFile(path)
 /*
  * Function (J1.x) to select a picture through modal popup
  */
-function slSelectPicture(path) 
-{
+function slSelectPicture(path) {
     document.getElementById('picture_name').value = path;
     document.getElementById('picture').value = path;
     slModalClose();
-        
-    if(document.getElementById('picture').value !='') {
-        document.getElementById('picture-preview').src= '../' + document.getElementById('picture').value;
+
+    if (document.getElementById('picture').value != '') {
+        document.getElementById('picture-preview').src = '../' + document.getElementById('picture').value;
     } else {
-        document.getElementById('picture-preview').src='images/blank.png';
+        document.getElementById('picture-preview').src = 'images/blank.png';
     }
 }
 
 /*
  * Wrapper for SimpleLists-functions called by core Media Manager
  */
-function jInsertFieldValue(value, id)
-{
-    if(id == 'picture_name') { slSelectPicture(value); }
-    if(id == 'link_image') { slSelectLinkImage(value); }
-    if(id == 'link_file') { slSelectLinkFile(value); }
+function jInsertFieldValue(value, id) {
+    if (id == 'picture_name') {
+        slSelectPicture(value);
+    }
+    if (id == 'link_image') {
+        slSelectLinkImage(value);
+    }
+    if (id == 'link_file') {
+        slSelectLinkFile(value);
+    }
 }
 
 /*
  * Some extra GUI tricks
  */
-jQuery(document).ready(function(){
-
-    // Autofocus the title input-field
-    if(jQuery('#title')) {
-        jQuery('#title').focus();
-    }
-
+(function ($) {
     // Fetch the selected tab if it is available
-    jQuery('a[data-toggle="tab"]').on('shown', function (e) {
+    $('a[data-toggle="tab"]').on('shown', function (e) {
         url = '' + e.target;
         tab = url.split('#')[1];
-        jQuery.ajax({
+        $.ajax({
             type: 'POST',
-            url: 'index.php?option=com_simplelists&task=cookie&name=tab', 
+            url: 'index.php?option=com_simplelists&task=cookie&name=tab',
             data: {tab: tab}
         });
     });
-});
 
+    // Autofocus the title input-field
+    if ($('#item_title')) {
+        setTimeout(function() { $('#item_title').focus() }, 100);
+    }
+}(jQuery));
+
+jQuery(function(){
+    jQuery("#item_title").on('keyup', function (e) {
+        if (jQuery(this).val() == '') {
+            jQuery("#item_alias").val('');
+        }
+    });
+});
