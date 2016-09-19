@@ -20,6 +20,9 @@ defined('_JEXEC') or die('Restricted access');
  */
 class SimplelistsUpdate
 {
+	/**
+	 *
+	 */
 	static public function runUpdateQueries()
 	{
 		// Get the database object

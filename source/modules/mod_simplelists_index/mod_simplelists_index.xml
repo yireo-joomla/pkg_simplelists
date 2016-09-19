@@ -2,7 +2,7 @@
 <extension type="module" version="2.5" method="upgrade">
     <name>MOD_SIMPLELISTS_INDEX</name>
     <author>Yireo</author>
-    <creationDate>June 2016</creationDate>
+    <creationDate>September 2016</creationDate>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>https://www.yireo.com/</authorUrl>

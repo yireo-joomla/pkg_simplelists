@@ -12,30 +12,32 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-// Import the parent class
-jimport('joomla.plugin.plugin');
-
 // Load the Yireo library
 jimport('yireo.loader');
 
 /**
  * SimpleLists Content Plugin
+ *
+ * @since 1.6
  */
-class plgContentSimplelists extends JPlugin
+class PlgContentSimplelists extends JPlugin
 {
 	/**
-	 * Construct a SimpleLists output
+	 * @var JApplicationCms
 	 *
-	 * @access private
-	 *
-	 * @param array $arguments
-	 *
-	 * @return text
+	 * @since 1.8
 	 */
-	private function getSimpleLists($arguments)
+	protected $app;
+
+	/**
+	 * Function to load all necessary paths
+	 *
+	 * @since 1.8
+	 */
+	private function loadPaths()
 	{
 		// Construct the paths to SimpleLists
-		$component_path = JPATH_SITE . '/components/com_simplelists/';
+		$component_path       = JPATH_SITE . '/components/com_simplelists/';
 		$component_admin_path = JPATH_ADMINISTRATOR . '/components/com_simplelists/';
 
 		// Include all the required classes
@@ -50,6 +52,19 @@ class plgContentSimplelists extends JPlugin
 
 		require_once $component_path . 'models/items.php';
 		require_once $component_path . 'views/items/view.html.php';
+	}
+
+	/**
+	 * Construct a SimpleLists output
+	 *
+	 * @param array $arguments
+	 *
+	 * @return string
+	 * @since 1.6
+	 */
+	private function getSimpleLists($arguments)
+	{
+		$this->loadPaths();
 
 		// Create and initialize a model
 		$model = new SimplelistsModelItems();
@@ -57,22 +72,23 @@ class plgContentSimplelists extends JPlugin
 
 		// Create and initialize a view
 		$view = new SimplelistsViewItems(array('name' => 'items', 'option' => 'com_simplelists'));
-		$view->addTemplatePath($component_path . 'views/items/tmpl');
+		$view->addTemplatePath(JPATH_SITE . '/components/com_simplelists/views/items/tmpl');
 		$view->setModel($model, true);
 
 		// Merge the category parameters
 		$category = $model->getCategory();
+		$viewParams = new \Joomla\Registry\Registry;
 
 		if (isset($category->params))
 		{
-            $viewParams = $view->getParams();
-            $viewParams->merge(YireoHelper::toRegistry($category->params));
+			$viewParams = $view->getParams();
+			$viewParams->merge(YireoHelper::toRegistry($category->params));
 		}
 
 		// Prepare and load the view
-        $viewParams->set('show_category_title', 0);
-        $viewParams->set('load_css', 0);
-        $view->setParams($viewParams);
+		$viewParams->set('show_category_title', 0);
+		$viewParams->set('load_css', 0);
+		$view->setParams($viewParams);
 		$view->prepareDisplay();
 		$content = $view->loadTemplate($view->getLayout());
 
@@ -83,27 +99,24 @@ class plgContentSimplelists extends JPlugin
 	/**
 	 * Event onContentPrepare
 	 *
-	 * @access public
-	 *
-	 * @param string     $context
-	 * @param object     $item
-	 * @param JParameter $params
-	 * @param mixed      $page
+	 * @param string                    $context
+	 * @param object                    $item
+	 * @param \Joomla\Registry\Registry $params
+	 * @param mixed                     $page
 	 *
 	 * @return null
+	 * @since 1.6
 	 */
 	public function onContentPrepare($context, &$item, $params, $page)
 	{
-		// Only run this plugin in the frontend
-		$application = JFactory::getApplication();
-
-		if (!$application->isSite())
+		if (!$this->app->isSite())
 		{
-			return;
+			return null;
 		}
+
 		if (!class_exists('YireoHelper'))
 		{
-			return;
+			return null;
 		}
 
 		// Check for a {simplelists *} tag
@@ -122,8 +135,8 @@ class plgContentSimplelists extends JPlugin
 
 					foreach ($matches[1] as $index => $match)
 					{
-						$name = $match;
-						$value = preg_replace('/([\"\']+)/', '', $matches[2][$index]);
+						$name             = $match;
+						$value            = preg_replace('/([\"\']+)/', '', $matches[2][$index]);
 						$arguments[$name] = $value;
 					}
 
@@ -131,8 +144,8 @@ class plgContentSimplelists extends JPlugin
 				}
 
 				// Replace the tag in the item content
-				$item->text = str_replace($tags[0][$tagindex], $content, $item->text);
-				$item->fulltext = str_replace($tags[0][$tagindex], $content, $item->fulltext);
+				$item->text      = str_replace($tags[0][$tagindex], $content, $item->text);
+				$item->fulltext  = str_replace($tags[0][$tagindex], $content, $item->fulltext);
 				$item->introtext = str_replace($tags[0][$tagindex], $content, $item->introtext);
 			}
 		}

@@ -20,6 +20,7 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to display the content
 	 *
 	 * @param string $tpl
+	 *
 	 * @return null;
 	 */
 	public function display($tpl = null)
@@ -134,7 +135,7 @@ class SimplelistsViewItems extends YireoViewList
 			foreach ($this->items as $id => $item)
 			{
 				// Append category-data
-				$item->category_id = $category->id;
+				$item->category_id    = $category->id;
 				$item->category_alias = $category->alias;
 
 				// Prepare each item
@@ -157,12 +158,14 @@ class SimplelistsViewItems extends YireoViewList
 			{
 				$link = '&format=feed&limitstart=';
 				$this->doc->addHeadLink(JRoute::_($link . '&type=rss'), 'alternate', 'rel', array(
-					'type' => 'application/rss+xml',
-					'title' => 'RSS 2.0'));
+					'type'  => 'application/rss+xml',
+					'title' => 'RSS 2.0'
+				));
 
 				$this->doc->addHeadLink(JRoute::_($link . '&type=atom'), 'alternate', 'rel', array(
-					'type' => 'application/atom+xml',
-					'title' => 'Atom 1.0'));
+					'type'  => 'application/atom+xml',
+					'title' => 'Atom 1.0'
+				));
 			}
 		}
 
@@ -193,10 +196,10 @@ class SimplelistsViewItems extends YireoViewList
 		}
 
 		// Assign all variables to this layout
-		$this->category = $category;
-		$this->totop = $totop;
+		$this->category   = $category;
+		$this->totop      = $totop;
 		$this->empty_list = $empty_list;
-		$this->url = $url;
+		$this->url        = $url;
 		$this->page_class = $page_class;
 
 		// Call the parent method
@@ -210,6 +213,7 @@ class SimplelistsViewItems extends YireoViewList
 	 *
 	 * @param object $category
 	 * @param string $layout
+	 *
 	 * @return null
 	 */
 	public function prepareCategory($category, $layout)
@@ -222,7 +226,7 @@ class SimplelistsViewItems extends YireoViewList
 
 		// Convert the parameters to an object
 		$category->params = YireoHelper::toParameter($category->params);
-		$params = clone($this->params);
+		$params           = clone($this->params);
 
 		// Override the default parameters with the category parameters
 		foreach ($category->params->toArray() as $name => $value)
@@ -267,12 +271,13 @@ class SimplelistsViewItems extends YireoViewList
 			foreach ($category->childs as &$child)
 			{
 				$child->params = YireoHelper::toParameter($child->params);
-				$child_layout = $child->params->get('layout', $layout);
-				$needles = array(
-					'category_id' => $child->id,
+				$child_layout  = $child->params->get('layout', $layout);
+				$needles       = array(
+					'category_id'    => $child->id,
 					'category_alias' => $child->alias,
-					'layout' => $child_layout);
-				$child->link = SimplelistsHelper::getUrl($needles);
+					'layout'         => $child_layout
+				);
+				$child->link   = SimplelistsHelper::getUrl($needles);
 			}
 		}
 
@@ -288,7 +293,7 @@ class SimplelistsViewItems extends YireoViewList
 			$category->text = $category->description;
 			$this->firePlugins($category, array());
 			$category->description = $category->text;
-			$category->text = null;
+			$category->text        = null;
 		}
 
 		// Prepare the category image
@@ -312,13 +317,14 @@ class SimplelistsViewItems extends YireoViewList
 	 *
 	 * @param object $item
 	 * @param string $layout
-	 * @param int $counter
-	 * @param int $total
+	 * @param int    $counter
+	 * @param int    $total
+	 *
 	 * @return object
 	 */
 	public function prepareItem($item, $layout, $counter = 1, $total = 0)
 	{
-		$dispatcher = JEventDispatcher::getInstance();
+
 		$params = clone($this->params);
 
 		// Initialize the parameters
@@ -333,16 +339,16 @@ class SimplelistsViewItems extends YireoViewList
 			$item->params = $params;
 		}
 
-		// Run the content through Content Plugins
-		if ($item->params->get('enable_content_plugins', 1) == 1)
-		{
-			$item->text = JHtml::_('content.prepare', $item->text);
-		}
-
 		// Disable the text when needed
-		if ($item->params->get('show_item_text', 1) == 0)
+		if ((bool) $item->params->get('show_item_text', 1))
 		{
 			$item->text = null;
+		}
+
+		// Run the content through Content Plugins
+		if (!empty($item->text) && (bool) $item->params->get('enable_content_plugins', 1))
+		{
+			$item->text = JHtml::_('content.prepare', $item->text);
 		}
 
 		// Prepare the URL
@@ -357,33 +363,65 @@ class SimplelistsViewItems extends YireoViewList
 			$item->href = 'item' . $item->id;
 		}
 
-		// Create a simple target-string
+		// Construct the CSS class
+		$classes     = $this->buildCssClasses($item, $counter, $total);
+		$item->class = implode(' ', $classes);
+
+		// Prepare the item
+		$this->prepareItemTarget($item);
+		$this->prepareItemReadmore($item);
+		$this->prepareItemImage($item, $layout, $counter);
+		$this->prepareItemTitle($item);
+		$this->prepareItemStyle($item, $layout, $counter);
+		$this->runPluginsOnItem($item);
+
+		return $item;
+	}
+
+	/**
+	 * @param $item
+	 */
+	protected function prepareItemTarget(&$item)
+	{
 		switch ($item->params->get('target'))
 		{
 			case 1:
 				$item->target = ' target="_blank"';
 				break;
 			case 2:
-				$item->target = ' onclick="javascript: window.open(\'' . $item->url . '\', \'\', \'toolbar=no,location=no,status=no,' . 'menubar=no,scrollbars=yes,resizable=yes,width=780,height=550\'); return false"';
+				$jsOptions    = 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=780,height=550';
+				$item->target = ' onclick="javascript: window.open(\'' . $item->url . '\', \'\', \'' . $jsOptions . '\'); return false"';
 				break;
 			default:
 				$item->target = false;
 				break;
 		}
+	}
 
-		// Set the readmore link for this item
+	/**
+	 * @param $item
+	 */
+	protected function prepareItemReadmore(&$item)
+	{
 		if ($item->params->get('readmore') == 1 && $item->url)
 		{
-			$readmore_text = $item->params->get('readmore_text', JText::sprintf('Read more', $item->title));
-			$readmore_css = trim('readon ' . $item->params->get('readmore_class', ''));
+			$readmore_text  = $item->params->get('readmore_text', JText::sprintf('Read more', $item->title));
+			$readmore_css   = trim('readon ' . $item->params->get('readmore_class', ''));
 			$item->readmore = JHtml::link($item->url, $readmore_text, 'title="' . $item->title . '" class="' . $readmore_css . '"' . $item->target);
 		}
 		else
 		{
 			$item->readmore = false;
 		}
+	}
 
-		// Set the image-alignment for this item
+	/**
+	 * @param $item
+	 * @param $layout
+	 * @param $counter
+	 */
+	protected function prepareItemImage(&$item, $layout, $counter)
+	{
 		if ($item->params->get('picture_alignment') != '' && $layout != 'picture')
 		{
 			$picture_alignment = $item->params->get('picture_alignment');
@@ -400,65 +438,135 @@ class SimplelistsViewItems extends YireoViewList
 			$item->picture_alignment = false;
 		}
 
-		// Prepare the image
-		if ($item->params->get('show_item_image', 1) && !empty($item->picture))
-		{
-			// @todo: Add a class "img-polaroid"
-			$attributes = 'title="' . $item->title . '" class="simplelists"';
-
-			if ($item->picture_alignment)
-			{
-				$attributes .= ' align="' . $item->picture_alignment . '"';
-			}
-
-			$item->picture = SimplelistsHTML::image($item->picture, $item->title, $attributes);
-
-			if ($item->picture && $item->params->get('image_link') && !empty($item->url))
-			{
-				if ($item->params->get('link_class') != '')
-				{
-					$item_link_class = ' class="' . $item->params->get('link_class') . '"';
-				}
-				else
-				{
-					$item_link_class = '';
-				}
-
-				if ($item->params->get('link_rel') != '')
-				{
-					$item_link_rel = ' rel="' . $item->params->get('link_rel') . '"';
-				}
-				else
-				{
-					$item_link_rel = '';
-				}
-
-				if (!empty($item->title))
-				{
-					$title = $item->title;
-
-					if (!empty($item->text))
-					{
-						//$title .= ' :: ' . $item->text;
-					}
-				}
-				else
-				{
-					$title = $item->target;
-				}
-
-				$title = htmlentities($title);
-
-				$item->picture = JHtml::link($item->url, $item->picture, 'title="' . $title . '"' . $item->target . $item_link_class . $item_link_rel);
-			}
-		}
-		else
+		if ($item->params->get('show_item_image', 1))
 		{
 			$item->picture = null;
+
+			return;
 		}
 
-		// Construct the class
-		$classes = array('simplelists-item');
+		if (empty($item->picture))
+		{
+			return;
+		}
+
+		// @todo: Add a class "img-polaroid"
+		$attributes = 'title="' . $item->title . '" class="simplelists"';
+
+		if ($item->picture_alignment)
+		{
+			$attributes .= ' align="' . $item->picture_alignment . '"';
+		}
+
+		$item->picture = SimplelistsHTML::image($item->picture, $item->title, $attributes);
+
+		if ($item->picture && $item->params->get('image_link') && !empty($item->url))
+		{
+			if ($item->params->get('link_class') != '')
+			{
+				$item_link_class = ' class="' . $item->params->get('link_class') . '"';
+			}
+			else
+			{
+				$item_link_class = '';
+			}
+
+			if ($item->params->get('link_rel') != '')
+			{
+				$item_link_rel = ' rel="' . $item->params->get('link_rel') . '"';
+			}
+			else
+			{
+				$item_link_rel = '';
+			}
+
+			if (!empty($item->title))
+			{
+				$title = $item->title;
+
+				if (!empty($item->text))
+				{
+					//$title .= ' :: ' . $item->text;
+				}
+			}
+			else
+			{
+				$title = $item->target;
+			}
+
+			$title = htmlentities($title);
+
+			$item->picture = JHtml::link($item->url, $item->picture, 'title="' . $title . '"' . $item->target . $item_link_class . $item_link_rel);
+		}
+	}
+
+	/**
+	 * @param $item
+	 */
+	protected function prepareItemTitle(&$item)
+	{
+		if (!$item->params->get('show_item_title', 1))
+		{
+			$item->title = null;
+
+			return;
+		}
+
+		if ($item->params->get('title_link') && !empty($item->url))
+		{
+			$item->title = JHtml::link($item->url, $item->title, $item->target);
+		}
+	}
+
+	/**
+	 * @param $item
+	 */
+	protected function runPluginsOnItem(&$item)
+	{
+		// Enable parsing the content
+		JPluginHelper::importPlugin('content');
+		$dispatcher = JEventDispatcher::getInstance();
+		$results    = $dispatcher->trigger('onBeforeDisplayContent', array(&$item, &$item->params, 0));
+
+		foreach ($results as $result)
+		{
+			if (!empty($result))
+			{
+				$item->text .= $result;
+			}
+		}
+	}
+
+	/**
+	 * Prepare the items style attribute
+	 *
+	 * @param $item
+	 * @param $layout
+	 * @param $counter
+	 */
+	protected function prepareItemStyle(&$item, $layout, $counter)
+	{
+		// Set specific layout settings
+		$item->style = '';
+
+		if ($layout == 'select' || $layout == 'hover')
+		{
+			if ($counter == 1)
+			{
+				$item->style = 'display:block';
+			}
+		}
+	}
+
+	/**
+	 * @param $item
+	 * @param $counter
+	 *
+	 * @return array
+	 */
+	protected function buildCssClasses($item, $counter, $total)
+	{
+		$classes   = array('simplelists-item');
 		$classes[] = 'simplelists-item-' . $counter;
 		$classes[] = ($counter % 2 == 0) ? 'simplelists-item-even' : 'simplelists-item-odd';
 
@@ -492,51 +600,14 @@ class SimplelistsViewItems extends YireoViewList
 			$classes[] = 'simplelists-item-last';
 		}
 
-		$item->class = implode(' ', $classes);
-
-		// Prepare the title
-		if ($item->params->get('show_item_title', 1))
-		{
-			if ($item->params->get('title_link') && !empty($item->url))
-			{
-				$item->title = JHtml::link($item->url, $item->title, $item->target);
-			}
-		}
-		else
-		{
-			$item->title = null;
-		}
-
-		// Set specific layout settings
-		$item->style = '';
-
-		if ($layout == 'select' || $layout == 'hover')
-		{
-			if ($counter == 1)
-			{
-				$item->style = 'display:block';
-			}
-		}
-
-		// Enable parsing the content
-		JPluginHelper::importPlugin('content');
-		$results = $dispatcher->trigger('onBeforeDisplayContent', array(&$item, &$item->params, 0));
-
-		foreach ($results as $result)
-		{
-			if (!empty($result))
-			{
-				$item->text .= $result;
-			}
-		}
-
-		return $item;
+		return $classes;
 	}
 
 	/**
 	 * Method to load CSS depending on the layout
 	 *
 	 * @param string $layout
+	 *
 	 * @return null
 	 */
 	protected function loadCSS($layout)
@@ -549,6 +620,7 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to load JavaScript depending on the layout
 	 *
 	 * @param string $layout
+	 *
 	 * @return null
 	 */
 	protected function loadJS($layout)
@@ -596,6 +668,7 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to fire plugins on a certain item
 	 *
 	 * @param object $row
+	 *
 	 * @return null
 	 */
 	protected function firePlugins(&$row = null, $params = array())
@@ -609,7 +682,8 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to prepare the HTML-document for display
 	 *
 	 * @param object $category
-	 * @return null
+	 *
+	 * @return void
 	 */
 	protected function prepareDocument($category)
 	{
@@ -618,7 +692,7 @@ class SimplelistsViewItems extends YireoViewList
 		{
 			$page_title = $this->params->get('page_title');
 
-			if ($this->params->get('show_page_title') == 1 && !empty($page_title))
+			if (!empty($page_title))
 			{
 				$this->doc->setTitle($page_title);
 			}
@@ -637,6 +711,7 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to load META-tags in the HTML header
 	 *
 	 * @param object $category
+	 *
 	 * @return null
 	 */
 	protected function addMetaTags($category)
@@ -699,6 +774,7 @@ class SimplelistsViewItems extends YireoViewList
 	 * Method to determine how many items starting with the letter X
 	 *
 	 * @param string $character
+	 *
 	 * @return boolean
 	 */
 	public function getCharacterCount($character = null)
@@ -742,13 +818,19 @@ class SimplelistsViewItems extends YireoViewList
 		return 0;
 	}
 
-    public function setParams($params)
-    {
-        $this->params = $params;
-    }
+	/**
+	 * @param $params
+	 */
+	public function setParams($params)
+	{
+		$this->params = $params;
+	}
 
-    public function getParams()
-    {
-        return $this->params;
-    }
+	/**
+	 * @return \Joomla\Registry\Registry
+	 */
+	public function getParams()
+	{
+		return $this->params;
+	}
 }

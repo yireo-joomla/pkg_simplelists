@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="content" method="upgrade">
+<extension version="3.0" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_SIMPLELISTS</name>
     <author>Yireo</author>
-    <creationDate>June 2016</creationDate>
+    <creationDate>September 2016</creationDate>
     <copyright>Copyright 2016 Yireo. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>
     <authorUrl>www.yireo.com</authorUrl>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <description>PLG_CONTENT_SIMPLELISTS_DESC</description>
 
     <files>

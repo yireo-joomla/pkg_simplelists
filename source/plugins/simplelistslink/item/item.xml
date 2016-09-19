@@ -2,7 +2,7 @@
 <extension version="2.5" type="plugin" group="simplelistslink" method="upgrade">
     <name>PLG_SIMPLELISTSLINK_ITEM</name>
     <author>Yireo</author>
-    <creationDate>June 2016</creationDate>
+    <creationDate>September 2016</creationDate>
     <copyright>Copyright 2016 Yireo.com. All rights reserved.</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>info@yireo.com</authorEmail>

@@ -22,8 +22,8 @@ require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/helper.php';
 require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/plugin.php';
 
 // Initialize the controller
-$controller	= new SimplelistsController( );
-$controller->execute( null );
+$controller	= new SimplelistsController;
+$controller->execute(null);
 
 // Redirect if set by the controller
 $controller->redirect();
