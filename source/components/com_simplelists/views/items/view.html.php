@@ -84,7 +84,7 @@ class SimplelistsViewItems extends YireoViewList
 		$url = $uri->toString();
 
 		// Set the to-top image
-		if ($this->params->get('show_totop') == 1)
+		if ((bool) $this->params->get('show_totop'))
 		{
 			if ($this->params->get('totop_text'))
 			{
@@ -142,7 +142,7 @@ class SimplelistsViewItems extends YireoViewList
 				$item = $this->prepareItem($item, $layout, $counter, count($this->items));
 
 				// Remove items that are empty
-				if ($item == false)
+				if ($item === false)
 				{
 					unset($this->items[$id]);
 					break;
@@ -152,23 +152,72 @@ class SimplelistsViewItems extends YireoViewList
 				$this->items[$id] = $item;
 				$counter++;
 			}
-
-			// Add feeds to the document
-			if ($this->params->get('show_feed') == 1)
-			{
-				$link = '&format=feed&limitstart=';
-				$this->doc->addHeadLink(JRoute::_($link . '&type=rss'), 'alternate', 'rel', array(
-					'type'  => 'application/rss+xml',
-					'title' => 'RSS 2.0'
-				));
-
-				$this->doc->addHeadLink(JRoute::_($link . '&type=atom'), 'alternate', 'rel', array(
-					'type'  => 'application/atom+xml',
-					'title' => 'Atom 1.0'
-				));
-			}
 		}
 
+		$this->loadCssJs($layout);
+
+		// Assign all variables to this layout
+		$this->category   = $category;
+		$this->totop      = $totop;
+		$this->empty_list = $empty_list;
+		$this->url        = $url;
+		$this->page_class = $this->getPageClass($layout);
+
+		// Call the parent method
+		parent::prepareDisplay();
+
+		$this->prepare_display = false;
+	}
+
+	/**
+	 * @param $layout
+	 *
+	 * @return string
+	 */
+	protected function getPageClass($layout)
+	{
+		// Construct the page class
+		$page_class = 'simplelists simplelists-' . $layout;
+
+		if ($this->params->get('pageclass_sfx'))
+		{
+			$page_class .= ' simplelists' . $this->params->get('pageclass_sfx');
+		}
+
+		return $page_class;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function loadFeed()
+	{
+		if (!is_array($this->items) || empty($this->items))
+		{
+			return false;
+		}
+
+		// Add feeds to the document
+		if ($this->params->get('show_feed') == 1)
+		{
+			$link = '&format=feed&limitstart=';
+			$this->doc->addHeadLink(JRoute::_($link . '&type=rss'), 'alternate', 'rel', array(
+				'type'  => 'application/rss+xml',
+				'title' => 'RSS 2.0'
+			));
+
+			$this->doc->addHeadLink(JRoute::_($link . '&type=atom'), 'alternate', 'rel', array(
+				'type'  => 'application/atom+xml',
+				'title' => 'Atom 1.0'
+			));
+		}
+	}
+
+	/**
+	 * @param $layout
+	 */
+	protected function loadCssJs($layout)
+	{
 		// Load the default CSS only, if set through the parameters
 		if ($this->params->get('load_css', 1))
 		{
@@ -186,26 +235,6 @@ class SimplelistsViewItems extends YireoViewList
 		{
 			JHtml::_('behavior.modal', 'a.lightbox');
 		}
-
-		// Construct the page class
-		$page_class = 'simplelists simplelists-' . $layout;
-
-		if ($this->params->get('pageclass_sfx'))
-		{
-			$page_class .= ' simplelists' . $this->params->get('pageclass_sfx');
-		}
-
-		// Assign all variables to this layout
-		$this->category   = $category;
-		$this->totop      = $totop;
-		$this->empty_list = $empty_list;
-		$this->url        = $url;
-		$this->page_class = $page_class;
-
-		// Call the parent method
-		parent::prepareDisplay();
-
-		$this->prepare_display = false;
 	}
 
 	/**
@@ -245,8 +274,20 @@ class SimplelistsViewItems extends YireoViewList
 			$this->setLayout($layout);
 		}
 
+		$this->prepareCategoryParent($category);
+		$this->prepareCategoryChilds($category, $layout);
+		$this->prepareCategoryTitle($category, $params);
+		$this->prepareCategoryText($category, $params);
+		$this->prepareCategoryImage($category, $params);
+	}
+
+	/**
+	 * @param $category
+	 */
+	protected function prepareCategoryParent(&$category)
+	{
 		// Prepare the category URL
-		if ($this->params->get('show_category_parent') && !empty($category->parent))
+		if ((bool) $this->params->get('show_category_parent') && !empty($category->parent))
 		{
 			if ($category->parent->id > 1)
 			{
@@ -264,38 +305,53 @@ class SimplelistsViewItems extends YireoViewList
 				$category->parent = null;
 			}
 		}
+	}
 
+	/**
+	 * @param $category
+	 * @param $layout
+	 * @param $needles
+	 */
+	protected function prepareCategoryChilds(&$category, $layout)
+	{
 		// Loop through the child-categories
-		if ($this->params->get('show_category_childs') && !empty($category->childs))
+		if ((bool) $this->params->get('show_category_childs') && !empty($category->childs))
 		{
 			foreach ($category->childs as &$child)
 			{
 				$child->params = YireoHelper::toParameter($child->params);
 				$child_layout  = $child->params->get('layout', $layout);
+
 				$needles       = array(
 					'category_id'    => $child->id,
 					'category_alias' => $child->alias,
 					'layout'         => $child_layout
 				);
+
 				$child->link   = SimplelistsHelper::getUrl($needles);
 			}
 		}
+	}
 
+	/**
+	 * @param $category
+	 * @param $params \Joomla\Registry\Registry
+	 */
+	protected function prepareCategoryTitle(&$category, $params)
+	{
 		// Set the correct page-title
 		if ($params->get('show_page_title') == 1 && $params->get('page_title') != '')
 		{
 			$category->title = $params->get('page_title');
 		}
+	}
 
-		// Run the category content through Content Plugins
-		if ($params->get('show_category_description') && !empty($category->description))
-		{
-			$category->text = $category->description;
-			$this->firePlugins($category, array());
-			$category->description = $category->text;
-			$category->text        = null;
-		}
-
+	/**
+	 * @param $category
+	 * @param $params \Joomla\Registry\Registry
+	 */
+	protected function prepareCategoryImage(&$category, $params)
+	{
 		// Prepare the category image
 		if ($params->get('show_category_image') && isset($category->image) && !empty($category->image))
 		{
@@ -313,6 +369,22 @@ class SimplelistsViewItems extends YireoViewList
 	}
 
 	/**
+	 * @param $category
+	 * @param $params \Joomla\Registry\Registry
+	 */
+	protected function prepareCategoryText(&$category, $params)
+	{
+		// Run the category content through Content Plugins
+		if ($params->get('show_category_description') && !empty($category->description))
+		{
+			$category->text = $category->description;
+			$this->firePlugins($category, array());
+			$category->description = $category->text;
+			$category->text        = null;
+		}
+	}
+
+	/**
 	 * Method to prepare a specific item
 	 *
 	 * @param object $item
@@ -324,23 +396,10 @@ class SimplelistsViewItems extends YireoViewList
 	 */
 	public function prepareItem($item, $layout, $counter = 1, $total = 0)
 	{
-
-		$params = clone($this->params);
-
-		// Initialize the parameters
-		if ($item->params)
-		{
-			$p = clone($params);
-			$p->merge($item->params);
-			$item->params = $p;
-		}
-		else
-		{
-			$item->params = $params;
-		}
+		$this->prepareItemParams($item);
 
 		// Disable the text when needed
-		if ((bool) $item->params->get('show_item_text', 1))
+		if ((bool) $item->params->get('show_item_text', 1) === false)
 		{
 			$item->text = null;
 		}
@@ -376,6 +435,20 @@ class SimplelistsViewItems extends YireoViewList
 		$this->runPluginsOnItem($item);
 
 		return $item;
+	}
+
+	/**
+	 * @param $item
+	 */
+	protected function prepareItemParams(&$item)
+	{
+		// Initialize the parameters
+		if ($item->params)
+		{
+			$p = clone($this->params);
+			$p->merge($item->params);
+			$item->params = $p;
+		}
 	}
 
 	/**
@@ -438,7 +511,7 @@ class SimplelistsViewItems extends YireoViewList
 			$item->picture_alignment = false;
 		}
 
-		if ($item->params->get('show_item_image', 1))
+		if ((bool) $item->params->get('show_item_image', 1) === false)
 		{
 			$item->picture = null;
 
