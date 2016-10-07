@@ -24,7 +24,8 @@ class SimplelistsModelItems extends YireoModelItems
 	{
 		parent::__construct('item');
 
-		$this->query->setConfig('search_fields', ['title']);
+		$this->setConfig('search_fields', ['title']);
+		//$this->setConfig('debug', true);
 	}
 
 	/**

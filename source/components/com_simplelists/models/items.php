@@ -19,9 +19,14 @@ class SimplelistsModelItems extends YireoModelItems
 	/**
 	 * Data for the category containing these items
 	 *
-	 * @protected object
+	 * @var object
 	 */
-	protected $category = null;
+	protected $category;
+
+	/**
+	 * @var JTable
+	 */
+	protected $table;
 
 	/**
 	 * Constructor
@@ -271,7 +276,7 @@ class SimplelistsModelItems extends YireoModelItems
 	 * 
 	 * @param int $categoryId
 	 * 
-	 * @return object
+	 * @return object|null
 	 */
 	public function getCategory($categoryId = null)
 	{
