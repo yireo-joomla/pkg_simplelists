@@ -283,7 +283,6 @@ class SimplelistsModelItems extends YireoModelItems
 		// Only run this once
 		if (empty($this->category))
 		{
-
 			// Set the ID
 			if (empty($categoryId))
 			{

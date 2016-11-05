@@ -84,7 +84,7 @@ class SimplelistsModelItems extends YireoModelItems
 				foreach ($related as $id => $item)
 				{
 					// Make sure this related category is not the parent-category
-					if ($item->id == $category->parent_id)
+					if ($item->id === $category->parent_id)
 					{
 						$category->parent = $item;
 						unset($related[$id]);
@@ -127,7 +127,7 @@ class SimplelistsModelItems extends YireoModelItems
 		require_once JPATH_ADMINISTRATOR . '/components/com_simplelists/models/categories.php';
 
 		$model  = new SimplelistsModelCategories;
-		$wheres = array();
+		$wheres = [];
 
 		foreach ($ids as $id)
 		{
