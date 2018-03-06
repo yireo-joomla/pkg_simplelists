@@ -133,7 +133,7 @@ class ModSimpleListsItemsHelper
 		$model->initLimitstart(0);
 
 		$modelParams = $model->getParams();
-		$modelParams->set('order_by', $ordering);
+		$modelParams->set('orderby', $ordering);
 		$model->setParams($modelParams);
 		$items = $model->getData();
 
