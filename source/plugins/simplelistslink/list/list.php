@@ -64,7 +64,7 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 		$needles = array(
 			'category_id' => $item->link
 		);
-		return SimplelistsHelper::getUrl($item->link);
+		return SimplelistsHelper::getUrl($needles);
 	}
 
 	/*
