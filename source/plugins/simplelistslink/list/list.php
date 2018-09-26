@@ -61,7 +61,10 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 	 */
 	public function getUrl($item = null)
 	{
-		return SimplelistsHelper::getUrl($item->link);
+		$needles = array(
+			'category_id' => $item->link
+		);
+		return SimplelistsHelper::getUrl($needles);
 	}
 
 	/*
@@ -78,7 +81,7 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 
 		if (version_compare($version->RELEASE, '1.5', 'eq'))
 		{
-			return JHtml::_('list.category', 'link_simplelist', 'com_simplelists', (int) $current);
+			return JHtml::_('list.category', 'link_list', 'com_simplelists', (int) $current);
 		}
 
 		$db = JFactory::getDbo();
@@ -101,6 +104,6 @@ class plgSimpleListsLinkList extends SimplelistsPluginLink
 			$options[] = array('value' => $row->id, 'text' => $row->title);
 		}
 
-		return JHtml::_('select.genericlist', $options, 'link_simplelist', null, 'value', 'text', (int) $current);
+		return JHtml::_('select.genericlist', $options, 'link_list', null, 'value', 'text', (int) $current);
 	}
 }
